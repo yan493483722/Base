@@ -1,0 +1,65 @@
+package com.yan.basedemo;
+
+import android.content.Intent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+
+import com.yan.base.BaseAty;
+import com.yan.basedemo.aty.DialogExampleAty;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class MainAty extends BaseAty {
+
+    @BindView(R.id.btn_main_dialog)
+    Button btnMainDialog;
+    @BindView(R.id.btn_main_loading)
+    Button btnMainLoading;
+    @BindView(R.id.btn_main_permission)
+    Button btnMainPermission;
+    @BindView(R.id.btn_main_web)
+    Button btnMainWeb;
+    @BindView(R.id.aty_main)
+    LinearLayout atyMain;
+
+
+    @Override
+    protected void initContentView() {
+        setContentView(R.layout.aty_main);
+        ButterKnife.bind(this);
+    }
+
+    @OnClick({R.id.btn_main_dialog, R.id.btn_main_loading, R.id.btn_main_permission, R.id.btn_main_web})
+    public void click(View view) {
+        switch (view.getId()) {
+            case R.id.btn_main_dialog:
+                startActivity(new Intent(mAty, DialogExampleAty.class));
+//                mSnackBarAndToastManager.showSnackBar("main dialog");
+                break;
+            case R.id.btn_main_loading:
+                mSnackBarAndToastManager.showSnackBar("main loading");
+                break;
+            case R.id.btn_main_permission:
+                mSnackBarAndToastManager.showSnackBar("main permission");
+                break;
+            case R.id.btn_main_web:
+                mSnackBarAndToastManager.showSnackBar("main web");
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    public void initData() {
+        needCatchKeycodeBack = true;
+    }
+}

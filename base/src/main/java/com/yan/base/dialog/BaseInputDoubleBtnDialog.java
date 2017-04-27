@@ -13,7 +13,7 @@ import com.yan.base.R;
 
 /**
  * Created by YanZi on 2017/4/18.
- * describe：
+ * describe：底部两个按钮，中间一行可以输入文字
  * modify:
  * modify date:
  */

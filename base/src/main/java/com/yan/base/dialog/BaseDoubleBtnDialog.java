@@ -13,7 +13,7 @@ import com.yan.base.uitls.Tools;
 
 /**
  * Created by YanZi on 2017/4/18.
- * describe：
+ * describe：两个按钮的弹窗，中间包含文字
  * modify:
  * modify date:
  */

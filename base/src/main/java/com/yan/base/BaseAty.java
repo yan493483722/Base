@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import com.yan.base.application.AppManager;
 import com.yan.base.application.GlobalPreference;
 import com.yan.base.listener.PermissionListener;
-import com.yan.base.manager.BaseDialogManager;
 import com.yan.base.manager.PermissionManager;
 import com.yan.base.manager.ProgressDialogManager;
 import com.yan.base.manager.SnackBarAndToastManager;
@@ -68,10 +67,7 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
      */
     protected boolean isFirstPage;
 
-    /**
-     * 弹窗 包含单个和多个按钮
-     */
-    protected BaseDialogManager mDialogManager;
+
 
     /**
      * 权限请求manager
@@ -103,7 +99,6 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
         mResources = getResources();
         mPreference = GlobalPreference.getInstance();
         mLayoutInflater = LayoutInflater.from(mAty);
-        mDialogManager = new BaseDialogManager(mAty, mLayoutInflater);
         mPermissionManager = new PermissionManager(mAty, this);
         AppManager.getAppManager().addActivity(this);
         mSnackBarAndToastManager = new SnackBarAndToastManager(mAty);

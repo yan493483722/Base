@@ -14,7 +14,7 @@ import com.yan.base.uitls.Tools;
 
 /**
  * Created by YanZi on 2017/4/18.
- * describe：
+ * describe：前面字数限定，弹窗---用途完善用户名
  * modify:
  * modify date:
  */
@@ -46,6 +46,16 @@ public class BaseSingleInputDoubleBtnDialog extends BaseDialog {
 
         public Builder setBaseDialogInputDoubleBtnClickListener(BaseDialogInputDoubleBtnClickListener baseDialogInputDoubleBtnClickListener) {
             this.baseDialogInputDoubleBtnClickListener = baseDialogInputDoubleBtnClickListener;
+            return this;
+        }
+
+        public Builder setLeftBtnString(String leftBtnString) {
+            this.leftBtnString = leftBtnString;
+            return this;
+        }
+
+        public Builder setRightBtnString(String rightBtnString) {
+            this.rightBtnString = rightBtnString;
             return this;
         }
 

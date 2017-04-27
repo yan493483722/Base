@@ -14,7 +14,7 @@ import com.yan.base.uitls.Tools;
 
 /**
  * Created by YanZi on 2017/4/18.
- * describe：
+ * describe：弹窗基类
  * modify:
  * modify date:
  */

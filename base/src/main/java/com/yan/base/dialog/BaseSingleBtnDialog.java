@@ -14,7 +14,7 @@ import com.yan.base.uitls.Tools;
 
 /**
  * Created by YanZi on 2017/4/18.
- * describe：
+ * describe：底部一个按钮的弹窗
  * modify:
  * modify date:
  */

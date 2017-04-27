@@ -4,6 +4,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.yan.base.BaseAty;
+import com.yan.base.dialog.BaseDoubleBtnDialog;
+import com.yan.base.dialog.BaseSingleBtnDialog;
 import com.yan.base.listener.BaseDialogDoubleBtnClickListener;
 import com.yan.base.listener.BaseDialogSingleBtnClickListener;
 import com.yan.basedemo.R;
@@ -61,10 +63,16 @@ public class DialogExampleAty extends BaseAty {
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_dialog_example_single:
-                mDialogManager.showDialogSingleBtn("title", "content", DIALOG_TYPE_ONE);
+//                mDialogManager.showDialogSingleBtn("title", "content", DIALOG_TYPE_ONE);
+
+                new BaseSingleBtnDialog.Builder(mAty,mLayoutInflater).setContent("丢你螺母").setTitle("粤语").create().show();
+                new BaseSingleBtnDialog.Builder(mAty,mLayoutInflater).setContent("你妈了个比的傻逼东西，你妈了个比的").create().show();
+                new BaseSingleBtnDialog.Builder(mAty,mLayoutInflater).setTitle("顶你个肺啊傻逼东西").create().show();
                 break;
             case R.id.btn_dialog_example_double:
-                mDialogManager.showDialogDoubleBtn("title", "content", DIALOG_TYPE_TWO);
+                new BaseDoubleBtnDialog.Builder(mAty,mLayoutInflater).setContent("丢你螺母").setTitle("粤语").create().show();
+                new BaseDoubleBtnDialog.Builder(mAty,mLayoutInflater).setContent("你妈了个比的傻逼东西，你妈了个比的").create().show();
+                new BaseDoubleBtnDialog.Builder(mAty,mLayoutInflater).setTitle("顶你个肺啊傻逼东西").create().show();
                 break;
             case R.id.btn_dialog_example_input_one:
                 break;

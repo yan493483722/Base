@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.yan.base.R;
+import com.yan.base.uitls.Tools;
 
 /**
  * Created by YanZi on 2017/4/18.
@@ -32,17 +33,14 @@ public class BaseDialog extends Dialog {
         super(context, cancelable, cancelListener);
     }
 
-    public static abstract class Builder<T> {
+    public static abstract class Builder {
         //上下文
         protected Activity context;
         //标题
         protected String title;
         //内容
         protected String content;
-        //左侧按钮文字
-        protected String leftBtnString;
-        //右侧按钮文字
-        protected String rightBtnString;
+
         //弹窗整体的view
         protected View dialogView;
         //注入的view的父容器
@@ -77,15 +75,6 @@ public class BaseDialog extends Dialog {
             return this;
         }
 
-        public Builder setLeftBtnString(String leftBtnString) {
-            this.leftBtnString = leftBtnString;
-            return this;
-        }
-
-        public Builder setRightBtnString(String rightBtnString) {
-            this.rightBtnString = rightBtnString;
-            return this;
-        }
 
         /**
          * 类型 用于多个弹窗设置同一个listener的回调区分
@@ -99,23 +88,35 @@ public class BaseDialog extends Dialog {
          *
          * @return
          */
-        public BaseDialog create() {
+        public Dialog create() {
             if (context.isFinishing()) {
                 return null;
             }
-            BaseDialog dialog = new BaseDialog(context, R.style.base_aty_dialog);
+            Dialog dialog = new Dialog(context, R.style.base_aty_dialog);
             dialogView = mLayoutInflater.inflate(R.layout.dg_base, null);
-            //标题
-            ((TextView) dialogView
-                    .findViewById(R.id.tv_dg_title)).setText(title);
+
+
             fl_dg_content = (FrameLayout) dialogView
                     .findViewById(R.id.fl_dg_content);
             v_dg_divider_10 = dialogView
                     .findViewById(R.id.v_dg_divider_10);
-            contentLayout = setContentView();
-            fl_dg_content.addView(mLayoutInflater.inflate(contentLayout, fl_dg_content));
 
-            initBtn(dialogView,dialog);
+            //标题
+            if (Tools.isNull(title)) {
+                dialogView
+                        .findViewById(R.id.tv_dg_title).setVisibility(View.GONE);
+                v_dg_divider_10.setVisibility(View.GONE);
+            } else {
+                ((TextView) dialogView
+                        .findViewById(R.id.tv_dg_title)).setText(title);
+            }
+
+            if (setContentLayout() != 0) {
+                contentLayout = setContentLayout();
+            }
+            fl_dg_content.addView(mLayoutInflater.inflate(contentLayout, null));
+
+            initBtn(dialogView, dialog);
             initContent(dialogView);
             dialog.setCancelable(false);
             dialog.getWindow().setBackgroundDrawableResource(
@@ -136,7 +137,7 @@ public class BaseDialog extends Dialog {
          *
          * @param dialogView 用于findViewById
          */
-        abstract void initBtn(View dialogView,BaseDialog dialog);
+        abstract void initBtn(View dialogView, Dialog dialog);
 
         /**
          * 如果没有的话 默认会给予一个 TextView  R.layout.dg_base_content
@@ -144,7 +145,7 @@ public class BaseDialog extends Dialog {
          * @return
          */
         @LayoutRes
-        abstract int setContentView();
+        abstract int setContentLayout();
 
 
     }

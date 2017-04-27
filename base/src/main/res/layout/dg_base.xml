@@ -12,7 +12,9 @@
         android:background="@drawable/radius_8_top_white"
         android:orientation="vertical"
         android:paddingLeft="@dimen/padding_all_left_right"
-        android:paddingRight="@dimen/padding_all_left_right">
+        android:paddingRight="@dimen/padding_all_left_right"
+        android:paddingTop="30dp"
+        >
 
         <TextView
             android:id="@+id/tv_dg_title"
@@ -20,7 +22,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:lineSpacingExtra="5dip"
-            android:paddingTop="20dip"
             android:textColor="@color/font_black"
             android:textSize="@dimen/font_big" />
 
@@ -34,15 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tv_dg_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dip"
-                android:gravity="center_horizontal"
-                android:lineSpacingExtra="5dip"
-                android:textColor="@color/font_black"
-                android:textSize="@dimen/font_middle" />
+
         </FrameLayout>
 
         <View

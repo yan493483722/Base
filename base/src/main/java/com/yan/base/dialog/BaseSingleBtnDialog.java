@@ -1,13 +1,15 @@
 package com.yan.base.dialog;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yan.base.R;
-import com.yan.base.listener.BaseDialogDoubleBtnClickListener;
+import com.yan.base.listener.BaseDialogSingleBtnClickListener;
 import com.yan.base.uitls.Tools;
 
 /**
@@ -33,11 +35,19 @@ public class BaseSingleBtnDialog extends BaseDialog {
 
     public static class Builder extends BaseDialog.Builder {
 
-        protected BaseDialogDoubleBtnClickListener baseDialogDoubleBtnClickListener;
+        protected String btnText;
 
-        public void setBaseDialogDoubleBtnClickListener(BaseDialogDoubleBtnClickListener baseDialogDoubleBtnClickListener) {
-            this.baseDialogDoubleBtnClickListener = baseDialogDoubleBtnClickListener;
+
+        protected BaseDialogSingleBtnClickListener baseDialogSingleBtnClickListener;
+
+        public void setBaseDialogSingleBtnClickListener(BaseDialogSingleBtnClickListener baseDialogSingleBtnClickListener) {
+            this.baseDialogSingleBtnClickListener = baseDialogSingleBtnClickListener;
         }
+
+        public void setBtnText(String btnText) {
+            this.btnText = btnText;
+        }
+
 
         public Builder(Activity context, LayoutInflater mLayoutInflater) {
             super(context, mLayoutInflater);
@@ -45,54 +55,43 @@ public class BaseSingleBtnDialog extends BaseDialog {
 
         @Override
         void initContent(View dialogView) {
-
+            if (!Tools.isNull(content)) {
+                ((TextView) dialogView.findViewById(R.id.tv_dg_content)).setText(content);
+            } else {
+                dialogView.findViewById(R.id.tv_dg_content).setVisibility(View.GONE);
+                if (v_dg_divider_10.getVisibility() == View.VISIBLE) {
+                    v_dg_divider_10.setVisibility(View.GONE);
+                }
+            }
         }
 
 
         @Override
-        void initBtn(View dialogView, final BaseDialog dialog) {
+        void initBtn(View dialogView, final Dialog dialog) {
+            // 设置按钮
             TextView tv_dg_single = (TextView) dialogView
                     .findViewById(R.id.tv_dg_single);
-            TextView tv_dg_double_left = (TextView) dialogView
-                    .findViewById(R.id.tv_dg_double_left);
-            TextView tv_dg_double_right = (TextView) dialogView
-                    .findViewById(R.id.tv_dg_double_right);
+            LinearLayout ll_dg_double_btn = (LinearLayout) dialogView
+                    .findViewById(R.id.ll_dg_double_btn);
 
-            tv_dg_single.setVisibility(View.GONE);
-
-            if (!Tools.isNull(leftBtnString)) {
-                tv_dg_double_left.setText(leftBtnString);
+            ll_dg_double_btn.setVisibility(View.GONE);
+            if (!Tools.isNull(btnText)) {
+                tv_dg_single.setText(btnText);
             }
-            if (!Tools.isNull(rightBtnString)) {
-                tv_dg_double_right.setText(rightBtnString);
-            }
-
-
-            tv_dg_double_left.setOnClickListener(new View.OnClickListener() {
+            tv_dg_single.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
                     dialog.dismiss();
-                    if (baseDialogDoubleBtnClickListener != null) {
-                        baseDialogDoubleBtnClickListener.clickLeftBtn(type);
-                    }
-                }
-            });
-
-            tv_dg_double_right.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                    if (baseDialogDoubleBtnClickListener != null) {
-                        baseDialogDoubleBtnClickListener.clickRightBtn(type);
+                    if (baseDialogSingleBtnClickListener != null) {
+                        baseDialogSingleBtnClickListener.clickBtn(type);
                     }
                 }
             });
         }
 
         @Override
-        int setContentView() {
+        int setContentLayout() {
             return 0;
         }
 

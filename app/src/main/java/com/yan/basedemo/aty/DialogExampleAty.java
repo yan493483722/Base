@@ -11,6 +11,7 @@ import com.yan.base.dialog.BaseSingleInputDoubleBtnDialog;
 import com.yan.base.listener.BaseDialogDoubleBtnClickListener;
 import com.yan.base.listener.BaseDialogInputDoubleBtnClickListener;
 import com.yan.base.listener.BaseDialogSingleBtnClickListener;
+import com.yan.base.manager.PhotoPopManager;
 import com.yan.basedemo.R;
 
 import butterknife.BindView;
@@ -42,6 +43,8 @@ public class DialogExampleAty extends BaseAty {
     Button btnDialogExampleInput;
     @BindView(R.id.btn_dialog_example_input_password)
     Button btnDialogExampleInputPassword;
+    @BindView(R.id.btn_dialog_photo)
+    Button btnDialogPhoto;
 
     @Override
     protected void initContentView() {
@@ -61,7 +64,7 @@ public class DialogExampleAty extends BaseAty {
 
     @OnClick({R.id.btn_dialog_example_single, R.id.btn_dialog_example_double
             , R.id.btn_dialog_example_input_one, R.id.btn_dialog_example_input
-            , R.id.btn_dialog_example_input_password})
+            , R.id.btn_dialog_example_input_password,R.id.btn_dialog_photo})
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_dialog_example_single:
@@ -98,8 +101,8 @@ public class DialogExampleAty extends BaseAty {
             case R.id.btn_dialog_example_input_one:
                 new BaseSingleInputDoubleBtnDialog.Builder(mAty, mLayoutInflater)
                         .setBaseDialogInputDoubleBtnClickListener(mBaseDialogInputDoubleBtnClickListener)
-                        .setType(DIALOG_TYPE_THREE).setContent("见到你很高兴，你好你好")
-                        .setTitle("你好").create().show();
+                        .setType(DIALOG_TYPE_THREE).setContent("张三丰")
+                        .setTitle("张三丰").create().show();
 
                 break;
             case R.id.btn_dialog_example_input:
@@ -108,6 +111,25 @@ public class DialogExampleAty extends BaseAty {
                         .setBaseDialogInputDoubleBtnClickListener(mBaseDialogInputDoubleBtnClickListener)
                         .setType(DIALOG_TYPE_FOUR).setTitle("你好").create().show();
 
+                break;
+            case R.id.btn_dialog_photo:
+                PhotoPopManager photoPopManager=new PhotoPopManager(mAty, mLayoutInflater, new PhotoPopManager.BottomPopClickListener() {
+                    @Override
+                    public void clickTop() {
+                        mSnackBarAndToastManager.showSnackBar("clickTop");
+                    }
+
+                    @Override
+                    public void clickMiddle() {
+                        mSnackBarAndToastManager.showSnackBar("clickMiddle");
+                    }
+
+                    @Override
+                    public void clickBottom() {
+                        mSnackBarAndToastManager.showSnackBar("clickBottom");
+                    }
+                });
+                photoPopManager.showPop();
                 break;
             case R.id.btn_dialog_example_input_password:
                 break;
@@ -169,7 +191,7 @@ public class DialogExampleAty extends BaseAty {
                     mSnackBarAndToastManager.showSnackBar("this is type double right \n input :" + text);
                     break;
                 case DIALOG_TYPE_FOUR:
-                    mSnackBarAndToastManager.showSnackBar("this is type double left \n input :" + text);
+                    mSnackBarAndToastManager.showSnackBar("this is type double right \n input :" + text);
                     break;
             }
         }

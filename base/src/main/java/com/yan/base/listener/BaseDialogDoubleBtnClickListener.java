@@ -22,5 +22,4 @@ public interface BaseDialogDoubleBtnClickListener {
     void clickRightBtn(int type);
 
 
-
 }

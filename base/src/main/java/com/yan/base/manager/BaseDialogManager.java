@@ -166,7 +166,7 @@ public class BaseDialogManager {
             return null;
         }
         dialog = new Dialog(mBaseAty, R.style.base_aty_dialog);
-        View contentView = mLayoutInflater.inflate(R.layout.dg_base, null);
+        View contentView = mLayoutInflater.inflate(R.layout.dg_base_manager, null);
         dialog.getWindow().setBackgroundDrawableResource(
                 android.R.color.transparent);
         dialog.setCancelable(false);

@@ -5,8 +5,10 @@ import android.widget.Button;
 
 import com.yan.base.BaseAty;
 import com.yan.base.dialog.BaseDoubleBtnDialog;
+import com.yan.base.dialog.BaseInputDoubleBtnDialog;
 import com.yan.base.dialog.BaseSingleBtnDialog;
 import com.yan.base.listener.BaseDialogDoubleBtnClickListener;
+import com.yan.base.listener.BaseDialogInputDoubleBtnClickListener;
 import com.yan.base.listener.BaseDialogSingleBtnClickListener;
 import com.yan.basedemo.R;
 
@@ -24,10 +26,10 @@ public class DialogExampleAty extends BaseAty {
 
     //类型
     private static final int DIALOG_TYPE_ONE = 1;
-    private static final int DIALOG_TYPE_TWO = 1;
-    private static final int DIALOG_TYPE_THREE = 1;
-    private static final int DIALOG_TYPE_FOUR = 1;
-    private static final int DIALOG_TYPE_FIVE = 1;
+    private static final int DIALOG_TYPE_TWO = 2;
+    private static final int DIALOG_TYPE_THREE = 3;
+    private static final int DIALOG_TYPE_FOUR = 4;
+    private static final int DIALOG_TYPE_FIVE = 5;
 
     @BindView(R.id.btn_dialog_example_single)
     Button btnDialogExampleSingle;
@@ -65,16 +67,18 @@ public class DialogExampleAty extends BaseAty {
             case R.id.btn_dialog_example_single:
 //                mDialogManager.showDialogSingleBtn("title", "content", DIALOG_TYPE_ONE);
 
-                new BaseSingleBtnDialog.Builder(mAty,mLayoutInflater).setContent("丢你螺母").setTitle("粤语").create().show();
-                new BaseSingleBtnDialog.Builder(mAty,mLayoutInflater).setContent("你妈了个比的傻逼东西，你妈了个比的").create().show();
-                new BaseSingleBtnDialog.Builder(mAty,mLayoutInflater).setTitle("顶你个肺啊傻逼东西").create().show();
+                new BaseSingleBtnDialog.Builder(mAty,mLayoutInflater).setBaseDialogSingleBtnClickListener(mBaseDialogSingleBtnClickListener).setType(DIALOG_TYPE_ONE).setContent("见到你很高兴，你好你好").setTitle("你好").create().show();
+                new BaseSingleBtnDialog.Builder(mAty,mLayoutInflater).setBaseDialogSingleBtnClickListener(mBaseDialogSingleBtnClickListener).setType(DIALOG_TYPE_ONE).setContent("见到你很高兴，你好你好").create().show();
+                new BaseSingleBtnDialog.Builder(mAty,mLayoutInflater).setBaseDialogSingleBtnClickListener(mBaseDialogSingleBtnClickListener).setType(DIALOG_TYPE_ONE).setTitle("见到你很高兴，你好你好").create().show();
                 break;
             case R.id.btn_dialog_example_double:
-                new BaseDoubleBtnDialog.Builder(mAty,mLayoutInflater).setContent("丢你螺母").setTitle("粤语").create().show();
-                new BaseDoubleBtnDialog.Builder(mAty,mLayoutInflater).setContent("你妈了个比的傻逼东西，你妈了个比的").create().show();
-                new BaseDoubleBtnDialog.Builder(mAty,mLayoutInflater).setTitle("顶你个肺啊傻逼东西").create().show();
+                new BaseDoubleBtnDialog.Builder(mAty,mLayoutInflater).setBaseDialogDoubleBtnClickListener(mBaseDialogDoubleBtnClickListener).setType(DIALOG_TYPE_TWO).setContent("见到你很高兴，你好你好").setTitle("你好").create().show();
+                new BaseDoubleBtnDialog.Builder(mAty,mLayoutInflater).setBaseDialogDoubleBtnClickListener(mBaseDialogDoubleBtnClickListener).setType(DIALOG_TYPE_TWO).setContent("见到你很高兴，你好你好").create().show();
+                new BaseDoubleBtnDialog.Builder(mAty,mLayoutInflater).setBaseDialogDoubleBtnClickListener(mBaseDialogDoubleBtnClickListener).setType(DIALOG_TYPE_TWO).setTitle("见到你很高兴，你好你好").create().show();
                 break;
             case R.id.btn_dialog_example_input_one:
+                new BaseInputDoubleBtnDialog.Builder(mAty,mLayoutInflater).setBaseDialogInputDoubleBtnClickListener(mBaseDialogInputDoubleBtnClickListener).setType(DIALOG_TYPE_THREE).setContent("见到你很高兴，你好你好").setTitle("你好").create().show();
+
                 break;
             case R.id.btn_dialog_example_input:
                 break;
@@ -113,6 +117,26 @@ public class DialogExampleAty extends BaseAty {
             switch (type) {
                 case DIALOG_TYPE_TWO:
                     mSnackBarAndToastManager.showSnackBar("this is type double right");
+                    break;
+            }
+        }
+    };
+
+    private BaseDialogInputDoubleBtnClickListener mBaseDialogInputDoubleBtnClickListener =new BaseDialogInputDoubleBtnClickListener() {
+        @Override
+        public void clickLeftBtn(int type, String text) {
+            switch (type) {
+                case DIALOG_TYPE_THREE:
+                    mSnackBarAndToastManager.showSnackBar("this is type double left \n input :"+text);
+                    break;
+            }
+        }
+
+        @Override
+        public void clickRightBtn(int type, String text) {
+            switch (type) {
+                case DIALOG_TYPE_THREE:
+                    mSnackBarAndToastManager.showSnackBar("this is type double right \n input :"+text);
                     break;
             }
         }

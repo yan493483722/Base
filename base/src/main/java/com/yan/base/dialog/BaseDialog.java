@@ -58,7 +58,7 @@ public class BaseDialog extends Dialog {
          * 内容的layout
          */
         @LayoutRes
-        protected int contentLayout = R.layout.dg_base_content;
+        protected int contentLayout = 0;
 
         public Builder(Activity context, LayoutInflater mLayoutInflater) {
             this.context = context;
@@ -79,8 +79,9 @@ public class BaseDialog extends Dialog {
         /**
          * 类型 用于多个弹窗设置同一个listener的回调区分
          */
-        public void setType(int type) {
+        public Builder setType(int type) {
             this.type = type;
+            return this;
         }
 
         /**
@@ -110,14 +111,15 @@ public class BaseDialog extends Dialog {
                 ((TextView) dialogView
                         .findViewById(R.id.tv_dg_title)).setText(title);
             }
-
-            if (setContentLayout() != 0) {
-                contentLayout = setContentLayout();
-            }
-            fl_dg_content.addView(mLayoutInflater.inflate(contentLayout, null));
-
+            //按钮
             initBtn(dialogView, dialog);
-            initContent(dialogView);
+            //内容
+            contentLayout = setContentLayout();
+            if (contentLayout != 0) {
+                fl_dg_content.addView(mLayoutInflater.inflate(contentLayout, null));
+                initContent(dialogView);
+            }
+
             dialog.setCancelable(false);
             dialog.getWindow().setBackgroundDrawableResource(
                     android.R.color.transparent);

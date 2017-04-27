@@ -5,10 +5,11 @@ import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.yan.base.R;
-import com.yan.base.listener.BaseDialogDoubleBtnClickListener;
+import com.yan.base.listener.BaseDialogInputDoubleBtnClickListener;
 import com.yan.base.uitls.Tools;
 
 /**
@@ -17,18 +18,18 @@ import com.yan.base.uitls.Tools;
  * modify:
  * modify date:
  */
-public class BaseDoubleBtnDialog extends BaseDialog {
+public class BaseInputDoubleBtnDialog extends BaseDialog {
 
 
-    public BaseDoubleBtnDialog(Context context) {
+    public BaseInputDoubleBtnDialog(Context context) {
         super(context);
     }
 
-    public BaseDoubleBtnDialog(Context context, int themeResId) {
+    public BaseInputDoubleBtnDialog(Context context, int themeResId) {
         super(context, themeResId);
     }
 
-    protected BaseDoubleBtnDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
+    protected BaseInputDoubleBtnDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
     }
 
@@ -38,25 +39,16 @@ public class BaseDoubleBtnDialog extends BaseDialog {
         //右侧按钮文字
         protected String rightBtnString;
 
+        private EditText et_dg_input_content;
+        private TextView tv_dg_input_end;
 
-        protected BaseDialogDoubleBtnClickListener baseDialogDoubleBtnClickListener;
+        protected BaseDialogInputDoubleBtnClickListener baseDialogInputDoubleBtnClickListener;
 
-
-        public Builder setLeftBtnString(String leftBtnString) {
-            this.leftBtnString = leftBtnString;
+        public Builder setBaseDialogInputDoubleBtnClickListener(BaseDialogInputDoubleBtnClickListener baseDialogInputDoubleBtnClickListener) {
+            this.baseDialogInputDoubleBtnClickListener = baseDialogInputDoubleBtnClickListener;
             return this;
         }
 
-        public Builder setRightBtnString(String rightBtnString) {
-            this.rightBtnString = rightBtnString;
-            return this;
-        }
-
-
-        public Builder setBaseDialogDoubleBtnClickListener(BaseDialogDoubleBtnClickListener baseDialogDoubleBtnClickListener) {
-            this.baseDialogDoubleBtnClickListener = baseDialogDoubleBtnClickListener;
-            return this;
-        }
 
         public Builder(Activity context, LayoutInflater mLayoutInflater) {
             super(context, mLayoutInflater);
@@ -64,13 +56,10 @@ public class BaseDoubleBtnDialog extends BaseDialog {
 
         @Override
         void initContent(View dialogView) {
+            et_dg_input_content = (EditText) dialogView.findViewById(R.id.et_dg_input_content);
+            tv_dg_input_end = (TextView) dialogView.findViewById(R.id.tv_dg_input_end);
             if (!Tools.isNull(content)) {
-                ((TextView) dialogView.findViewById(R.id.tv_dg_content)).setText(content);
-            } else {
-                dialogView.findViewById(R.id.tv_dg_content).setVisibility(View.GONE);
-                if (v_dg_divider_10.getVisibility() == View.VISIBLE) {
-                    v_dg_divider_10.setVisibility(View.GONE);
-                }
+                tv_dg_input_end.setText(content);
             }
         }
 
@@ -93,24 +82,21 @@ public class BaseDoubleBtnDialog extends BaseDialog {
                 tv_dg_double_right.setText(rightBtnString);
             }
             tv_dg_double_left.setOnClickListener(new View.OnClickListener() {
-
                 @Override
                 public void onClick(View v) {
-                    dialog.dismiss();
-                    if (baseDialogDoubleBtnClickListener != null) {
-                        baseDialogDoubleBtnClickListener.clickLeftBtn(type);
+                    if (baseDialogInputDoubleBtnClickListener != null) {
+                        baseDialogInputDoubleBtnClickListener.clickLeftBtn(type, et_dg_input_content.getText().toString());
                     }
+                    dialog.dismiss();
                 }
             });
-
             tv_dg_double_right.setOnClickListener(new View.OnClickListener() {
-
                 @Override
                 public void onClick(View v) {
-                    dialog.dismiss();
-                    if (baseDialogDoubleBtnClickListener != null) {
-                        baseDialogDoubleBtnClickListener.clickRightBtn(type);
+                    if (baseDialogInputDoubleBtnClickListener != null) {
+                        baseDialogInputDoubleBtnClickListener.clickRightBtn(type, et_dg_input_content.getText().toString());
                     }
+                    dialog.dismiss();
                 }
             });
 
@@ -118,10 +104,9 @@ public class BaseDoubleBtnDialog extends BaseDialog {
 
         @Override
         int setContentLayout() {
-            return R.layout.dg_base_content;
+            return R.layout.dg_base_input_one_content;
         }
 
 
     }
-
 }

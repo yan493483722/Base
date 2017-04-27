@@ -40,8 +40,9 @@ public class BaseSingleBtnDialog extends BaseDialog {
 
         protected BaseDialogSingleBtnClickListener baseDialogSingleBtnClickListener;
 
-        public void setBaseDialogSingleBtnClickListener(BaseDialogSingleBtnClickListener baseDialogSingleBtnClickListener) {
+        public Builder setBaseDialogSingleBtnClickListener(BaseDialogSingleBtnClickListener baseDialogSingleBtnClickListener) {
             this.baseDialogSingleBtnClickListener = baseDialogSingleBtnClickListener;
+            return this;
         }
 
         public void setBtnText(String btnText) {
@@ -92,7 +93,7 @@ public class BaseSingleBtnDialog extends BaseDialog {
 
         @Override
         int setContentLayout() {
-            return 0;
+            return R.layout.dg_base_content;
         }
 
 

@@ -1,16 +1,15 @@
 package com.yan.base.dialog;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
+import android.text.InputFilter;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
 import com.yan.base.R;
-import com.yan.base.listener.BaseDialogInputDoubleBtnClickListener;
-import com.yan.base.uitls.Tools;
 
 /**
  * Created by YanZi on 2017/4/18.
@@ -20,6 +19,7 @@ import com.yan.base.uitls.Tools;
  */
 public class BaseInputDoubleBtnDialog extends BaseDialog {
 
+    private static final int MAX_LENGTH = 100;
 
     public BaseInputDoubleBtnDialog(Context context) {
         super(context);
@@ -33,78 +33,42 @@ public class BaseInputDoubleBtnDialog extends BaseDialog {
         super(context, cancelable, cancelListener);
     }
 
-    public static class Builder extends BaseDialog.Builder {
-        //左侧按钮文字
-        protected String leftBtnString;
-        //右侧按钮文字
-        protected String rightBtnString;
+    public static class Builder extends BaseSingleInputDoubleBtnDialog.Builder {
 
-        private EditText et_dg_input_content;
-        private TextView tv_dg_input_end;
+        private String textHint;
 
-        protected BaseDialogInputDoubleBtnClickListener baseDialogInputDoubleBtnClickListener;
+        private int maxLength = 0;
 
-        public Builder setBaseDialogInputDoubleBtnClickListener(BaseDialogInputDoubleBtnClickListener baseDialogInputDoubleBtnClickListener) {
-            this.baseDialogInputDoubleBtnClickListener = baseDialogInputDoubleBtnClickListener;
-            return this;
-        }
-
+        private LinearLayout ll_dg_base_input;
 
         public Builder(Activity context, LayoutInflater mLayoutInflater) {
             super(context, mLayoutInflater);
         }
 
+        public Builder setTextHint(String textHint) {
+            this.textHint = textHint;
+            return this;
+        }
+
+        public Builder setMaxLength(int maxLength) {
+            this.maxLength = maxLength;
+            return this;
+        }
+
         @Override
         void initContent(View dialogView) {
-            et_dg_input_content = (EditText) dialogView.findViewById(R.id.et_dg_input_content);
-            tv_dg_input_end = (TextView) dialogView.findViewById(R.id.tv_dg_input_end);
-            if (!Tools.isNull(content)) {
-                tv_dg_input_end.setText(content);
+            super.initContent(dialogView);
+            ll_dg_base_input = (LinearLayout) dialogView.findViewById(R.id.ll_dg_base_input);
+            ll_dg_base_input.setOrientation(LinearLayout.VERTICAL);
+            et_dg_input_content.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            if (maxLength == 0) {
+                maxLength = MAX_LENGTH;
             }
-        }
-
-
-        @Override
-        void initBtn(View dialogView, final Dialog dialog) {
-            TextView tv_dg_single = (TextView) dialogView
-                    .findViewById(R.id.tv_dg_single);
-            TextView tv_dg_double_left = (TextView) dialogView
-                    .findViewById(R.id.tv_dg_double_left);
-            TextView tv_dg_double_right = (TextView) dialogView
-                    .findViewById(R.id.tv_dg_double_right);
-
-            tv_dg_single.setVisibility(View.GONE);
-
-            if (!Tools.isNull(leftBtnString)) {
-                tv_dg_double_left.setText(leftBtnString);
-            }
-            if (!Tools.isNull(rightBtnString)) {
-                tv_dg_double_right.setText(rightBtnString);
-            }
-            tv_dg_double_left.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (baseDialogInputDoubleBtnClickListener != null) {
-                        baseDialogInputDoubleBtnClickListener.clickLeftBtn(type, et_dg_input_content.getText().toString());
-                    }
-                    dialog.dismiss();
-                }
-            });
-            tv_dg_double_right.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (baseDialogInputDoubleBtnClickListener != null) {
-                        baseDialogInputDoubleBtnClickListener.clickRightBtn(type, et_dg_input_content.getText().toString());
-                    }
-                    dialog.dismiss();
-                }
-            });
-
-        }
-
-        @Override
-        int setContentLayout() {
-            return R.layout.dg_base_input_one_content;
+            et_dg_input_content.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxLength)});
+            et_dg_input_content.setHint(textHint);
+            et_dg_input_content.setGravity(Gravity.LEFT);
+            et_dg_input_content.setBackgroundDrawable(new EditText(context)
+                    .getBackground());
         }
 
 

@@ -7,6 +7,7 @@ import com.yan.base.BaseAty;
 import com.yan.base.dialog.BaseDoubleBtnDialog;
 import com.yan.base.dialog.BaseInputDoubleBtnDialog;
 import com.yan.base.dialog.BaseSingleBtnDialog;
+import com.yan.base.dialog.BaseSingleInputDoubleBtnDialog;
 import com.yan.base.listener.BaseDialogDoubleBtnClickListener;
 import com.yan.base.listener.BaseDialogInputDoubleBtnClickListener;
 import com.yan.base.listener.BaseDialogSingleBtnClickListener;
@@ -67,20 +68,22 @@ public class DialogExampleAty extends BaseAty {
             case R.id.btn_dialog_example_single:
 //                mDialogManager.showDialogSingleBtn("title", "content", DIALOG_TYPE_ONE);
 
-                new BaseSingleBtnDialog.Builder(mAty,mLayoutInflater).setBaseDialogSingleBtnClickListener(mBaseDialogSingleBtnClickListener).setType(DIALOG_TYPE_ONE).setContent("见到你很高兴，你好你好").setTitle("你好").create().show();
-                new BaseSingleBtnDialog.Builder(mAty,mLayoutInflater).setBaseDialogSingleBtnClickListener(mBaseDialogSingleBtnClickListener).setType(DIALOG_TYPE_ONE).setContent("见到你很高兴，你好你好").create().show();
-                new BaseSingleBtnDialog.Builder(mAty,mLayoutInflater).setBaseDialogSingleBtnClickListener(mBaseDialogSingleBtnClickListener).setType(DIALOG_TYPE_ONE).setTitle("见到你很高兴，你好你好").create().show();
+                new BaseSingleBtnDialog.Builder(mAty, mLayoutInflater).setBaseDialogSingleBtnClickListener(mBaseDialogSingleBtnClickListener).setType(DIALOG_TYPE_ONE).setContent("见到你很高兴，你好你好").setTitle("你好").create().show();
+                new BaseSingleBtnDialog.Builder(mAty, mLayoutInflater).setBaseDialogSingleBtnClickListener(mBaseDialogSingleBtnClickListener).setType(DIALOG_TYPE_ONE).setContent("见到你很高兴，你好你好").create().show();
+                new BaseSingleBtnDialog.Builder(mAty, mLayoutInflater).setBaseDialogSingleBtnClickListener(mBaseDialogSingleBtnClickListener).setType(DIALOG_TYPE_ONE).setTitle("见到你很高兴，你好你好").create().show();
                 break;
             case R.id.btn_dialog_example_double:
-                new BaseDoubleBtnDialog.Builder(mAty,mLayoutInflater).setBaseDialogDoubleBtnClickListener(mBaseDialogDoubleBtnClickListener).setType(DIALOG_TYPE_TWO).setContent("见到你很高兴，你好你好").setTitle("你好").create().show();
-                new BaseDoubleBtnDialog.Builder(mAty,mLayoutInflater).setBaseDialogDoubleBtnClickListener(mBaseDialogDoubleBtnClickListener).setType(DIALOG_TYPE_TWO).setContent("见到你很高兴，你好你好").create().show();
-                new BaseDoubleBtnDialog.Builder(mAty,mLayoutInflater).setBaseDialogDoubleBtnClickListener(mBaseDialogDoubleBtnClickListener).setType(DIALOG_TYPE_TWO).setTitle("见到你很高兴，你好你好").create().show();
+                new BaseDoubleBtnDialog.Builder(mAty, mLayoutInflater).setBaseDialogDoubleBtnClickListener(mBaseDialogDoubleBtnClickListener).setType(DIALOG_TYPE_TWO).setContent("见到你很高兴，你好你好").setTitle("你好").create().show();
+                new BaseDoubleBtnDialog.Builder(mAty, mLayoutInflater).setBaseDialogDoubleBtnClickListener(mBaseDialogDoubleBtnClickListener).setType(DIALOG_TYPE_TWO).setContent("见到你很高兴，你好你好").create().show();
+                new BaseDoubleBtnDialog.Builder(mAty, mLayoutInflater).setBaseDialogDoubleBtnClickListener(mBaseDialogDoubleBtnClickListener).setType(DIALOG_TYPE_TWO).setTitle("见到你很高兴，你好你好").create().show();
                 break;
             case R.id.btn_dialog_example_input_one:
-                new BaseInputDoubleBtnDialog.Builder(mAty,mLayoutInflater).setBaseDialogInputDoubleBtnClickListener(mBaseDialogInputDoubleBtnClickListener).setType(DIALOG_TYPE_THREE).setContent("见到你很高兴，你好你好").setTitle("你好").create().show();
+                new BaseSingleInputDoubleBtnDialog.Builder(mAty, mLayoutInflater).setBaseDialogInputDoubleBtnClickListener(mBaseDialogInputDoubleBtnClickListener).setType(DIALOG_TYPE_THREE).setContent("见到你很高兴，你好你好").setTitle("你好").create().show();
 
                 break;
             case R.id.btn_dialog_example_input:
+                new BaseInputDoubleBtnDialog.Builder(mAty, mLayoutInflater).setTextHint("请输入密码").setBaseDialogInputDoubleBtnClickListener(mBaseDialogInputDoubleBtnClickListener).setType(DIALOG_TYPE_FOUR).setTitle("你好").create().show();
+
                 break;
             case R.id.btn_dialog_example_input_password:
                 break;
@@ -122,12 +125,15 @@ public class DialogExampleAty extends BaseAty {
         }
     };
 
-    private BaseDialogInputDoubleBtnClickListener mBaseDialogInputDoubleBtnClickListener =new BaseDialogInputDoubleBtnClickListener() {
+    private BaseDialogInputDoubleBtnClickListener mBaseDialogInputDoubleBtnClickListener = new BaseDialogInputDoubleBtnClickListener() {
         @Override
         public void clickLeftBtn(int type, String text) {
             switch (type) {
                 case DIALOG_TYPE_THREE:
-                    mSnackBarAndToastManager.showSnackBar("this is type double left \n input :"+text);
+                    mSnackBarAndToastManager.showSnackBar("this is type double left \n input :" + text);
+                    break;
+                case DIALOG_TYPE_FOUR:
+                    mSnackBarAndToastManager.showSnackBar("this is type double left \n input :" + text);
                     break;
             }
         }
@@ -136,7 +142,10 @@ public class DialogExampleAty extends BaseAty {
         public void clickRightBtn(int type, String text) {
             switch (type) {
                 case DIALOG_TYPE_THREE:
-                    mSnackBarAndToastManager.showSnackBar("this is type double right \n input :"+text);
+                    mSnackBarAndToastManager.showSnackBar("this is type double right \n input :" + text);
+                    break;
+                case DIALOG_TYPE_FOUR:
+                    mSnackBarAndToastManager.showSnackBar("this is type double left \n input :" + text);
                     break;
             }
         }

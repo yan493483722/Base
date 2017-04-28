@@ -101,7 +101,7 @@ public class DialogExampleAty extends BaseAty {
             case R.id.btn_dialog_example_input_one:
                 new BaseSingleInputDoubleBtnDialog.Builder(mAty, mLayoutInflater)
                         .setBaseDialogInputDoubleBtnClickListener(mBaseDialogInputDoubleBtnClickListener)
-                        .setType(DIALOG_TYPE_THREE).setContent("张三丰")
+                        .setType(DIALOG_TYPE_THREE).setContent("三丰")
                         .setTitle("张三丰").create().show();
 
                 break;
@@ -132,6 +132,7 @@ public class DialogExampleAty extends BaseAty {
                 photoPopManager.showPop();
                 break;
             case R.id.btn_dialog_example_input_password:
+
                 break;
         }
     }

@@ -33,7 +33,7 @@
         android:id="@+id/btn_dialog_photo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="double input button" />
+        android:text="select photo" />
     <Button
         android:id="@+id/btn_dialog_example_input_password"
         android:layout_width="match_parent"

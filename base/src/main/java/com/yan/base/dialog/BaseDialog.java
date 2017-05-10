@@ -93,7 +93,7 @@ public class BaseDialog extends Dialog {
             if (context.isFinishing()) {
                 return null;
             }
-            Dialog dialog = new Dialog(context, R.style.base_aty_dialog);
+            Dialog dialog = new Dialog(context, R.style.base_dg);
             dialogView = mLayoutInflater.inflate(R.layout.dg_base, null);
 
 

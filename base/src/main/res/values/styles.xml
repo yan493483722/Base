@@ -9,7 +9,6 @@
     </style>
 
     <style name="load_dialog" parent="android:style/Theme.Dialog">
-
         <item name="android:windowFrame">@null</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
@@ -21,7 +20,7 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
     <!--  基类弹窗形式 -->
-    <style name="base_aty_dialog">
+    <style name="base_dg">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowIsTranslucent">false</item>
@@ -29,6 +28,35 @@
         <item name="android:background">@color/transparent</item>
         <item name="android:windowBackground">@null</item>
     </style>
+
+    <style name="base_dg_title">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:lineSpacingExtra">5dip</item>
+        <item name="android:textColor">@color/font_black</item>
+        <item name="android:textSize">@dimen/font_big</item>
+    </style>
+
+    <style name="base_dg_btn_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/selector_dg_single</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/padding_all_top_bottom</item>
+        <item name="android:textColor">@drawable/selector_text_black_to_primary</item>
+        <item name="android:textSize">@dimen/font_middle</item>
+    </style>
+
+    <style name="base_dg_text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:lineSpacingExtra">5dip</item>
+        <item name="android:textColor">@color/font_black</item>
+        <item name="android:textSize">@dimen/font_middle</item>
+    </style>
+
 
     <!-- 横排间距线条，没有margin,两端间距为通用间距 -->
     <style name="div_horizontal_1px_margin">
@@ -55,6 +83,7 @@
         <item name="android:background">@color/divider_line_color</item>
     </style>
 
+
     <style name="NonDimACProgressDialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowNoTitle">true</item>
@@ -62,4 +91,6 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:backgroundDimEnabled">false</item>
     </style>
+
+
 </resources>

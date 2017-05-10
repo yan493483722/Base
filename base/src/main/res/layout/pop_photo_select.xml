@@ -17,41 +17,29 @@
 
         <TextView
             android:id="@+id/tv_photo_top"
+            style="@style/base_dg_btn_text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:background="@drawable/selector_radius_5_top"
-            android:gravity="center"
-            android:padding="@dimen/padding_all_left_right"
-            android:text="@string/bottom_pop_top"
-            android:textColor="@drawable/selector_text_black_to_primary"
-            android:textSize="@dimen/font_middle" />
+            android:text="@string/bottom_pop_top" />
 
         <View style="@style/div_horizontal_1px" />
 
         <TextView
             android:id="@+id/tv_photo_middle"
+            style="@style/base_dg_btn_text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:background="@drawable/selector_radius_5_bottom"
-            android:gravity="center"
-            android:padding="@dimen/padding_all_left_right"
-            android:text="@string/bottom_pop_middle"
-            android:textColor="@drawable/selector_text_black_to_primary"
-            android:textSize="@dimen/font_middle" />
+            android:text="@string/bottom_pop_middle" />
 
     </LinearLayout>
 
     <TextView
         android:id="@+id/tv_photo_bottom"
+        style="@style/base_dg_btn_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@drawable/selector_radius_5_rect"
-        android:gravity="center"
-        android:padding="@dimen/padding_all_left_right"
-        android:text="@string/base_ac_cancel"
-        android:textColor="@drawable/selector_text_black_to_primary"
-        android:textSize="@dimen/font_middle" />
+        android:text="@string/base_ac_cancel" />
 
 
 </LinearLayout>

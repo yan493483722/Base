@@ -6,4 +6,13 @@
     <declare-styleable name="FlowLayout_Layout">
         <attr name="android:layout_gravity" />
     </declare-styleable>
+
+    <declare-styleable name="inputView">
+        <attr name="passwordCount" format="integer"/>
+        <attr name="stokeColor" format="color"/>
+        <attr name="symbolColor" format="color"/>
+        <attr name="radius" format="dimension"/>
+        <attr name="inputBoxStroke" format="dimension"/>
+    </declare-styleable>
+
 </resources>

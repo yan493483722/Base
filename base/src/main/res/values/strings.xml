@@ -17,7 +17,6 @@
     <string name="base_ac_confirm">确定</string>
 
 
-
     <!-- BaseAty dialog 的确定取消按钮  -->
     <string name="base_ac_quit">再次点击将退出应用</string>
 
@@ -28,6 +27,11 @@
     <!-- PhotoPopManager 用户信息修改头像弹窗 -->
     <string name="bottom_pop_top">相机</string>
     <string name="bottom_pop_middle">相册</string>
+
+    <!-- 自定义密码输入框 -->
+    <string name="password_input_forget">忘记密码?</string>
+    <string name="password_input_cancel">取消</string>
+    <string name="password_input_title">请输入支付密码</string>
 
 
     <string name="get_call_permission">当前没有拨打电话权限，是否申请拨打电话权限？</string>

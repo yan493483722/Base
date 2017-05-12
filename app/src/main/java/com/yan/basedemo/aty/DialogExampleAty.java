@@ -11,7 +11,8 @@ import com.yan.base.dialog.BaseSingleInputDoubleBtnDialog;
 import com.yan.base.listener.BaseDialogDoubleBtnClickListener;
 import com.yan.base.listener.BaseDialogInputDoubleBtnClickListener;
 import com.yan.base.listener.BaseDialogSingleBtnClickListener;
-import com.yan.base.manager.PhotoPopManager;
+import com.yan.base.pop.SelectPhotoPop;
+import com.yan.base.password.PasswordInputDialog;
 import com.yan.basedemo.R;
 
 import butterknife.BindView;
@@ -64,7 +65,7 @@ public class DialogExampleAty extends BaseAty {
 
     @OnClick({R.id.btn_dialog_example_single, R.id.btn_dialog_example_double
             , R.id.btn_dialog_example_input_one, R.id.btn_dialog_example_input
-            , R.id.btn_dialog_example_input_password,R.id.btn_dialog_photo})
+            , R.id.btn_dialog_example_input_password, R.id.btn_dialog_photo})
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_dialog_example_single:
@@ -113,7 +114,7 @@ public class DialogExampleAty extends BaseAty {
 
                 break;
             case R.id.btn_dialog_photo:
-                PhotoPopManager photoPopManager=new PhotoPopManager(mAty, mLayoutInflater, new PhotoPopManager.BottomPopClickListener() {
+                SelectPhotoPop photoPopManager = new SelectPhotoPop(mAty, mLayoutInflater, new SelectPhotoPop.BottomPopClickListener() {
                     @Override
                     public void clickTop() {
                         mSnackBarAndToastManager.showSnackBar("clickTop");
@@ -132,7 +133,8 @@ public class DialogExampleAty extends BaseAty {
                 photoPopManager.showPop();
                 break;
             case R.id.btn_dialog_example_input_password:
-
+                PasswordInputDialog passwordInputDialog = new PasswordInputDialog();
+                passwordInputDialog.show(getFragmentManager(), "PasswordDialog");
                 break;
         }
     }

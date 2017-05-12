@@ -16,6 +16,5 @@ public class PasswordInputPopManager {
     private LayoutInflater mLayoutInflater;
 
 
-
-
+    
 }

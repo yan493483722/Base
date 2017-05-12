@@ -12,6 +12,7 @@
         <attr name="stokeColor" format="color"/>
         <attr name="symbolColor" format="color"/>
         <attr name="radius" format="dimension"/>
+        <attr name="symbolRadius" format="dimension"/>
         <attr name="inputBoxStroke" format="dimension"/>
     </declare-styleable>
 

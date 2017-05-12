@@ -38,6 +38,6 @@
         android:id="@+id/btn_dialog_example_input_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="double input password button" />
+        android:text="double input password bottom" />
 
 </LinearLayout>

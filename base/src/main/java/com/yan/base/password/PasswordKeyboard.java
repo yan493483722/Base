@@ -60,8 +60,10 @@ public class PasswordKeyboard extends View {
 
 
     private void init() {
+        keyWidth = (screenWidth - 2 * divLineWidth) / 3;
+        keyHeight = (int) (keyWidth * (1 - 0.618));
 
-        keyHeight = keyWidth = (screenWidth - 2 * divLineWidth) / 3;
+
         divLineWidth = PasswordInputView.dip2px(getContext(), 2);
         if (mLinePaint == null) {
             mLinePaint = new Paint();
@@ -76,18 +78,23 @@ public class PasswordKeyboard extends View {
         setMeasuredDimension(screenWidth, (keyHeight + divLineWidth) * 4);
     }
 
+
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
         //画横线
-        for (int i = 0; i < 4; i++) {
+        canvas.drawLine(0,0, getMeasuredWidth(),0, mLinePaint);
+        //画竖线
+        for (int i = 1; i < 4; i++) {
+            if (i != 3) {
+                int index_x = keyWidth * i + divLineWidth * (i - 1);
+                canvas.drawLine(index_x, 0, index_x, getMeasuredHeight(), mLinePaint);
+            }
+            //画横线
             int index_y = (divLineWidth + keyHeight) * i;
             canvas.drawLine(0, index_y, getMeasuredWidth(), index_y, mLinePaint);
-        }
-        //画竖线
-        for (int i = 1; i < 3; i++) {
-            int index_x = keyWidth * i + divLineWidth * (i - 1);
-            canvas.drawLine(index_x, 0, index_x, getMeasuredHeight(), mLinePaint);
         }
 
 

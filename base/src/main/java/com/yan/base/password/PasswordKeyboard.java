@@ -52,10 +52,6 @@ public class PasswordKeyboard extends GridLayout implements View.OnClickListener
     int totalWidth;
     int totalHeight;
 
-
-    //List集合存储Key,方便每次输错都能再次随机数字键盘
-    private final List<TextView> keyTextViewList = new ArrayList<>();
-
     private ClickKeyListener clickKeyListener;
 
     //    第一个构造函数：     当不需要使用xml声明或者不需要使用inflate动态加载时候，实现此构造函数即可
@@ -121,7 +117,6 @@ public class PasswordKeyboard extends GridLayout implements View.OnClickListener
                 item.setTag(i + 1);
             }
 
-            keyTextViewList.add(item);
             addView(item);
         }
     }

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
 
+import com.yan.base.BaseAty;
 import com.yan.base.R;
 
 /**
@@ -23,9 +24,17 @@ import com.yan.base.R;
  */
 public class PasswordInputDialog extends DialogFragment implements View.OnClickListener {
 
+    public String ACTIVITY_TAG="BaseAty";
+
+
     private TextView tv_dg_password_cancel, tv_dg_password_forget;
 
     private PasswordInputView piv_dg_password;
+
+    private PasswordKeyboard pk_dg_password;
+
+
+    private BaseAty mAty;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,11 +63,15 @@ public class PasswordInputDialog extends DialogFragment implements View.OnClickL
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mAty= (BaseAty) getActivity();
         tv_dg_password_cancel = (TextView) view.findViewById(R.id.tv_dg_password_cancel);
         tv_dg_password_forget = (TextView) view.findViewById(R.id.tv_dg_password_forget);
         piv_dg_password = (PasswordInputView) view.findViewById(R.id.piv_dg_password);
+        pk_dg_password = (PasswordKeyboard) view.findViewById(R.id.pk_dg_password);
         tv_dg_password_cancel.setOnClickListener(this);
         tv_dg_password_forget.setOnClickListener(this);
+        pk_dg_password.setClickKeyListener(clickKeyListener);
+        piv_dg_password.setPasswordInputListener(passwordInputListener);
     }
 
 
@@ -67,12 +80,35 @@ public class PasswordInputDialog extends DialogFragment implements View.OnClickL
         int i = v.getId();
         // 因为id的编译  lib里面不能使用switch
         if (i == R.id.tv_dg_password_cancel) {
-            piv_dg_password.deletePassword();
-//            dismiss();
+            dismiss();
         } else if (i == R.id.tv_dg_password_forget) {
-//            dismiss();
-            piv_dg_password.setPassword("a");
+            mAty.getmSnackBarAndToastManager().showSnackBar(pk_dg_password,"forget password");
         } else {
         }
     }
+
+
+    private PasswordKeyboard.ClickKeyListener clickKeyListener = new PasswordKeyboard.ClickKeyListener() {
+        @Override
+        public void clickDelete() {
+            piv_dg_password.deletePassword();
+        }
+
+        @Override
+        public void clickClear() {
+            piv_dg_password.clearPassword();
+        }
+
+        @Override
+        public void clickNum(int num) {
+            piv_dg_password.setPassword(String.valueOf(num));
+        }
+    };
+
+    private PasswordInputView.PasswordInputListener passwordInputListener =new PasswordInputView.PasswordInputListener() {
+        @Override
+        public void onPasswordInputComplete(CharSequence text) {
+            mAty.getmSnackBarAndToastManager().showSnackBar(pk_dg_password,"password \n"+text);
+        }
+    };
 }

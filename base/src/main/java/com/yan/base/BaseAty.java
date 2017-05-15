@@ -219,4 +219,15 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
     }
 
 
+    public PermissionManager getmPermissionManager() {
+        return mPermissionManager;
+    }
+
+    public SnackBarAndToastManager getmSnackBarAndToastManager() {
+        return mSnackBarAndToastManager;
+    }
+
+    public ProgressDialogManager getmProgressDialogManager() {
+        return mProgressDialogManager;
+    }
 }

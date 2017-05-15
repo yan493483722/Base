@@ -27,7 +27,7 @@ public class SnackBarAndToastManager {
      * @param text
      */
     public void showSnackBar(String text) {
-        if (baseAty.isFinishing()) {
+        if (baseAty==null||baseAty.isFinishing()) {
             return;
         }
         Snackbar.make(baseAty.getWindow().getDecorView(), text, Snackbar.LENGTH_SHORT).show();
@@ -40,7 +40,7 @@ public class SnackBarAndToastManager {
      * @param text
      */
     public void showSnackBar(View view, String text) {
-        if (baseAty.isFinishing()) {
+        if (baseAty==null||baseAty.isFinishing()) {
             return;
         }
         Snackbar.make(view, text, Snackbar.LENGTH_SHORT).show();
@@ -52,7 +52,7 @@ public class SnackBarAndToastManager {
      * @param text
      */
     public void showToast(String text) {
-        if (baseAty.isFinishing()) {
+        if (baseAty==null||baseAty.isFinishing()) {
             return;
         }
         Toast.makeText(baseAty, text, Toast.LENGTH_SHORT).show();

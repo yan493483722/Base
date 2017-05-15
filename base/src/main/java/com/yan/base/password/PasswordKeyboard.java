@@ -6,12 +6,16 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.TextView;
+
+import com.yan.base.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +26,17 @@ import java.util.List;
  * modify:
  * modify date:
  */
-public class PasswordKeyboard extends View implements View.OnClickListener{
+public class PasswordKeyboard extends GridLayout implements View.OnClickListener {
 
-    private static final String clear_all = "清空";
-    private static final String delete = "删除";
+    private static final String CLEAR_ALL = "清空";
+    private static final int CLEAR_ALL_TAG = -2;
+
+    private static final String DELETE = "删除";
+    private static final int DELETE_TAG = -1;
+
+    private static final int COLUMN_COUNT = 3;
+    private static final int ROW_COUNT = 4;
+
 
     private int screenWidth = ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getWidth();
 
@@ -38,10 +49,14 @@ public class PasswordKeyboard extends View implements View.OnClickListener{
 
     private Paint mLinePaint;
 
-    //List集合存储Key,方便每次输错都能再次随机数字键盘
-    private final List<TextView> keyButtons = new ArrayList<>();
+    int totalWidth;
+    int totalHeight;
 
-//    private List<String>
+
+    //List集合存储Key,方便每次输错都能再次随机数字键盘
+    private final List<TextView> keyTextViewList = new ArrayList<>();
+
+    private ClickKeyListener clickKeyListener;
 
     //    第一个构造函数：     当不需要使用xml声明或者不需要使用inflate动态加载时候，实现此构造函数即可
     public PasswordKeyboard(Context context) {
@@ -70,69 +85,148 @@ public class PasswordKeyboard extends View implements View.OnClickListener{
 
 
     private void init() {
-
+        setWillNotDraw(false);
         divLineWidth = PasswordInputView.dip2px(getContext(), 2);
-
         keyWidth = (screenWidth - 2 * divLineWidth) / 3;
         keyHeight = (int) (keyWidth * (1 - 0.618));
-
-
         if (mLinePaint == null) {
             mLinePaint = new Paint();
             mLinePaint.setColor(Color.parseColor("#cccccc"));
             mLinePaint.setStrokeWidth(divLineWidth);
         }
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-//            setBackground(new ColorDrawable(Color.GRAY));
-//        }else{
-//            setBackgroundDrawable(new ColorDrawable(Color.GRAY));
-//        }
+        setColumnCount(COLUMN_COUNT);
+        setRowCount(ROW_COUNT);
+        for (int i = 0; i < 12; i++) {
+            TextView item = new TextView(getContext());
+            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(keyWidth, keyHeight);
+            item.setLayoutParams(params);
+            item.setBackgroundResource(R.drawable.selector_rect_white_gray);
+            item.setOnClickListener(this);
+            item.setTextColor(getResources().getColor(R.color.font_primary));
+            item.setGravity(Gravity.CENTER);
+//             item.getPaint().setFakeBoldText(true);
+            item.setTextSize(PasswordInputView.px2sp(getContext(),getResources().getDimensionPixelOffset(R.dimen.font_big)));
+            //监听"删除"的长按监听事件,完成重复删除操作
+            if (i == 9) {
+                item.setText(CLEAR_ALL);
+                item.setTag(CLEAR_ALL_TAG);
+            } else if (i == 10) {
+                item.setText(0 + "");
+                item.setTag(0);
+            } else if (i == 11) {
+                item.setText(DELETE);
+                item.setTag(DELETE_TAG);
+            } else {
+                item.setText((char) (i + 49) + "");
+                item.setTag(i + 1);
+            }
 
-//        for (int i = 0; i < 12; i++) {
-//            Button item = new Button(getContext());
-//            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(keyWidth, keyHeight);
-//            item.setLayoutParams(params);
-//            item.setOnClickListener(this);
-//            item.setText(keyList.get(i));
-//            item.setBackgroundDrawable(getResources().getDrawable(R.drawable.key_selector));
-//            //监听"删除"的长按监听事件,完成重复删除操作
-//            if (DEL.equals(keyList.get(i))) {
-//                item.setOnTouchListener(this);
-//            }
-//            item.setTag(keyList.get(i));
-//            addView(item);
-//            keyButtons.add(item);
-//        }
-
-
-
+            keyTextViewList.add(item);
+            addView(item);
+        }
     }
 
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         setMeasuredDimension(screenWidth, (keyHeight + divLineWidth) * 4);
     }
 
 
     @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        int childCount = getChildCount();
+        int childTop = divLineWidth;
+        int childLeft = 0;
+        int childRight;
+        int childBottom;
+        View childView;
+        totalWidth = getMeasuredWidth();
+        totalHeight = getMeasuredHeight();
+        for (int i = 0; i < childCount; i++) {
+            childView = getChildAt(i);
+            for (int j = 0; j < ROW_COUNT; j++) {
+                if (i / (ROW_COUNT - 1) == j) {
+                    childTop = keyHeight * j + divLineWidth * (j + 1);
+                    break;
+                }
+            }
+            if (i / (ROW_COUNT - 1) == (ROW_COUNT - 1)) {
+                childBottom = totalHeight;
+            } else {
+                childBottom = childTop + keyHeight;
+            }
+            for (int j = 0; j < COLUMN_COUNT; j++) {
+                if (i % COLUMN_COUNT == j) {
+                    childLeft = (divLineWidth + keyWidth) * j;
+                    break;
+                }
+            }
+            if (i % COLUMN_COUNT == COLUMN_COUNT - 1) {
+                childRight = totalWidth;
+            } else {
+                childRight = childLeft + keyWidth;
+            }
+            childView.layout(childLeft, childTop, childRight, childBottom);
+        }
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        for (int i = 0; i < 4; i++) {
-            //画竖线
-            if (i < 2) {
-                int index_x = keyWidth *(i+1)+ divLineWidth / 2;
-                canvas.drawLine(index_x, 0, index_x, getMeasuredHeight(), mLinePaint);
-            }
-            //画横线
+        //画横线
+        for (int i = 0; i < ROW_COUNT; i++) {
             int index_y = (divLineWidth + keyHeight) * i + divLineWidth / 2;
-            canvas.drawLine(0, index_y, getMeasuredWidth(), index_y, mLinePaint);
+            canvas.drawLine(0, index_y, totalWidth, index_y, mLinePaint);
+        }
+        //画竖线
+        for (int i = 0; i < COLUMN_COUNT; i++) {
+            int index_x = keyWidth * (i + 1) + i * divLineWidth + divLineWidth / 2;
+            canvas.drawLine(index_x, 0, index_x, totalHeight, mLinePaint);
         }
     }
 
 
     @Override
     public void onClick(View v) {
+        if ((int) v.getTag() == CLEAR_ALL_TAG) {
+            if (clickKeyListener != null) {
+                clickKeyListener.clickClear();
+            }
+        } else if ((int) v.getTag() == DELETE_TAG) {
+            if (clickKeyListener != null) {
+                clickKeyListener.clickDelete();
+            }
+        } else {
+            for (int i = 0; i < 10; i++) {
+                if ((int) v.getTag() == i) {
+                    if (clickKeyListener != null) {
+                        clickKeyListener.clickNum(i);
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
+
+    public ClickKeyListener getClickKeyListener() {
+        return clickKeyListener;
+    }
+
+    public void setClickKeyListener(ClickKeyListener clickKeyListener) {
+        this.clickKeyListener = clickKeyListener;
+    }
+
+    public interface ClickKeyListener {
+
+        void clickDelete();
+
+        void clickClear();
+
+        void clickNum(int num);
 
     }
+
 }

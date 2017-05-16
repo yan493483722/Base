@@ -47,7 +47,7 @@ public class PasswordInputView extends View {
     /**
      * 小圆点幅度
      */
-    private static final int DEFAULT_PASSWORD_SYMBOL_REDIUS = 6;
+    private static final int DEFAULT_PASSWORD_SYMBOL_RADIUS = 6;
 
     /**
      * 默认高度36dp
@@ -109,26 +109,14 @@ public class PasswordInputView extends View {
     //    第一个构造函数：     当不需要使用xml声明或者不需要使用inflate动态加载时候，实现此构造函数即可
     public PasswordInputView(Context context) {
         super(context);
-        passwordCount = DEFAULT_PASSWORD_COUNT;
-        strokeColor = DEFAULT_STOCK_COLOR;
-        symbolColor = DEFAULT_SYMBOL_COLOR;
-        mRadius = DEFAULT_PASSWORD_RADIUS;
-        mSymbolRadius = DEFAULT_PASSWORD_SYMBOL_REDIUS;
-        inputBoxStroke = DEFAULT_PASSWORD_BOX_WIDTH;
+        setDefault();
         init();
     }
 
     // 第二个构造函数:     当需要在xml中声明此控件，则需要实现此构造函数。并且在构造函数中把自定义的属性与控件的数据成员连接起来。
     public PasswordInputView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.inputView);
-        passwordCount = typedArray.getInteger(R.styleable.inputView_passwordCount, DEFAULT_PASSWORD_COUNT);
-        strokeColor = typedArray.getColor(R.styleable.inputView_stokeColor, DEFAULT_STOCK_COLOR);
-        symbolColor = typedArray.getColor(R.styleable.inputView_symbolColor, DEFAULT_SYMBOL_COLOR);
-        mRadius = typedArray.getDimension(R.styleable.inputView_radius, DEFAULT_PASSWORD_RADIUS);
-        mSymbolRadius = typedArray.getDimension(R.styleable.inputView_symbolRadius, DEFAULT_PASSWORD_SYMBOL_REDIUS);
-        inputBoxStroke = typedArray.getDimension(R.styleable.inputView_inputBoxStroke, DEFAULT_PASSWORD_BOX_WIDTH);
-        typedArray.recycle();
+        getAttrs(context, attrs);
         init();
     }
 
@@ -136,15 +124,49 @@ public class PasswordInputView extends View {
     // 第三个构造函数：     接受一个style资源
     public PasswordInputView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
+        getAttrs(context, attrs);
+        init();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public PasswordInputView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+        getAttrs(context, attrs);
+        init();
     }
 
+    /**
+     * 获得属性
+     *
+     * @param context
+     * @param attrs
+     */
+    private void getAttrs(Context context, AttributeSet attrs) {
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.inputView);
+        passwordCount = typedArray.getInteger(R.styleable.inputView_passwordCount, DEFAULT_PASSWORD_COUNT);
+        strokeColor = typedArray.getColor(R.styleable.inputView_stokeColor, DEFAULT_STOCK_COLOR);
+        symbolColor = typedArray.getColor(R.styleable.inputView_symbolColor, DEFAULT_SYMBOL_COLOR);
+        mRadius = typedArray.getDimension(R.styleable.inputView_radius, DEFAULT_PASSWORD_RADIUS);
+        mSymbolRadius = typedArray.getDimension(R.styleable.inputView_symbolRadius, DEFAULT_PASSWORD_SYMBOL_RADIUS);
+        inputBoxStroke = typedArray.getDimension(R.styleable.inputView_inputBoxStroke, DEFAULT_PASSWORD_BOX_WIDTH);
+        typedArray.recycle();
+    }
 
+    /**
+     * 设置默认的
+     */
+    private void setDefault() {
+        passwordCount = DEFAULT_PASSWORD_COUNT;
+        strokeColor = DEFAULT_STOCK_COLOR;
+        symbolColor = DEFAULT_SYMBOL_COLOR;
+        mRadius = DEFAULT_PASSWORD_RADIUS;
+        mSymbolRadius = DEFAULT_PASSWORD_SYMBOL_RADIUS;
+        inputBoxStroke = DEFAULT_PASSWORD_BOX_WIDTH;
+    }
+
+    /**
+     * 实例化组件
+     */
     private void init() {
         //设置输入框(整个view的大小)
         GradientDrawable gradientDrawable = new GradientDrawable();
@@ -301,20 +323,19 @@ public class PasswordInputView extends View {
      * 将sp值转换为px值，保证文字大小不变
      *
      * @param spValue
-     * @param context
-     *            （DisplayMetrics类中属性scaledDensity）
+     * @param context （DisplayMetrics类中属性scaledDensity）
      * @return
      */
     public static int sp2px(Context context, float spValue) {
         final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale + 0.5f);
     }
+
     /**
      * 将px值转换为sp值，保证文字大小不变
      *
      * @param pxValue
-     * @param context
-     *            （DisplayMetrics类中属性scaledDensity）
+     * @param context （DisplayMetrics类中属性scaledDensity）
      * @return
      */
     public static int px2sp(Context context, float pxValue) {

@@ -70,13 +70,14 @@ public class PasswordKeyboard extends GridLayout implements View.OnClickListener
     // 第三个构造函数：     接受一个style资源
     public PasswordKeyboard(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init();
 
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public PasswordKeyboard(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-
+        init();
     }
 
 
@@ -125,7 +126,7 @@ public class PasswordKeyboard extends GridLayout implements View.OnClickListener
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        setMeasuredDimension(screenWidth, (keyHeight + divLineWidth) * 4);
+        setMeasuredDimension(screenWidth, (keyHeight + divLineWidth) * ROW_COUNT);
     }
 
 

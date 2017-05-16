@@ -22,6 +22,13 @@ public class PassWordProgressbar extends View {
 
     private Paint paint;
 
+
+    private boolean isLoading;
+
+    private boolean isShowSuccess;
+
+    private boolean isShowFail;
+
     //    第一个构造函数：     当不需要使用xml声明或者不需要使用inflate动态加载时候，实现此构造函数即可
     public PassWordProgressbar(Context context) {
         super(context);
@@ -71,7 +78,73 @@ public class PassWordProgressbar extends View {
         }
     }
 
+    /**
+     * 开始转动
+     */
+    public void loading() {
+        if (!isLoading) {
+            isLoading = true;
+        }
+    }
 
+    /**
+     * 显示成功
+     */
+    public void success(CharSequence successText) {
+        if (isLoading) {
+            cancelLoading();
+        }
+        if (!isShowSuccess) {
+            isShowSuccess = true;
+        }
+    }
 
+    /**
+     * 显示失败
+     */
+    public void fail(CharSequence successText) {
+        if (isLoading) {
+            cancelLoading();
+        }
+        if (!isShowFail) {
+            isShowFail = true;
+        }
 
+    }
+
+    /**
+     * 取消load
+     */
+    public void cancelLoading() {
+        isLoading = false;
+    }
+
+    /**
+     * 如果在加载loading 就取消loading 如果再加载success 就取消success 如果在加载 fail 就取消fail
+     */
+    public void cancelAllLoading() {
+        if (isLoading) {
+            cancelLoading();
+        }
+        if (isShowSuccess) {
+            cancelSuccess();
+        }
+        if (isShowFail) {
+            cancelFial();
+        }
+    }
+
+    /**
+     * 取消成功的动画
+     */
+    private void cancelSuccess() {
+        isShowSuccess = false;
+    }
+
+    /**
+     * 取消失败的动画
+     */
+    private void cancelFial() {
+        isShowFail = true;
+    }
 }

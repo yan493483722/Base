@@ -10,10 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yan.base.BaseAty;
 import com.yan.base.R;
+import com.yan.loading.PassWordProgressbar;
 
 /**
  * Created by YanZi on 2017/5/8.
@@ -24,7 +26,7 @@ import com.yan.base.R;
  */
 public class PasswordInputDialog extends DialogFragment implements View.OnClickListener {
 
-    public String ACTIVITY_TAG="BaseAty";
+    public String ACTIVITY_TAG = "BaseAty";
 
 
     private TextView tv_dg_password_cancel, tv_dg_password_forget;
@@ -33,6 +35,9 @@ public class PasswordInputDialog extends DialogFragment implements View.OnClickL
 
     private PasswordKeyboard pk_dg_password;
 
+    private LinearLayout ll_dg_password;
+
+    private PassWordProgressbar pwp_dg_password;
 
     private BaseAty mAty;
 
@@ -63,11 +68,14 @@ public class PasswordInputDialog extends DialogFragment implements View.OnClickL
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mAty= (BaseAty) getActivity();
+        mAty = (BaseAty) getActivity();
         tv_dg_password_cancel = (TextView) view.findViewById(R.id.tv_dg_password_cancel);
         tv_dg_password_forget = (TextView) view.findViewById(R.id.tv_dg_password_forget);
         piv_dg_password = (PasswordInputView) view.findViewById(R.id.piv_dg_password);
         pk_dg_password = (PasswordKeyboard) view.findViewById(R.id.pk_dg_password);
+        ll_dg_password = (LinearLayout) view.findViewById(R.id.ll_dg_password);
+        pwp_dg_password = (PassWordProgressbar) view.findViewById(R.id.pwp_dg_password);
+
         tv_dg_password_cancel.setOnClickListener(this);
         tv_dg_password_forget.setOnClickListener(this);
         pk_dg_password.setClickKeyListener(clickKeyListener);
@@ -82,9 +90,41 @@ public class PasswordInputDialog extends DialogFragment implements View.OnClickL
         if (i == R.id.tv_dg_password_cancel) {
             dismiss();
         } else if (i == R.id.tv_dg_password_forget) {
-            mAty.getmSnackBarAndToastManager().showSnackBar(pk_dg_password,"forget password");
+            mAty.getmSnackBarAndToastManager().showSnackBar(pk_dg_password, "forget password");
         } else {
         }
+    }
+
+    public void reset() {
+        piv_dg_password.clearPassword();
+        ll_dg_password.setVisibility(View.VISIBLE);
+        pwp_dg_password.setVisibility(View.GONE);
+    }
+
+    public void success(CharSequence successText){
+        pwp_dg_password.setVisibility(View.VISIBLE);
+        ll_dg_password.setVisibility(View.GONE);
+        pwp_dg_password.success(successText);
+    }
+
+    public void fail(CharSequence failText){
+        pwp_dg_password.setVisibility(View.VISIBLE);
+        ll_dg_password.setVisibility(View.GONE);
+        pwp_dg_password.fail(failText);
+    }
+
+    /**
+     * 开始加载
+     */
+    public void loading(){
+        pwp_dg_password.loading();
+    }
+
+    /**
+     * 如果在加载loading 就取消loading 如果再加载success 就取消success 如果在加载 fail 就取消fail
+     */
+    public void cancelAllLoading() {
+        pwp_dg_password.cancelAllLoading();
     }
 
 
@@ -105,10 +145,12 @@ public class PasswordInputDialog extends DialogFragment implements View.OnClickL
         }
     };
 
-    private PasswordInputView.PasswordInputListener passwordInputListener =new PasswordInputView.PasswordInputListener() {
+    private PasswordInputView.PasswordInputListener passwordInputListener = new PasswordInputView.PasswordInputListener() {
         @Override
         public void onPasswordInputComplete(CharSequence text) {
-            mAty.getmSnackBarAndToastManager().showSnackBar(pk_dg_password,"password \n"+text);
+            //mAty.getmSnackBarAndToastManager().showSnackBar(pk_dg_password, "password \n" + text);
+
+
         }
     };
 }

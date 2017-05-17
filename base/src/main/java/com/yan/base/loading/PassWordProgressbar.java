@@ -1,13 +1,18 @@
-package com.yan.loading;
+package com.yan.base.loading;
 
+import android.animation.AnimatorSet;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
+
+import com.yan.base.R;
+import com.yan.base.uitls.Tools;
 
 /**
  * Created by YanZi on 2017/5/15.
@@ -22,12 +27,28 @@ public class PassWordProgressbar extends View {
 
     private Paint paint;
 
+    private Paint textPaint;
+    //最大角度
+    private static final float DEFAULT_MAX_ANGLE = -305f;
+
+    //最小的角度
+    private static final float DEFAULT_MIN_ANGLE = -19f;
+
+    //圆弧默认颜色
+    private final static int DEFAULT_ARC_COLOR = Color.BLUE;
+    //圆弧颜色
+    private int arcColor = DEFAULT_ARC_COLOR;
+
+    private AnimatorSet animatorSet;
 
     private boolean isLoading;
 
     private boolean isShowSuccess;
 
     private boolean isShowFail;
+
+
+    private String msg = "加载中";
 
     //    第一个构造函数：     当不需要使用xml声明或者不需要使用inflate动态加载时候，实现此构造函数即可
     public PassWordProgressbar(Context context) {
@@ -76,6 +97,19 @@ public class PassWordProgressbar extends View {
             paint.setColor(barColor);
             paint.setStrokeWidth(5);
         }
+
+        if (textPaint == null) {
+            textPaint = new Paint();
+            textPaint.setColor(Color.BLUE);
+            textPaint.setTextSize(Tools.px2sp(getContext(), getResources().getDimension(R.dimen.font_middle)));
+        }
+    }
+
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        canvas.drawText(msg, 0, 0, 0f, 0f, textPaint);
     }
 
     /**
@@ -130,7 +164,7 @@ public class PassWordProgressbar extends View {
             cancelSuccess();
         }
         if (isShowFail) {
-            cancelFial();
+            cancelFail();
         }
     }
 
@@ -144,7 +178,9 @@ public class PassWordProgressbar extends View {
     /**
      * 取消失败的动画
      */
-    private void cancelFial() {
+    private void cancelFail() {
         isShowFail = true;
     }
+
+
 }

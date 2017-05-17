@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.yan.base.BaseAty;
 import com.yan.base.R;
-import com.yan.loading.PassWordProgressbar;
+import com.yan.base.loading.PassWordProgressbar;
 
 /**
  * Created by YanZi on 2017/5/8.

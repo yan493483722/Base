@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -16,9 +15,7 @@ import android.widget.GridLayout;
 import android.widget.TextView;
 
 import com.yan.base.R;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.yan.base.uitls.Tools;
 
 /**
  * Created by YanZi on 2017/5/2.
@@ -83,7 +80,7 @@ public class PasswordKeyboard extends GridLayout implements View.OnClickListener
 
     private void init() {
         setWillNotDraw(false);
-        divLineWidth = PasswordInputView.dip2px(getContext(), 2);
+        divLineWidth = Tools.dip2px(getContext(), 2);
         keyWidth = (screenWidth - 2 * divLineWidth) / 3;
         keyHeight = (int) (keyWidth * (1 - 0.618));
         if (mLinePaint == null) {
@@ -102,7 +99,7 @@ public class PasswordKeyboard extends GridLayout implements View.OnClickListener
             item.setTextColor(getResources().getColor(R.color.font_primary));
             item.setGravity(Gravity.CENTER);
 //             item.getPaint().setFakeBoldText(true);
-            item.setTextSize(PasswordInputView.px2sp(getContext(),getResources().getDimensionPixelOffset(R.dimen.font_big)));
+            item.setTextSize(Tools.px2sp(getContext(), getResources().getDimensionPixelOffset(R.dimen.font_big)));
             //监听"删除"的长按监听事件,完成重复删除操作
             if (i == 9) {
                 item.setText(CLEAR_ALL);

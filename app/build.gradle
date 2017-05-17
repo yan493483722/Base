@@ -37,6 +37,5 @@ dependencies {
     //gitHub https://github.com/greenrobot/greenDAO
     compile 'org.greenrobot:greendao:3.2.0'
     compile project(':base')
-    compile project(':loading')
     compile project(':network')
 }

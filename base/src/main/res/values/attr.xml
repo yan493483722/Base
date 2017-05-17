@@ -7,18 +7,25 @@
         <attr name="android:layout_gravity" />
     </declare-styleable>
 
-    <declare-styleable name="inputView">
-        <attr name="passwordCount" format="integer"/>
-        <attr name="stokeColor" format="color"/>
-        <attr name="symbolColor" format="color"/>
-        <attr name="radius" format="dimension"/>
-        <attr name="symbolRadius" format="dimension"/>
-        <attr name="inputBoxStroke" format="dimension"/>
+    <declare-styleable name="InputView">
+        <attr name="passwordCount" format="integer" />
+        <attr name="stokeColor" format="color" />
+        <attr name="symbolColor" format="color" />
+        <attr name="radius" format="dimension" />
+        <attr name="symbolRadius" format="dimension" />
+        <attr name="inputBoxStroke" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="PassWordProgressbar">
-        <attr name="barColor" format="reference|color"/>
-        <attr name="barWidth" format="dimension"/>
+        <attr name="barColor" format="reference|color" />
+        <attr name="barStockWidth" format="dimension" />
+        <attr name="barRectWidthHeight" format="dimension" />
+        <attr name="textSize" format="reference|dimension" />
+        <attr name="textColor" format="reference|color" />
+        <attr name="textPaddingLeft" format="dimension" />
+        <attr name="textPaddingRight" format="dimension" />
+        <attr name="textPaddingTop" format="dimension" />
+        <attr name="textPaddingBottom" format="dimension" />
     </declare-styleable>
 
 </resources>

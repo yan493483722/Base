@@ -7,12 +7,14 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 
 import com.yan.base.R;
-import com.yan.base.uitls.Tools;
 
 /**
  * Created by YanZi on 2017/5/15.
@@ -23,11 +25,19 @@ import com.yan.base.uitls.Tools;
 public class PassWordProgressbar extends View {
 
     private int barColor;
-    private float barWidth;
+    private float barStockWidth;
+
+
+    private int textSize;
+
+    private int textColor;
+
+    private float barRectHeight;
 
     private Paint paint;
 
     private Paint textPaint;
+    private Paint arcPaint;
     //最大角度
     private static final float DEFAULT_MAX_ANGLE = -305f;
 
@@ -47,8 +57,21 @@ public class PassWordProgressbar extends View {
 
     private boolean isShowFail;
 
+    //圆弧对应的矩形
+    private RectF arcRectF;
+    //TextView对应的矩形
+    private Rect textRect;
 
-    private String msg = "加载中";
+
+    private CharSequence msg = "加载中.....................";
+
+    private float startAngle = -45f;
+
+    private float sweepAngle = -19f;
+
+    private float incrementAngele = 0;
+
+    private float textPaddingLeft, textPaddingRight, textPaddingTop, textPaddingBottom;
 
     //    第一个构造函数：     当不需要使用xml声明或者不需要使用inflate动态加载时候，实现此构造函数即可
     public PassWordProgressbar(Context context) {
@@ -87,7 +110,14 @@ public class PassWordProgressbar extends View {
     private void getAttr(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.PassWordProgressbar);
         barColor = typedArray.getColor(R.styleable.PassWordProgressbar_barColor, Color.GREEN);
-        barWidth = typedArray.getDimension(R.styleable.PassWordProgressbar_barWidth, 60f);
+        barStockWidth = typedArray.getDimension(R.styleable.PassWordProgressbar_barStockWidth, 4f);
+        textSize = typedArray.getDimensionPixelSize(R.styleable.PassWordProgressbar_textSize, 4);
+        textColor = typedArray.getColor(R.styleable.PassWordProgressbar_textColor, Color.GREEN);
+        barRectHeight = typedArray.getDimension(R.styleable.PassWordProgressbar_barRectWidthHeight, 80f);
+        textPaddingLeft = typedArray.getDimension(R.styleable.PassWordProgressbar_textPaddingLeft, 10f);
+        textPaddingRight = typedArray.getDimension(R.styleable.PassWordProgressbar_textPaddingRight, 10f);
+        textPaddingTop = typedArray.getDimension(R.styleable.PassWordProgressbar_textPaddingTop, 15f);
+        textPaddingBottom = typedArray.getDimension(R.styleable.PassWordProgressbar_textPaddingBottom, 15f);
         typedArray.recycle();
     }
 
@@ -101,15 +131,68 @@ public class PassWordProgressbar extends View {
         if (textPaint == null) {
             textPaint = new Paint();
             textPaint.setColor(Color.BLUE);
-            textPaint.setTextSize(Tools.px2sp(getContext(), getResources().getDimension(R.dimen.font_middle)));
+            textPaint.setAntiAlias(true);
+            textPaint.setTextSize(getResources().getDimension(R.dimen.font_middle));
         }
+
+        if (arcPaint == null) {
+            arcPaint = new Paint();
+            arcPaint.setStrokeWidth(barStockWidth);
+            arcPaint.setColor(Color.BLUE);
+        }
+        if (arcRectF == null) {
+            arcRectF = new RectF();
+        }
+        if (textRect == null) {
+            textRect = new Rect();
+            setTextRectSize(msg);
+        }
+
+        ColorDrawable colorDrawable = new ColorDrawable(Color.CYAN);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            setBackground(colorDrawable);
+        } else {
+            setBackgroundDrawable(colorDrawable);
+        }
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int speWidthSize;
+        int speHeightSize;
+        speHeightSize = (int) (barRectHeight + textRect.height() + textPaddingTop + textPaddingBottom);
+        int textTotalWidth = (int) (textRect.width() + textPaddingLeft + textPaddingRight);
+        if (textTotalWidth > barRectHeight) {
+            speWidthSize = textTotalWidth;
+            float left = (textTotalWidth - barRectHeight) / 2;
+            arcRectF.set(left, 0, left + barRectHeight, barRectHeight);
+        } else {
+            speWidthSize = (int) barRectHeight;
+            arcRectF.set(0, 0, barRectHeight, barRectHeight);
+        }
+        setMeasuredDimension(speWidthSize, speHeightSize);  //这里面是原始的大小，需要重新计算可以修改本行
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+
+        setBound();
+    }
+
+    private void setBound() {
+        int paddingLeft = getPaddingLeft();
+        int paddingTop = getPaddingTop();
+//        arcRectF.set(paddingLeft + mBorderWidth, paddingTop + mBorderWidth, mResize - paddingLeft - mBorderWidth, mResize - paddingTop - mBorderWidth);
     }
 
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawText(msg, 0, 0, 0f, 0f, textPaint);
+        //绘文字
+        canvas.drawText(msg.toString(), textPaddingLeft, arcRectF.height() + textPaddingTop, textPaint);
+        canvas.drawArc(arcRectF, startAngle + incrementAngele, sweepAngle, false, arcPaint);
     }
 
     /**
@@ -124,22 +207,29 @@ public class PassWordProgressbar extends View {
     /**
      * 显示成功
      */
-    public void success(CharSequence successText) {
+    public void success(CharSequence text) {
         if (isLoading) {
             cancelLoading();
         }
+        setTextRectSize(text);
         if (!isShowSuccess) {
             isShowSuccess = true;
         }
     }
 
+    private void setTextRectSize(CharSequence text) {
+        msg = text;
+        textPaint.getTextBounds(msg.toString(), 0, msg.length(), textRect);
+    }
+
     /**
      * 显示失败
      */
-    public void fail(CharSequence successText) {
+    public void fail(CharSequence text) {
         if (isLoading) {
             cancelLoading();
         }
+        setTextRectSize(text);
         if (!isShowFail) {
             isShowFail = true;
         }

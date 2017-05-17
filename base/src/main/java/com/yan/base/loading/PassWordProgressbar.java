@@ -154,6 +154,8 @@ public class PassWordProgressbar extends View {
         } else {
             setBackgroundDrawable(colorDrawable);
         }
+
+        barRectHeight = 0;
     }
 
     @Override
@@ -191,8 +193,12 @@ public class PassWordProgressbar extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         //绘文字
-        canvas.drawText(msg.toString(), textPaddingLeft, arcRectF.height() + textPaddingTop, textPaint);
-        canvas.drawArc(arcRectF, startAngle + incrementAngele, sweepAngle, false, arcPaint);
+
+        canvas.drawRect(textPaddingLeft, arcRectF.bottom + textPaddingTop, textPaddingLeft + textRect.width(), arcRectF.bottom + textPaddingTop+ textRect.height(), textPaint);
+        textPaint.setColor(Color.RED);
+        canvas.drawText(msg.toString(), textPaddingLeft, arcRectF.bottom + textPaddingTop + textRect.height(), textPaint);
+//        canvas.drawArc(arcRectF, startAngle + incrementAngele, sweepAngle, false, arcPaint);
+
     }
 
     /**

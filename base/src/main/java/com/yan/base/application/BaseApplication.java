@@ -2,6 +2,7 @@ package com.yan.base.application;
 
 import android.app.Application;
 import android.util.DisplayMetrics;
+import android.util.Log;
 
 import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
@@ -50,14 +51,15 @@ public abstract class BaseApplication extends Application {
     protected abstract void initNetWork();
 
     private void initLogger() {
-        if (BuildConfig.DEBUG) {//debug打开，preview 也是打开的 debuggable 为true release 关闭
+        Log.e("BaseApplication","BaseApplication BuildConfig.DEBUG"+BuildConfig.DEBUG);
+//        if (BuildConfig.DEBUG) {//debug打开，preview 也是打开的 debuggable 为true release 关闭
             Logger.init("yan")                                  // default PRETTYLOGGER or use just init()
                     .methodCount(1)                             // default 2
                     .logLevel(LogLevel.FULL)                    // default LogLevel.FULL
                     .methodOffset(0);                           // default 0
-        } else {
-            Logger.init("yan").logLevel(LogLevel.NONE);
-        }
+//        } else {
+//            Logger.init("yan").logLevel(LogLevel.NONE);
+//        }
     }
 
     /**

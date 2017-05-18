@@ -35,7 +35,8 @@ public class PassWordProgressbar extends View {
     private float barRectHeight;
 
     private Paint paint;
-
+    //http://mikewang.blog.51cto.com/3826268/871765//
+    //http://blog.csdn.net/linghu_java/article/details/46404081
     private Paint textPaint;
     private Paint arcPaint;
     //最大角度
@@ -192,11 +193,13 @@ public class PassWordProgressbar extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        //绘文字
+        Paint paint = new Paint();
+        paint.setColor(Color.YELLOW);
 
-        canvas.drawRect(textPaddingLeft, arcRectF.bottom + textPaddingTop, textPaddingLeft + textRect.width(), arcRectF.bottom + textPaddingTop+ textRect.height(), textPaint);
-        textPaint.setColor(Color.RED);
-        canvas.drawText(msg.toString(), textPaddingLeft, arcRectF.bottom + textPaddingTop + textRect.height(), textPaint);
+        canvas.drawRect(textPaddingLeft, textPaddingTop, textPaddingLeft + textRect.width(), textPaddingTop + textRect.height(), paint);
+        canvas.drawText(msg.toString(), textPaddingLeft, textPaddingTop - textRect.top, textPaint);
+//        canvas.drawText();
+
 //        canvas.drawArc(arcRectF, startAngle + incrementAngele, sweepAngle, false, arcPaint);
 
     }

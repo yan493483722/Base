@@ -66,13 +66,13 @@ public class PassWordProgressbar extends View {
 
     private CharSequence msg = "加载中.....................";
 
-    private float startAngle = -45f;
+    private float startAngle = -90f;
 
-    private float sweepAngle = -19f;
+    private float sweepAngle = 360f;
 
-    private float incrementAngele = 0;
+    private float incrementAngele = 20;
 
-    private float textPaddingLeft, textPaddingRight, textPaddingTop, textPaddingBottom;
+    private float textPaddingLeft, textPaddingRight, textPaddingTop, textPaddingBottom, arcPaddingLeft, arcPaddingRight, arcPaddingTop, arcPaddingBottom;
 
     //    第一个构造函数：     当不需要使用xml声明或者不需要使用inflate动态加载时候，实现此构造函数即可
     public PassWordProgressbar(Context context) {
@@ -111,14 +111,18 @@ public class PassWordProgressbar extends View {
     private void getAttr(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.PassWordProgressbar);
         barColor = typedArray.getColor(R.styleable.PassWordProgressbar_barColor, Color.GREEN);
-        barStockWidth = typedArray.getDimension(R.styleable.PassWordProgressbar_barStockWidth, 4f);
+        barStockWidth = typedArray.getDimension(R.styleable.PassWordProgressbar_barStockWidth, 4.0f);
         textSize = typedArray.getDimensionPixelSize(R.styleable.PassWordProgressbar_textSize, 4);
         textColor = typedArray.getColor(R.styleable.PassWordProgressbar_textColor, Color.GREEN);
         barRectHeight = typedArray.getDimension(R.styleable.PassWordProgressbar_barRectWidthHeight, 80f);
-        textPaddingLeft = typedArray.getDimension(R.styleable.PassWordProgressbar_textPaddingLeft, 10f);
-        textPaddingRight = typedArray.getDimension(R.styleable.PassWordProgressbar_textPaddingRight, 10f);
-        textPaddingTop = typedArray.getDimension(R.styleable.PassWordProgressbar_textPaddingTop, 15f);
-        textPaddingBottom = typedArray.getDimension(R.styleable.PassWordProgressbar_textPaddingBottom, 15f);
+        textPaddingLeft = typedArray.getDimension(R.styleable.PassWordProgressbar_textPaddingLeft, 0f);
+        textPaddingRight = typedArray.getDimension(R.styleable.PassWordProgressbar_textPaddingRight, 0f);
+        textPaddingTop = typedArray.getDimension(R.styleable.PassWordProgressbar_textPaddingTop, 0f);
+        textPaddingBottom = typedArray.getDimension(R.styleable.PassWordProgressbar_textPaddingBottom, 0f);
+        arcPaddingLeft = typedArray.getDimension(R.styleable.PassWordProgressbar_arcPaddingLeft, 0f);
+        arcPaddingRight = typedArray.getDimension(R.styleable.PassWordProgressbar_arcPaddingRight, 0f);
+        arcPaddingTop = typedArray.getDimension(R.styleable.PassWordProgressbar_arcPaddingTop, 0f);
+        arcPaddingBottom = typedArray.getDimension(R.styleable.PassWordProgressbar_arcPaddingBottom, 0f);
         typedArray.recycle();
     }
 
@@ -139,7 +143,9 @@ public class PassWordProgressbar extends View {
         if (arcPaint == null) {
             arcPaint = new Paint();
             arcPaint.setStrokeWidth(barStockWidth);
+            arcPaint.setAntiAlias(true);
             arcPaint.setColor(Color.BLUE);
+            arcPaint.setStyle(Paint.Style.STROKE);
         }
         if (arcRectF == null) {
             arcRectF = new RectF();
@@ -156,22 +162,21 @@ public class PassWordProgressbar extends View {
             setBackgroundDrawable(colorDrawable);
         }
 
-        barRectHeight = 0;
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int speWidthSize;
         int speHeightSize;
-        speHeightSize = (int) (barRectHeight + textRect.height() + textPaddingTop + textPaddingBottom);
+        speHeightSize = (int) (barRectHeight + textRect.height() + textPaddingTop + textPaddingBottom+arcPaddingTop+arcPaddingBottom);
         int textTotalWidth = (int) (textRect.width() + textPaddingLeft + textPaddingRight);
-        if (textTotalWidth > barRectHeight) {
+        if (textTotalWidth > barRectHeight+arcPaddingLeft+arcPaddingRight) {
             speWidthSize = textTotalWidth;
             float left = (textTotalWidth - barRectHeight) / 2;
-            arcRectF.set(left, 0, left + barRectHeight, barRectHeight);
+            arcRectF.set(left,0 , left + barRectHeight, barRectHeight);
         } else {
-            speWidthSize = (int) barRectHeight;
-            arcRectF.set(0, 0, barRectHeight, barRectHeight);
+            speWidthSize = (int)( barRectHeight+arcPaddingLeft+arcPaddingRight);
+            arcRectF.set(0, 0, speWidthSize, speWidthSize);
         }
         setMeasuredDimension(speWidthSize, speHeightSize);  //这里面是原始的大小，需要重新计算可以修改本行
     }
@@ -193,14 +198,11 @@ public class PassWordProgressbar extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        Paint paint = new Paint();
-        paint.setColor(Color.YELLOW);
-
-        canvas.drawRect(textPaddingLeft, textPaddingTop, textPaddingLeft + textRect.width(), textPaddingTop + textRect.height(), paint);
-        canvas.drawText(msg.toString(), textPaddingLeft, textPaddingTop - textRect.top, textPaint);
 //        canvas.drawText();
+        canvas.drawArc(arcRectF, startAngle, sweepAngle, false, arcPaint);
 
-//        canvas.drawArc(arcRectF, startAngle + incrementAngele, sweepAngle, false, arcPaint);
+
+        canvas.drawText(msg.toString(), textPaddingLeft, barRectHeight + textPaddingTop - textRect.top, textPaint);
 
     }
 

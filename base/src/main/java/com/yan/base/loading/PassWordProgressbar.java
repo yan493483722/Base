@@ -12,7 +12,6 @@ import android.graphics.RectF;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import com.yan.base.R;
@@ -65,7 +64,7 @@ public class PassWordProgressbar extends View {
     private Rect textRect;
 
 
-    private CharSequence msg = "加";
+    private CharSequence msg = "加载中。。。。";
 
     private float startAngle = -90f;
 
@@ -174,25 +173,24 @@ public class PassWordProgressbar extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int speWidthSize;
         int speHeightSize;
-        speHeightSize = (int) (barRectHeight + textRect.height() + textPaddingTop + textPaddingBottom + arcPaddingTop + arcPaddingBottom);
-        int textTotalWidth = (int) (textRect.width() + textPaddingLeft + textPaddingRight);
-        if (textTotalWidth > barRectHeight + arcPaddingLeft + arcPaddingRight) {
+        speHeightSize = (int) (arcPaddingTop + barRectHeight + arcPaddingBottom + textPaddingTop + textRect.height() + textPaddingBottom);
+        int textTotalWidth = (int) (textPaddingLeft + textRect.width() + textPaddingRight);
+        float left;
+        float top = arcPaddingTop + barStockWidth / 2;
+        if (textTotalWidth > arcPaddingLeft + barRectHeight + arcPaddingRight) {//文字宽度大于圆弧，arcPaddingLeft无效了
             speWidthSize = textTotalWidth;
-            float left = (textTotalWidth - barRectHeight) / 2;
-            float top = arcPaddingTop;
-            arcRectF.set(left+ barStockWidth / 2, top+ barStockWidth / 2, left + barRectHeight - barStockWidth / 2, top + barRectHeight - barStockWidth / 2);
-        } else {
-            float top = arcPaddingTop;
+            left = (textTotalWidth + barStockWidth - barRectHeight) / 2;//计算合并后
+        } else {//文字宽度小于圆弧以圆弧的宽度为准
             speWidthSize = (int) (barRectHeight + arcPaddingLeft + arcPaddingRight);
-            arcRectF.set( barStockWidth / 2, top+ barStockWidth / 2, speWidthSize - barStockWidth / 2, top + speWidthSize - barStockWidth / 2);
+            left = arcPaddingLeft + barStockWidth / 2;
         }
+        arcRectF.set(left, top, left + barRectHeight - barStockWidth / 2, top + barRectHeight - barStockWidth / 2);
         setMeasuredDimension(speWidthSize, speHeightSize);  //这里面是原始的大小，需要重新计算可以修改本行
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-
         setBound();
     }
 
@@ -210,9 +208,9 @@ public class PassWordProgressbar extends View {
         canvas.drawArc(arcRectF, startAngle, sweepAngle, false, arcPaint);
 
         if (getMeasuredWidth() > barRectHeight + arcPaddingLeft + arcPaddingRight) {
-            canvas.drawText(msg.toString(), textPaddingLeft, arcPaddingTop + arcPaddingBottom + barRectHeight + textPaddingTop - textRect.top, textPaint);
+            canvas.drawText(msg.toString(), textPaddingLeft, arcPaddingTop + barRectHeight + arcPaddingBottom + textPaddingTop - textRect.top, textPaint);
         } else {
-            canvas.drawText(msg.toString(), (getMeasuredWidth() - textRect.width()) / 2, arcPaddingTop + arcPaddingBottom + barRectHeight + textPaddingTop - textRect.top, textPaint);
+            canvas.drawText(msg.toString(), (getMeasuredWidth() - textRect.width()) / 2, arcPaddingTop + barRectHeight + arcPaddingBottom + textPaddingTop - textRect.top, textPaint);
         }
 
     }

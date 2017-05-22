@@ -1,6 +1,8 @@
 package com.yan.base.loading;
 
+import android.animation.Animator;
 import android.animation.AnimatorSet;
+import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -12,7 +14,10 @@ import android.graphics.RectF;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 
 import com.yan.base.R;
 
@@ -27,6 +32,7 @@ public class PassWordProgressbar extends View {
     private int barColor;
     private float barStockWidth;
 
+    private static final int DURATION = 1000;
 
     private int textSize;
 
@@ -39,18 +45,23 @@ public class PassWordProgressbar extends View {
     //http://blog.csdn.net/linghu_java/article/details/46404081
     private Paint textPaint;
     private Paint arcPaint;
-    //最大角度
-    private static final float DEFAULT_MAX_ANGLE = -305f;
 
-    //最小的角度
-    private static final float DEFAULT_MIN_ANGLE = -19f;
+
+    //初始化的最小的角度
+    private static final float START_ANGLE = -90;
+    /**
+     * 初始化变化的幅度
+     */
+    private static float MIN_ANGLE = 60f;
+
 
     //圆弧默认颜色
     private final static int DEFAULT_ARC_COLOR = Color.BLUE;
     //圆弧颜色
     private int arcColor = DEFAULT_ARC_COLOR;
 
-    private AnimatorSet animatorSet;
+    //动画合集
+    private AnimatorSet arcAnimatorSet;
 
     private boolean isLoading;
 
@@ -64,18 +75,20 @@ public class PassWordProgressbar extends View {
     private Rect textRect;
 
 
-    private CharSequence msg = "加载中。。。。";
+    private CharSequence msg = "加载中。。。";
 
-    private float startAngle = -90f;
+    /**
+     * 初始化的角度
+     */
+    private float startAngle = START_ANGLE;
 
     /**
      * 摆动的角度
      */
-    private float sweepAngle = 360f;
-
-    private float incrementAngele = 20;
+    private float sweepAngle = MIN_ANGLE - 15;//初始化减小，防止第一帧绘制多次造成卡顿视觉效果
 
     private float textPaddingLeft, textPaddingRight, textPaddingTop, textPaddingBottom, arcPaddingLeft, arcPaddingRight, arcPaddingTop, arcPaddingBottom;
+
 
     //    第一个构造函数：     当不需要使用xml声明或者不需要使用inflate动态加载时候，实现此构造函数即可
     public PassWordProgressbar(Context context) {
@@ -167,6 +180,7 @@ public class PassWordProgressbar extends View {
             setBackgroundDrawable(colorDrawable);
         }
 
+
     }
 
     @Override
@@ -204,15 +218,119 @@ public class PassWordProgressbar extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-//        canvas.drawText();
         canvas.drawArc(arcRectF, startAngle, sweepAngle, false, arcPaint);
-
+        if (arcAnimatorSet == null || !arcAnimatorSet.isRunning()) {
+            animatorPlay();
+        }
         if (getMeasuredWidth() > barRectHeight + arcPaddingLeft + arcPaddingRight) {
             canvas.drawText(msg.toString(), textPaddingLeft, arcPaddingTop + barRectHeight + arcPaddingBottom + textPaddingTop - textRect.top, textPaint);
         } else {
             canvas.drawText(msg.toString(), (getMeasuredWidth() - textRect.width()) / 2, arcPaddingTop + barRectHeight + arcPaddingBottom + textPaddingTop - textRect.top, textPaint);
         }
 
+    }
+
+
+    private boolean isEnd = false;
+
+    /**
+     * 开始播放
+     */
+    //关于动画的具体解析http://blog.csdn.net/yanbober/article/details/46481171
+    private void animatorPlay() {
+        Log.e("yan", "" + "animatorPlay");
+
+        if (arcAnimatorSet == null) {
+            arcAnimatorSet = getArcAnimator();
+        } else {
+            if (arcAnimatorSet.isRunning() || arcAnimatorSet.isStarted()) {
+                return;
+            }
+        }
+        if (arcAnimatorSet.getListeners() == null || !arcAnimatorSet.getListeners().get(0).equals(arcAnimator)) {
+            Log.e("yan", "" + "arcAnimatorSet.getListeners()==null||!arcAnimatorSet.getListeners().get(0).equals(arcAnimator)");
+            arcAnimatorSet.addListener(arcAnimator);
+        }
+        arcAnimatorSet.start();
+    }
+
+
+    private Animator.AnimatorListener arcAnimator = new Animator.AnimatorListener() {
+        @Override
+        public void onAnimationStart(Animator animation) {
+            Log.e("yan", "" + " set onAnimationStart");
+        }
+
+        @Override
+        public void onAnimationEnd(Animator animation) {
+            Log.e("yan", "" + " set onAnimationEnd");
+        }
+
+        @Override
+        public void onAnimationCancel(Animator animation) {
+            Log.e("yan", "" + " set onAnimationCancel");
+        }
+
+        @Override
+        public void onAnimationRepeat(Animator animation) {
+            Log.e("yan", "" + " set onAnimationRepeat");
+        }
+    };
+
+    /**
+     * 得到圆的的AnimatorSet
+     *
+     * @return
+     */
+    private AnimatorSet getArcAnimator() {
+        //弧度增大
+        ValueAnimator valueAnimator = ValueAnimator.ofFloat(MIN_ANGLE + 5, 360);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                sweepAngle = (float) animation.getAnimatedValue();
+                invalidate();
+            }
+        });
+        valueAnimator.setDuration(DURATION);
+        valueAnimator.setInterpolator(new LinearInterpolator());
+        ValueAnimator startPoint = ValueAnimator.ofFloat(0, 360);
+        startPoint.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                startAngle = (float) animation.getAnimatedValue() + START_ANGLE;
+                invalidate();
+            }
+        });
+        startPoint.setDuration(DURATION);
+        startPoint.setInterpolator(new AccelerateInterpolator(2));
+        //弧度减小，减小多一点，防止最后一帧于第一帧重合，造成卡顿错觉
+        ValueAnimator arcAnimator2 = ValueAnimator.ofFloat(360, MIN_ANGLE - 5);
+        arcAnimator2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                sweepAngle = (float) animation.getAnimatedValue();
+                invalidate();
+            }
+        });
+        arcAnimator2.setDuration(DURATION);
+        arcAnimator2.setInterpolator(new LinearInterpolator());
+        ValueAnimator startPoint2 = ValueAnimator.ofFloat(360, 0);
+        startPoint2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                startAngle = 360 - (float) animation.getAnimatedValue() + START_ANGLE;
+                invalidate();
+            }
+        });
+        startPoint2.setDuration(DURATION);
+        //动画效果，定义动画的变化率，可以使存在的动画效果accelerated(加速)，decelerated(减速),repeated(重复),bounced(弹跳)等。
+        startPoint2.setInterpolator(new LinearInterpolator());
+        AnimatorSet set = new AnimatorSet();
+        set.play(valueAnimator).with(startPoint);
+        set.play(arcAnimator2).with(startPoint2).after(valueAnimator);
+
+        return set;
     }
 
     /**

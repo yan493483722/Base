@@ -17,7 +17,9 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
+import android.view.animation.Transformation;
 
 import com.yan.base.R;
 
@@ -28,6 +30,20 @@ import com.yan.base.R;
  * modify date:
  */
 public class PassWordProgressbar extends View {
+
+    private final static int LOAD_STATUS_NONE = -1;
+    private final static int LOAD_STATUS_ARC = 0;
+    private final static int LOAD_STATUS_SUCCESS = 1;
+    private final static int LOAD_STATUS_FAIL = 2;
+
+
+    private float startX1;
+    private float startY1;
+    private float stopX1;
+    private float stopY1;
+    private float stopX2;
+    private float stopY2;
+
 
     private int barColor;
     private float barStockWidth;
@@ -45,6 +61,7 @@ public class PassWordProgressbar extends View {
     //http://blog.csdn.net/linghu_java/article/details/46404081
     private Paint textPaint;
     private Paint arcPaint;
+    private Paint linePaint;
 
 
     //初始化的最小的角度
@@ -62,12 +79,12 @@ public class PassWordProgressbar extends View {
 
     //动画合集
     private AnimatorSet arcAnimatorSet;
+    //动画合集
+    private AnimatorSet successAnimatorSet;
+    //动画合集
+    private AnimatorSet failAnimatorSet;
 
-    private boolean isLoading;
-
-    private boolean isShowSuccess;
-
-    private boolean isShowFail;
+    private int loadingStatus = LOAD_STATUS_NONE;
 
     //圆弧对应的矩形
     private RectF arcRectF;
@@ -199,29 +216,44 @@ public class PassWordProgressbar extends View {
             left = arcPaddingLeft + barStockWidth / 2;
         }
         arcRectF.set(left, top, left + barRectHeight - barStockWidth / 2, top + barRectHeight - barStockWidth / 2);
+        //边缘间距8分之1
+        startX1 = left + barRectHeight / 8;
+        startY1 = top + barRectHeight * 5 / 8;
         setMeasuredDimension(speWidthSize, speHeightSize);  //这里面是原始的大小，需要重新计算可以修改本行
+        Log.e("yan", "" + "onMeasure");
     }
 
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-        setBound();
-    }
-
-    private void setBound() {
-        int paddingLeft = getPaddingLeft();
-        int paddingTop = getPaddingTop();
-//        arcRectF.set(paddingLeft + mBorderWidth, paddingTop + mBorderWidth, mResize - paddingLeft - mBorderWidth, mResize - paddingTop - mBorderWidth);
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        Log.e("yan", "" + "onLayout");
     }
 
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawArc(arcRectF, startAngle, sweepAngle, false, arcPaint);
-        if (arcAnimatorSet == null || !arcAnimatorSet.isRunning()) {
-            animatorPlay();
+
+        if (loadingStatus == LOAD_STATUS_ARC) {
+            canvas.drawArc(arcRectF, startAngle, sweepAngle, false, arcPaint);
+            if (arcAnimatorSet == null || !arcAnimatorSet.isRunning()) {
+                animatorPlay();
+            }
+        } else if (loadingStatus == LOAD_STATUS_SUCCESS) {
+            canvas.drawArc(arcRectF, startAngle, sweepAngle, false, arcPaint);
+            //画第一根线
+            canvas.drawLine(startX1, startY1, stopX1, stopY1, arcPaint);
+            if (halfTack) {
+                //防止线条过粗分离
+                canvas.drawLine(stopX1 - barStockWidth / 2, stopY1 + barStockWidth / 2, stopX2, stopY2, arcPaint);
+            }
+        } else if (loadingStatus == LOAD_STATUS_FAIL) {
+            canvas.drawArc(arcRectF, startAngle, sweepAngle, false, arcPaint);
+            if (arcAnimatorSet == null || !arcAnimatorSet.isRunning()) {
+                animatorPlay();
+            }
         }
+
         if (getMeasuredWidth() > barRectHeight + arcPaddingLeft + arcPaddingRight) {
             canvas.drawText(msg.toString(), textPaddingLeft, arcPaddingTop + barRectHeight + arcPaddingBottom + textPaddingTop - textRect.top, textPaint);
         } else {
@@ -229,9 +261,6 @@ public class PassWordProgressbar extends View {
         }
 
     }
-
-
-    private boolean isEnd = false;
 
     /**
      * 开始播放
@@ -247,15 +276,15 @@ public class PassWordProgressbar extends View {
                 return;
             }
         }
-        if (arcAnimatorSet.getListeners() == null || !arcAnimatorSet.getListeners().get(0).equals(arcAnimator)) {
+        if (arcAnimatorSet.getListeners() == null || !arcAnimatorSet.getListeners().get(0).equals(arcAnimatorListener)) {
             Log.e("yan", "" + "arcAnimatorSet.getListeners()==null||!arcAnimatorSet.getListeners().get(0).equals(arcAnimator)");
-            arcAnimatorSet.addListener(arcAnimator);
+            arcAnimatorSet.addListener(arcAnimatorListener);
         }
         arcAnimatorSet.start();
     }
 
 
-    private Animator.AnimatorListener arcAnimator = new Animator.AnimatorListener() {
+    private Animator.AnimatorListener arcAnimatorListener = new Animator.AnimatorListener() {
         @Override
         public void onAnimationStart(Animator animation) {
             Log.e("yan", "" + " set onAnimationStart");
@@ -264,6 +293,7 @@ public class PassWordProgressbar extends View {
         @Override
         public void onAnimationEnd(Animator animation) {
             Log.e("yan", "" + " set onAnimationEnd");
+
         }
 
         @Override
@@ -304,7 +334,7 @@ public class PassWordProgressbar extends View {
         });
         startPoint.setDuration(DURATION);
         startPoint.setInterpolator(new AccelerateInterpolator(2));
-        //弧度减小，减小多一点，防止最后一帧于第一帧重合，造成卡顿错觉
+        //弧度减小，减小多一点，防止增大的最后一帧与减小的第一帧重合，造成卡顿错觉
         ValueAnimator arcAnimator2 = ValueAnimator.ofFloat(360, MIN_ANGLE - 5);
         arcAnimator2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -329,86 +359,182 @@ public class PassWordProgressbar extends View {
         AnimatorSet set = new AnimatorSet();
         set.play(valueAnimator).with(startPoint);
         set.play(arcAnimator2).with(startPoint2).after(valueAnimator);
-
         return set;
+    }
+
+    boolean halfTack = false;
+    private TickAnimation tickAnimation;
+
+    //对勾动画
+    private class TickAnimation extends Animation {
+
+        @Override
+        protected void applyTransformation(final float interpolatedTime, Transformation t) {
+            super.applyTransformation(interpolatedTime, t);
+            if (interpolatedTime <= 0.5f) {
+                //边缘间距8分之1
+//                startX1 = left + barRectHeight / 8;
+//                startY1 = top + barRectHeight * 5 / 8;
+//                stopX1 = startX1 + barRectHeight *2/8*interpolatedTime * 2;
+                stopX1 = startX1 + barRectHeight * 2  * interpolatedTime * 2/ 8;
+//                stopY1 = startY1 + barRectHeight *2/8*interpolatedTime * 2;
+                stopY1 = startY1 + barRectHeight * 2  * interpolatedTime * 2/ 8;
+            } else {
+//                stopX2 = stopX1 + barRectHeight * 4 / 8 * (interpolatedTime - 0.5f) * 2;
+//                stopY2 = stopY1 - barRectHeight * 6 / 8 * (interpolatedTime - 0.5f) * 2;
+
+                stopX2 = stopX1 + barRectHeight * 4  * (interpolatedTime - 0.5f) * 2/ 8;
+                stopY2 = stopY1 - barRectHeight * 6  * (interpolatedTime - 0.5f) * 2/ 8;
+                halfTack = true;
+            }
+            invalidate();
+        }
     }
 
     /**
      * 开始转动
      */
-    public void loading() {
-        if (!isLoading) {
-            isLoading = true;
+    public void loadArc() {
+        if (loadingStatus != LOAD_STATUS_ARC) {
+            cancelAllLoading();
+            loadingStatus = LOAD_STATUS_ARC;
+            postInvalidate();
         }
     }
 
     /**
      * 显示成功
      */
-    public void success(CharSequence text) {
-        if (isLoading) {
-            cancelLoading();
+    public void loadSuccess(CharSequence text) {
+//        if(linePaint==null){
+//            linePaint=new Paint();
+//            linePaint.setColor(barColor);
+//            linePaint.setStrokeWidth(barStockWidth);
+//            linePaint.setStyle(Paint.Style.STROKE);
+//            linePaint.setAntiAlias(true);
+//        }
+        if (tickAnimation == null) {
+            tickAnimation = new TickAnimation();
+            tickAnimation.setDuration(DURATION );
+            //对勾动画监听
+            tickAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    //当对勾动画完成后,延迟一秒回掉,不然动画效果不明显
+//                        postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//
+//                            }
+//                        }, 1000);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
         }
-        setTextRectSize(text);
-        if (!isShowSuccess) {
-            isShowSuccess = true;
+
+        if (loadingStatus != LOAD_STATUS_SUCCESS) {
+            cancelAllLoading();
+            loadingStatus = LOAD_STATUS_SUCCESS;
+            if (text.length() == msg.length()) {
+                setTextRectSize(text);
+                postInvalidate();
+            } else {
+                setTextRectSize(text);
+                invalidateOtherThread();
+            }
         }
+    }
+
+    private void invalidateOtherThread() {
+        post(new Runnable() {
+            @Override
+            public void run() {
+                requestLayout();
+                invalidate();
+            }
+        });
     }
 
     private void setTextRectSize(CharSequence text) {
         msg = text;
-        textPaint.getTextBounds(msg.toString(), 0, msg.length(), textRect);
+        if (msg == null) {
+            textRect.set(0, 0, 0, 0);
+        } else {
+            textPaint.getTextBounds(msg.toString(), 0, msg.length(), textRect);
+        }
     }
 
     /**
      * 显示失败
      */
-    public void fail(CharSequence text) {
-        if (isLoading) {
-            cancelLoading();
+    public void loadFail(CharSequence text) {
+        if (loadingStatus != LOAD_STATUS_FAIL) {
+            cancelAllLoading();
+            loadingStatus = LOAD_STATUS_FAIL;
+            if (text.length() == msg.length()) {
+                setTextRectSize(text);
+                postInvalidate();
+            } else {
+                setTextRectSize(text);
+                invalidateOtherThread();
+            }
         }
-        setTextRectSize(text);
-        if (!isShowFail) {
-            isShowFail = true;
-        }
-
     }
 
     /**
-     * 取消load
+     * 取消圆弧
      */
-    public void cancelLoading() {
-        isLoading = false;
+    public void cancelLoadingArc() {
+        if (loadingStatus == LOAD_STATUS_ARC && arcAnimatorSet != null && arcAnimatorSet.isRunning()) {
+            arcAnimatorSet.cancel();
+            loadingStatus = LOAD_STATUS_NONE;
+            postInvalidate();
+            startAngle = START_ANGLE;
+            sweepAngle = MIN_ANGLE - 15;
+        }
     }
 
     /**
      * 如果在加载loading 就取消loading 如果再加载success 就取消success 如果在加载 fail 就取消fail
      */
     public void cancelAllLoading() {
-        if (isLoading) {
-            cancelLoading();
-        }
-        if (isShowSuccess) {
-            cancelSuccess();
-        }
-        if (isShowFail) {
-            cancelFail();
+        if (loadingStatus != LOAD_STATUS_NONE) {
+            cancelLoadingArc();
+            cancelLoadingSuccess();
+            cancelLoadingFail();
         }
     }
 
     /**
      * 取消成功的动画
      */
-    private void cancelSuccess() {
-        isShowSuccess = false;
+    private void cancelLoadingSuccess() {
+        if (loadingStatus == LOAD_STATUS_ARC && successAnimatorSet != null && successAnimatorSet.isRunning()) {
+            successAnimatorSet.cancel();
+            loadingStatus = LOAD_STATUS_NONE;
+            postInvalidate();
+            invalidate();
+        }
     }
 
     /**
      * 取消失败的动画
      */
-    private void cancelFail() {
-        isShowFail = true;
+    private void cancelLoadingFail() {
+        if (loadingStatus == LOAD_STATUS_ARC && failAnimatorSet != null && failAnimatorSet.isRunning()) {
+            failAnimatorSet.cancel();
+            loadingStatus = LOAD_STATUS_NONE;
+            postInvalidate();
+        }
     }
-
 
 }

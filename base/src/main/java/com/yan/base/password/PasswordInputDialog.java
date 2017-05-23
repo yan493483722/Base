@@ -88,9 +88,11 @@ public class PasswordInputDialog extends DialogFragment implements View.OnClickL
         int i = v.getId();
         // 因为id的编译  lib里面不能使用switch
         if (i == R.id.tv_dg_password_cancel) {
-            dismiss();
+//            dismiss();
+            loadSuccess("你好");
         } else if (i == R.id.tv_dg_password_forget) {
-            mAty.getmSnackBarAndToastManager().showSnackBar(pk_dg_password, "forget password");
+//            mAty.getmSnackBarAndToastManager().showSnackBar(pk_dg_password, "forget password");
+            cancelAllLoading();
         } else {
         }
     }
@@ -101,23 +103,25 @@ public class PasswordInputDialog extends DialogFragment implements View.OnClickL
         pwp_dg_password.setVisibility(View.GONE);
     }
 
-    public void success(CharSequence successText){
+    public void loadSuccess(CharSequence successText) {
         pwp_dg_password.setVisibility(View.VISIBLE);
         ll_dg_password.setVisibility(View.GONE);
-        pwp_dg_password.success(successText);
+        pwp_dg_password.loadSuccess(successText);
     }
 
-    public void fail(CharSequence failText){
+    public void loadFail(CharSequence failText) {
         pwp_dg_password.setVisibility(View.VISIBLE);
         ll_dg_password.setVisibility(View.GONE);
-        pwp_dg_password.fail(failText);
+        pwp_dg_password.loadFail(failText);
     }
 
     /**
      * 开始加载
      */
-    public void loading(){
-        pwp_dg_password.loading();
+    public void loadArc() {
+        pwp_dg_password.setVisibility(View.VISIBLE);
+        ll_dg_password.setVisibility(View.GONE);
+        pwp_dg_password.loadArc();
     }
 
     /**
@@ -126,7 +130,6 @@ public class PasswordInputDialog extends DialogFragment implements View.OnClickL
     public void cancelAllLoading() {
         pwp_dg_password.cancelAllLoading();
     }
-
 
     private PasswordKeyboard.ClickKeyListener clickKeyListener = new PasswordKeyboard.ClickKeyListener() {
         @Override

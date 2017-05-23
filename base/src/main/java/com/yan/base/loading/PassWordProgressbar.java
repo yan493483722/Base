@@ -60,8 +60,7 @@ public class PassWordProgressbar extends View {
     //http://mikewang.blog.51cto.com/3826268/871765//
     //http://blog.csdn.net/linghu_java/article/details/46404081
     private Paint textPaint;
-    private Paint arcPaint;
-    private Paint linePaint;
+    private Paint shapePaint;
 
 
     //初始化的最小的角度
@@ -88,11 +87,12 @@ public class PassWordProgressbar extends View {
 
     //圆弧对应的矩形
     private RectF arcRectF;
+    private float innerRectWidth;
     //TextView对应的矩形
     private Rect textRect;
 
 
-    private CharSequence msg = "加载中。。。";
+    private CharSequence msg = "你好";
 
     /**
      * 初始化的角度
@@ -175,12 +175,12 @@ public class PassWordProgressbar extends View {
             textPaint.setTextSize(getResources().getDimension(R.dimen.font_middle));
         }
 
-        if (arcPaint == null) {
-            arcPaint = new Paint();
-            arcPaint.setStrokeWidth(barStockWidth);
-            arcPaint.setAntiAlias(true);
-            arcPaint.setColor(Color.BLUE);
-            arcPaint.setStyle(Paint.Style.STROKE);
+        if (shapePaint == null) {
+            shapePaint = new Paint();
+            shapePaint.setStrokeWidth(barStockWidth);
+            shapePaint.setAntiAlias(true);
+            shapePaint.setColor(Color.BLUE);
+            shapePaint.setStyle(Paint.Style.STROKE);
         }
         if (arcRectF == null) {
             arcRectF = new RectF();
@@ -189,6 +189,11 @@ public class PassWordProgressbar extends View {
             textRect = new Rect();
             setTextRectSize(msg);
         }
+
+        //圆弧内部最大的内切的正方形 边长 = 二分之根号二 * 外接圆的最小外切正方形边长
+        innerRectWidth = (float) (barRectHeight / Math.sqrt(2));
+        //缩小钩 后期为了美观制作
+        innerRectWidth = innerRectWidth * 4 / 5;
 
         ColorDrawable colorDrawable = new ColorDrawable(Color.CYAN);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -216,9 +221,10 @@ public class PassWordProgressbar extends View {
             left = arcPaddingLeft + barStockWidth / 2;
         }
         arcRectF.set(left, top, left + barRectHeight - barStockWidth / 2, top + barRectHeight - barStockWidth / 2);
-        //边缘间距8分之1
-        startX1 = left + barRectHeight / 8;
-        startY1 = top + barRectHeight * 5 / 8;
+
+        startX1 = left + (barRectHeight - innerRectWidth) / 2;
+//        startY1 = top + (barRectHeight - innerRectWidth) / 2 + innerRectWidth / 2; 简化后
+        startY1 = top + barRectHeight / 2;
         setMeasuredDimension(speWidthSize, speHeightSize);  //这里面是原始的大小，需要重新计算可以修改本行
         Log.e("yan", "" + "onMeasure");
     }
@@ -235,20 +241,20 @@ public class PassWordProgressbar extends View {
         super.onDraw(canvas);
 
         if (loadingStatus == LOAD_STATUS_ARC) {
-            canvas.drawArc(arcRectF, startAngle, sweepAngle, false, arcPaint);
+            canvas.drawArc(arcRectF, startAngle, sweepAngle, false, shapePaint);
             if (arcAnimatorSet == null || !arcAnimatorSet.isRunning()) {
                 animatorPlay();
             }
         } else if (loadingStatus == LOAD_STATUS_SUCCESS) {
-            canvas.drawArc(arcRectF, startAngle, sweepAngle, false, arcPaint);
+            canvas.drawArc(arcRectF, 0, 360, false, shapePaint);
             //画第一根线
-            canvas.drawLine(startX1, startY1, stopX1, stopY1, arcPaint);
+            canvas.drawLine(startX1, startY1, stopX1, stopY1, shapePaint);
             if (halfTack) {
                 //防止线条过粗分离
-                canvas.drawLine(stopX1 - barStockWidth / 2, stopY1 + barStockWidth / 2, stopX2, stopY2, arcPaint);
+                canvas.drawLine(stopX1 - barStockWidth / 2, stopY1 - barStockWidth / 4, stopX2, stopY2, shapePaint);
             }
         } else if (loadingStatus == LOAD_STATUS_FAIL) {
-            canvas.drawArc(arcRectF, startAngle, sweepAngle, false, arcPaint);
+            canvas.drawArc(arcRectF, startAngle, sweepAngle, false, shapePaint);
             if (arcAnimatorSet == null || !arcAnimatorSet.isRunning()) {
                 animatorPlay();
             }
@@ -372,19 +378,15 @@ public class PassWordProgressbar extends View {
         protected void applyTransformation(final float interpolatedTime, Transformation t) {
             super.applyTransformation(interpolatedTime, t);
             if (interpolatedTime <= 0.5f) {
-                //边缘间距8分之1
-//                startX1 = left + barRectHeight / 8;
-//                startY1 = top + barRectHeight * 5 / 8;
-//                stopX1 = startX1 + barRectHeight *2/8*interpolatedTime * 2;
-                stopX1 = startX1 + barRectHeight * 2  * interpolatedTime * 2/ 8;
-//                stopY1 = startY1 + barRectHeight *2/8*interpolatedTime * 2;
-                stopY1 = startY1 + barRectHeight * 2  * interpolatedTime * 2/ 8;
+//                stopX1 = startX1 + innerRectWidth * 3 * interpolatedTime *2/ 8; 简化后
+                stopX1 = startX1 + innerRectWidth * 3 * interpolatedTime / 4;
+//                stopY1 = startY1 + innerRectWidth * 3 * interpolatedTime * 2 / 8; 简化后
+                stopY1 = startY1 + innerRectWidth * 3 * interpolatedTime / 4;
             } else {
-//                stopX2 = stopX1 + barRectHeight * 4 / 8 * (interpolatedTime - 0.5f) * 2;
-//                stopY2 = stopY1 - barRectHeight * 6 / 8 * (interpolatedTime - 0.5f) * 2;
-
-                stopX2 = stopX1 + barRectHeight * 4  * (interpolatedTime - 0.5f) * 2/ 8;
-                stopY2 = stopY1 - barRectHeight * 6  * (interpolatedTime - 0.5f) * 2/ 8;
+//                stopX2 = stopX1 + innerRectWidth * 5 * (interpolatedTime - 0.5f) * 2 / 8;简化后
+                stopX2 = stopX1 + innerRectWidth * 5 * (interpolatedTime - 0.5f) / 4;
+//                stopY2 = stopY1 - innerRectWidth * 6 * (interpolatedTime - 0.5f) * 2 / 8;简化后
+                stopY2 = stopY1 - innerRectWidth * 3 * (interpolatedTime - 0.5f) / 2;
                 halfTack = true;
             }
             invalidate();
@@ -415,7 +417,7 @@ public class PassWordProgressbar extends View {
 //        }
         if (tickAnimation == null) {
             tickAnimation = new TickAnimation();
-            tickAnimation.setDuration(DURATION );
+            tickAnimation.setDuration(DURATION);
             //对勾动画监听
             tickAnimation.setAnimationListener(new Animation.AnimationListener() {
                 @Override
@@ -444,6 +446,7 @@ public class PassWordProgressbar extends View {
         if (loadingStatus != LOAD_STATUS_SUCCESS) {
             cancelAllLoading();
             loadingStatus = LOAD_STATUS_SUCCESS;
+            startAnimation(tickAnimation);
             if (text.length() == msg.length()) {
                 setTextRectSize(text);
                 postInvalidate();
@@ -451,6 +454,7 @@ public class PassWordProgressbar extends View {
                 setTextRectSize(text);
                 invalidateOtherThread();
             }
+
         }
     }
 

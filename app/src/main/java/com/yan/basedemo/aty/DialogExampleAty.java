@@ -1,6 +1,5 @@
 package com.yan.basedemo.aty;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
@@ -12,8 +11,8 @@ import com.yan.base.dialog.BaseSingleInputDoubleBtnDialog;
 import com.yan.base.listener.BaseDialogDoubleBtnClickListener;
 import com.yan.base.listener.BaseDialogInputDoubleBtnClickListener;
 import com.yan.base.listener.BaseDialogSingleBtnClickListener;
-import com.yan.base.pop.SelectPhotoPop;
 import com.yan.base.password.PasswordInputDialog;
+import com.yan.base.pop.SelectPhotoPop;
 import com.yan.basedemo.R;
 
 import butterknife.BindView;
@@ -47,6 +46,10 @@ public class DialogExampleAty extends BaseAty {
     Button btnDialogExampleInputPassword;
     @BindView(R.id.btn_dialog_photo)
     Button btnDialogPhoto;
+
+    PasswordInputDialog passwordInputDialog;
+
+    String tempPassword = "123456";
 
     @Override
     protected void initContentView() {
@@ -134,11 +137,64 @@ public class DialogExampleAty extends BaseAty {
                 photoPopManager.showPop();
                 break;
             case R.id.btn_dialog_example_input_password:
-                PasswordInputDialog passwordInputDialog = new PasswordInputDialog();
+                if (passwordInputDialog == null) {
+                    passwordInputDialog = new PasswordInputDialog();
+                    passwordInputDialog.setPasswordInputDialogListener(passwordInputDialogListener);
+                } else {
+                    passwordInputDialog.reset();
+                }
                 passwordInputDialog.show(getFragmentManager(), "PasswordDialog");
                 break;
         }
     }
+
+    private PasswordInputDialog.PasswordInputDialogListener passwordInputDialogListener = new PasswordInputDialog.PasswordInputDialogListener() {
+        @Override
+        public void cancel() {
+            passwordInputDialog.dismiss();
+        }
+
+        @Override
+        public void forgetPassword() {
+            mSnackBarAndToastManager.showSnackBar(passwordInputDialog.getView(), "忘记密码");
+        }
+
+        @Override
+        public void successAnimationEnd() {
+            mSnackBarAndToastManager.showSnackBar(passwordInputDialog.getView(), "成功了动画结束");
+            passwordInputDialog.dismiss();
+        }
+
+        @Override
+        public void failAnimationEnd() {
+            mSnackBarAndToastManager.showSnackBar(passwordInputDialog.getView(), "失败了动画结束");
+            passwordInputDialog.dismiss();
+        }
+
+        @Override
+        public void onPasswordInputComplete(final CharSequence text) {
+            mSnackBarAndToastManager.showSnackBar(passwordInputDialog.getView(), "输入结果是：" + text + "\n" + "正确的结果为：" + tempPassword + "\n");
+            passwordInputDialog.loadArc("支付结果确认中...");
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        sleep(3 * 1000L);
+                        if (text != null && text.toString().equals(tempPassword)) {
+                            passwordInputDialog.cancelAllLoading();
+                            passwordInputDialog.loadSuccess("支付完成");
+                        } else {
+                            passwordInputDialog.cancelAllLoading();
+                            passwordInputDialog.loadFail("支付失败");
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
+
+        }
+    };
 
 
     private BaseDialogSingleBtnClickListener mBaseDialogSingleBtnClickListener = new BaseDialogSingleBtnClickListener() {

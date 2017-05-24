@@ -41,6 +41,8 @@ public class PasswordInputDialog extends DialogFragment implements View.OnClickL
 
     private BaseAty mAty;
 
+    PasswordInputDialogListener passwordInputDialogListener;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +81,8 @@ public class PasswordInputDialog extends DialogFragment implements View.OnClickL
         tv_dg_password_cancel.setOnClickListener(this);
         tv_dg_password_forget.setOnClickListener(this);
         pk_dg_password.setClickKeyListener(clickKeyListener);
-        piv_dg_password.setPasswordInputListener(passwordInputListener);
+        piv_dg_password.setPasswordInputListener(passwordInputDialogListener);
+        pwp_dg_password.setAnimationEndListener(passwordInputDialogListener);
     }
 
 
@@ -88,11 +91,13 @@ public class PasswordInputDialog extends DialogFragment implements View.OnClickL
         int i = v.getId();
         // 因为id的编译  lib里面不能使用switch
         if (i == R.id.tv_dg_password_cancel) {
-//            dismiss();
-            loadSuccess("你好");
+            if (passwordInputDialogListener != null) {
+                passwordInputDialogListener.cancel();
+            }
         } else if (i == R.id.tv_dg_password_forget) {
-//            mAty.getmSnackBarAndToastManager().showSnackBar(pk_dg_password, "forget password");
-            cancelAllLoading();
+            if (passwordInputDialogListener != null) {
+                passwordInputDialogListener.forgetPassword();
+            }
         } else {
         }
     }
@@ -105,23 +110,23 @@ public class PasswordInputDialog extends DialogFragment implements View.OnClickL
 
     public void loadSuccess(CharSequence successText) {
         pwp_dg_password.setVisibility(View.VISIBLE);
-        ll_dg_password.setVisibility(View.GONE);
+        ll_dg_password.setVisibility(View.INVISIBLE);
         pwp_dg_password.loadSuccess(successText);
     }
 
     public void loadFail(CharSequence failText) {
         pwp_dg_password.setVisibility(View.VISIBLE);
-        ll_dg_password.setVisibility(View.GONE);
+        ll_dg_password.setVisibility(View.INVISIBLE);
         pwp_dg_password.loadFail(failText);
     }
 
     /**
      * 开始加载
      */
-    public void loadArc() {
+    public void loadArc(CharSequence loadText) {
         pwp_dg_password.setVisibility(View.VISIBLE);
-        ll_dg_password.setVisibility(View.GONE);
-        pwp_dg_password.loadArc();
+        ll_dg_password.setVisibility(View.INVISIBLE);
+        pwp_dg_password.loadArc(loadText);
     }
 
     /**
@@ -148,12 +153,15 @@ public class PasswordInputDialog extends DialogFragment implements View.OnClickL
         }
     };
 
-    private PasswordInputView.PasswordInputListener passwordInputListener = new PasswordInputView.PasswordInputListener() {
-        @Override
-        public void onPasswordInputComplete(CharSequence text) {
-            //mAty.getmSnackBarAndToastManager().showSnackBar(pk_dg_password, "password \n" + text);
 
+    public interface PasswordInputDialogListener extends PassWordProgressbar.AnimationEndListener, PasswordInputView.PasswordInputListener {
 
-        }
-    };
+        void cancel();
+
+        void forgetPassword();
+    }
+
+    public void setPasswordInputDialogListener(PasswordInputDialogListener passwordInputDialogListener) {
+        this.passwordInputDialogListener = passwordInputDialogListener;
+    }
 }

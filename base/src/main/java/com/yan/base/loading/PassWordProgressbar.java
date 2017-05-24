@@ -1,6 +1,5 @@
 package com.yan.base.loading;
 
-import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
@@ -11,10 +10,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
@@ -41,6 +38,8 @@ public class PassWordProgressbar extends View {
     private float startY1;
     private float stopX1;
     private float stopY1;
+    private float startX2;
+    private float startY2;
     private float stopX2;
     private float stopY2;
 
@@ -48,7 +47,7 @@ public class PassWordProgressbar extends View {
     private int barColor;
     private float barStockWidth;
 
-    private static final int DURATION = 1000;
+    private static final int DURATION = 800;
 
     private int textSize;
 
@@ -56,12 +55,10 @@ public class PassWordProgressbar extends View {
 
     private float barRectHeight;
 
-    private Paint paint;
     //http://mikewang.blog.51cto.com/3826268/871765//
     //http://blog.csdn.net/linghu_java/article/details/46404081
     private Paint textPaint;
     private Paint shapePaint;
-
 
     //初始化的最小的角度
     private static final float START_ANGLE = -90;
@@ -70,29 +67,28 @@ public class PassWordProgressbar extends View {
      */
     private static float MIN_ANGLE = 60f;
 
-
     //圆弧默认颜色
-    private final static int DEFAULT_ARC_COLOR = Color.BLUE;
-    //圆弧颜色
-    private int arcColor = DEFAULT_ARC_COLOR;
+    private final static int DEFAULT_COLOR = Color.BLUE;
 
-    //动画合集
+    //加载中的圆弧动画
     private AnimatorSet arcAnimatorSet;
-    //动画合集
-    private AnimatorSet successAnimatorSet;
-    //动画合集
-    private AnimatorSet failAnimatorSet;
+    //成功的对勾动画
+    private TickAnimation tickAnimation;
+    //失败的叉叉动画
+    private CrossAnimation crossAnimation;
+    boolean halfTack = false;
 
     private int loadingStatus = LOAD_STATUS_NONE;
 
     //圆弧对应的矩形
     private RectF arcRectF;
     private float innerRectWidth;
+    private float adjustInnerRectWidth;
     //TextView对应的矩形
     private Rect textRect;
 
 
-    private CharSequence msg = "你好";
+    private CharSequence msg = "加载中...";
 
     /**
      * 初始化的角度
@@ -106,6 +102,7 @@ public class PassWordProgressbar extends View {
 
     private float textPaddingLeft, textPaddingRight, textPaddingTop, textPaddingBottom, arcPaddingLeft, arcPaddingRight, arcPaddingTop, arcPaddingBottom;
 
+    private AnimationEndListener animationEnd;
 
     //    第一个构造函数：     当不需要使用xml声明或者不需要使用inflate动态加载时候，实现此构造函数即可
     public PassWordProgressbar(Context context) {
@@ -143,10 +140,10 @@ public class PassWordProgressbar extends View {
      */
     private void getAttr(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.PassWordProgressbar);
-        barColor = typedArray.getColor(R.styleable.PassWordProgressbar_barColor, Color.GREEN);
+        barColor = typedArray.getColor(R.styleable.PassWordProgressbar_barColor, DEFAULT_COLOR);
         barStockWidth = typedArray.getDimension(R.styleable.PassWordProgressbar_barStockWidth, 4.0f);
-        textSize = typedArray.getDimensionPixelSize(R.styleable.PassWordProgressbar_textSize, 4);
-        textColor = typedArray.getColor(R.styleable.PassWordProgressbar_textColor, Color.GREEN);
+        textSize = typedArray.getDimensionPixelSize(R.styleable.PassWordProgressbar_textSize, (int) getResources().getDimension(R.dimen.font_middle));
+        textColor = typedArray.getColor(R.styleable.PassWordProgressbar_textColor, DEFAULT_COLOR);
         barRectHeight = typedArray.getDimension(R.styleable.PassWordProgressbar_barRectWidthHeight, 80f);
         textPaddingLeft = typedArray.getDimension(R.styleable.PassWordProgressbar_textPaddingLeft, 0f);
         textPaddingRight = typedArray.getDimension(R.styleable.PassWordProgressbar_textPaddingRight, 0f);
@@ -160,26 +157,19 @@ public class PassWordProgressbar extends View {
     }
 
     private void init() {
-        if (paint == null) {
-            paint = new Paint();
-            paint.setColor(barColor);
-            paint.setStrokeWidth(barStockWidth);
-            paint.setStyle(Paint.Style.STROKE);
-            paint.setAntiAlias(true);
-        }
 
         if (textPaint == null) {
             textPaint = new Paint();
-            textPaint.setColor(Color.BLUE);
+            textPaint.setColor(textColor);
             textPaint.setAntiAlias(true);
-            textPaint.setTextSize(getResources().getDimension(R.dimen.font_middle));
+            textPaint.setTextSize(textSize);
         }
 
         if (shapePaint == null) {
             shapePaint = new Paint();
             shapePaint.setStrokeWidth(barStockWidth);
             shapePaint.setAntiAlias(true);
-            shapePaint.setColor(Color.BLUE);
+            shapePaint.setColor(barColor);
             shapePaint.setStyle(Paint.Style.STROKE);
         }
         if (arcRectF == null) {
@@ -189,20 +179,8 @@ public class PassWordProgressbar extends View {
             textRect = new Rect();
             setTextRectSize(msg);
         }
-
         //圆弧内部最大的内切的正方形 边长 = 二分之根号二 * 外接圆的最小外切正方形边长
         innerRectWidth = (float) (barRectHeight / Math.sqrt(2));
-        //缩小钩 后期为了美观制作
-        innerRectWidth = innerRectWidth * 4 / 5;
-
-        ColorDrawable colorDrawable = new ColorDrawable(Color.CYAN);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            setBackground(colorDrawable);
-        } else {
-            setBackgroundDrawable(colorDrawable);
-        }
-
-
     }
 
     @Override
@@ -221,25 +199,28 @@ public class PassWordProgressbar extends View {
             left = arcPaddingLeft + barStockWidth / 2;
         }
         arcRectF.set(left, top, left + barRectHeight - barStockWidth / 2, top + barRectHeight - barStockWidth / 2);
-
-        startX1 = left + (barRectHeight - innerRectWidth) / 2;
-//        startY1 = top + (barRectHeight - innerRectWidth) / 2 + innerRectWidth / 2; 简化后
-        startY1 = top + barRectHeight / 2;
         setMeasuredDimension(speWidthSize, speHeightSize);  //这里面是原始的大小，需要重新计算可以修改本行
-        Log.e("yan", "" + "onMeasure");
     }
+
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-        Log.e("yan", "" + "onLayout");
+        if (loadingStatus == LOAD_STATUS_SUCCESS) {
+            if (tickAnimation != null) {
+                tickAnimation.initStartPoint(arcRectF.left, arcRectF.top);
+            }
+        } else if (loadingStatus == LOAD_STATUS_FAIL) {
+            if (crossAnimation != null) {
+                crossAnimation.initStartPoint(arcRectF.left, arcRectF.top);
+            }
+        }
     }
 
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
         if (loadingStatus == LOAD_STATUS_ARC) {
             canvas.drawArc(arcRectF, startAngle, sweepAngle, false, shapePaint);
             if (arcAnimatorSet == null || !arcAnimatorSet.isRunning()) {
@@ -254,9 +235,12 @@ public class PassWordProgressbar extends View {
                 canvas.drawLine(stopX1 - barStockWidth / 2, stopY1 - barStockWidth / 4, stopX2, stopY2, shapePaint);
             }
         } else if (loadingStatus == LOAD_STATUS_FAIL) {
-            canvas.drawArc(arcRectF, startAngle, sweepAngle, false, shapePaint);
-            if (arcAnimatorSet == null || !arcAnimatorSet.isRunning()) {
-                animatorPlay();
+            canvas.drawArc(arcRectF, 0, 360, false, shapePaint);
+            //画第一根线
+            canvas.drawLine(startX1, startY1, stopX1 + barStockWidth / 2, stopY1 + barStockWidth / 2, shapePaint);
+            if (halfTack) {
+                //防止线条过粗分离
+                canvas.drawLine(startX2, startY2, stopX2, stopY2, shapePaint);
             }
         }
 
@@ -273,8 +257,7 @@ public class PassWordProgressbar extends View {
      */
     //关于动画的具体解析http://blog.csdn.net/yanbober/article/details/46481171
     private void animatorPlay() {
-        Log.e("yan", "" + "animatorPlay");
-
+//        Log.e("yan", "" + "animatorPlay");
         if (arcAnimatorSet == null) {
             arcAnimatorSet = getArcAnimator();
         } else {
@@ -282,36 +265,35 @@ public class PassWordProgressbar extends View {
                 return;
             }
         }
-        if (arcAnimatorSet.getListeners() == null || !arcAnimatorSet.getListeners().get(0).equals(arcAnimatorListener)) {
-            Log.e("yan", "" + "arcAnimatorSet.getListeners()==null||!arcAnimatorSet.getListeners().get(0).equals(arcAnimator)");
-            arcAnimatorSet.addListener(arcAnimatorListener);
-        }
+//        if (arcAnimatorSet.getListeners() == null || !arcAnimatorSet.getListeners().get(0).equals(arcAnimatorListener)) {
+//            arcAnimatorSet.addListener(arcAnimatorListener);
+//        }
         arcAnimatorSet.start();
     }
 
 
-    private Animator.AnimatorListener arcAnimatorListener = new Animator.AnimatorListener() {
-        @Override
-        public void onAnimationStart(Animator animation) {
-            Log.e("yan", "" + " set onAnimationStart");
-        }
-
-        @Override
-        public void onAnimationEnd(Animator animation) {
-            Log.e("yan", "" + " set onAnimationEnd");
-
-        }
-
-        @Override
-        public void onAnimationCancel(Animator animation) {
-            Log.e("yan", "" + " set onAnimationCancel");
-        }
-
-        @Override
-        public void onAnimationRepeat(Animator animation) {
-            Log.e("yan", "" + " set onAnimationRepeat");
-        }
-    };
+//    private Animator.AnimatorListener arcAnimatorListener = new Animator.AnimatorListener() {
+//        @Override
+//        public void onAnimationStart(Animator animation) {
+//            Log.e("yan", "" + " set onAnimationStart");
+//        }
+//
+//        @Override
+//        public void onAnimationEnd(Animator animation) {
+//            Log.e("yan", "" + " set onAnimationEnd");
+//
+//        }
+//
+//        @Override
+//        public void onAnimationCancel(Animator animation) {
+//            Log.e("yan", "" + " set onAnimationCancel");
+//        }
+//
+//        @Override
+//        public void onAnimationRepeat(Animator animation) {
+//            Log.e("yan", "" + " set onAnimationRepeat");
+//        }
+//    };
 
     /**
      * 得到圆的的AnimatorSet
@@ -368,39 +350,35 @@ public class PassWordProgressbar extends View {
         return set;
     }
 
-    boolean halfTack = false;
-    private TickAnimation tickAnimation;
-
-    //对勾动画
-    private class TickAnimation extends Animation {
-
-        @Override
-        protected void applyTransformation(final float interpolatedTime, Transformation t) {
-            super.applyTransformation(interpolatedTime, t);
-            if (interpolatedTime <= 0.5f) {
-//                stopX1 = startX1 + innerRectWidth * 3 * interpolatedTime *2/ 8; 简化后
-                stopX1 = startX1 + innerRectWidth * 3 * interpolatedTime / 4;
-//                stopY1 = startY1 + innerRectWidth * 3 * interpolatedTime * 2 / 8; 简化后
-                stopY1 = startY1 + innerRectWidth * 3 * interpolatedTime / 4;
-            } else {
-//                stopX2 = stopX1 + innerRectWidth * 5 * (interpolatedTime - 0.5f) * 2 / 8;简化后
-                stopX2 = stopX1 + innerRectWidth * 5 * (interpolatedTime - 0.5f) / 4;
-//                stopY2 = stopY1 - innerRectWidth * 6 * (interpolatedTime - 0.5f) * 2 / 8;简化后
-                stopY2 = stopY1 - innerRectWidth * 3 * (interpolatedTime - 0.5f) / 2;
-                halfTack = true;
-            }
-            invalidate();
-        }
-    }
-
     /**
      * 开始转动
      */
-    public void loadArc() {
+    public void loadArc(CharSequence loadText) {
         if (loadingStatus != LOAD_STATUS_ARC) {
             cancelAllLoading();
-            loadingStatus = LOAD_STATUS_ARC;
-            postInvalidate();
+            if (loadText == null && loadText.length() == msg.length()) {
+                msg = loadText;
+                post(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadingStatus = LOAD_STATUS_ARC;
+                        invalidate();
+                        animatorPlay();
+                    }
+                });
+            } else {
+                setTextRectSize(loadText);
+                post(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadingStatus = LOAD_STATUS_ARC;
+                        requestLayout();
+                        invalidate();
+                        animatorPlay();
+                    }
+                });
+            }
+
         }
     }
 
@@ -408,88 +386,69 @@ public class PassWordProgressbar extends View {
      * 显示成功
      */
     public void loadSuccess(CharSequence text) {
-//        if(linePaint==null){
-//            linePaint=new Paint();
-//            linePaint.setColor(barColor);
-//            linePaint.setStrokeWidth(barStockWidth);
-//            linePaint.setStyle(Paint.Style.STROKE);
-//            linePaint.setAntiAlias(true);
-//        }
         if (tickAnimation == null) {
             tickAnimation = new TickAnimation();
             tickAnimation.setDuration(DURATION);
             //对勾动画监听
-            tickAnimation.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    //当对勾动画完成后,延迟一秒回掉,不然动画效果不明显
-//                        postDelayed(new Runnable() {
-//                            @Override
-//                            public void run() {
-//
-//                            }
-//                        }, 1000);
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-
-                }
-            });
+            tickAnimation.setAnimationListener(animationListener);
         }
-
         if (loadingStatus != LOAD_STATUS_SUCCESS) {
-            cancelAllLoading();
-            loadingStatus = LOAD_STATUS_SUCCESS;
-            startAnimation(tickAnimation);
-            if (text.length() == msg.length()) {
-                setTextRectSize(text);
-                postInvalidate();
+            tickAnimation.initStartPoint(arcRectF.left, arcRectF.top);
+            if (text == null && text.length() == msg.length()) {
+                msg = text;
+                post(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadingStatus = LOAD_STATUS_SUCCESS;
+                        startAnimation(tickAnimation);//会触发invalide
+                    }
+                });
             } else {
                 setTextRectSize(text);
-                invalidateOtherThread();
+                post(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadingStatus = LOAD_STATUS_SUCCESS;
+                        requestLayout();
+                        startAnimation(tickAnimation);//会触发invalide
+                    }
+                });
             }
-
         }
     }
 
-    private void invalidateOtherThread() {
-        post(new Runnable() {
-            @Override
-            public void run() {
-                requestLayout();
-                invalidate();
-            }
-        });
-    }
-
-    private void setTextRectSize(CharSequence text) {
-        msg = text;
-        if (msg == null) {
-            textRect.set(0, 0, 0, 0);
-        } else {
-            textPaint.getTextBounds(msg.toString(), 0, msg.length(), textRect);
-        }
-    }
 
     /**
      * 显示失败
      */
     public void loadFail(CharSequence text) {
+        if (crossAnimation == null) {
+            crossAnimation = new CrossAnimation();
+            crossAnimation.setDuration(DURATION);
+            //对勾动画监听
+            crossAnimation.setAnimationListener(animationListener);
+        }
         if (loadingStatus != LOAD_STATUS_FAIL) {
-            cancelAllLoading();
-            loadingStatus = LOAD_STATUS_FAIL;
-            if (text.length() == msg.length()) {
-                setTextRectSize(text);
-                postInvalidate();
+            crossAnimation.initStartPoint(arcRectF.left, arcRectF.top);
+            if (text == null && text.length() == msg.length()) {
+                msg = text;
+                post(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadingStatus = LOAD_STATUS_FAIL;
+                        startAnimation(crossAnimation);//会触发invalide
+                    }
+                });
             } else {
                 setTextRectSize(text);
-                invalidateOtherThread();
+                post(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadingStatus = LOAD_STATUS_FAIL;
+                        requestLayout();
+                        startAnimation(crossAnimation);//会触发invalide
+                    }
+                });
             }
         }
     }
@@ -498,12 +457,17 @@ public class PassWordProgressbar extends View {
      * 取消圆弧
      */
     public void cancelLoadingArc() {
-        if (loadingStatus == LOAD_STATUS_ARC && arcAnimatorSet != null && arcAnimatorSet.isRunning()) {
-            arcAnimatorSet.cancel();
-            loadingStatus = LOAD_STATUS_NONE;
-            postInvalidate();
-            startAngle = START_ANGLE;
-            sweepAngle = MIN_ANGLE - 15;
+        if (loadingStatus == LOAD_STATUS_ARC || (arcAnimatorSet != null && arcAnimatorSet.isRunning())) {
+            post(new Runnable() {
+                @Override
+                public void run() {
+                    arcAnimatorSet.cancel();
+                    loadingStatus = LOAD_STATUS_NONE;
+                    postInvalidate();
+                    startAngle = START_ANGLE;
+                    sweepAngle = MIN_ANGLE - 15;
+                }
+            });
         }
     }
 
@@ -522,11 +486,8 @@ public class PassWordProgressbar extends View {
      * 取消成功的动画
      */
     private void cancelLoadingSuccess() {
-        if (loadingStatus == LOAD_STATUS_ARC && successAnimatorSet != null && successAnimatorSet.isRunning()) {
-            successAnimatorSet.cancel();
-            loadingStatus = LOAD_STATUS_NONE;
-            postInvalidate();
-            invalidate();
+        if (loadingStatus == LOAD_STATUS_ARC || (tickAnimation != null && !tickAnimation.hasEnded())) {
+            cancelOtherThread();
         }
     }
 
@@ -534,11 +495,132 @@ public class PassWordProgressbar extends View {
      * 取消失败的动画
      */
     private void cancelLoadingFail() {
-        if (loadingStatus == LOAD_STATUS_ARC && failAnimatorSet != null && failAnimatorSet.isRunning()) {
-            failAnimatorSet.cancel();
-            loadingStatus = LOAD_STATUS_NONE;
-            postInvalidate();
+        if (loadingStatus == LOAD_STATUS_ARC || (crossAnimation != null && !crossAnimation.hasEnded())) {
+            cancelOtherThread();
+
         }
     }
 
+    private void cancelOtherThread() {
+        post(new Runnable() {
+            @Override
+            public void run() {
+                clearAnimation();
+                loadingStatus = LOAD_STATUS_NONE;
+                invalidate();
+            }
+        });
+    }
+
+    private void setTextRectSize(CharSequence text) {
+        msg = text;
+        if (msg == null) {
+            textRect.set(0, 0, 0, 0);
+        } else {
+            textPaint.getTextBounds(msg.toString(), 0, msg.length(), textRect);
+        }
+    }
+
+
+    private Animation.AnimationListener animationListener = new Animation.AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {
+
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            //当对勾动画完成后,延迟一秒回掉,不然动画效果不明显
+            postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (loadingStatus == LOAD_STATUS_SUCCESS) {
+                        if (animationEnd != null) {
+                            animationEnd.successAnimationEnd();
+                        }
+                    } else if (loadingStatus == LOAD_STATUS_FAIL) {
+                        if (animationEnd != null) {
+                            animationEnd.failAnimationEnd();
+                        }
+                    }
+                    loadingStatus = LOAD_STATUS_NONE;
+                }
+            }, 1000);
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+
+        }
+    };
+
+    //勾动画
+    private class TickAnimation extends Animation {
+
+        protected void initStartPoint(float left, float top) {
+            //缩小钩 后期为了美观制作
+            adjustInnerRectWidth = innerRectWidth * 4 / 5;
+            halfTack = false;
+            startX1 = left + (barRectHeight - adjustInnerRectWidth) / 2;
+//        startY1 = top + (barRectHeight - adjustInnerRectWidth) / 2 + adjustInnerRectWidth / 2; 简化后
+            startY1 = top + barRectHeight / 2;
+        }
+
+        @Override
+        protected void applyTransformation(final float interpolatedTime, Transformation t) {
+            super.applyTransformation(interpolatedTime, t);
+            if (interpolatedTime <= 0.5f) {
+//                stopX1 = startX1 + adjustInnerRectWidth * 3 * interpolatedTime *2/ 8; 简化后
+                stopX1 = startX1 + adjustInnerRectWidth * 3 * interpolatedTime / 4;
+//                stopY1 = startY1 + adjustInnerRectWidth * 3 * interpolatedTime * 2 / 8; 简化后
+                stopY1 = startY1 + adjustInnerRectWidth * 3 * interpolatedTime / 4;
+            } else {
+//                stopX2 = stopX1 + adjustInnerRectWidth * 5 * (interpolatedTime - 0.5f) * 2 / 8;简化后
+                stopX2 = stopX1 + adjustInnerRectWidth * 5 * (interpolatedTime - 0.5f) / 4;
+//                stopY2 = stopY1 - adjustInnerRectWidth * 6 * (interpolatedTime - 0.5f) * 2 / 8;简化后
+                stopY2 = stopY1 - adjustInnerRectWidth * 3 * (interpolatedTime - 0.5f) / 2;
+                halfTack = true;
+            }
+            invalidate();
+        }
+    }
+
+    //叉动画
+    private class CrossAnimation extends Animation {
+
+        protected void initStartPoint(float left, float top) {
+            //缩小叉 后期为了美观制作
+            adjustInnerRectWidth = innerRectWidth / 3;
+            halfTack = false;
+            startX1 = left + (barRectHeight - adjustInnerRectWidth) / 2;
+//        startY1 = top + (barRectHeight - adjustInnerRectWidth) / 2 + innerRectWidth / 2; 简化后
+            startY1 = top + (barRectHeight - adjustInnerRectWidth) / 2;
+            startX2 = startX1 + adjustInnerRectWidth;
+            startY2 = startY1;
+        }
+
+        @Override
+        protected void applyTransformation(final float interpolatedTime, Transformation t) {
+            super.applyTransformation(interpolatedTime, t);
+            if (interpolatedTime <= 0.5f) {
+                stopX1 = startX1 + adjustInnerRectWidth * interpolatedTime * 2;
+                stopY1 = startY1 + adjustInnerRectWidth * interpolatedTime * 2;
+            } else {
+                stopX2 = startX2 - adjustInnerRectWidth * (interpolatedTime - 0.5f) * 2;
+                stopY2 = startY2 + adjustInnerRectWidth * (interpolatedTime - 0.5f) * 2;
+                halfTack = true;
+            }
+            invalidate();
+        }
+    }
+
+    public interface AnimationEndListener {
+        void successAnimationEnd();
+
+        void failAnimationEnd();
+    }
+
+    public void setAnimationEndListener(AnimationEndListener animationEnd) {
+        this.animationEnd = animationEnd;
+    }
 }

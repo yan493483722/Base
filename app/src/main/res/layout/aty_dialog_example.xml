@@ -2,42 +2,43 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/activity_horizontal_margin"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/activity_horizontal_margin">
 
     <Button
         android:id="@+id/btn_dialog_example_single"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="single button" />
+        android:text="底部单个按钮弹窗" />
 
     <Button
         android:id="@+id/btn_dialog_example_double"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="double button" />
+        android:text="底部两个按钮弹窗" />
 
     <Button
         android:id="@+id/btn_dialog_example_input_one"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="double input one button" />
+        android:text="补全姓名" />
 
     <Button
         android:id="@+id/btn_dialog_example_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="double input button" />
+        android:text="输入单行文字" />
 
     <Button
         android:id="@+id/btn_dialog_photo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="select photo" />
+        android:text="相册/图库 选择" />
+
     <Button
         android:id="@+id/btn_dialog_example_input_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="double input password bottom" />
+        android:text="密码输入" />
 
 </LinearLayout>

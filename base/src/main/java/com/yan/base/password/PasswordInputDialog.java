@@ -104,19 +104,19 @@ public class PasswordInputDialog extends DialogFragment implements View.OnClickL
 
     public void reset() {
         piv_dg_password.clearPassword();
-        ll_dg_password.setVisibility(View.VISIBLE);
+        pk_dg_password.setVisibility(View.VISIBLE);
         pwp_dg_password.setVisibility(View.GONE);
     }
 
     public void loadSuccess(CharSequence successText) {
         pwp_dg_password.setVisibility(View.VISIBLE);
-        ll_dg_password.setVisibility(View.INVISIBLE);
+        pk_dg_password.setVisibility(View.INVISIBLE);
         pwp_dg_password.loadSuccess(successText);
     }
 
     public void loadFail(CharSequence failText) {
         pwp_dg_password.setVisibility(View.VISIBLE);
-        ll_dg_password.setVisibility(View.INVISIBLE);
+        pk_dg_password.setVisibility(View.INVISIBLE);
         pwp_dg_password.loadFail(failText);
     }
 
@@ -125,7 +125,7 @@ public class PasswordInputDialog extends DialogFragment implements View.OnClickL
      */
     public void loadArc(CharSequence loadText) {
         pwp_dg_password.setVisibility(View.VISIBLE);
-        ll_dg_password.setVisibility(View.INVISIBLE);
+        pk_dg_password.setVisibility(View.INVISIBLE);
         pwp_dg_password.loadArc(loadText);
     }
 

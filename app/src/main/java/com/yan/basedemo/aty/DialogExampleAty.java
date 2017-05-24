@@ -168,7 +168,7 @@ public class DialogExampleAty extends BaseAty {
         @Override
         public void failAnimationEnd() {
             mSnackBarAndToastManager.showSnackBar(passwordInputDialog.getView(), "失败了动画结束");
-            passwordInputDialog.dismiss();
+            passwordInputDialog.reset();
         }
 
         @Override

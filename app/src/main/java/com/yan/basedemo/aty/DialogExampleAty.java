@@ -1,5 +1,6 @@
 package com.yan.basedemo.aty;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -175,11 +176,22 @@ public class DialogExampleAty extends BaseAty {
         public void onPasswordInputComplete(final CharSequence text) {
             mSnackBarAndToastManager.showSnackBar(passwordInputDialog.getView(), "输入结果是：" + text + "\n" + "正确的结果为：" + tempPassword + "\n");
             passwordInputDialog.loadArc("支付结果确认中...");
-            new Thread() {
+            final int resetTime = passwordInputDialog.getResetTime();
+            new Thread() { //每一次都要去舍弃上一次的结果，如果是网络请求，可以将当前的次数进行传递回来
                 @Override
                 public void run() {
                     try {
                         sleep(3 * 1000L);
+                        if (passwordInputDialog.getResetTime() != resetTime) {
+                            Log.e("yan", "无效");
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mSnackBarAndToastManager.showToast("this is the wrong result");
+                                }
+                            });
+                            return;
+                        }
                         if (text != null && text.toString().equals(tempPassword)) {
                             passwordInputDialog.cancelAllLoading();
                             passwordInputDialog.loadSuccess("支付完成");

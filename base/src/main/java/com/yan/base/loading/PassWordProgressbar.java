@@ -356,29 +356,16 @@ public class PassWordProgressbar extends View {
     public void loadArc(CharSequence loadText) {
         if (loadingStatus != LOAD_STATUS_ARC) {
             cancelAllLoading();
+            loadingStatus = LOAD_STATUS_ARC;
             if (loadText == null && loadText.length() == msg.length()) {
                 msg = loadText;
-                post(new Runnable() {
-                    @Override
-                    public void run() {
-                        loadingStatus = LOAD_STATUS_ARC;
-                        invalidate();
-                        animatorPlay();
-                    }
-                });
+                invalidate();
             } else {
                 setTextRectSize(loadText);
-                post(new Runnable() {
-                    @Override
-                    public void run() {
-                        loadingStatus = LOAD_STATUS_ARC;
-                        requestLayout();
-                        invalidate();
-                        animatorPlay();
-                    }
-                });
+                requestLayout();
+                invalidate();
             }
-
+            animatorPlay();
         }
     }
 
@@ -394,26 +381,14 @@ public class PassWordProgressbar extends View {
         }
         if (loadingStatus != LOAD_STATUS_SUCCESS) {
             tickAnimation.initStartPoint(arcRectF.left, arcRectF.top);
+            loadingStatus = LOAD_STATUS_SUCCESS;
             if (text == null && text.length() == msg.length()) {
                 msg = text;
-                post(new Runnable() {
-                    @Override
-                    public void run() {
-                        loadingStatus = LOAD_STATUS_SUCCESS;
-                        startAnimation(tickAnimation);//会触发invalide
-                    }
-                });
             } else {
                 setTextRectSize(text);
-                post(new Runnable() {
-                    @Override
-                    public void run() {
-                        loadingStatus = LOAD_STATUS_SUCCESS;
-                        requestLayout();
-                        startAnimation(tickAnimation);//会触发invalide
-                    }
-                });
+                requestLayout();
             }
+            startAnimation(tickAnimation);//会触发invalide
         }
     }
 
@@ -430,26 +405,14 @@ public class PassWordProgressbar extends View {
         }
         if (loadingStatus != LOAD_STATUS_FAIL) {
             crossAnimation.initStartPoint(arcRectF.left, arcRectF.top);
+            loadingStatus = LOAD_STATUS_FAIL;
             if (text == null && text.length() == msg.length()) {
                 msg = text;
-                post(new Runnable() {
-                    @Override
-                    public void run() {
-                        loadingStatus = LOAD_STATUS_FAIL;
-                        startAnimation(crossAnimation);//会触发invalide
-                    }
-                });
             } else {
                 setTextRectSize(text);
-                post(new Runnable() {
-                    @Override
-                    public void run() {
-                        loadingStatus = LOAD_STATUS_FAIL;
-                        requestLayout();
-                        startAnimation(crossAnimation);//会触发invalide
-                    }
-                });
+                requestLayout();
             }
+            startAnimation(crossAnimation);//会触发invalide
         }
     }
 
@@ -458,16 +421,11 @@ public class PassWordProgressbar extends View {
      */
     public void cancelLoadingArc() {
         if (loadingStatus == LOAD_STATUS_ARC || (arcAnimatorSet != null && arcAnimatorSet.isRunning())) {
-            post(new Runnable() {
-                @Override
-                public void run() {
-                    arcAnimatorSet.cancel();
-                    loadingStatus = LOAD_STATUS_NONE;
-                    postInvalidate();
-                    startAngle = START_ANGLE;
-                    sweepAngle = MIN_ANGLE - 15;
-                }
-            });
+            arcAnimatorSet.cancel();
+            loadingStatus = LOAD_STATUS_NONE;
+            invalidate();
+            startAngle = START_ANGLE;
+            sweepAngle = MIN_ANGLE - 15;
         }
     }
 
@@ -487,7 +445,9 @@ public class PassWordProgressbar extends View {
      */
     private void cancelLoadingSuccess() {
         if (loadingStatus == LOAD_STATUS_ARC || (tickAnimation != null && !tickAnimation.hasEnded())) {
-            cancelOtherThread();
+            clearAnimation();
+            loadingStatus = LOAD_STATUS_NONE;
+            invalidate();
         }
     }
 
@@ -496,21 +456,12 @@ public class PassWordProgressbar extends View {
      */
     private void cancelLoadingFail() {
         if (loadingStatus == LOAD_STATUS_ARC || (crossAnimation != null && !crossAnimation.hasEnded())) {
-            cancelOtherThread();
-
+            clearAnimation();
+            loadingStatus = LOAD_STATUS_NONE;
+            invalidate();
         }
     }
 
-    private void cancelOtherThread() {
-        post(new Runnable() {
-            @Override
-            public void run() {
-                clearAnimation();
-                loadingStatus = LOAD_STATUS_NONE;
-                invalidate();
-            }
-        });
-    }
 
     private void setTextRectSize(CharSequence text) {
         msg = text;

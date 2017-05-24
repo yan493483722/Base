@@ -43,6 +43,8 @@ public class PasswordInputDialog extends DialogFragment implements View.OnClickL
 
     PasswordInputDialogListener passwordInputDialogListener;
 
+    private int resetTime = 0;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,38 +104,81 @@ public class PasswordInputDialog extends DialogFragment implements View.OnClickL
         }
     }
 
-    public void reset() {
-        piv_dg_password.clearPassword();
-        pk_dg_password.setVisibility(View.VISIBLE);
-        pwp_dg_password.setVisibility(View.GONE);
+    public int reset() {
+        mAty.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                piv_dg_password.clearPassword();
+                pk_dg_password.setVisibility(View.VISIBLE);
+                pwp_dg_password.setVisibility(View.GONE);
+            }
+        });
+        return resetTime == Integer.MAX_VALUE ? -1 : resetTime++;
     }
 
-    public void loadSuccess(CharSequence successText) {
-        pwp_dg_password.setVisibility(View.VISIBLE);
-        pk_dg_password.setVisibility(View.INVISIBLE);
-        pwp_dg_password.loadSuccess(successText);
+    public void loadSuccess(final CharSequence successText) {
+        mAty.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                pwp_dg_password.setVisibility(View.VISIBLE);
+                pk_dg_password.setVisibility(View.INVISIBLE);
+                pwp_dg_password.loadSuccess(successText);
+            }
+        });
+
     }
 
-    public void loadFail(CharSequence failText) {
-        pwp_dg_password.setVisibility(View.VISIBLE);
-        pk_dg_password.setVisibility(View.INVISIBLE);
-        pwp_dg_password.loadFail(failText);
+    public void loadFail(final CharSequence failText) {
+        mAty.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                pwp_dg_password.setVisibility(View.VISIBLE);
+                pk_dg_password.setVisibility(View.INVISIBLE);
+                pwp_dg_password.loadFail(failText);
+            }
+        });
+
     }
 
     /**
      * 开始加载
      */
-    public void loadArc(CharSequence loadText) {
-        pwp_dg_password.setVisibility(View.VISIBLE);
-        pk_dg_password.setVisibility(View.INVISIBLE);
-        pwp_dg_password.loadArc(loadText);
+    public void loadArc(final CharSequence loadText) {
+        mAty.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                pwp_dg_password.setVisibility(View.VISIBLE);
+                pk_dg_password.setVisibility(View.INVISIBLE);
+                pwp_dg_password.loadArc(loadText);
+            }
+        });
     }
 
     /**
      * 如果在加载loading 就取消loading 如果再加载success 就取消success 如果在加载 fail 就取消fail
      */
     public void cancelAllLoading() {
-        pwp_dg_password.cancelAllLoading();
+        mAty.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                pwp_dg_password.cancelAllLoading();
+            }
+        });
+    }
+
+    /**
+     * 重设的次数，进来时候默认为0，重设之后依次累加，如果多次用到当前的对象，
+     * 可以先获取当前的值，然后获取重设之后的值，来判断是否是当前有效次数的值
+     * 无效的UI不需要变化
+     * final int resetTimeThisTime =swordInputDialog.getResetTime();
+     * if (passwordInputDialog.getResetTime() != resetTimeThisTime) {
+     * not match  the UI  do not need change
+     * }
+     *
+     * @return
+     */
+    public int getResetTime() {
+        return resetTime;
     }
 
     private PasswordKeyboard.ClickKeyListener clickKeyListener = new PasswordKeyboard.ClickKeyListener() {

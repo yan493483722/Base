@@ -38,7 +38,8 @@ public class PermissionManager {
     /**
      * 请求权限
      *
-     * @param permissions 请求的权限的数组
+     * @param permissions 请求的权限的数组 new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE},
+     *                      CODE_FOR_WRITE_PERMISSION
      * @param requestCode 请求权限的请求码  requestCode 建议设置范围为10-99
      */
     public void requestPermission(String[] permissions, int requestCode, PermissionListener permissionListener) {

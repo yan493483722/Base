@@ -157,10 +157,9 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
      *
      * @param permissions
      * @param requestCode
-     * @param permissionListener
      */
-    public void requestPermission(String[] permissions, int requestCode, PermissionListener permissionListener) {
-        mPermissionManager.requestPermission(permissions, requestCode, permissionListener);
+    public void requestPermission(String[] permissions, int requestCode) {
+        mPermissionManager.requestPermission(permissions, requestCode);
     }
 
     @Override

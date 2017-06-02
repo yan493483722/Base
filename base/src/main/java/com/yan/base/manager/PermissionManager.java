@@ -1,11 +1,8 @@
 package com.yan.base.manager;
 
 import android.annotation.TargetApi;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 
@@ -17,7 +14,8 @@ import java.util.List;
 
 /**
  * Created by YanZi on 2017/4/12.
- * describe：
+ * describe：在所在的activity onRequestPermissionsResult方法
+ * 中调用 permissionManager.onRequestPermissionsResult(requestCode,permissions,grantResults);
  * modify:
  * modify date:
  */
@@ -39,13 +37,12 @@ public class PermissionManager {
      * 请求权限
      *
      * @param permissions 请求的权限的数组 new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE},
-     *                      CODE_FOR_WRITE_PERMISSION
+     *                    CODE_FOR_WRITE_PERMISSION
      * @param requestCode 请求权限的请求码  requestCode 建议设置范围为10-99
      */
-    public void requestPermission(String[] permissions, int requestCode, PermissionListener permissionListener) {
+    public void requestPermission(String[] permissions, int requestCode) {
         this.REQUEST_CODE_PERMISSION = requestCode;
         if (checkPermissions(permissions)) {//是否有这个权限
-            listener = permissionListener;
             if (listener != null) {
                 listener.permissionSuccess(REQUEST_CODE_PERMISSION);  //有权限进入成功的回调
             }

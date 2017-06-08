@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * Created by YanZi on 2017/4/12.
- * describe：在所在的activity onRequestPermissionsResult方法
+ * describe：在所在的activity onRequestPermissionsResult方法，6.0以下也可以直接调用
  * 中调用 permissionManager.onRequestPermissionsResult(requestCode,permissions,grantResults);
  * modify:
  * modify date:
@@ -51,6 +51,10 @@ public class PermissionManager {
                 List<String> needPermissions = getDeniedPermissions(permissions);
                 // 第二个参数 不要设置为-1 如果为-1的话第一次不会执行
                 baseAty.requestPermissions(needPermissions.toArray(new String[needPermissions.size()]), REQUEST_CODE_PERMISSION);
+            } else {//6.0以下
+                if (listener != null) {
+                    listener.permissionSuccess(REQUEST_CODE_PERMISSION);  //有权限进入成功的回调
+                }
             }
         }
     }

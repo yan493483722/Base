@@ -53,6 +53,7 @@ public class PasswordInputDialog extends DialogFragment implements View.OnClickL
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         return inflater.inflate(R.layout.dg_password_input, container, false);
     }
 

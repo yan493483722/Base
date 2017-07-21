@@ -23,6 +23,13 @@
         android:text="loading" />
 
     <Button
+        android:id="@+id/btn_multi_download"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="multi download" />
+
+
+    <Button
         android:id="@+id/btn_main_permission"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 
 import com.yan.base.BaseAty;
 import com.yan.basedemo.aty.DialogExampleAty;
+import com.yan.basedemo.aty.MultiDownloadAty;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,6 +25,8 @@ public class MainAty extends BaseAty {
     Button btnMainWeb;
     @BindView(R.id.aty_main)
     LinearLayout atyMain;
+    @BindView(R.id.btn_multi_download)
+    Button btnMultiDownload;
 
 
     @Override
@@ -32,7 +35,7 @@ public class MainAty extends BaseAty {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.btn_main_dialog, R.id.btn_main_loading, R.id.btn_main_permission, R.id.btn_main_web})
+    @OnClick({R.id.btn_main_dialog, R.id.btn_main_loading, R.id.btn_main_permission, R.id.btn_main_web, R.id.btn_multi_download})
     public void click(View view) {
         switch (view.getId()) {
             case R.id.btn_main_dialog:
@@ -48,6 +51,9 @@ public class MainAty extends BaseAty {
             case R.id.btn_main_web:
                 mSnackBarAndToastManager.showSnackBar("main web");
                 break;
+            case R.id.btn_multi_download:
+                startActivity(new Intent(mAty, MultiDownloadAty.class));
+                break;
             default:
                 break;
         }
@@ -62,4 +68,5 @@ public class MainAty extends BaseAty {
     public void initData() {
         needCatchKeycodeBack = true;
     }
+
 }

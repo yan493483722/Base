@@ -198,9 +198,9 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
         if (needCatchKeycodeBack) {
             if (clickKeycodeBackNum >= 1) {
                 //将当前进程移到背后
-//                        moveTaskToBack(true);
-                AppManager.getAppManager().finishAllActivity();
-                System.exit(0);//退出程序
+                        moveTaskToBack(true);
+//                AppManager.getAppManager().finishAllActivity();
+//                System.exit(0);//退出程序
             } else {
                 clickKeycodeBackNum++;
                 mSnackBarAndToastManager.showSnackBar("再次点击将退出应用");

@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import com.yan.base.BaseAty;
 import com.yan.basedemo.aty.DialogExampleAty;
 import com.yan.basedemo.aty.MultiDownloadAty;
+import com.yan.basedemo.aty.bar.StatusBarAty;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,8 +26,10 @@ public class MainAty extends BaseAty {
     Button btnMainWeb;
     @BindView(R.id.aty_main)
     LinearLayout atyMain;
-    @BindView(R.id.btn_multi_download)
-    Button btnMultiDownload;
+    @BindView(R.id.btn_main_status_bar)
+    Button btnMainStatusBar;
+    @BindView(R.id.btn_main_multi_download)
+    Button btnMainMultiDownload;
 
 
     @Override
@@ -35,7 +38,9 @@ public class MainAty extends BaseAty {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.btn_main_dialog, R.id.btn_main_loading, R.id.btn_main_permission, R.id.btn_main_web, R.id.btn_multi_download})
+    @OnClick({R.id.btn_main_dialog, R.id.btn_main_loading, R.id.btn_main_permission, R.id.btn_main_web,
+            R.id.btn_main_status_bar,
+            R.id.btn_main_multi_download})
     public void click(View view) {
         switch (view.getId()) {
             case R.id.btn_main_dialog:
@@ -51,7 +56,10 @@ public class MainAty extends BaseAty {
             case R.id.btn_main_web:
                 mSnackBarAndToastManager.showSnackBar("main web");
                 break;
-            case R.id.btn_multi_download:
+            case R.id.btn_main_status_bar:
+                startActivity(new Intent(mAty, StatusBarAty.class));
+                break;
+            case R.id.btn_main_multi_download:
                 startActivity(new Intent(mAty, MultiDownloadAty.class));
                 break;
             default:

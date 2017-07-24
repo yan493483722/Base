@@ -23,7 +23,12 @@
         android:text="loading" />
 
     <Button
-        android:id="@+id/btn_multi_download"
+        android:id="@+id/btn_main_status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="status bar" />
+  <Button
+        android:id="@+id/btn_main_multi_download"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="multi download" />

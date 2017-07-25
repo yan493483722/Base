@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 
@@ -16,6 +17,7 @@ import com.yan.base.listener.PermissionListener;
 import com.yan.base.manager.PermissionManager;
 import com.yan.base.manager.ProgressDialogManager;
 import com.yan.base.manager.SnackBarAndToastManager;
+import com.yan.base.widget.BaseToolbar;
 
 /**
  * 项目名称：Base
@@ -106,6 +108,8 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
 
         initView();
         initData();
+
+
     }
 
     /**
@@ -122,6 +126,11 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
      * 实例化数据：读取数据库数据，网络请求数据
      */
     public abstract void initData();
+
+    public void  setBaseToolbar(BaseToolbar toolbar){
+        setSupportActionBar(toolbar.tb_base_tb);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+    }
 
     /**
      * 捕获返回键

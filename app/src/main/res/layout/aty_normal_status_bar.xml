@@ -1,44 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/tb_normal_status_bar"
+    <com.yan.base.widget.BaseToolbar
+        android:id="@+id/btb_status_bar_normal"
         android:layout_width="match_parent"
-        android:background="?attr/colorPrimary"
-        android:layout_height="?attr/actionBarSize"
-        android:fitsSystemWindows="true"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
->
-        <!--自定义toolbar的title 和subtitle -->
-        <TextView
-            android:id="@+id/toolbar_subtitle"
-            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:lines="1"
-            android:textColor="@color/font_white"
-            android:text="subtitle"
-            android:paddingRight="10dp"
-            android:layout_gravity="right" />
+        android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/toolbar_title"
-            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:lines="1"
-            android:ellipsize="end"
-            android:text="title"
-            android:scrollHorizontally="true"
-            android:textColor="@color/font_white"
-            android:layout_gravity="center" />
-
-    </android.support.v7.widget.Toolbar>
+    <TextView
+        style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@color/font_red"
+        android:ellipsize="end"
+        android:lines="1"
+        android:scrollHorizontally="true"
+        android:text="正常的标题"
+        android:textColor="@color/font_white"
+        android:textSize="22sp" />
 
 </LinearLayout>

@@ -3,6 +3,8 @@ package com.yan.base;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -10,6 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.yan.base.application.AppManager;
 import com.yan.base.application.GlobalPreference;
@@ -136,6 +141,46 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
         setSupportActionBar(toolbar.tb_base_tb);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(showLeftIcon);
+
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//
+//        }
+        if (Build.VERSION.SDK_INT >=  Build.VERSION_CODES.LOLLIPOP) {
+            switch (toolbar.getBaseToolBarType()) {
+                case BaseToolbar.STATUS_BAR_TYPE_NORMAL:
+
+                    break;
+                case BaseToolbar.STATUS_BAR_TYPE_IMG:
+
+//                    toolbar.tb_base_tb.setPopupTheme(R.style.AppThemeFull);
+                    break;
+                case BaseToolbar.STATUS_BAR_TYPE_NO:
+
+                    break;
+                case BaseToolbar.STATUS_BAR_TYPE_FULL:
+                    setTheme(R.style.AppThemeFull);
+                    toolbar.tb_base_tb.setFitsSystemWindows(true);
+                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                    Window win = getWindow();
+                    WindowManager.LayoutParams winParams = win.getAttributes();
+                    final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+
+                    getWindow().getDecorView().setBackground(toolbar.tb_base_tb.getBackground());
+//                    if (on) {
+                        winParams.flags |= bits;
+//                    } else {
+//                        winParams.flags &= ~bits;
+//                    }
+                    win.setAttributes(winParams);
+
+                    break;
+                default:
+
+                    break;
+            }
+
+        }
+
     }
 
     /**

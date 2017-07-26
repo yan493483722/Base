@@ -1,6 +1,9 @@
 package com.yan.basedemo.aty.bar;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 
 import com.yan.base.BaseAty;
 import com.yan.base.widget.BaseToolbar;
@@ -24,6 +27,7 @@ public class NormalStatusBarAty extends BaseAty {
     @Override
     protected void initContentView() {
         setContentView(R.layout.aty_normal_status_bar);
+
         ButterKnife.bind(this);
         setBaseToolbar(btbStatusBarNormal,true);
         btbStatusBarNormal.setBaseToolbarListener(new BaseToolbar.BaseToolbarListener() {
@@ -39,13 +43,7 @@ public class NormalStatusBarAty extends BaseAty {
         });
         btbStatusBarNormal.setTitleText("正常的标题");
         btbStatusBarNormal.setRightText("确定");
-//        btbStatusBarNormal.setBaseToolbarStatusBarType(BaseToolbar.STATUS_BAR_TYPE_NORMAL);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            //透明状态栏
-//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//            //透明导航栏
-//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-//        }
+
 
     }
 

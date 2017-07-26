@@ -1,19 +1,18 @@
 package com.yan.base.widget;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yan.base.R;
@@ -28,14 +27,15 @@ public class BaseToolbar extends FrameLayout implements View.OnClickListener {
 
     private static final String TAG = "BaseToolbar";
 
-    public static final int STATUS_BAR_TYPE_NORMAL = 1;
-    public static final int STATUS_BAR_TYPE_IMG = STATUS_BAR_TYPE_NORMAL + 1;
+    public static final int STATUS_BAR_TYPE_NORMAL = 0;
+
+    public static final int STATUS_BAR_TYPE_FULL = STATUS_BAR_TYPE_NORMAL + 1;
+    public static final int STATUS_BAR_TYPE_IMG = STATUS_BAR_TYPE_FULL + 1;
     public static final int STATUS_BAR_TYPE_NO = STATUS_BAR_TYPE_IMG + 1;
-    public static final int STATUS_BAR_TYPE_FULL = STATUS_BAR_TYPE_NO + 1;
 
-
+    private int baseToolBarType = STATUS_BAR_TYPE_NORMAL;
     public Toolbar tb_base_tb;
-    LinearLayout ll_base_tb_right,ll_base_tb_left;
+    LinearLayout ll_base_tb_right, ll_base_tb_left;
     ImageView iv_base_tb_right;
     TextView tv_base_tb_right, tv_base_tb_title;
 
@@ -48,12 +48,12 @@ public class BaseToolbar extends FrameLayout implements View.OnClickListener {
 
     public BaseToolbar(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init(context);
+        init(context, attrs);
     }
 
     public BaseToolbar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
+        init(context, attrs);
     }
 
 
@@ -69,7 +69,7 @@ public class BaseToolbar extends FrameLayout implements View.OnClickListener {
 
     }
 
-    private void init(Context context) {
+    private void init(Context context, @Nullable AttributeSet attrs) {
         LayoutInflater.from(context).inflate(R.layout.toolbar_base, this);
         tb_base_tb = (Toolbar) findViewById(R.id.tb_base_tb);
         ll_base_tb_right = (LinearLayout) findViewById(R.id.ll_base_tb_right);
@@ -80,33 +80,20 @@ public class BaseToolbar extends FrameLayout implements View.OnClickListener {
 
         tb_base_tb.setNavigationIcon(R.drawable.icon_back);
 
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             tb_base_tb.setElevation(5);
         }
 
-    }
-
-
-    public void setBaseToolbarStatusBarType(int type) {
-        switch (type) {
-            case STATUS_BAR_TYPE_NORMAL:
-                tb_base_tb.setPopupTheme(R.style.AppTheme);
-                break;
-            case STATUS_BAR_TYPE_IMG:
-                tb_base_tb.setPopupTheme(R.style.AppTheme);
-                break;
-            case STATUS_BAR_TYPE_NO:
-                tb_base_tb.setPopupTheme(R.style.AppTheme);
-                break;
-            case STATUS_BAR_TYPE_FULL:
-                tb_base_tb.setPopupTheme(R.style.AppTheme);
-                break;
-            default:
-                tb_base_tb.setPopupTheme(R.style.AppTheme);
-                break;
+        if (attrs != null) {
+            TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.BaseToolBar);
+            baseToolBarType = typedArray.getInteger(R.styleable.BaseToolBar_baseToolBarType, STATUS_BAR_TYPE_NORMAL);
+            typedArray.recycle();
         }
+
+
     }
+
+
 
     public void setTitleText(String title) {
         tv_base_tb_title.setText(title);
@@ -131,6 +118,13 @@ public class BaseToolbar extends FrameLayout implements View.OnClickListener {
         }
     }
 
+    public int getBaseToolBarType() {
+        return baseToolBarType;
+    }
+
+    public void setBaseToolBarType(int baseToolBarType) {
+        this.baseToolBarType = baseToolBarType;
+    }
 
     public interface BaseToolbarListener {
 

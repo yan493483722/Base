@@ -6,17 +6,17 @@
     android:layout_height="?attr/actionBarSize"
     android:background="?attr/colorPrimary"
     android:fitsSystemWindows="true"
-    app:contentInsetStart="0dp"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+    app:contentInsetStart="0dp">
 
-    <RelativeLayout
-        android:id="@+id/rl_base_tb_right"
+    <LinearLayout
+        android:id="@+id/ll_base_tb_right"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:paddingLeft="@dimen/padding_all_left_right"
+        android:paddingRight="@dimen/padding_all_left_right"
         android:layout_gravity="right"
         android:gravity="center"
-        android:paddingLeft="@dimen/padding_all_left_right"
-        android:paddingRight="@dimen/padding_all_left_right">
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/iv_base_tb_right"
@@ -30,9 +30,9 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:lines="1"
-            android:textColor="@color/font_white" />
+            android:textColor="@drawable/selector_text_white_to_light" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_base_tb_title"
@@ -40,6 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:background="@color/transparent"
         android:ellipsize="end"
         android:lines="1"
         android:scrollHorizontally="true"
@@ -47,5 +48,15 @@
         android:textSize="22sp"
         app:contentInsetStart="0dp" />
 
+    <LinearLayout
+        android:id="@+id/ll_base_tb_left"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/padding_all_left_right"
+        android:paddingRight="@dimen/padding_all_left_right">
 
+    </LinearLayout>
 </android.support.v7.widget.Toolbar>

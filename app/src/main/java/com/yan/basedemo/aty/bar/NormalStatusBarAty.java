@@ -25,7 +25,7 @@ public class NormalStatusBarAty extends BaseAty {
     protected void initContentView() {
         setContentView(R.layout.aty_normal_status_bar);
         ButterKnife.bind(this);
-        setBaseToolbar(btbStatusBarNormal);
+        setBaseToolbar(btbStatusBarNormal,true);
         btbStatusBarNormal.setBaseToolbarListener(new BaseToolbar.BaseToolbarListener() {
             @Override
             public void clickLeft() {
@@ -34,7 +34,7 @@ public class NormalStatusBarAty extends BaseAty {
 
             @Override
             public void clickRight() {
-
+                mSnackBarAndToastManager.showSnackBar("右侧点击");
             }
         });
         btbStatusBarNormal.setTitleText("正常的标题");

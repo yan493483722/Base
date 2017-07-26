@@ -127,9 +127,15 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
      */
     public abstract void initData();
 
-    public void  setBaseToolbar(BaseToolbar toolbar){
+    /**
+     *
+     * @param toolbar
+     * @param showLeftIcon
+     */
+    public void  setBaseToolbar(BaseToolbar toolbar,boolean showLeftIcon){
         setSupportActionBar(toolbar.tb_base_tb);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(showLeftIcon);
     }
 
     /**

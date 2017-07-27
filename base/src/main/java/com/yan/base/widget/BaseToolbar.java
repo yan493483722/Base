@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
@@ -28,7 +29,6 @@ public class BaseToolbar extends FrameLayout implements View.OnClickListener {
     private static final String TAG = "BaseToolbar";
 
     public static final int STATUS_BAR_TYPE_NORMAL = 0;
-
     public static final int STATUS_BAR_TYPE_FULL = STATUS_BAR_TYPE_NORMAL + 1;
     public static final int STATUS_BAR_TYPE_IMG = STATUS_BAR_TYPE_FULL + 1;
     public static final int STATUS_BAR_TYPE_NO = STATUS_BAR_TYPE_IMG + 1;
@@ -41,8 +41,11 @@ public class BaseToolbar extends FrameLayout implements View.OnClickListener {
 
     private BaseToolbarListener baseToolbarListener;
 
+    private @ColorInt  int backgroundColor;
+
     public BaseToolbar(Context context) {
-        this(context, null);
+        super(context);
+        init(context,null);
     }
 
 
@@ -87,10 +90,9 @@ public class BaseToolbar extends FrameLayout implements View.OnClickListener {
         if (attrs != null) {
             TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.BaseToolBar);
             baseToolBarType = typedArray.getInteger(R.styleable.BaseToolBar_baseToolBarType, STATUS_BAR_TYPE_NORMAL);
+            backgroundColor = typedArray.getColor(R.styleable.BaseToolBar_baseToolBarColor, getResources().getColor(R.color.colorPrimary));
             typedArray.recycle();
         }
-
-
     }
 
 
@@ -124,6 +126,16 @@ public class BaseToolbar extends FrameLayout implements View.OnClickListener {
 
     public void setBaseToolBarType(int baseToolBarType) {
         this.baseToolBarType = baseToolBarType;
+    }
+
+    @Override
+    public void setBackgroundColor(@ColorInt int color) {
+        super.setBackgroundColor(color);
+        this.backgroundColor=color;
+    }
+
+    public int getBackgroundColor() {
+        return backgroundColor;
     }
 
     public interface BaseToolbarListener {

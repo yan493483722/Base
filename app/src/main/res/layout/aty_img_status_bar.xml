@@ -2,7 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:baseToolBar="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
+
+    <com.yan.base.widget.BaseToolbar
+        android:id="@+id/btb_status_bar_full"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        baseToolBar:baseToolBarType="img" />
 
 </LinearLayout>

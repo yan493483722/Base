@@ -8,11 +8,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -75,7 +77,6 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
     protected boolean isFirstPage;
 
 
-
     /**
      * 权限请求manager
      */
@@ -133,24 +134,31 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
     public abstract void initData();
 
     /**
-     *
      * @param toolbar
      * @param showLeftIcon
      */
-    public void  setBaseToolbar(BaseToolbar toolbar,boolean showLeftIcon){
+    public void setBaseToolbar(BaseToolbar toolbar, boolean showLeftIcon) {
         setSupportActionBar(toolbar.tb_base_tb);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(showLeftIcon);
-
+        toolbar.tb_base_tb.setBackgroundColor(toolbar.getBackgroundColor());
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 //
 //        }
-        if (Build.VERSION.SDK_INT >=  Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             switch (toolbar.getBaseToolBarType()) {
                 case BaseToolbar.STATUS_BAR_TYPE_NORMAL:
-
+                    setTheme(R.style.AppTheme);
                     break;
                 case BaseToolbar.STATUS_BAR_TYPE_IMG:
+                    setTheme(R.style.AppTheme);
+                    View decorView = getWindow().getDecorView();
+                    int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+                    decorView.setSystemUiVisibility(option);
+                    getWindow().setStatusBarColor(Color.TRANSPARENT);
+                    ActionBar actionBar = getSupportActionBar();
+                    actionBar.hide();
 
 //                    toolbar.tb_base_tb.setPopupTheme(R.style.AppThemeFull);
                     break;
@@ -159,20 +167,37 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
                     break;
                 case BaseToolbar.STATUS_BAR_TYPE_FULL:
                     setTheme(R.style.AppThemeFull);
+                    Window window = getWindow();
+
+                    window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                    window.setStatusBarColor(toolbar.getBackgroundColor());
+                    window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
                     toolbar.tb_base_tb.setFitsSystemWindows(true);
-                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-                    Window win = getWindow();
-                    WindowManager.LayoutParams winParams = win.getAttributes();
-                    final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+                    ViewGroup mContentView = (ViewGroup) window.findViewById(Window.ID_ANDROID_CONTENT);
+                    View mChildView = mContentView.getChildAt(0);
+                    if (mChildView != null) {
+                        ViewCompat.setFitsSystemWindows(mChildView, false);
+                        ViewCompat.requestApplyInsets(mChildView);
+                    }
 
-                    getWindow().getDecorView().setBackground(toolbar.tb_base_tb.getBackground());
-//                    if (on) {
-                        winParams.flags |= bits;
+
+
+                    //取消设置透明状态栏,使 ContentView 内容不再覆盖状态栏
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                    //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
+                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                    //设置状态栏颜色
+                    getWindow().setStatusBarColor(toolbar.getBackgroundColor());
+//                    View decor = getWindow().getDecorView();
+//                    int ui = decor.getSystemUiVisibility();
+//                    getWindow().getStatusBarColor()
+//                    if (lightStatusBar) {
+//                        ui |=View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
 //                    } else {
-//                        winParams.flags &= ~bits;
+//                        ui &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
 //                    }
-                    win.setAttributes(winParams);
-
+//                    decor.setSystemUiVisibility(ui);
                     break;
                 default:
 
@@ -258,7 +283,7 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
         if (needCatchKeycodeBack) {
             if (clickKeycodeBackNum >= 1) {
                 //将当前进程移到背后
-                        moveTaskToBack(true);
+                moveTaskToBack(true);
 //                AppManager.getAppManager().finishAllActivity();
 //                System.exit(0);//退出程序
             } else {

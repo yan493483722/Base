@@ -38,5 +38,6 @@
             <flag name="full" value="1" />
             <flag name="img" value="2" />
         </attr>
+        <attr name="baseToolBarColor" format="reference|color" />
     </declare-styleable>
 </resources>

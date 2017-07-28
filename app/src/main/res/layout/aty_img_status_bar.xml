@@ -7,9 +7,15 @@
 
 
     <com.yan.base.widget.BaseToolbar
-        android:id="@+id/btb_status_bar_full"
+        android:id="@+id/btb_status_bar_img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        baseToolBar:baseToolBarColor="@color/transparent"
         baseToolBar:baseToolBarType="img" />
 
+    <ImageView
+        android:id="@+id/img_status"
+        android:src="@drawable/img_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

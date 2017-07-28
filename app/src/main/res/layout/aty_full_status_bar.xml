@@ -9,7 +9,7 @@
         android:id="@+id/btb_status_bar_full"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        baseToolBar:baseToolBarColor="#FFFFFF"
+        baseToolBar:baseToolBarColor="@color/colorPrimary"
         baseToolBar:baseToolBarType="full" />
 
 

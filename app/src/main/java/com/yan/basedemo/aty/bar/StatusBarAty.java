@@ -1,14 +1,11 @@
 package com.yan.basedemo.aty.bar;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 import com.yan.base.BaseAty;
 import com.yan.basedemo.R;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -19,23 +16,6 @@ import butterknife.OnClick;
  * modify date:
  */
 public class StatusBarAty extends BaseAty {
-
-    @BindView(R.id.btn_status_bar_full)
-    Button btnStatusBarFull;
-    @BindView(R.id.btn_status_bar_normal)
-    Button btnStatusBarNormal;
-    @BindView(R.id.btn_status_bar_img)
-    Button btnStatusBarImg;
-    @BindView(R.id.btn_status_bar_slide)
-    Button btnStatusBarSlide;
-    @BindView(R.id.btn_status_bar_fragment)
-    Button btnStatusBarFragment;
-    @BindView(R.id.btn_status_bar_expend)
-    Button btnStatusBarExpend;
-    @BindView(R.id.btn_status_bar_search)
-    Button btnStatusBarSearch;
-    @BindView(R.id.btn_status_bar_more)
-    Button btnStatusBarMore;
 
     @Override
     protected void initContentView() {
@@ -54,7 +34,9 @@ public class StatusBarAty extends BaseAty {
     }
 
 
-    @OnClick({R.id.btn_status_bar_full, R.id.btn_status_bar_normal, R.id.btn_status_bar_img, R.id.btn_status_bar_slide
+    @OnClick({R.id.btn_status_bar_full, R.id.btn_status_bar_normal, R.id.btn_status_bar_normal_img
+            , R.id.btn_status_bar_full_img
+            , R.id.btn_status_bar_slide
             , R.id.btn_status_bar_fragment, R.id.btn_status_bar_expend, R.id.btn_status_bar_search, R.id.btn_status_bar_more
     })
     void click(View view) {
@@ -65,8 +47,11 @@ public class StatusBarAty extends BaseAty {
             case R.id.btn_status_bar_normal:
                 startActivity(new Intent(mAty, NormalStatusBarAty.class));
                 break;
-            case R.id.btn_status_bar_img:
-                startActivity(new Intent(mAty, ImgStatusBarAty.class));
+            case R.id.btn_status_bar_normal_img:
+                startActivity(new Intent(mAty, ImgNormalStatusBarAty.class));
+                break;
+            case R.id.btn_status_bar_full_img:
+                startActivity(new Intent(mAty, ImgFullStatusBarAty.class));
                 break;
             case R.id.btn_status_bar_slide:
                 startActivity(new Intent(mAty, SlideStatusBarAty.class));

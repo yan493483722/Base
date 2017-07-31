@@ -30,8 +30,8 @@ public class BaseToolbar extends FrameLayout implements View.OnClickListener {
 
     public static final int STATUS_BAR_TYPE_NORMAL = 0;
     public static final int STATUS_BAR_TYPE_FULL = STATUS_BAR_TYPE_NORMAL + 1;
-    public static final int STATUS_BAR_TYPE_IMG = STATUS_BAR_TYPE_FULL + 1;
-    public static final int STATUS_BAR_TYPE_NO = STATUS_BAR_TYPE_IMG + 1;
+    public static final int STATUS_BAR_TYPE_IMG_NORMAL = STATUS_BAR_TYPE_FULL + 1;
+    public static final int STATUS_BAR_TYPE_IMG_FULL = STATUS_BAR_TYPE_IMG_NORMAL + 1;
 
     private int baseToolBarType = STATUS_BAR_TYPE_NORMAL;
     public Toolbar tb_base_tb;

@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
  * modify:
  * modify date:
  */
-public class ImgStatusBarAty extends BaseAty {
+public class ImgFullStatusBarAty extends BaseAty {
     @BindView(R.id.btb_status_bar_img)
     BaseToolbar btbStatusBarImg;
     @BindView(R.id.img_status)
@@ -23,7 +23,7 @@ public class ImgStatusBarAty extends BaseAty {
 
     @Override
     protected void initContentView() {
-        setContentView(R.layout.aty_img_status_bar);
+        setContentView(R.layout.aty_img_full_status_bar);
         ButterKnife.bind(this);
     }
 

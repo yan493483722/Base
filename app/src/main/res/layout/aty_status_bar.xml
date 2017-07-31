@@ -19,10 +19,17 @@
         android:text="正常的状态栏" />
 
     <Button
-        android:id="@+id/btn_status_bar_img"
+        android:id="@+id/btn_status_bar_normal_img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="图片状态栏" />
+        android:text="正常图片状态栏" />
+
+
+    <Button
+        android:id="@+id/btn_status_bar_full_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="全屏图片状态栏" />
 
     <Button
         android:id="@+id/btn_status_bar_slide"

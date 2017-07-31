@@ -36,7 +36,8 @@
         <attr name="baseToolBarType">
             <flag name="normal" value="0" />
             <flag name="full" value="1" />
-            <flag name="img" value="2" />
+            <flag name="img_normal" value="2" />
+            <flag name="img_full" value="3" />
         </attr>
         <attr name="baseToolBarColor" format="reference|color" />
     </declare-styleable>

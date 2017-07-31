@@ -18,6 +18,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         baseToolBar:baseToolBarColor="@color/transparent"
-        baseToolBar:baseToolBarType="img" />
+        baseToolBar:baseToolBarType="img_normal" />
 
 </RelativeLayout>

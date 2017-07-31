@@ -12,7 +12,6 @@
     </style>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="@style/BaseAppTheme" >
-
     </style>
 
     <style name="AppThemeFull" parent="@style/BaseAppTheme">

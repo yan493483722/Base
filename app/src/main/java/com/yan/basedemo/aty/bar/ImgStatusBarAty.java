@@ -1,6 +1,5 @@
 package com.yan.basedemo.aty.bar;
 
-import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.yan.base.BaseAty;
@@ -31,8 +30,8 @@ public class ImgStatusBarAty extends BaseAty {
     @Override
     protected void initView() {
         setBaseToolbar(btbStatusBarImg, true);
-        btbStatusBarImg.setTitleText("全屏的状态栏");
-        btbStatusBarImg.setRightText("全屏");
+        btbStatusBarImg.setTitleText("图片的状态栏");
+        btbStatusBarImg.setRightText("图片");
 
         btbStatusBarImg.setBaseToolbarListener(new BaseToolbar.BaseToolbarListener() {
             @Override

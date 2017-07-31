@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:baseToolBar="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
+
+    <ImageView
+        android:id="@+id/img_status"
+        android:src="@drawable/img_toolbar"
+        android:layout_width="match_parent"
+        android:scaleType="fitXY"
+        android:layout_height="wrap_content"/>
 
     <com.yan.base.widget.BaseToolbar
         android:id="@+id/btb_status_bar_img"
@@ -13,9 +20,4 @@
         baseToolBar:baseToolBarColor="@color/transparent"
         baseToolBar:baseToolBarType="img" />
 
-    <ImageView
-        android:id="@+id/img_status"
-        android:src="@drawable/img_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-</LinearLayout>
+</RelativeLayout>

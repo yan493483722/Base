@@ -9,10 +9,10 @@ import com.yan.basedemo.R;
  * modify:
  * modify date:
  */
-public class NoStatusBarAty extends BaseAty {
+public class SlideStatusBarAty extends BaseAty {
     @Override
     protected void initContentView() {
-        setContentView(R.layout.aty_no_status_bar);
+        setContentView(R.layout.aty_slide_status_bar);
     }
 
     @Override

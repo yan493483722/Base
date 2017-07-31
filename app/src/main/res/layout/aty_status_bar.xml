@@ -25,8 +25,33 @@
         android:text="图片状态栏" />
 
     <Button
-        android:id="@+id/btn_status_bar_no"
+        android:id="@+id/btn_status_bar_slide"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="没有状态栏" />
+        android:text="侧滑" />
+
+    <Button
+        android:id="@+id/btn_status_bar_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="fragment" />
+
+    <Button
+        android:id="@+id/btn_status_bar_expend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="仿微博头部" />
+
+    <Button
+        android:id="@+id/btn_status_bar_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="搜索" />
+
+    <Button
+        android:id="@+id/btn_status_bar_more"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="更多" />
+
 </LinearLayout>

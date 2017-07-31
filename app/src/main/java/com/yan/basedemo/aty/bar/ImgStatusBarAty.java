@@ -3,7 +3,7 @@ package com.yan.basedemo.aty.bar;
 import android.widget.ImageView;
 
 import com.yan.base.BaseAty;
-import com.yan.base.widget.BaseToolbar;
+import com.yan.base.toolbar.BaseToolbar;
 import com.yan.basedemo.R;
 
 import butterknife.BindView;

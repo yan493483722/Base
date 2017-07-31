@@ -27,7 +27,7 @@ import com.yan.base.listener.PermissionListener;
 import com.yan.base.manager.PermissionManager;
 import com.yan.base.manager.ProgressDialogManager;
 import com.yan.base.manager.SnackBarAndToastManager;
-import com.yan.base.widget.BaseToolbar;
+import com.yan.base.toolbar.BaseToolbar;
 
 /**
  * 项目名称：Base
@@ -145,6 +145,8 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(showLeftIcon);
         toolbar.tb_base_tb.setBackgroundColor(toolbar.getBackgroundColor());
+
+
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 //
 //        }

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.yan.base.widget.BaseToolbar
+    <com.yan.base.toolbar.BaseToolbar
         android:id="@+id/btb_status_bar_full"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

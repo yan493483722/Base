@@ -38,7 +38,7 @@ public class BaseToolbarUtil {
                 baseAty.setTheme(R.style.AppThemeFull);
                 setFullStatus(toolbar, baseAty);
                 if (mainContent != null) {
-                    setSlideStatusBarFull(mainContent, baseAty, toolbar.getBackgroundColor());
+                    setSlideStatusBarFull(toolbar, baseAty);
                 }
                 break;
             case BaseToolbar.STATUS_BAR_TYPE_IMG_NORMAL:
@@ -128,32 +128,13 @@ public class BaseToolbarUtil {
         window.setStatusBarColor(Color.TRANSPARENT);
     }
 
-    public static void setSlideStatusBarFull(ViewGroup viewGroup, Activity baseAty, int color) {
-        viewGroup.addView(createStatusView(baseAty, color));
-        viewGroup.setPadding(0, getStatusBarHeight(baseAty), 0, 0);
-        viewGroup.setClipToPadding(true);
+    public static void setSlideStatusBarFull(BaseToolbar toolbar, Activity baseAty) {
         Window window = baseAty.getWindow();
         window.setStatusBarColor(Color.TRANSPARENT);
+        toolbar.setFitsSystemWindows(true);
+        toolbar.setPadding(0, getStatusBarHeight(baseAty), 0, 0);
+        toolbar.setBackgroundColor(toolbar.getBackgroundColor());
+        toolbar.setClipToPadding(true);
     }
 
-    /**
-     * 生成一个和状态栏大小相同的矩形条
-     *
-     * @param activity 需要设置的activity
-     * @param color    状态栏颜色值
-     * @return 状态栏矩形条
-     */
-    private static View createStatusView(Activity activity, int color) {
-        // 获得状态栏高度
-        int resourceId = activity.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        int statusBarHeight = activity.getResources().getDimensionPixelSize(resourceId);
-
-        // 绘制一个和状态栏一样高的矩形
-        View statusView = new View(activity);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                statusBarHeight);
-        statusView.setLayoutParams(params);
-        statusView.setBackgroundColor(color);
-        return statusView;
-    }
 }

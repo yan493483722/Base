@@ -94,6 +94,8 @@ public class BaseToolbar extends FrameLayout implements View.OnClickListener {
             backgroundColor = typedArray.getColor(R.styleable.BaseToolBar_baseToolBarColor, getResources().getColor(R.color.colorPrimary));
             typedArray.recycle();
         }
+
+        tb_base_tb.setBackgroundColor(backgroundColor);
     }
 
 

@@ -149,7 +149,6 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
         setSupportActionBar(toolbar.tb_base_tb);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(showLeftIcon);
-        toolbar.tb_base_tb.setBackgroundColor(toolbar.getBackgroundColor());
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
             BaseToolbarUtil.setBaseToolbar(toolbar, mAty,mainContent);
         }

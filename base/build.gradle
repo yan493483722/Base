@@ -31,7 +31,7 @@ dependencies {
     compile 'com.android.support:support-v4:25.3.0'
     compile 'com.android.support:appcompat-v7:25.3.0'
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:design:25.0.0'
+    compile 'com.android.support:design:25.3.0'
     //日志崩溃记录
     //https://github.com/wangjiegulu/AndroidBucket
     compile 'com.github.wangjiegulu:AndroidBucket:1.0.4'

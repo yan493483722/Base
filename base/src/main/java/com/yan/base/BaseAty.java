@@ -3,12 +3,15 @@ package com.yan.base;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.yan.base.application.AppManager;
 import com.yan.base.application.GlobalPreference;
@@ -16,6 +19,8 @@ import com.yan.base.listener.PermissionListener;
 import com.yan.base.manager.PermissionManager;
 import com.yan.base.manager.ProgressDialogManager;
 import com.yan.base.manager.SnackBarAndToastManager;
+import com.yan.base.toolbar.BaseToolbar;
+import com.yan.base.toolbar.BaseToolbarUtil;
 
 /**
  * 项目名称：Base
@@ -68,7 +73,6 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
     protected boolean isFirstPage;
 
 
-
     /**
      * 权限请求manager
      */
@@ -87,6 +91,14 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAty = this;
+        mResources = getResources();
+        mPreference = GlobalPreference.getInstance();
+        mLayoutInflater = LayoutInflater.from(mAty);
+        mPermissionManager = new PermissionManager(mAty, this);
+        mSnackBarAndToastManager = new SnackBarAndToastManager(mAty);
+        mProgressDialogManager = new ProgressDialogManager(mAty);
+
         initContentView();
         if (isFirstPage) {//如果是通过第三方应用安装，则启动的方式有所不同
             // 部分系统会每次点击图标都重启launcher 页面 所以需要关闭launcher
@@ -95,17 +107,13 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
                 return;
             }
         }
-        mAty = this;
-        mResources = getResources();
-        mPreference = GlobalPreference.getInstance();
-        mLayoutInflater = LayoutInflater.from(mAty);
-        mPermissionManager = new PermissionManager(mAty, this);
-        AppManager.getAppManager().addActivity(this);
-        mSnackBarAndToastManager = new SnackBarAndToastManager(mAty);
-        mProgressDialogManager = new ProgressDialogManager(mAty);
 
+
+        AppManager.getAppManager().addActivity(this);
         initView();
         initData();
+
+
     }
 
     /**
@@ -122,6 +130,31 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
      * 实例化数据：读取数据库数据，网络请求数据
      */
     public abstract void initData();
+
+    /**
+     * 普通页面设置baseToolbar
+     * @param toolbar
+     * @param showLeftIcon
+     */
+    public void setBaseToolbar(BaseToolbar toolbar, boolean showLeftIcon) {
+        setBaseToolbar(toolbar,showLeftIcon,null);
+    }
+
+    /**
+     * 两边有侧滑时设置baseToolbar
+     * @param toolbar
+     * @param mainContent
+     */
+    public void setBaseToolbar(BaseToolbar toolbar,  boolean showLeftIcon ,ViewGroup mainContent) {
+        setSupportActionBar(toolbar.tb_base_tb);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(showLeftIcon);
+        toolbar.tb_base_tb.setBackgroundColor(toolbar.getBackgroundColor());
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+            BaseToolbarUtil.setBaseToolbar(toolbar, mAty,mainContent);
+        }
+    }
+
 
     /**
      * 捕获返回键
@@ -158,6 +191,7 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
      * @param permissions
      * @param requestCode
      */
+
     public void requestPermission(String[] permissions, int requestCode) {
         mPermissionManager.requestPermission(permissions, requestCode);
     }
@@ -198,9 +232,9 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
         if (needCatchKeycodeBack) {
             if (clickKeycodeBackNum >= 1) {
                 //将当前进程移到背后
-//                        moveTaskToBack(true);
-                AppManager.getAppManager().finishAllActivity();
-                System.exit(0);//退出程序
+                moveTaskToBack(true);
+//                AppManager.getAppManager().finishAllActivity();
+//                System.exit(0);//退出程序
             } else {
                 clickKeycodeBackNum++;
                 mSnackBarAndToastManager.showSnackBar("再次点击将退出应用");

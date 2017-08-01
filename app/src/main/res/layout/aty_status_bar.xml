@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <Button
+        android:id="@+id/btn_status_bar_full"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="全屏的状态栏" />
+
+
+    <Button
+        android:id="@+id/btn_status_bar_normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="正常的状态栏" />
+
+    <Button
+        android:id="@+id/btn_status_bar_normal_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="正常图片状态栏" />
+
+
+    <Button
+        android:id="@+id/btn_status_bar_full_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="全屏图片状态栏" />
+
+    <Button
+        android:id="@+id/btn_status_bar_slide"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="侧滑" />
+
+    <Button
+        android:id="@+id/btn_status_bar_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="fragment" />
+
+    <Button
+        android:id="@+id/btn_status_bar_expend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="仿微博头部" />
+
+    <Button
+        android:id="@+id/btn_status_bar_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="搜索" />
+
+    <Button
+        android:id="@+id/btn_status_bar_more"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="更多" />
+
+</LinearLayout>

@@ -32,4 +32,14 @@
         <attr name="arcPaddingBottom" format="dimension" />
     </declare-styleable>
 
+    <declare-styleable name="BaseToolBar">
+        <attr name="baseToolBarType">
+            <flag name="normal" value="0" />
+            <flag name="full" value="1" />
+            <!-- 小米手机上效果没有 -->
+            <flag name="img_normal" value="2" />
+            <flag name="img_full" value="3" />
+        </attr>
+        <attr name="baseToolBarColor" format="reference|color" />
+    </declare-styleable>
 </resources>

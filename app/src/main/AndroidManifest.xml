@@ -19,9 +19,42 @@
 
         <activity
             android:name=".aty.DialogExampleAty"
-            android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize|stateHidden|stateAlwaysHidden|adjustPan" />
+
+        <activity
+            android:name=".aty.MultiDownloadAty"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden|stateAlwaysHidden|adjustPan" />
+
+        <activity
+            android:name=".aty.bar.StatusBarAty"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden|stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".aty.bar.NormalStatusBarAty"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden|stateAlwaysHidden|adjustPan" />
+
+        <activity
+            android:name=".aty.bar.FullStatusBarAty"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden|stateAlwaysHidden|adjustPan" />
+
+        <activity
+            android:name=".aty.bar.ImgNormalStatusBarAty"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden|stateAlwaysHidden|adjustPan" />
+
+
+        <activity
+            android:name=".aty.bar.ImgFullStatusBarAty"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden|stateAlwaysHidden|adjustPan" />
+
+        <activity
+            android:name=".aty.bar.SlideStatusBarAty"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden|stateAlwaysHidden|adjustPan" />
 
         <activity

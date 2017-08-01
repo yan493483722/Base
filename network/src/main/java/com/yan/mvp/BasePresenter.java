@@ -5,7 +5,7 @@ import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.yan.base.BaseAty;
-import com.yan.base.uitls.OkHttp3LogInterceptor;
+
 import com.yan.base.uitls.Tools;
 
 import java.io.IOException;
@@ -35,29 +35,29 @@ public class BasePresenter<T extends BaseViewer> {
     public BasePresenter(BaseAty baseAty, T t) {
         this.baseAty = baseAty;
         this.viewer = t;
-
-        mOkHttpClient = new OkHttpClient().newBuilder().addInterceptor(getLogInterceptor(OkHttp3LogInterceptor.Level.BODY))
-                .connectTimeout(10, TimeUnit.SECONDS)
-                .readTimeout(10, TimeUnit.SECONDS)
-                .writeTimeout(10, TimeUnit.SECONDS)
-                .retryOnConnectionFailure(false)
-                .build();
+//
+//        mOkHttpClient = new OkHttpClient().newBuilder().addInterceptor(getLogInterceptor(OkHttp3LogInterceptor.Level.BODY))
+//                .connectTimeout(10, TimeUnit.SECONDS)
+//                .readTimeout(10, TimeUnit.SECONDS)
+//                .writeTimeout(10, TimeUnit.SECONDS)
+//                .retryOnConnectionFailure(false)
+//                .build();
     }
 
-    protected boolean noNetAndCallBack(Object tag) {
-        if (!Tools.isOnline(baseAty)) {
-            viewer.netError(tag);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    OkHttp3LogInterceptor getLogInterceptor(OkHttp3LogInterceptor.Level level) {
-        OkHttp3LogInterceptor logInterceptor = new OkHttp3LogInterceptor();
-        logInterceptor.setLevel(level);
-        return logInterceptor;
-    }
+//    protected boolean noNetAndCallBack(Object tag) {
+//        if (!Tools.isOnline(baseAty)) {
+//            viewer.netError(tag);
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
+//
+//    OkHttp3LogInterceptor getLogInterceptor(OkHttp3LogInterceptor.Level level) {
+//        OkHttp3LogInterceptor logInterceptor = new OkHttp3LogInterceptor();
+//        logInterceptor.setLevel(level);
+//        return logInterceptor;
+//    }
 
     protected void sendRequestModel(Object requestModel, String url, boolean autoShowLoading, Object tag, Callback callBack) {
         sendRequestModel(null, requestModel, url, autoShowLoading, tag, callBack);

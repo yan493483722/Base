@@ -25,19 +25,20 @@ public class BaseToolbarUtil {
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public static void setBaseToolbar(BaseToolbar toolbar, Activity baseAty, ViewGroup mainContent) {
+    public static void setBaseToolbar(BaseToolbar toolbar, Activity baseAty, boolean isSlide) {
         switch (toolbar.getBaseToolBarType()) {
             case BaseToolbar.STATUS_BAR_TYPE_NORMAL:
                 baseAty.setTheme(R.style.AppTheme);
-                if (mainContent != null) {
-                    setSlideStatusBarNormal(mainContent, baseAty);
+                if (isSlide) {
+                    setFullStatus(toolbar, baseAty);
+                    setSlideStatusBarNormal(toolbar, baseAty);
                 }
                 break;
             case BaseToolbar.STATUS_BAR_TYPE_FULL:
                 //保持底部
                 baseAty.setTheme(R.style.AppThemeFull);
                 setFullStatus(toolbar, baseAty);
-                if (mainContent != null) {
+                if (isSlide) {
                     setSlideStatusBarFull(toolbar, baseAty);
                 }
                 break;
@@ -121,11 +122,12 @@ public class BaseToolbarUtil {
         return result;
     }
 
-    public static void setSlideStatusBarNormal(ViewGroup viewGroup, Activity baseAty) {
-        viewGroup.setPadding(0, getStatusBarHeight(baseAty), 0, 0);
-        viewGroup.setClipToPadding(true);
+    public static void setSlideStatusBarNormal(BaseToolbar toolbar, Activity baseAty) {
         Window window = baseAty.getWindow();
         window.setStatusBarColor(Color.TRANSPARENT);
+        toolbar.setFitsSystemWindows(true);
+        toolbar.setPadding(0, getStatusBarHeight(baseAty), 0, 0);
+        toolbar.setClipToPadding(true);
     }
 
     public static void setSlideStatusBarFull(BaseToolbar toolbar, Activity baseAty) {

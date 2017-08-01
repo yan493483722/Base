@@ -4,20 +4,41 @@
     android:id="@+id/dl_slide_status_bar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:background="@color/bg_color_all">
+    android:background="@color/bg_color_all"
+    android:fitsSystemWindows="true">
 
     <FrameLayout
         android:id="@+id/fl_slide_status_bar_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.yan.base.toolbar.BaseToolbar
-            android:id="@+id/btl_slide_status_bar"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            baseToolbar:baseToolBarColor="@color/colorPrimary"
-            baseToolbar:baseToolBarType="full" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.yan.base.toolbar.BaseToolbar
+                android:id="@+id/btl_slide_status_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                baseToolbar:baseToolBarColor="@color/colorPrimary"
+                baseToolbar:baseToolBarType="full" />
+
+            <Button
+                android:id="@+id/btn_slide_status_bar_normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="正常" />
+
+
+            <Button
+                android:id="@+id/btn_slide_status_bar_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="图片" />
+        </LinearLayout>
     </FrameLayout>
 
     <android.support.design.widget.NavigationView
@@ -27,59 +48,59 @@
         android:layout_gravity="start"
         android:background="@color/bg_color_blue">
 
-   <!--     <menu>
+        <!--     <menu>
 
-            <item
-                android:id="@+id/item_ssb_left_collect"
-                android:icon="@mipmap/ic_launcher"
-                android:title="收藏" />
+                 <item
+                     android:id="@+id/item_ssb_left_collect"
+                     android:icon="@mipmap/ic_launcher"
+                     android:title="收藏" />
 
-            <item
-                android:id="@+id/item_ssb_left_wallet"
-                android:icon="@mipmap/ic_launcher"
-                android:title="钱包" />
+                 <item
+                     android:id="@+id/item_ssb_left_wallet"
+                     android:icon="@mipmap/ic_launcher"
+                     android:title="钱包" />
 
-            <item
-                android:id="@+id/item_ssb_left_photo"
-                android:icon="@mipmap/ic_launcher"
-                android:title="相册" />
+                 <item
+                     android:id="@+id/item_ssb_left_photo"
+                     android:icon="@mipmap/ic_launcher"
+                     android:title="相册" />
 
-            <item
-                android:id="@+id/item_ssb_left_file"
-                android:icon="@mipmap/ic_launcher"
-                android:title="文件" />
-        </menu>-->
+                 <item
+                     android:id="@+id/item_ssb_left_file"
+                     android:icon="@mipmap/ic_launcher"
+                     android:title="文件" />
+             </menu>-->
     </android.support.design.widget.NavigationView>
 
     <FrameLayout
         android:id="@+id/nv_slide_status_bar_right"
-        android:layout_width="240dp"
+        android:layout_width="280dp"
         android:layout_height="match_parent"
         android:layout_gravity="end"
         android:background="@color/bg_color_blue">
 
 
-      <!--  <menu>
-            <item
-                android:id="@+id/item_ssb_right_collect"
-                android:icon="@mipmap/ic_launcher"
-                android:title="收藏" />
+        <!--  <menu>
+              <item
+                  android:id="@+id/item_ssb_right_collect"
+                  android:icon="@mipmap/ic_launcher"
+                  android:title="收藏" />
 
-            <item
-                android:id="@+id/item_ssb_right_wallet"
-                android:icon="@mipmap/ic_launcher"
-                android:title="钱包" />
+              <item
+                  android:id="@+id/item_ssb_right_wallet"
+                  android:icon="@mipmap/ic_launcher"
+                  android:title="钱包" />
 
-            <item
-                android:id="@+id/item_ssb_right_photo"
-                android:icon="@mipmap/ic_launcher"
-                android:title="相册" />
+              <item
+                  android:id="@+id/item_ssb_right_photo"
+                  android:icon="@mipmap/ic_launcher"
+                  android:title="相册" />
 
-            <item
-                android:id="@+id/item_ssb_right_file"
-                android:icon="@mipmap/ic_launcher"
-                android:title="文件" />
+              <item
+                  android:id="@+id/item_ssb_right_file"
+                  android:icon="@mipmap/ic_launcher"
+                  android:title="文件" />
 
-        </menu>-->
+          </menu>-->
     </FrameLayout>
 </android.support.v4.widget.DrawerLayout>

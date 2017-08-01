@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 
 import com.yan.base.BaseAty;
 import com.yan.basedemo.aty.DialogExampleAty;
+import com.yan.basedemo.aty.LoginAty;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,7 +33,9 @@ public class MainAty extends BaseAty {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.btn_main_dialog, R.id.btn_main_loading, R.id.btn_main_permission, R.id.btn_main_web})
+    @OnClick({R.id.btn_main_dialog, R.id.btn_main_loading, R.id.btn_main_permission,
+            R.id.btn_main_net,
+            R.id.btn_main_web})
     public void click(View view) {
         switch (view.getId()) {
             case R.id.btn_main_dialog:
@@ -41,6 +44,9 @@ public class MainAty extends BaseAty {
                 break;
             case R.id.btn_main_loading:
                 mSnackBarAndToastManager.showSnackBar("main loading");
+                break;
+            case R.id.btn_main_net:
+                startActivity(new Intent(mAty, LoginAty.class));
                 break;
             case R.id.btn_main_permission:
                 mSnackBarAndToastManager.showSnackBar("main permission");

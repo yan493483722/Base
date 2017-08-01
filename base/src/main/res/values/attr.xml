@@ -36,6 +36,7 @@
         <attr name="baseToolBarType">
             <flag name="normal" value="0" />
             <flag name="full" value="1" />
+            <!-- 小米手机上效果没有 -->
             <flag name="img_normal" value="2" />
             <flag name="img_full" value="3" />
         </attr>

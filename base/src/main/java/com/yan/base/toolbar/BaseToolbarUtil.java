@@ -1,7 +1,6 @@
 package com.yan.base.toolbar;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
 
 import com.yan.base.R;
 
@@ -20,69 +18,32 @@ import com.yan.base.R;
  * modify:
  * modify date:
  */
+@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class BaseToolbarUtil {
-
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public static void setBaseToolbar(BaseToolbar toolbar, Activity baseAty) {
-
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//
-//        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            switch (toolbar.getBaseToolBarType()) {
-                case BaseToolbar.STATUS_BAR_TYPE_NORMAL:
-                    baseAty.setTheme(R.style.AppTheme);
-                    break;
-                case BaseToolbar.STATUS_BAR_TYPE_FULL:
-                    //保持底部
-                    baseAty.setTheme(R.style.AppThemeFull);
-                    setFullStatus(toolbar, baseAty);
-                    break;
-                case BaseToolbar.STATUS_BAR_TYPE_IMG_NORMAL:
-                    baseAty.setTheme(R.style.AppTheme);
-                    translucentStatusBar(baseAty, false);
-                    toolbar.tb_base_tb.setFitsSystemWindows(true);
-                    break;
-                case BaseToolbar.STATUS_BAR_TYPE_IMG_FULL:
-                    baseAty.setTheme(R.style.AppTheme);
-                    translucentStatusBar(baseAty, true);
-                    toolbar.tb_base_tb.setFitsSystemWindows(true);
-                    break;
-                default:
-
-                    break;
-            }
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            baseAty.setTheme(R.style.AppTheme);
-
-            switch (toolbar.getBaseToolBarType()) {
-                case BaseToolbar.STATUS_BAR_TYPE_NORMAL:
-
-                    break;
-                case BaseToolbar.STATUS_BAR_TYPE_IMG_NORMAL:
-
-                    break;
-                case BaseToolbar.STATUS_BAR_TYPE_IMG_FULL:
-                    break;
-                case BaseToolbar.STATUS_BAR_TYPE_FULL:
-                    Window window = baseAty.getWindow();
-                    window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-                    ViewGroup mContentView = (ViewGroup) window.findViewById(Window.ID_ANDROID_CONTENT);
-                    View mContentChild = mContentView.getChildAt(0);
-//                    int statusBarHeight = getStatusBarHeight(activity);
-//
-//                    removeFakeStatusBarViewIfExist(activity);
-//                    addFakeStatusBarView(activity, statusColor, statusBarHeight);
-//                    addMarginTopToContentChild(mContentChild, statusBarHeight);
-
-                    if (mContentChild != null) {
-                        ViewCompat.setFitsSystemWindows(mContentChild, false);
-                    }
-                    break;
-                default:
-                    break;
-            }
+        switch (toolbar.getBaseToolBarType()) {
+            case BaseToolbar.STATUS_BAR_TYPE_NORMAL:
+                baseAty.setTheme(R.style.AppTheme);
+                break;
+            case BaseToolbar.STATUS_BAR_TYPE_FULL:
+                //保持底部
+                baseAty.setTheme(R.style.AppThemeFull);
+                setFullStatus(toolbar, baseAty);
+                break;
+            case BaseToolbar.STATUS_BAR_TYPE_IMG_NORMAL:
+                baseAty.setTheme(R.style.AppTheme);
+                translucentStatusBar(baseAty, false);
+                toolbar.tb_base_tb.setFitsSystemWindows(true);
+                break;
+            case BaseToolbar.STATUS_BAR_TYPE_IMG_FULL:
+                baseAty.setTheme(R.style.AppTheme);
+                translucentStatusBar(baseAty, true);
+                toolbar.tb_base_tb.setFitsSystemWindows(true);
+                break;
+            default:
+                break;
         }
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -105,20 +66,6 @@ public class BaseToolbarUtil {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         //设置状态栏颜色
         window.setStatusBarColor(toolbar.getBackgroundColor());
-    }
-
-    static void translucentStatusBar(Activity activity) {
-        Window window = activity.getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
-        ViewGroup mContentView = (ViewGroup) activity.findViewById(Window.ID_ANDROID_CONTENT);
-        View mContentChild = mContentView.getChildAt(0);
-
-        removeFakeStatusBarViewIfExist(activity);
-        removeMarginTopOfContentChild(mContentChild, getStatusBarHeight(activity));
-        if (mContentChild != null) {
-            ViewCompat.setFitsSystemWindows(mContentChild, false);
-        }
     }
 
 
@@ -149,51 +96,6 @@ public class BaseToolbarUtil {
         if (mChildView != null) {
             ViewCompat.setFitsSystemWindows(mChildView, false);
             ViewCompat.requestApplyInsets(mChildView);
-        }
-    }
-
-    private static final String TAG_FAKE_STATUS_BAR_VIEW = "statusBarView";
-
-
-    /**
-     * return statusBar's Height in pixels
-     */
-    private static int getStatusBarHeight(Context context) {
-        int result = 0;
-        int resId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resId > 0) {
-            result = context.getResources().getDimensionPixelOffset(resId);
-        }
-        return result;
-    }
-
-    private static final String TAG_MARGIN_ADDED = "marginAdded";
-
-    /**
-     * remove marginTop to simulate set FitsSystemWindow false
-     */
-    private static void removeMarginTopOfContentChild(View mContentChild, int statusBarHeight) {
-        if (mContentChild == null) {
-            return;
-        }
-        if (TAG_MARGIN_ADDED.equals(mContentChild.getTag())) {
-            FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) mContentChild.getLayoutParams();
-            lp.topMargin -= statusBarHeight;
-            mContentChild.setLayoutParams(lp);
-            mContentChild.setTag(null);
-        }
-    }
-
-    /**
-     * use reserved order to remove is more quickly.
-     */
-    private static void removeFakeStatusBarViewIfExist(Activity activity) {
-        Window window = activity.getWindow();
-        ViewGroup mDecorView = (ViewGroup) window.getDecorView();
-
-        View fakeView = mDecorView.findViewWithTag(TAG_FAKE_STATUS_BAR_VIEW);
-        if (fakeView != null) {
-            mDecorView.removeView(fakeView);
         }
     }
 

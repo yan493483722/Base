@@ -3,6 +3,7 @@ package com.yan.base;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -137,7 +138,10 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(showLeftIcon);
         toolbar.tb_base_tb.setBackgroundColor(toolbar.getBackgroundColor());
-        BaseToolbarUtil.setBaseToolbar(toolbar, mAty);
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+            BaseToolbarUtil.setBaseToolbar(toolbar, mAty);
+        }
+
     }
 
     /**

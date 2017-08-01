@@ -10,6 +10,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.yan.base.application.AppManager;
 import com.yan.base.application.GlobalPreference;
@@ -130,19 +132,29 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
     public abstract void initData();
 
     /**
+     * 普通页面设置baseToolbar
      * @param toolbar
      * @param showLeftIcon
      */
     public void setBaseToolbar(BaseToolbar toolbar, boolean showLeftIcon) {
+        setBaseToolbar(toolbar,showLeftIcon,null);
+    }
+
+    /**
+     * 两边有侧滑时设置baseToolbar
+     * @param toolbar
+     * @param mainContent
+     */
+    public void setBaseToolbar(BaseToolbar toolbar,  boolean showLeftIcon ,ViewGroup mainContent) {
         setSupportActionBar(toolbar.tb_base_tb);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(showLeftIcon);
         toolbar.tb_base_tb.setBackgroundColor(toolbar.getBackgroundColor());
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-            BaseToolbarUtil.setBaseToolbar(toolbar, mAty);
+            BaseToolbarUtil.setBaseToolbar(toolbar, mAty,mainContent);
         }
-
     }
+
 
     /**
      * 捕获返回键

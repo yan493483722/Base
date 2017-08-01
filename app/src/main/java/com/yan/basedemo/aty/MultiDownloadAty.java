@@ -19,10 +19,6 @@ import butterknife.ButterKnife;
  */
 public class MultiDownloadAty extends BaseAty {
 
-    @BindView(R.id.tb_multi_download)
-    Toolbar tbMultiDownload;
-    @BindView(R.id.rc_multi_download)
-    RecyclerView rcMultiDownload;
 
     @Override
     protected void initContentView() {
@@ -32,16 +28,7 @@ public class MultiDownloadAty extends BaseAty {
 
     @Override
     protected void initView() {
-        setSupportActionBar(tbMultiDownload);
-        tbMultiDownload.setTitle("multi download");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            tbMultiDownload.setElevation(5);
-        }
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            tbMultiDownload.setBackgroundColor(getColor(R.color.colorPrimary));
-//        }else{
-//            tbMultiDownload.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-//        }
+
     }
 
     @Override

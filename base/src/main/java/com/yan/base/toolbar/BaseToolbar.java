@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -108,6 +109,13 @@ public class BaseToolbar extends FrameLayout implements View.OnClickListener {
     public void setLeftIcon(@DrawableRes int resId) {
         tb_base_tb.setNavigationIcon(resId);
     }
+    public void setRightIcon(@DrawableRes int resId) {
+        iv_base_tb_right.setImageResource(resId);
+    }
+    public void setRightIcon(@Nullable Drawable icon) {
+        iv_base_tb_right.setImageDrawable(icon);
+    }
+
 
     public void setLeftIcon(@Nullable Drawable icon) {
         tb_base_tb.setNavigationIcon(icon);

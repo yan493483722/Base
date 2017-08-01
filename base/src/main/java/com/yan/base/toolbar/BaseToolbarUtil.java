@@ -1,6 +1,7 @@
 package com.yan.base.toolbar;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import com.yan.base.R;
 
@@ -20,16 +22,24 @@ import com.yan.base.R;
  */
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class BaseToolbarUtil {
+
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public static void setBaseToolbar(BaseToolbar toolbar, Activity baseAty) {
+    public static void setBaseToolbar(BaseToolbar toolbar, Activity baseAty, ViewGroup mainContent) {
         switch (toolbar.getBaseToolBarType()) {
             case BaseToolbar.STATUS_BAR_TYPE_NORMAL:
                 baseAty.setTheme(R.style.AppTheme);
+                if (mainContent != null) {
+                    setSlideStatusBarNormal(mainContent, baseAty);
+                }
                 break;
             case BaseToolbar.STATUS_BAR_TYPE_FULL:
                 //保持底部
                 baseAty.setTheme(R.style.AppThemeFull);
                 setFullStatus(toolbar, baseAty);
+                if (mainContent != null) {
+                    setSlideStatusBarFull(mainContent, baseAty, toolbar.getBackgroundColor());
+                }
                 break;
             case BaseToolbar.STATUS_BAR_TYPE_IMG_NORMAL:
                 baseAty.setTheme(R.style.AppTheme);
@@ -99,4 +109,51 @@ public class BaseToolbarUtil {
         }
     }
 
+    /**
+     * return statusBar's Height in pixels
+     */
+    private static int getStatusBarHeight(Context context) {
+        int result = 0;
+        int resId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resId > 0) {
+            result = context.getResources().getDimensionPixelOffset(resId);
+        }
+        return result;
+    }
+
+    public static void setSlideStatusBarNormal(ViewGroup viewGroup, Activity baseAty) {
+        viewGroup.setPadding(0, getStatusBarHeight(baseAty), 0, 0);
+        viewGroup.setClipToPadding(true);
+        Window window = baseAty.getWindow();
+        window.setStatusBarColor(Color.TRANSPARENT);
+    }
+
+    public static void setSlideStatusBarFull(ViewGroup viewGroup, Activity baseAty, int color) {
+        viewGroup.addView(createStatusView(baseAty, color));
+        viewGroup.setPadding(0, getStatusBarHeight(baseAty), 0, 0);
+        viewGroup.setClipToPadding(true);
+        Window window = baseAty.getWindow();
+        window.setStatusBarColor(Color.TRANSPARENT);
+    }
+
+    /**
+     * 生成一个和状态栏大小相同的矩形条
+     *
+     * @param activity 需要设置的activity
+     * @param color    状态栏颜色值
+     * @return 状态栏矩形条
+     */
+    private static View createStatusView(Activity activity, int color) {
+        // 获得状态栏高度
+        int resourceId = activity.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        int statusBarHeight = activity.getResources().getDimensionPixelSize(resourceId);
+
+        // 绘制一个和状态栏一样高的矩形
+        View statusView = new View(activity);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                statusBarHeight);
+        statusView.setLayoutParams(params);
+        statusView.setBackgroundColor(color);
+        return statusView;
+    }
 }

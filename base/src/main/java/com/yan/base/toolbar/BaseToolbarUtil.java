@@ -47,12 +47,19 @@ public class BaseToolbarUtil {
                 break;
             case BaseToolbar.STATUS_BAR_TYPE_IMG_NORMAL:
                 baseAty.setTheme(R.style.AppTheme);
-                setImageStatusBar(toolbar, baseAty, false);
-
+                if(isSlide){
+                    setImageSlideStatusBar(toolbar, baseAty, true);
+                }else{
+                    setImageStatusBar(toolbar, baseAty, true);
+                }
                 break;
             case BaseToolbar.STATUS_BAR_TYPE_IMG_FULL:
                 baseAty.setTheme(R.style.AppTheme);
-                setImageStatusBar(toolbar, baseAty, true);
+                if(isSlide){
+                    setImageSlideStatusBar(toolbar, baseAty, false);
+                }else{
+                    setImageStatusBar(toolbar, baseAty, false);
+                }
                 break;
             default:
                 break;
@@ -98,7 +105,7 @@ public class BaseToolbarUtil {
         Window window = aty.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(isNormal ? Color.TRANSPARENT : aty.getResources().getColor(R.color.transparent_half));
+        window.setStatusBarColor(isNormal ?  aty.getResources().getColor(R.color.transparent_half):Color.TRANSPARENT );
         window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         ViewGroup mContentView = (ViewGroup) window.findViewById(Window.ID_ANDROID_CONTENT);
         View mChildView = mContentView.getChildAt(0);
@@ -108,6 +115,26 @@ public class BaseToolbarUtil {
         }
         toolbar.tb_base_tb.setFitsSystemWindows(true);
     }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    static void setImageSlideStatusBar(BaseToolbar toolbar, Activity aty, boolean isNormal) {
+        Window window = aty.getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.setStatusBarColor(isNormal ?  aty.getResources().getColor(R.color.transparent_half) :Color.TRANSPARENT);
+//        window.setStatusBarColor(Color.TRANSPARENT);
+        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        ViewGroup mContentView = (ViewGroup) window.findViewById(Window.ID_ANDROID_CONTENT);
+        View mChildView = mContentView.getChildAt(0);
+        if (mChildView != null) {
+            ViewCompat.setFitsSystemWindows(mChildView, false);
+            ViewCompat.requestApplyInsets(mChildView);
+        }
+        toolbar.setPadding(0, getStatusBarHeight(aty), 0, 0);
+        toolbar.tb_base_tb.setFitsSystemWindows(true);
+    }
+
 
     /**
      * return statusBar's Height in pixels

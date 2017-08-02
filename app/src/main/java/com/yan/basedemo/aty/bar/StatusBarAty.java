@@ -35,8 +35,7 @@ public class StatusBarAty extends BaseAty {
 
 
     @OnClick({R.id.btn_status_bar_full, R.id.btn_status_bar_normal, R.id.btn_status_bar_normal_img
-            , R.id.btn_status_bar_full_img
-            , R.id.btn_status_bar_slide
+            , R.id.btn_status_bar_full_img, R.id.btn_status_bar_slide, R.id.btn_status_bar_slide_img
             , R.id.btn_status_bar_fragment, R.id.btn_status_bar_expend, R.id.btn_status_bar_search, R.id.btn_status_bar_more
     })
     void click(View view) {
@@ -56,6 +55,10 @@ public class StatusBarAty extends BaseAty {
             case R.id.btn_status_bar_slide:
                 startActivity(new Intent(mAty, SlideStatusBarAty.class));
                 break;
+            case R.id.btn_status_bar_slide_img:
+                startActivity(new Intent(mAty, SlideImgStatusBarAty.class));
+                break;
+
             case R.id.btn_status_bar_fragment:
                 break;
             case R.id.btn_status_bar_expend:

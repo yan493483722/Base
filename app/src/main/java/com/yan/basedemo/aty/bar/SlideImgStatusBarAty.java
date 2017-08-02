@@ -21,7 +21,7 @@ import butterknife.OnClick;
  * modify:
  * modify date:
  */
-public class SlideStatusBarAty extends BaseAty {
+public class SlideImgStatusBarAty extends BaseAty {
 
 
     @BindView(R.id.btl_slide_status_bar)
@@ -39,7 +39,7 @@ public class SlideStatusBarAty extends BaseAty {
 
     @Override
     protected void initContentView() {
-        setContentView(R.layout.aty_slide_status_bar);
+        setContentView(R.layout.aty_slide_img_status_bar);
         ButterKnife.bind(this);
     }
 
@@ -60,7 +60,7 @@ public class SlideStatusBarAty extends BaseAty {
         btlSlideStatusBar.setBaseToolbarListener(new BaseToolbar.BaseToolbarListener() {
             @Override
             public void clickLeft() {
-                if(!dlSlideStatusBar.isDrawerOpen(nvSlideStatusBarLeft)){
+                if (!dlSlideStatusBar.isDrawerOpen(nvSlideStatusBarLeft)) {
                     dlSlideStatusBar.openDrawer(nvSlideStatusBarLeft);
                 }
 
@@ -68,7 +68,7 @@ public class SlideStatusBarAty extends BaseAty {
 
             @Override
             public void clickRight() {
-                if(!dlSlideStatusBar.isDrawerOpen(nvSlideStatusBarRight)){
+                if (!dlSlideStatusBar.isDrawerOpen(nvSlideStatusBarRight)) {
                     dlSlideStatusBar.openDrawer(nvSlideStatusBarRight);
                 }
             }
@@ -79,8 +79,8 @@ public class SlideStatusBarAty extends BaseAty {
     void click(View view) {
         switch (view.getId()) {
             case R.id.btn_slide_status_bar_normal:
-                Intent intent = new Intent(mAty, SlideStatusBarAty.class);
-                intent.putExtra("type", BaseToolbar.STATUS_BAR_TYPE_NORMAL);
+                Intent intent = new Intent(mAty, SlideImgStatusBarAty.class);
+                intent.putExtra("type", BaseToolbar.STATUS_BAR_TYPE_IMG_NORMAL);
                 startActivity(intent);
                 break;
             default:

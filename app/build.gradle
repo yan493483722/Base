@@ -38,4 +38,5 @@ dependencies {
     compile 'org.greenrobot:greendao:3.2.0'
     compile project(':base')
     compile project(':network')
+    compile 'com.ashokvarma.android:bottom-navigation-bar:2.0.2'
 }

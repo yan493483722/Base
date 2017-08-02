@@ -58,8 +58,8 @@ public class StatusBarAty extends BaseAty {
             case R.id.btn_status_bar_slide_img:
                 startActivity(new Intent(mAty, SlideImgStatusBarAty.class));
                 break;
-
             case R.id.btn_status_bar_fragment:
+                startActivity(new Intent(mAty, MultiStatusBarAty.class));
                 break;
             case R.id.btn_status_bar_expend:
                 break;

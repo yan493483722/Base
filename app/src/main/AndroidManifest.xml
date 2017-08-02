@@ -62,6 +62,10 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden|stateAlwaysHidden|adjustPan" />
         <activity
+            android:name=".aty.bar.MultiStatusBarAty"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden|stateAlwaysHidden|adjustPan" />
+        <activity
             android:name=".aty.LoginAty"
             android:label="@string/app_name"
             android:screenOrientation="portrait"

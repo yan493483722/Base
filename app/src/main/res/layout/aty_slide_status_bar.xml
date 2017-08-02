@@ -4,8 +4,8 @@
     android:id="@+id/dl_slide_status_bar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_color_all"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:background="@color/bg_color_all">
 
     <FrameLayout
         android:id="@+id/fl_slide_status_bar_main"
@@ -21,7 +21,7 @@
                 android:id="@+id/btl_slide_status_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                baseToolbar:baseToolBarColor="@color/colorPrimary"
+                baseToolbar:baseToolBarColor="@color/bg_color_yellow"
                 baseToolbar:baseToolBarType="full" />
 
             <Button
@@ -72,13 +72,12 @@
              </menu>-->
     </android.support.design.widget.NavigationView>
 
-    <FrameLayout
+    <android.support.design.widget.NavigationView
         android:id="@+id/nv_slide_status_bar_right"
-        android:layout_width="280dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="end"
         android:background="@color/bg_color_blue">
-
 
         <!--  <menu>
               <item
@@ -102,5 +101,5 @@
                   android:title="文件" />
 
           </menu>-->
-    </FrameLayout>
+    </android.support.design.widget.NavigationView>
 </android.support.v4.widget.DrawerLayout>

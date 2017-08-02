@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
 
 import com.yan.base.R;
 
@@ -30,16 +29,20 @@ public class BaseToolbarUtil {
             case BaseToolbar.STATUS_BAR_TYPE_NORMAL:
                 baseAty.setTheme(R.style.AppTheme);
                 if (isSlide) {
-                    setFullStatus(toolbar, baseAty);
-                    setSlideStatusBarNormal(toolbar, baseAty);
+                    setSlideFullStatus(baseAty);
+                    setSlideStatusBar(toolbar, baseAty, true);
+                } else {
+                    setFullStatus(toolbar, baseAty, true);
                 }
                 break;
             case BaseToolbar.STATUS_BAR_TYPE_FULL:
                 //保持底部
                 baseAty.setTheme(R.style.AppThemeFull);
-                setFullStatus(toolbar, baseAty);
                 if (isSlide) {
-                    setSlideStatusBarFull(toolbar, baseAty);
+                    setSlideFullStatus(baseAty);
+                    setSlideStatusBar(toolbar, baseAty, false);
+                } else {
+                    setFullStatus(toolbar, baseAty, false);
                 }
                 break;
             case BaseToolbar.STATUS_BAR_TYPE_IMG_NORMAL:
@@ -55,10 +58,11 @@ public class BaseToolbarUtil {
             default:
                 break;
         }
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private static void setFullStatus(BaseToolbar toolbar, Activity baseAty) {
+    private static void setFullStatus(BaseToolbar toolbar, Activity baseAty, boolean isNormal) {
         Window window = baseAty.getWindow();
         //设置decorView 的系统状态栏为可见状态
         window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
@@ -76,7 +80,17 @@ public class BaseToolbarUtil {
         //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         //设置状态栏颜色
-        window.setStatusBarColor(toolbar.getBackgroundColor());
+        if (isNormal) {
+            int bgColor = toolbar.getBackgroundColor();
+            int red = (bgColor & 0xff0000) >> 16 + 1;
+            int green = (bgColor & 0x00ff00) >> 8 + 1;
+            int blue = (bgColor & 0x0000ff) + 1;
+            int color = Color.rgb(red, green, blue);
+            window.setStatusBarColor(color);
+        } else {
+            window.setStatusBarColor(toolbar.getBackgroundColor());
+        }
+
     }
 
 
@@ -122,21 +136,39 @@ public class BaseToolbarUtil {
         return result;
     }
 
-    public static void setSlideStatusBarNormal(BaseToolbar toolbar, Activity baseAty) {
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private static void setSlideFullStatus(Activity baseAty) {
         Window window = baseAty.getWindow();
-        window.setStatusBarColor(Color.TRANSPARENT);
-        toolbar.setFitsSystemWindows(true);
-        toolbar.setPadding(0, getStatusBarHeight(baseAty), 0, 0);
-        toolbar.setClipToPadding(true);
+        //设置decorView 的系统状态栏为可见状态
+        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+        //设置 toolbar 自适应
+        ViewGroup mContentView = (ViewGroup) window.findViewById(Window.ID_ANDROID_CONTENT);
+        View mChildView = mContentView.getChildAt(0);
+        if (mChildView != null) {
+            //设置 设置窗体自适应 自适应
+            ViewCompat.setFitsSystemWindows(mChildView, false);
+            //设置requestFitSystemWindows后请求一个新的调度
+            ViewCompat.requestApplyInsets(mChildView);//是否需要调用？嵌套了?
+        }
+        //取消设置透明状态栏,使 ContentView 内容不再覆盖状态栏
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
     }
 
-    public static void setSlideStatusBarFull(BaseToolbar toolbar, Activity baseAty) {
+
+    public static void setSlideStatusBar(BaseToolbar toolbar, Activity baseAty, boolean isNormal) {
         Window window = baseAty.getWindow();
-        window.setStatusBarColor(Color.TRANSPARENT);
         toolbar.setFitsSystemWindows(true);
         toolbar.setPadding(0, getStatusBarHeight(baseAty), 0, 0);
         toolbar.setBackgroundColor(toolbar.getBackgroundColor());
         toolbar.setClipToPadding(true);
+        if (isNormal) {
+            window.setStatusBarColor(baseAty.getResources().getColor(R.color.transparent_half));
+        } else {
+            window.setStatusBarColor(Color.TRANSPARENT);
+        }
     }
 
 }

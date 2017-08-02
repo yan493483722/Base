@@ -146,6 +146,9 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
 
     /**
      * 两边有侧滑时设置baseToolbar
+     * 注意：
+     * 1.根布局 android.support.v4.widget.DrawerLayout 的DrawerLayout 要设置 android:fitsSystemWindows="true"
+     * 2.左右滑动菜单根本局 为 android.support.design.widget.NavigationView 勿使用其他作为根布局
      *
      * @param toolbar
      * @param showLeftIcon

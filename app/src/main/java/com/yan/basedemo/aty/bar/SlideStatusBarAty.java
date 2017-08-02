@@ -35,7 +35,7 @@ public class SlideStatusBarAty extends BaseAty {
     @BindView(R.id.nv_slide_status_bar_left)
     NavigationView nvSlideStatusBarLeft;
     @BindView(R.id.nv_slide_status_bar_right)
-    FrameLayout nvSlideStatusBarRight;
+    NavigationView nvSlideStatusBarRight;
     @BindView(R.id.dl_slide_status_bar)
     DrawerLayout dlSlideStatusBar;
 
@@ -55,7 +55,6 @@ public class SlideStatusBarAty extends BaseAty {
         btlSlideStatusBar.setLeftIcon(R.drawable.icon_menu);
         btlSlideStatusBar.setRightIcon(R.drawable.icon_more);
         setSlideBaseToolbar(btlSlideStatusBar, true);
-
     }
 
     @Override

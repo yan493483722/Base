@@ -15,7 +15,10 @@ import com.ashokvarma.bottomnavigation.TextBadgeItem;
 import com.yan.base.BaseAty;
 import com.yan.base.BaseFg;
 import com.yan.basedemo.R;
+import com.yan.basedemo.aty.bar.fg.MultiStatusFindFg;
 import com.yan.basedemo.aty.bar.fg.MultiStatusHomeFg;
+import com.yan.basedemo.aty.bar.fg.MultiStatusMsgFg;
+import com.yan.basedemo.aty.bar.fg.MultiStatusMyFg;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,10 +83,10 @@ public class MultiStatusBarAty extends BaseAty {
                 .initialise();
         bnbMultiStatusBar.setTabSelectedListener(tabSelectedListener);
         baseFgs = new ArrayList<>();
-        MultiStatusHomeFg home = new MultiStatusHomeFg();
+        MultiStatusMsgFg home = new MultiStatusMsgFg();
         MultiStatusHomeFg home2 = new MultiStatusHomeFg();
-        MultiStatusHomeFg home3 = new MultiStatusHomeFg();
-        MultiStatusHomeFg home4 = new MultiStatusHomeFg();
+        MultiStatusFindFg home3 = new MultiStatusFindFg();
+        MultiStatusMyFg home4 = new MultiStatusMyFg();
         baseFgs.add(home);
         baseFgs.add(home2);
         baseFgs.add(home3);

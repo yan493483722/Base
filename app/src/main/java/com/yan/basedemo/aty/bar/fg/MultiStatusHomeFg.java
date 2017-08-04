@@ -29,6 +29,8 @@ public class MultiStatusHomeFg extends BaseFg {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View content = inflater.inflate(R.layout.fg_multi_status_home, container, false);
         ButterKnife.bind(this,content);
+        setBaseToolbar(btbFgMultiStatusHome,false);
+        btbFgMultiStatusHome.setTitleText("主页");
         return content;
     }
 }

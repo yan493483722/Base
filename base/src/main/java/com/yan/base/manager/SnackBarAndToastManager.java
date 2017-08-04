@@ -39,7 +39,7 @@ public class SnackBarAndToastManager {
      * @param view
      * @param text
      */
-    public void showSnackBar(View view, String text) {
+    public void showSnackBar(String text ,View view ) {
         if (baseAty==null||baseAty.isFinishing()||view==null) {
             return;
         }

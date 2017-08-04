@@ -157,24 +157,24 @@ public class DialogExampleAty extends BaseAty {
 
         @Override
         public void forgetPassword() {
-            mSnackBarAndToastManager.showSnackBar(passwordInputDialog.getView(), "忘记密码");
+            mSnackBarAndToastManager.showSnackBar( "忘记密码",passwordInputDialog.getView());
         }
 
         @Override
         public void successAnimationEnd() {
-            mSnackBarAndToastManager.showSnackBar(passwordInputDialog.getView(), "成功了动画结束");
+            mSnackBarAndToastManager.showSnackBar("成功了动画结束",passwordInputDialog.getView());
             passwordInputDialog.dismiss();
         }
 
         @Override
         public void failAnimationEnd() {
-            mSnackBarAndToastManager.showSnackBar(passwordInputDialog.getView(), "失败了动画结束");
+            mSnackBarAndToastManager.showSnackBar("失败了动画结束", passwordInputDialog.getView());
             passwordInputDialog.reset();
         }
 
         @Override
         public void onPasswordInputComplete(final CharSequence text) {
-            mSnackBarAndToastManager.showSnackBar(passwordInputDialog.getView(), "输入结果是：" + text + "\n" + "正确的结果为：" + tempPassword + "\n");
+            mSnackBarAndToastManager.showSnackBar( "输入结果是：" + text + "\n" + "正确的结果为：" + tempPassword + "\n",passwordInputDialog.getView());
             passwordInputDialog.loadArc("支付结果确认中...");
             final int resetTime = passwordInputDialog.getResetTime();
             new Thread() { //每一次都要去舍弃上一次的结果，如果是网络请求，可以将当前的次数进行传递回来

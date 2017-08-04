@@ -9,7 +9,6 @@ import com.yan.base.BaseAty;
 import com.yan.base.uitls.Tools;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -65,7 +64,7 @@ public class BasePresenter<T extends BaseViewer> {
 
     protected void sendRequestModel(String token, Object requestModel, String url, boolean autoShowLoading, Object tag, Callback callBack) {
         if (autoShowLoading) {
-            baseAty.getmProgressDialogManager().showSystemLaoding("加载中");
+            baseAty.getmProgressDialogManager().showSystemLoading("加载中");
         }
 
         //        RequestBody requestBody = new FormBody.Builder()
@@ -130,7 +129,7 @@ public class BasePresenter<T extends BaseViewer> {
 
     protected <D> void sendRequestModel(Object requestModel, String url, final boolean autoShowLoading, Object tag) {
         if (autoShowLoading) {
-            baseAty.getmProgressDialogManager().showSystemLaoding("加载中");
+            baseAty.getmProgressDialogManager().showSystemLoading("加载中");
         }
         RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), JSON.toJSONString(requestModel));
 //创建一个Request

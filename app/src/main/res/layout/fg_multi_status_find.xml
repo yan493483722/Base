@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:baseToolbar="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.yan.base.toolbar.BaseToolbar
+        android:id="@+id/btb_fg_multi_status_find"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        baseToolbar:baseToolBarColor="@color/bg_color_red"
+        baseToolbar:baseToolBarType="img_full" />
+
+</LinearLayout>

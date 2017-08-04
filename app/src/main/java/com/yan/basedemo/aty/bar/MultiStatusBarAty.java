@@ -1,19 +1,24 @@
 package com.yan.basedemo.aty.bar;
 
 
-import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.ashokvarma.bottomnavigation.ShapeBadgeItem;
 import com.ashokvarma.bottomnavigation.TextBadgeItem;
 import com.yan.base.BaseAty;
+import com.yan.base.BaseFg;
 import com.yan.basedemo.R;
+import com.yan.basedemo.aty.bar.fg.MultiStatusHomeFg;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,8 +39,14 @@ public class MultiStatusBarAty extends BaseAty {
 
     @BindView(R.id.bnb_multi_status_bar)
     BottomNavigationBar bnbMultiStatusBar;
+    @BindView(R.id.vp_multi_status_bar)
+    ViewPager vpMultiStatusBar;
 
     private int msgNum = 3;
+
+    int size;
+
+    List<BaseFg> baseFgs;
 
     @Override
     protected void initContentView() {
@@ -57,57 +68,29 @@ public class MultiStatusBarAty extends BaseAty {
         // "SHAPE_STAR_3_VERTICES", "SHAPE_STAR_4_VERTICES", "SHAPE_STAR_5_VERTICES", "SHAPE_STAR_6_VERTICES"
         shapeBadgeItem = new ShapeBadgeItem()
                 .setShape(ShapeBadgeItem.SHAPE_STAR_5_VERTICES)
-                .setShapeColorResource(R.color.color_blue)
-                .setGravity(Gravity.TOP | Gravity.END);
+                .setShapeColorResource(R.color.color_teal)
+                .setGravity(Gravity.TOP | Gravity.END).setHideOnSelect(true);
         bnbMultiStatusBar.setMode(BottomNavigationBar.MODE_FIXED);
         bnbMultiStatusBar
-                .addItem(new BottomNavigationItem(R.drawable.icon_msg, "消息").setActiveColorResource(R.color.color_orange).setBadgeItem(numberBadgeItem))
-                .addItem(new BottomNavigationItem(R.drawable.icon_home, "主页").setActiveColorResource(R.color.color_orange))
-                .addItem(new BottomNavigationItem(R.drawable.icon_find, "发现").setActiveColorResource(R.color.color_orange).setBadgeItem(shapeBadgeItem))
-                .addItem(new BottomNavigationItem(R.drawable.icon_me, "我的").setActiveColorResource(R.color.color_orange))
+                .addItem(new BottomNavigationItem(R.drawable.icon_msg, "消息").setActiveColorResource(R.color.color_teal).setBadgeItem(numberBadgeItem))
+                .addItem(new BottomNavigationItem(R.drawable.icon_home, "主页").setActiveColorResource(R.color.color_teal))
+                .addItem(new BottomNavigationItem(R.drawable.icon_find, "发现").setActiveColorResource(R.color.color_teal).setBadgeItem(shapeBadgeItem))
+                .addItem(new BottomNavigationItem(R.drawable.icon_me, "我的").setActiveColorResource(R.color.color_teal))
                 .setFirstSelectedPosition(0)
                 .initialise();
-        for (int i = 0; i < bnbMultiStatusBar.getChildCount() ; i++) {
-            FrameLayout fl=  ((FrameLayout)bnbMultiStatusBar.getChildAt(i));
-            fl .getChildCount();
-//            ((View)fl.getChildAt(0))
-        }
-        bnbMultiStatusBar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(int position) {
-                if (msgNum <= 0) {
-                    if (numberBadgeItem != null && !numberBadgeItem.isHidden()) {
-                        numberBadgeItem.toggle();
-                    }
-                } else {
-                    if (position == 0) {
-                        msgNum--;
-                    }
-                }
-                switch (position) {
-                    case 0:
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    default:
-                        break;
-                }
-            }
-
-            @Override
-            public void onTabUnselected(int position) {
-
-            }
-
-            @Override
-            public void onTabReselected(int position) {
-
-            }
-        });
+        bnbMultiStatusBar.setTabSelectedListener(tabSelectedListener);
+        baseFgs = new ArrayList<>();
+        MultiStatusHomeFg home = new MultiStatusHomeFg();
+        MultiStatusHomeFg home2 = new MultiStatusHomeFg();
+        MultiStatusHomeFg home3 = new MultiStatusHomeFg();
+        MultiStatusHomeFg home4 = new MultiStatusHomeFg();
+        baseFgs.add(home);
+        baseFgs.add(home2);
+        baseFgs.add(home3);
+        baseFgs.add(home4);
+        size = baseFgs.size();
+        vpMultiStatusBar.setAdapter(fragmentPagerAdapter);
+        vpMultiStatusBar.addOnPageChangeListener(onPageChangeListener);
     }
 
     @Override
@@ -116,4 +99,130 @@ public class MultiStatusBarAty extends BaseAty {
     }
 
 
+    BottomNavigationBar.OnTabSelectedListener tabSelectedListener = new BottomNavigationBar.OnTabSelectedListener() {
+        @Override
+        public void onTabSelected(int position) {
+            setBadgeShow(position);
+            vpMultiStatusBar.setCurrentItem(position);
+
+        }
+
+
+        @Override
+        public void onTabUnselected(int position) {
+
+        }
+
+        @Override
+        public void onTabReselected(int position) {
+
+        }
+
+
+
+        private void show(int position) {
+            if (currentTab == position) {
+                return;
+            }
+            baseFgs.get(currentTab).onPause();
+            Fragment fragment = baseFgs.get(position);
+            if (fragment.isAdded()) {
+                fragment.onResume(); // 启动目标tab的onResume()
+            } else {
+                FragmentTransaction ft = obtainFragmentTransaction(position);
+                ft.add(R.id.vp_multi_status_bar, fragment);
+                ft.commit();
+            }
+            currentTab = position;
+
+            for (int i = 0; i < size; i++) {
+                FragmentTransaction ft = obtainFragmentTransaction(i);
+                if (i == position) {
+                    ft.show(fragment);
+                } else {
+                    if (!baseFgs.get(i).isHidden()) {
+                        ft.hide(baseFgs.get(i));
+                    }
+                }
+                ft.commit();
+            }
+        }
+        /**
+         * 获取一个带动画的FragmentTransaction
+         *
+         * @param index
+         * @return
+         */
+        private FragmentTransaction obtainFragmentTransaction(int index) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            // 设置切换动画
+            if (index > currentTab) {
+                ft.setCustomAnimations(com.wangjie.androidbucket.R.anim.slide_left_in, com.wangjie.androidbucket.R.anim.slide_left_out);
+            } else {
+                ft.setCustomAnimations(com.wangjie.androidbucket.R.anim.slide_right_in, com.wangjie.androidbucket.R.anim.slide_right_out);
+            }
+            return ft;
+        }
+    };
+
+    private int currentTab;
+    FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+
+
+
+        @Override
+        public Fragment getItem(int position) {
+            return baseFgs.get(position);
+        }
+
+
+
+        @Override
+        public int getCount() {
+            return baseFgs == null ? 0 : baseFgs.size();
+        }
+
+
+    };
+
+    ViewPager.OnPageChangeListener onPageChangeListener=new ViewPager.OnPageChangeListener(){
+
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            bnbMultiStatusBar.selectTab(position,true);
+            setBadgeShow(position);
+//            tabSelectedListener.onTabSelected(position);
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        vpMultiStatusBar.removeOnPageChangeListener(onPageChangeListener);
+    }
+
+    public void setBadgeShow(int position) {
+        if (position == 0) {
+            if (msgNum > 0) {
+                msgNum--;
+                mSnackBarAndToastManager.showSnackBar("减少了一条消息");
+                numberBadgeItem.setText("" + msgNum);
+            }
+        }
+        if (msgNum <= 0) {
+            if (numberBadgeItem != null && !numberBadgeItem.isHidden()) {
+                numberBadgeItem.toggle();
+            }
+        }
+    }
 }

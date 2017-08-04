@@ -25,7 +25,7 @@ public class ProgressDialogManager {
     /**
      * 显示系统类型的加载框
      */
-    public void showSystemLaoding(String content) {
+    public void showSystemLoading(String content) {
         if (null == mSystemProgressDialog) {
             mSystemProgressDialog = new ProgressDialog(baseAty);
         }

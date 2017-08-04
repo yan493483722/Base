@@ -25,9 +25,9 @@ public class BaseToolbarUtil {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public static void setBaseToolbar(BaseToolbar toolbar, Activity baseAty, boolean isSlide) {
+        baseAty.setTheme(R.style.AppThemeFull);
         switch (toolbar.getBaseToolBarType()) {
             case BaseToolbar.STATUS_BAR_TYPE_NORMAL:
-                baseAty.setTheme(R.style.AppTheme);
                 if (isSlide) {
                     setSlideFullStatus(baseAty);
                     setSlideStatusBar(toolbar, baseAty, true);
@@ -37,7 +37,6 @@ public class BaseToolbarUtil {
                 break;
             case BaseToolbar.STATUS_BAR_TYPE_FULL:
                 //保持底部
-                baseAty.setTheme(R.style.AppThemeFull);
                 if (isSlide) {
                     setSlideFullStatus(baseAty);
                     setSlideStatusBar(toolbar, baseAty, false);
@@ -46,20 +45,43 @@ public class BaseToolbarUtil {
                 }
                 break;
             case BaseToolbar.STATUS_BAR_TYPE_IMG_NORMAL:
-                baseAty.setTheme(R.style.AppTheme);
-                if(isSlide){
+                if (isSlide) {
                     setImageSlideStatusBar(toolbar, baseAty, true);
-                }else{
+                } else {
                     setImageStatusBar(toolbar, baseAty, true);
                 }
                 break;
             case BaseToolbar.STATUS_BAR_TYPE_IMG_FULL:
-                baseAty.setTheme(R.style.AppTheme);
-                if(isSlide){
+                if (isSlide) {
                     setImageSlideStatusBar(toolbar, baseAty, false);
-                }else{
+                } else {
                     setImageStatusBar(toolbar, baseAty, false);
                 }
+                break;
+            default:
+                break;
+        }
+
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public static void setFragmentBaseToolbar(BaseToolbar toolbar, Activity baseAty, boolean isSlide) {
+        baseAty.setTheme(R.style.AppThemeFull);
+        switch (toolbar.getBaseToolBarType()) {
+            case BaseToolbar.STATUS_BAR_TYPE_NORMAL:
+                setSlideFullStatus(baseAty);
+                setSlideStatusBar(toolbar, baseAty, true);
+                break;
+            case BaseToolbar.STATUS_BAR_TYPE_FULL:
+                setSlideFullStatus(baseAty);
+                setSlideStatusBar(toolbar, baseAty, false);
+                break;
+            case BaseToolbar.STATUS_BAR_TYPE_IMG_NORMAL:
+                setImageSlideStatusBar(toolbar, baseAty, true);
+                break;
+            case BaseToolbar.STATUS_BAR_TYPE_IMG_FULL:
+                setImageSlideStatusBar(toolbar, baseAty, false);
                 break;
             default:
                 break;
@@ -105,7 +127,7 @@ public class BaseToolbarUtil {
         Window window = aty.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(isNormal ?  aty.getResources().getColor(R.color.transparent_half):Color.TRANSPARENT );
+        window.setStatusBarColor(isNormal ? aty.getResources().getColor(R.color.transparent_half) : Color.TRANSPARENT);
         window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         ViewGroup mContentView = (ViewGroup) window.findViewById(Window.ID_ANDROID_CONTENT);
         View mChildView = mContentView.getChildAt(0);
@@ -122,7 +144,25 @@ public class BaseToolbarUtil {
         Window window = aty.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(isNormal ?  aty.getResources().getColor(R.color.transparent_half) :Color.TRANSPARENT);
+        window.setStatusBarColor(isNormal ? aty.getResources().getColor(R.color.transparent_half) : Color.TRANSPARENT);
+//        window.setStatusBarColor(Color.TRANSPARENT);
+        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        ViewGroup mContentView = (ViewGroup) window.findViewById(Window.ID_ANDROID_CONTENT);
+        View mChildView = mContentView.getChildAt(0);
+        if (mChildView != null) {
+            ViewCompat.setFitsSystemWindows(mChildView, false);
+            ViewCompat.requestApplyInsets(mChildView);
+        }
+        toolbar.setPadding(0, getStatusBarHeight(aty), 0, 0);
+        toolbar.tb_base_tb.setFitsSystemWindows(true);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    static void setFragmentSlideStatusBar(BaseToolbar toolbar, Activity aty, boolean isNormal) {
+        Window window = aty.getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.setStatusBarColor(isNormal ? aty.getResources().getColor(R.color.transparent_half) : Color.TRANSPARENT);
 //        window.setStatusBarColor(Color.TRANSPARENT);
         window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         ViewGroup mContentView = (ViewGroup) window.findViewById(Window.ID_ANDROID_CONTENT);

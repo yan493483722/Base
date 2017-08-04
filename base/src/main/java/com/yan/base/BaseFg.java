@@ -58,7 +58,7 @@ public class BaseFg extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(showLeftIcon);
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-            BaseToolbarUtil.setBaseToolbar(toolbar, getActivity(), false);
+            BaseToolbarUtil.setFragmentBaseToolbar(toolbar, getActivity(), false);
         }
     }
 
@@ -76,7 +76,7 @@ public class BaseFg extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(showLeftIcon);
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-            BaseToolbarUtil.setBaseToolbar(toolbar, getActivity(), true);
+            BaseToolbarUtil.setFragmentBaseToolbar(toolbar, getActivity(), true);
         }
     }
 }

@@ -29,7 +29,7 @@ public class MultiStatusFindFg extends BaseFg {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View content = inflater.inflate(R.layout.fg_multi_status_find, container, false);
         ButterKnife.bind(this,content);
-        setBaseToolbar(btbFgMultiStatusFind,false);
+        setSlideBaseToolbar(btbFgMultiStatusFind,false);
         btbFgMultiStatusFind.setTitleText("发现");
         return content;
     }

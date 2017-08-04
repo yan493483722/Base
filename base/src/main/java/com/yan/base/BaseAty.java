@@ -140,7 +140,7 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(showLeftIcon);
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-            BaseToolbarUtil.setBaseToolbar(toolbar, mAty, false);
+            BaseToolbarUtil.setFragmentBaseToolbar(toolbar, mAty, false);
         }
     }
 
@@ -158,7 +158,7 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(showLeftIcon);
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-            BaseToolbarUtil.setBaseToolbar(toolbar, mAty, true);
+            BaseToolbarUtil.setFragmentBaseToolbar(toolbar, mAty, true);
         }
     }
 

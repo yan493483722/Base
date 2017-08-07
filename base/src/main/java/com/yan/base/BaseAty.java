@@ -3,13 +3,19 @@ package com.yan.base;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.yan.base.application.AppManager;
 import com.yan.base.application.GlobalPreference;
@@ -135,12 +141,12 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
      * @param toolbar
      * @param showLeftIcon
      */
-    public void setBaseToolbar(BaseToolbar toolbar, boolean showLeftIcon) {
+    public void setStatusBar(BaseToolbar toolbar, boolean showLeftIcon) {
         setSupportActionBar(toolbar.tb_base_tb);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(showLeftIcon);
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-            BaseToolbarUtil.setFragmentBaseToolbar(toolbar, mAty, false);
+            BaseToolbarUtil.setBaseToolbar(toolbar, mAty, false);
         }
     }
 
@@ -153,15 +159,30 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
      * @param toolbar
      * @param showLeftIcon
      */
-    public void setSlideBaseToolbar(BaseToolbar toolbar, boolean showLeftIcon) {
+    public void setStatusBarInSlide(BaseToolbar toolbar, boolean showLeftIcon) {
         setSupportActionBar(toolbar.tb_base_tb);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(showLeftIcon);
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-            BaseToolbarUtil.setFragmentBaseToolbar(toolbar, mAty, true);
+            BaseToolbarUtil.setBaseToolbar(toolbar, mAty, true);
         }
     }
 
+    public void setStatusBarInFragment() {
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(Color.TRANSPARENT);
+        }
+        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        ViewGroup mContentView = (ViewGroup) window.findViewById(Window.ID_ANDROID_CONTENT);
+        View mChildView = mContentView.getChildAt(0);
+        if (mChildView != null) {
+            ViewCompat.setFitsSystemWindows(mChildView, false);
+            ViewCompat.requestApplyInsets(mChildView);
+        }
+    }
 
     /**
      * 捕获返回键

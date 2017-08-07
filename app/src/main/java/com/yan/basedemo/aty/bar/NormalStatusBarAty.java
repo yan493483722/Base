@@ -1,10 +1,5 @@
 package com.yan.basedemo.aty.bar;
 
-import android.graphics.Color;
-import android.os.Build;
-import android.os.Bundle;
-import android.view.View;
-
 import com.yan.base.BaseAty;
 import com.yan.base.toolbar.BaseToolbar;
 import com.yan.basedemo.R;
@@ -29,7 +24,7 @@ public class NormalStatusBarAty extends BaseAty {
         setContentView(R.layout.aty_normal_status_bar);
 
         ButterKnife.bind(this);
-        setBaseToolbar(btbStatusBarNormal,true);
+        setStatusBar(btbStatusBarNormal,true);
         btbStatusBarNormal.setBaseToolbarListener(new BaseToolbar.BaseToolbarListener() {
             @Override
             public void clickLeft() {

@@ -25,7 +25,7 @@ import com.yan.base.R;
  * modify:
  * modify date:
  */
-public class BaseToolbar extends FrameLayout implements View.OnClickListener {
+public class BaseToolbar extends LinearLayout implements View.OnClickListener {
 
     private static final String TAG = "BaseToolbar";
 
@@ -74,6 +74,7 @@ public class BaseToolbar extends FrameLayout implements View.OnClickListener {
     }
 
     private void init(Context context, @Nullable AttributeSet attrs) {
+        setOrientation(VERTICAL);
         LayoutInflater.from(context).inflate(R.layout.toolbar_base, this);
         tb_base_tb = (Toolbar) findViewById(R.id.tb_base_tb);
         ll_base_tb_right = (LinearLayout) findViewById(R.id.ll_base_tb_right);

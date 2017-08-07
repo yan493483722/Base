@@ -1,12 +1,19 @@
 package com.yan.basedemo.aty.bar;
 
 
+import android.graphics.Color;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
@@ -61,6 +68,7 @@ public class MultiStatusBarAty extends BaseAty {
 
     @Override
     protected void initView() {
+        setStatusBarInFragment();
 
         numberBadgeItem = new TextBadgeItem()
                 .setBorderWidth(0)
@@ -84,9 +92,12 @@ public class MultiStatusBarAty extends BaseAty {
         bnbMultiStatusBar.setTabSelectedListener(tabSelectedListener);
         baseFgs = new ArrayList<>();
         MultiStatusMsgFg home = new MultiStatusMsgFg();
-        MultiStatusHomeFg home2 = new MultiStatusHomeFg();
-        MultiStatusFindFg home3 = new MultiStatusFindFg();
-        MultiStatusMyFg home4 = new MultiStatusMyFg();
+        MultiStatusMsgFg home2 = new MultiStatusMsgFg();
+        MultiStatusMsgFg home3 = new MultiStatusMsgFg();
+        MultiStatusMsgFg home4 = new MultiStatusMsgFg();
+//        MultiStatusHomeFg home2 = new MultiStatusHomeFg();
+//        MultiStatusFindFg home3 = new MultiStatusFindFg();
+//        MultiStatusMyFg home4 = new MultiStatusMyFg();
         baseFgs.add(home);
         baseFgs.add(home2);
         baseFgs.add(home3);
@@ -218,7 +229,7 @@ public class MultiStatusBarAty extends BaseAty {
         if (position == 0) {
             if (msgNum > 0) {
                 msgNum--;
-                mSnackBarAndToastManager.showSnackBar("减少了一条消息");
+                mSnackBarAndToastManager.showToast("减少了一条消息");
                 numberBadgeItem.setText("" + msgNum);
             }
         }

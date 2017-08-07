@@ -52,7 +52,7 @@ public class SlideStatusBarAty extends BaseAty {
         btlSlideStatusBar.setTitleText("两边侧滑");
         btlSlideStatusBar.setLeftIcon(R.drawable.icon_menu);
         btlSlideStatusBar.setRightIcon(R.drawable.icon_more);
-        setSlideBaseToolbar(btlSlideStatusBar, true);
+        setStatusBarInSlide(btlSlideStatusBar, true);
     }
 
     @Override

@@ -25,7 +25,7 @@ public class BaseToolbarUtil {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public static void setBaseToolbar(BaseToolbar toolbar, Activity baseAty, boolean isSlide) {
-        baseAty.setTheme(R.style.AppThemeFull);
+        baseAty.setTheme(R.style.AppTheme);
         switch (toolbar.getBaseToolBarType()) {
             case BaseToolbar.STATUS_BAR_TYPE_NORMAL:
                 if (isSlide) {
@@ -67,15 +67,16 @@ public class BaseToolbarUtil {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public static void setFragmentBaseToolbar(BaseToolbar toolbar, Activity baseAty, boolean isSlide) {
-        baseAty.setTheme(R.style.AppThemeFull);
+        baseAty.setTheme(R.style.AppTheme);
         switch (toolbar.getBaseToolBarType()) {
             case BaseToolbar.STATUS_BAR_TYPE_NORMAL:
-                setSlideFullStatus(baseAty);
-                setSlideStatusBar(toolbar, baseAty, true);
+                fragment(toolbar, baseAty, true);
+//                toolbar.tb_base_tb.setFitsSystemWindows(true);
+//                setSlideFullStatus(baseAty);
+//                setSlideStatusBar(toolbar, baseAty, true);
                 break;
             case BaseToolbar.STATUS_BAR_TYPE_FULL:
-                setSlideFullStatus(baseAty);
-                setSlideStatusBar(toolbar, baseAty, false);
+                fragment(toolbar, baseAty, false);
                 break;
             case BaseToolbar.STATUS_BAR_TYPE_IMG_NORMAL:
                 setImageSlideStatusBar(toolbar, baseAty, true);
@@ -87,6 +88,11 @@ public class BaseToolbarUtil {
                 break;
         }
 
+    }
+
+    private static void fragment(BaseToolbar toolbar, Activity baseAty, boolean isNormal) {
+
+        toolbar.tb_base_tb.setFitsSystemWindows(true);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -193,7 +199,6 @@ public class BaseToolbarUtil {
         Window window = baseAty.getWindow();
         //设置decorView 的系统状态栏为可见状态
         window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
-        //设置 toolbar 自适应
         ViewGroup mContentView = (ViewGroup) window.findViewById(Window.ID_ANDROID_CONTENT);
         View mChildView = mContentView.getChildAt(0);
         if (mChildView != null) {

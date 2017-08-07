@@ -11,7 +11,7 @@
         android:id="@+id/fl_slide_status_bar_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/img_slide_main">
+        android:background="@drawable/img_slide_find">
 
         <LinearLayout
             android:layout_width="match_parent"

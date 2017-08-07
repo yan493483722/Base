@@ -9,7 +9,7 @@
         android:id="@+id/btb_fg_multi_status_msg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        baseToolbar:baseToolBarColor="@color/color_teal"
+        baseToolbar:baseToolBarColor="#0000FF"
         baseToolbar:baseToolBarType="normal" />
-
+    <!--baseToolbar:baseToolBarColor="@color/color_teal"-->
 </LinearLayout>

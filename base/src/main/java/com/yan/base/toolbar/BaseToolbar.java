@@ -86,7 +86,7 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
         tb_base_tb.setNavigationIcon(R.drawable.icon_back);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            tb_base_tb.setElevation(5);
+            setElevation(5);
         }
 
         if (attrs != null) {

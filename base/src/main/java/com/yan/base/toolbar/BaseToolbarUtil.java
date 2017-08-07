@@ -170,17 +170,6 @@ public class BaseToolbarUtil {
         toolbar.tb_base_tb.setFitsSystemWindows(true);
     }
 
-    /**
-     * return statusBar's Height in pixels
-     */
-    private static int getStatusBarHeight(Context context) {
-        int result = 0;
-        int resId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resId > 0) {
-            result = context.getResources().getDimensionPixelOffset(resId);
-        }
-        return result;
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private static void setSlideFullStatus(Activity baseAty) {
@@ -227,4 +216,16 @@ public class BaseToolbarUtil {
         return hsv;
     }
 
+
+    /**
+     * return statusBar's Height in pixels
+     */
+    public static int getStatusBarHeight(Context context) {
+        int result = 0;
+        int resId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resId > 0) {
+            result = context.getResources().getDimensionPixelOffset(resId);
+        }
+        return result;
+    }
 }

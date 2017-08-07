@@ -3,7 +3,6 @@ package com.yan.base.toolbar;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
@@ -77,16 +76,16 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
         tv_base_tb_right = (TextView) findViewById(R.id.tv_base_tb_right);
         tv_base_tb_title = (TextView) findViewById(R.id.tv_base_tb_title);
         tb_base_tb.setNavigationIcon(R.drawable.icon_back);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setElevation(5);
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { 根据需求自己设置
+//            setElevation(5);
+//        }
         if (attrs != null) {
             TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.BaseToolBar);
             baseToolBarType = typedArray.getInteger(R.styleable.BaseToolBar_baseToolBarType, STATUS_BAR_TYPE_NORMAL);
             backgroundColor = typedArray.getColor(R.styleable.BaseToolBar_baseToolBarColor, getResources().getColor(R.color.colorPrimary));
             typedArray.recycle();
         }
-        tb_base_tb.setBackgroundColor(backgroundColor);
+        setBackgroundColor(backgroundColor);
     }
 
     public void setTitleText(String title) {
@@ -132,6 +131,23 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
     public void setBackgroundColor(@ColorInt int color) {
         super.setBackgroundColor(color);
         this.backgroundColor = color;
+    }
+
+
+    public int getHeight(Context context) {
+        int result = 0;
+        int resId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resId > 0) {
+            result = context.getResources().getDimensionPixelOffset(resId);
+        }
+        int[] attrs = {android.R.attr.actionBarSize};
+        TypedArray values = context.getTheme().obtainStyledAttributes(attrs);
+        try {
+            result +=  values.getDimensionPixelSize(0, 0);//第一个参数数组索引，第二个参数 默认值
+        } finally {
+            values.recycle();
+        }
+        return result;
     }
 
     public int getBackgroundColor() {

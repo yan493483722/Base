@@ -53,7 +53,7 @@
         android:id="@+id/btn_status_bar_expend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="仿微博头部" />
+        android:text="可拉伸头部image" />
 
     <Button
         android:id="@+id/btn_status_bar_search"

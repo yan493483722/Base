@@ -11,8 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,22 +31,20 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
     public static final int STATUS_BAR_TYPE_FULL = STATUS_BAR_TYPE_NORMAL + 1;
     public static final int STATUS_BAR_TYPE_IMG_NORMAL = STATUS_BAR_TYPE_FULL + 1;
     public static final int STATUS_BAR_TYPE_IMG_FULL = STATUS_BAR_TYPE_IMG_NORMAL + 1;
-
     private int baseToolBarType = STATUS_BAR_TYPE_NORMAL;
     public Toolbar tb_base_tb;
     LinearLayout ll_base_tb_right, ll_base_tb_left;
     ImageView iv_base_tb_right;
     TextView tv_base_tb_right, tv_base_tb_title;
-
     private BaseToolbarListener baseToolbarListener;
-
-    private @ColorInt  int backgroundColor;
+    private
+    @ColorInt
+    int backgroundColor;
 
     public BaseToolbar(Context context) {
         super(context);
-        init(context,null);
+        init(context, null);
     }
-
 
     public BaseToolbar(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -60,7 +56,6 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
         init(context, attrs);
     }
 
-
     public void setBaseToolbarListener(BaseToolbarListener baseToolbarListener) {
         this.baseToolbarListener = baseToolbarListener;
         ll_base_tb_right.setOnClickListener(this);
@@ -70,7 +65,6 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
                 BaseToolbar.this.baseToolbarListener.clickLeft();
             }
         });
-
     }
 
     private void init(Context context, @Nullable AttributeSet attrs) {
@@ -82,24 +76,18 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
         iv_base_tb_right = (ImageView) findViewById(R.id.iv_base_tb_right);
         tv_base_tb_right = (TextView) findViewById(R.id.tv_base_tb_right);
         tv_base_tb_title = (TextView) findViewById(R.id.tv_base_tb_title);
-
         tb_base_tb.setNavigationIcon(R.drawable.icon_back);
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             setElevation(5);
         }
-
         if (attrs != null) {
             TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.BaseToolBar);
             baseToolBarType = typedArray.getInteger(R.styleable.BaseToolBar_baseToolBarType, STATUS_BAR_TYPE_NORMAL);
             backgroundColor = typedArray.getColor(R.styleable.BaseToolBar_baseToolBarColor, getResources().getColor(R.color.colorPrimary));
             typedArray.recycle();
         }
-
         tb_base_tb.setBackgroundColor(backgroundColor);
     }
-
-
 
     public void setTitleText(String title) {
         tv_base_tb_title.setText(title);
@@ -112,13 +100,14 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
     public void setLeftIcon(@DrawableRes int resId) {
         tb_base_tb.setNavigationIcon(resId);
     }
+
     public void setRightIcon(@DrawableRes int resId) {
         iv_base_tb_right.setImageResource(resId);
     }
+
     public void setRightIcon(@Nullable Drawable icon) {
         iv_base_tb_right.setImageDrawable(icon);
     }
-
 
     public void setLeftIcon(@Nullable Drawable icon) {
         tb_base_tb.setNavigationIcon(icon);
@@ -142,7 +131,7 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
     @Override
     public void setBackgroundColor(@ColorInt int color) {
         super.setBackgroundColor(color);
-        this.backgroundColor=color;
+        this.backgroundColor = color;
     }
 
     public int getBackgroundColor() {
@@ -154,6 +143,7 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
         void clickLeft();
 
         void clickRight();
+
     }
 
 }

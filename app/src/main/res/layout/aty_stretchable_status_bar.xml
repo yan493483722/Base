@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 app:layout_collapseMode="pin"
                 baseToolBar:baseToolBarColor="@color/transparent"
-                baseToolBar:baseToolBarType="img_full" />
+                baseToolBar:baseToolBarType="normal" />
 
 
         </android.support.design.widget.CollapsingToolbarLayout>

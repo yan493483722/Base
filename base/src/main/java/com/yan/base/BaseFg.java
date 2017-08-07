@@ -38,29 +38,16 @@ public class BaseFg extends Fragment {
      * c、remove和detach有一点细微的区别，在不考虑回退栈的情况下，remove会销毁整个Fragment实例，而detach则只是销毁其视图结构，
      * 实例并不会被销毁。那么二者怎么取舍使用呢？如果你的当前Activity一直存在，那么在不希望保留用户操作的时候，你可以优先使用detach。
      **/
-    void setResult(int resultCode, Intent data) {
-        getActivity().setResult(resultCode, data);
-    }
+
 
     /**
      * 当前fragment由别的fragment启动 返回数据
      * setTargetFragment(Fragment fragment, int requestCode)
      */
-
-    /**
-     * 普通页面设置baseToolbar
-     *
-     * @param toolbar
-     * @param showLeftIcon
-     */
-    public void setBaseToolbar(BaseToolbar toolbar, boolean showLeftIcon) {
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar.tb_base_tb);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(showLeftIcon);
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-            BaseToolbarUtil.setFragmentBaseToolbar(toolbar, getActivity(), false);
-        }
+    void setResult(int resultCode, Intent data) {
+        getActivity().setResult(resultCode, data);
     }
+
 
     /**
      * 两边有侧滑时设置baseToolbar
@@ -71,12 +58,12 @@ public class BaseFg extends Fragment {
      * @param toolbar
      * @param showLeftIcon
      */
-    public void setSlideBaseToolbar(BaseToolbar toolbar, boolean showLeftIcon) {
+    public void setBaseToolbar(BaseToolbar toolbar, boolean showLeftIcon) {
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar.tb_base_tb);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(showLeftIcon);
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-            BaseToolbarUtil.setFragmentBaseToolbar(toolbar, getActivity(), true);
+            BaseToolbarUtil.setFragmentBaseToolbar(toolbar, getActivity());
         }
     }
 }

@@ -1,19 +1,12 @@
 package com.yan.basedemo.aty.bar;
 
 
-import android.graphics.Color;
-import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
@@ -62,19 +55,15 @@ public class MultiStatusBarAty extends BaseAty {
     protected void initContentView() {
         setContentView(R.layout.aty_multi_status_bar);
         ButterKnife.bind(this);
-
-
     }
 
     @Override
     protected void initView() {
         setStatusBarInFragment();
-
         numberBadgeItem = new TextBadgeItem()
                 .setBorderWidth(0)
                 .setBackgroundColorResource(R.color.bg_color_red)
                 .setText("" + msgNum);
-
         //"SHAPE_OVAL", "SHAPE_RECTANGLE", "SHAPE_HEART",
         // "SHAPE_STAR_3_VERTICES", "SHAPE_STAR_4_VERTICES", "SHAPE_STAR_5_VERTICES", "SHAPE_STAR_6_VERTICES"
         shapeBadgeItem = new ShapeBadgeItem()
@@ -92,12 +81,9 @@ public class MultiStatusBarAty extends BaseAty {
         bnbMultiStatusBar.setTabSelectedListener(tabSelectedListener);
         baseFgs = new ArrayList<>();
         MultiStatusMsgFg home = new MultiStatusMsgFg();
-        MultiStatusMsgFg home2 = new MultiStatusMsgFg();
-        MultiStatusMsgFg home3 = new MultiStatusMsgFg();
-        MultiStatusMsgFg home4 = new MultiStatusMsgFg();
-//        MultiStatusHomeFg home2 = new MultiStatusHomeFg();
-//        MultiStatusFindFg home3 = new MultiStatusFindFg();
-//        MultiStatusMyFg home4 = new MultiStatusMyFg();
+        MultiStatusHomeFg home2 = new MultiStatusHomeFg();
+        MultiStatusFindFg home3 = new MultiStatusFindFg();
+        MultiStatusMyFg home4 = new MultiStatusMyFg();
         baseFgs.add(home);
         baseFgs.add(home2);
         baseFgs.add(home3);
@@ -112,7 +98,6 @@ public class MultiStatusBarAty extends BaseAty {
 
     }
 
-
     BottomNavigationBar.OnTabSelectedListener tabSelectedListener = new BottomNavigationBar.OnTabSelectedListener() {
         @Override
         public void onTabSelected(int position) {
@@ -120,7 +105,6 @@ public class MultiStatusBarAty extends BaseAty {
             vpMultiStatusBar.setCurrentItem(position);
 
         }
-
 
         @Override
         public void onTabUnselected(int position) {
@@ -131,8 +115,6 @@ public class MultiStatusBarAty extends BaseAty {
         public void onTabReselected(int position) {
 
         }
-
-
 
         private void show(int position) {
             if (currentTab == position) {
@@ -161,6 +143,7 @@ public class MultiStatusBarAty extends BaseAty {
                 ft.commit();
             }
         }
+
         /**
          * 获取一个带动画的FragmentTransaction
          *
@@ -182,24 +165,19 @@ public class MultiStatusBarAty extends BaseAty {
     private int currentTab;
     FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
 
-
-
         @Override
         public Fragment getItem(int position) {
             return baseFgs.get(position);
         }
-
-
 
         @Override
         public int getCount() {
             return baseFgs == null ? 0 : baseFgs.size();
         }
 
-
     };
 
-    ViewPager.OnPageChangeListener onPageChangeListener=new ViewPager.OnPageChangeListener(){
+    ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -208,9 +186,8 @@ public class MultiStatusBarAty extends BaseAty {
 
         @Override
         public void onPageSelected(int position) {
-            bnbMultiStatusBar.selectTab(position,true);
+            bnbMultiStatusBar.selectTab(position, false);
             setBadgeShow(position);
-//            tabSelectedListener.onTabSelected(position);
         }
 
         @Override

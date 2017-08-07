@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:baseToolBar="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/apl_stretchable_status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/ctl_stretchable_status_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            <ImageView
+                app:layout_collapseParallaxMultiplier="0.2"
+                app:layout_collapseMode="parallax"
+                android:id="@+id/iv_stretchable_status_bar"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:scaleType="fitXY" />
+
+            <TextView
+                app:layout_collapseParallaxMultiplier="1"
+                app:layout_collapseMode="parallax"
+                android:id="@+id/tv_stretchable_status_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="?attr/actionBarSize"
+                android:gravity="bottom"
+                android:background="@color/transparent"
+                android:padding="@dimen/padding_all_left_right"
+                android:text="朱自清：原籍浙江绍兴，出生于江苏省东海县（今连云港市东海县平明镇），后随祖父、父亲定居扬州，自称“我是扬州人”。1916年中学毕业并成功考入北京大学预科。1919年开始发表诗歌。1928年第一本散文集《背影》出版。[2-3]  1932年7月，任清华大学中国文学系主任。1934年，出版《欧游杂记》和《伦敦杂记》。1935年，出版散文集《你我》。1948年8月12日因胃穿孔病逝于北平，年仅50岁。"
+                android:textColor="@color/font_white"
+                android:textSize="@dimen/font_small" />
+            <com.yan.base.toolbar.BaseToolbar
+                android:id="@+id/btb_stretchable_status_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_collapseMode="pin"
+                baseToolBar:baseToolBarColor="@color/transparent"
+                baseToolBar:baseToolBarType="normal" />
+
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/padding_all_top_bottom">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/margin_all_left_right"
+                android:text="荷塘月色"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/font_big" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/margin_all_left_right"
+                android:text="作者: 朱自清"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/font_small" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/margin_all_left_right"
+                android:paddingLeft="@dimen/margin_all_left_right"
+                android:paddingRight="@dimen/margin_all_left_right"
+                android:text="@string/article"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/font_middle" />
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>

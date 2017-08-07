@@ -36,6 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="侧滑普通" />
+
     <Button
         android:id="@+id/btn_status_bar_slide_img"
         android:layout_width="match_parent"
@@ -46,13 +47,13 @@
         android:id="@+id/btn_status_bar_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="fragment" />
+        android:text="底部导航栏加侧滑" />
 
     <Button
         android:id="@+id/btn_status_bar_expend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="仿微博头部" />
+        android:text="可拉伸头部image" />
 
     <Button
         android:id="@+id/btn_status_bar_search"

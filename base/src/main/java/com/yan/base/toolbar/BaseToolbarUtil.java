@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.support.annotation.RequiresApi;
 import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import com.yan.base.R;
 
@@ -66,23 +68,20 @@ public class BaseToolbarUtil {
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public static void setFragmentBaseToolbar(BaseToolbar toolbar, Activity baseAty, boolean isSlide) {
+    public static void setFragmentBaseToolbar(BaseToolbar toolbar, Activity baseAty) {
         baseAty.setTheme(R.style.AppTheme);
         switch (toolbar.getBaseToolBarType()) {
             case BaseToolbar.STATUS_BAR_TYPE_NORMAL:
-                fragment(toolbar, baseAty, true);
-//                toolbar.tb_base_tb.setFitsSystemWindows(true);
-//                setSlideFullStatus(baseAty);
-//                setSlideStatusBar(toolbar, baseAty, true);
+                setFragmentStatusBar(toolbar, baseAty, true);
                 break;
             case BaseToolbar.STATUS_BAR_TYPE_FULL:
-                fragment(toolbar, baseAty, false);
+                setFragmentStatusBar(toolbar, baseAty, false);
                 break;
             case BaseToolbar.STATUS_BAR_TYPE_IMG_NORMAL:
-                setImageSlideStatusBar(toolbar, baseAty, true);
+                setFragmentStatusBarImage(toolbar, baseAty, true);
                 break;
             case BaseToolbar.STATUS_BAR_TYPE_IMG_FULL:
-                setImageSlideStatusBar(toolbar, baseAty, false);
+                setFragmentStatusBarImage(toolbar, baseAty, false);
                 break;
             default:
                 break;
@@ -90,9 +89,25 @@ public class BaseToolbarUtil {
 
     }
 
-    private static void fragment(BaseToolbar toolbar, Activity baseAty, boolean isNormal) {
+    private static void setFragmentStatusBar(BaseToolbar toolbar, Activity baseAty, boolean isNormal) {
+        View view = new View(baseAty);
+        toolbar.addView(view, 0);
+        view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight(baseAty)));
+        if (isNormal) {
+            view.setBackgroundColor(Color.HSVToColor(getDarkColor(toolbar.getBackgroundColor())));
+        } else {
+            view.setBackgroundColor(toolbar.getBackgroundColor());
+        }
+    }
 
-        toolbar.tb_base_tb.setFitsSystemWindows(true);
+    private static void setFragmentStatusBarImage(BaseToolbar toolbar, Activity baseAty, boolean isNormal) {
+        View view = new View(baseAty);
+        toolbar.addView(view, 0);
+        view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight(baseAty)));
+        toolbar.setBackgroundColor(toolbar.getBackgroundColor());
+        if (isNormal) {
+            view.setBackgroundColor(toolbar.getResources().getColor(R.color.transparent_half));
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -115,18 +130,11 @@ public class BaseToolbarUtil {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         //设置状态栏颜色
         if (isNormal) {
-            int bgColor = toolbar.getBackgroundColor();
-            int red = (bgColor & 0xff0000) >> 16 + 1;
-            int green = (bgColor & 0x00ff00) >> 8 + 1;
-            int blue = (bgColor & 0x0000ff) + 1;
-            int color = Color.rgb(red, green, blue);
-            window.setStatusBarColor(color);
+            window.setStatusBarColor(Color.HSVToColor(getDarkColor(toolbar.getBackgroundColor())));
         } else {
             window.setStatusBarColor(toolbar.getBackgroundColor());
         }
-
     }
-
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     static void setImageStatusBar(BaseToolbar toolbar, Activity aty, boolean isNormal) {
@@ -143,7 +151,6 @@ public class BaseToolbarUtil {
         }
         toolbar.tb_base_tb.setFitsSystemWindows(true);
     }
-
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     static void setImageSlideStatusBar(BaseToolbar toolbar, Activity aty, boolean isNormal) {
@@ -163,36 +170,6 @@ public class BaseToolbarUtil {
         toolbar.tb_base_tb.setFitsSystemWindows(true);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    static void setFragmentSlideStatusBar(BaseToolbar toolbar, Activity aty, boolean isNormal) {
-        Window window = aty.getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(isNormal ? aty.getResources().getColor(R.color.transparent_half) : Color.TRANSPARENT);
-//        window.setStatusBarColor(Color.TRANSPARENT);
-        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        ViewGroup mContentView = (ViewGroup) window.findViewById(Window.ID_ANDROID_CONTENT);
-        View mChildView = mContentView.getChildAt(0);
-        if (mChildView != null) {
-            ViewCompat.setFitsSystemWindows(mChildView, false);
-            ViewCompat.requestApplyInsets(mChildView);
-        }
-        toolbar.setPadding(0, getStatusBarHeight(aty), 0, 0);
-        toolbar.tb_base_tb.setFitsSystemWindows(true);
-    }
-
-
-    /**
-     * return statusBar's Height in pixels
-     */
-    private static int getStatusBarHeight(Context context) {
-        int result = 0;
-        int resId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resId > 0) {
-            result = context.getResources().getDimensionPixelOffset(resId);
-        }
-        return result;
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private static void setSlideFullStatus(Activity baseAty) {
@@ -228,4 +205,27 @@ public class BaseToolbarUtil {
         }
     }
 
+    private static float[] getDarkColor(@ColorInt int bgColor) {
+        int red = (bgColor & 0xff0000) >> 16;
+        int green = (bgColor & 0x00ff00) >> 8;
+        int blue = (bgColor & 0x0000ff);
+        int color = Color.rgb(red, green, blue);
+        float hsv[] = new float[3];
+        Color.colorToHSV(color, hsv);
+        hsv[2] = hsv[2] - 0.3f;
+        return hsv;
+    }
+
+
+    /**
+     * return statusBar's Height in pixels
+     */
+    public static int getStatusBarHeight(Context context) {
+        int result = 0;
+        int resId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resId > 0) {
+            result = context.getResources().getDimensionPixelOffset(resId);
+        }
+        return result;
+    }
 }

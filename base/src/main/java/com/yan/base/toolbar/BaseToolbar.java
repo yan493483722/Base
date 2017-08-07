@@ -34,7 +34,7 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
     public Toolbar tb_base_tb;
     LinearLayout ll_base_tb_right, ll_base_tb_left;
     ImageView iv_base_tb_right;
-    TextView tv_base_tb_right, tv_base_tb_title;
+    public TextView tv_base_tb_right, tv_base_tb_title;
     private BaseToolbarListener baseToolbarListener;
     private
     @ColorInt

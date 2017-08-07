@@ -3,7 +3,6 @@ package com.yan.basedemo.aty.bar;
 import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -49,13 +48,12 @@ public class StretchableAty extends BaseAty {
             btbStretchableStatusBar.setBackgroundColor(getResources().getColor(R.color.transparent));
             tvbStretchableStatusBar.setBackgroundColor(getResources().getColor(R.color.transparent));
             ivbStretchableStatusBar.setImageResource(R.drawable.img_htys);
-
         }
         setStatusBarInFragment();
         setBaseToolbar(btbStretchableStatusBar, true);
         baseToolBarHeight = btbStretchableStatusBar.getHeight(mAty);
         ctlStretchableStatusBar.setMinimumHeight(btbStretchableStatusBar.getHeight(mAty));
-        btbStretchableStatusBar.setTitleText("可拉伸图片");
+        btbStretchableStatusBar.setTitleText("散文欣赏");
         btbStretchableStatusBar.setRightText("图片");
 
         aplStretchableStatusBar.addOnOffsetChangedListener(appBarLayoutListener);
@@ -69,7 +67,7 @@ public class StretchableAty extends BaseAty {
             @Override
             public void clickRight() {
                 Intent intent = new Intent(mAty, StretchableAty.class);
-                intent.putExtra("type", BaseToolbar.STATUS_BAR_TYPE_IMG_NORMAL);
+                intent.putExtra("type", BaseToolbar.STATUS_BAR_TYPE_IMG_FULL);
                 startActivity(intent);
             }
         });
@@ -86,14 +84,18 @@ public class StretchableAty extends BaseAty {
         public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
             if (totalHeight != 0 && totalHeight - baseToolBarHeight > 0) {
                 float rate = Math.abs(verticalOffset) / (float) (totalHeight - baseToolBarHeight);
-                ivbStretchableStatusBar.setScaleX(1.25f-rate/4);
-                ivbStretchableStatusBar.setScaleY(1-rate/8);
+                if (rate > 0.75) {//0.75-1
+                    btbStretchableStatusBar.setTitleText("散文欣赏");
+                    btbStretchableStatusBar.tv_base_tb_title.setAlpha((rate - 0.75f) / 0.25f+0.25f);//不从0开始变，从0.25开始变化，防止一直不可见
+                } else {//0-0.75
+                    btbStretchableStatusBar.setTitleText("作者简介");
+                    btbStretchableStatusBar.tv_base_tb_title.setAlpha(1.25f - rate / 0.75f);//不减到 0 因为 0.25 基本已经不可见了
+                }
+                ivbStretchableStatusBar.setScaleX(1.25f - rate / 4);
+                ivbStretchableStatusBar.setScaleY(1 - rate / 8);
             } else {
                 totalHeight = appBarLayout.getHeight();
             }
-            Log.e("yan", "verticalOffset" + verticalOffset);
-            Log.e("yan", "totalHeight" + totalHeight);
-            Log.e("yan", "baseToolBarHeight" + baseToolBarHeight);
         }
     };
 

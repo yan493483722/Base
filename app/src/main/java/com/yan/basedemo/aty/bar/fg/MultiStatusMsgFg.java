@@ -34,7 +34,7 @@ public class MultiStatusMsgFg extends BaseFg {
          **/
         View content = inflater.inflate(R.layout.fg_multi_status_msg, container, false);
         ButterKnife.bind(this, content);
-        setSlideBaseToolbar(btbFgMultiStatusMsg, false);
+        setBaseToolbar(btbFgMultiStatusMsg, false);
         btbFgMultiStatusMsg.setTitleText("消息");
         return content;
     }

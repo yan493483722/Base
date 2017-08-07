@@ -68,7 +68,7 @@ public class BaseToolbarUtil {
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public static void setFragmentBaseToolbar(BaseToolbar toolbar, Activity baseAty, boolean isSlide) {
+    public static void setFragmentBaseToolbar(BaseToolbar toolbar, Activity baseAty) {
         baseAty.setTheme(R.style.AppTheme);
         switch (toolbar.getBaseToolBarType()) {
             case BaseToolbar.STATUS_BAR_TYPE_NORMAL:

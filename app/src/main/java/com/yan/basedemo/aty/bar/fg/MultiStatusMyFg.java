@@ -29,7 +29,7 @@ public class MultiStatusMyFg extends BaseFg {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View content = inflater.inflate(R.layout.fg_multi_status_my, container, false);
         ButterKnife.bind(this,content);
-        setSlideBaseToolbar(btbFgMultiStatusMy,false);
+        setBaseToolbar(btbFgMultiStatusMy,false);
         btbFgMultiStatusMy.setTitleText("我的");
         return content;
     }

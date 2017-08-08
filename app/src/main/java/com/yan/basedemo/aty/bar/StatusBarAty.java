@@ -68,6 +68,7 @@ public class StatusBarAty extends BaseAty {
                 startActivity(new Intent(mAty, SearchAty.class));
                 break;
             case R.id.btn_status_bar_more:
+                startActivity(new Intent(mAty, MoreActivity.class));
                 break;
             default:
                 break;

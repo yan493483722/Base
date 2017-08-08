@@ -65,6 +65,6 @@
         android:id="@+id/btn_status_bar_more"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="更多" />
+        android:text="右边点击" />
 
 </LinearLayout>

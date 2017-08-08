@@ -80,6 +80,10 @@
             android:name=".aty.bar.SearchAty"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden|stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".aty.bar.MoreActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden|stateAlwaysHidden|adjustPan" />
 
     </application>
 

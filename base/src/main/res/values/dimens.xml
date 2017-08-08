@@ -13,6 +13,7 @@
     <dimen name="divider_line_1px">1dp</dimen>
 
 
+    <dimen name="font_large">22sp</dimen>
     <dimen name="font_big_more">20sp</dimen>
     <dimen name="font_big">17sp</dimen>
     <dimen name="font_middle">15sp</dimen>

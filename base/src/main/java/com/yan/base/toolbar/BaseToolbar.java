@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,9 +33,13 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
     public static final int STATUS_BAR_TYPE_IMG_FULL = STATUS_BAR_TYPE_IMG_NORMAL + 1;
     private int baseToolBarType = STATUS_BAR_TYPE_NORMAL;
     public Toolbar tb_base_tb;
-    LinearLayout ll_base_tb_right, ll_base_tb_left;
+    LinearLayout ll_base_tb,
+            ll_base_tb_search,
+            ll_base_tb_right,
+            ll_base_tb_left;
     ImageView iv_base_tb_right;
     public TextView tv_base_tb_right, tv_base_tb_title;
+    public EditText et_base_tb_search;
     private BaseToolbarListener baseToolbarListener;
     private
     @ColorInt
@@ -72,9 +77,13 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
         tb_base_tb = (Toolbar) findViewById(R.id.tb_base_tb);
         ll_base_tb_right = (LinearLayout) findViewById(R.id.ll_base_tb_right);
         ll_base_tb_left = (LinearLayout) findViewById(R.id.ll_base_tb_left);
+        ll_base_tb = (LinearLayout) findViewById(R.id.ll_base_tb);
         iv_base_tb_right = (ImageView) findViewById(R.id.iv_base_tb_right);
         tv_base_tb_right = (TextView) findViewById(R.id.tv_base_tb_right);
         tv_base_tb_title = (TextView) findViewById(R.id.tv_base_tb_title);
+        ll_base_tb_search = (LinearLayout) findViewById(R.id.ll_base_tb_search);
+        et_base_tb_search = (EditText) findViewById(R.id.et_base_tb_search);
+
         tb_base_tb.setNavigationIcon(R.drawable.icon_back);
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { 根据需求自己设置
 //            setElevation(5);
@@ -133,6 +142,13 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
         this.backgroundColor = color;
     }
 
+    /**
+     * 设置成搜索
+     */
+    public void setSearch() {
+        ll_base_tb_search.setVisibility(VISIBLE);
+        tv_base_tb_title.setVisibility(GONE);
+    }
 
     public int getHeight(Context context) {
         int result = 0;
@@ -143,12 +159,23 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
         int[] attrs = {android.R.attr.actionBarSize};
         TypedArray values = context.getTheme().obtainStyledAttributes(attrs);
         try {
-            result +=  values.getDimensionPixelSize(0, 0);//第一个参数数组索引，第二个参数 默认值
+            result += values.getDimensionPixelSize(0, 0);//第一个参数数组索引，第二个参数 默认值
         } finally {
             values.recycle();
         }
         return result;
     }
+
+    public EditText getEt_base_tb_search() {
+        return et_base_tb_search;
+    }
+
+
+    public void setCustomeView(View child) {
+        ll_base_tb.removeAllViews();
+        ll_base_tb.addView(child);
+    }
+
 
     public int getBackgroundColor() {
         return backgroundColor;
@@ -161,5 +188,6 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
         void clickRight();
 
     }
+
 
 }

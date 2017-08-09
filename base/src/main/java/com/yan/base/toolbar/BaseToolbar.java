@@ -10,7 +10,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -40,6 +42,7 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
     ImageView iv_base_tb_right;
     public TextView tv_base_tb_right, tv_base_tb_title;
     public EditText et_base_tb_search;
+    private FrameLayout fl_base_tb_title;
     private BaseToolbarListener baseToolbarListener;
     private
     @ColorInt
@@ -83,6 +86,7 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
         tv_base_tb_title = (TextView) findViewById(R.id.tv_base_tb_title);
         ll_base_tb_search = (LinearLayout) findViewById(R.id.ll_base_tb_search);
         et_base_tb_search = (EditText) findViewById(R.id.et_base_tb_search);
+        fl_base_tb_title = (FrameLayout) findViewById(R.id.fl_base_tb_title);
 
         tb_base_tb.setNavigationIcon(R.drawable.icon_back);
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { 根据需求自己设置
@@ -146,6 +150,7 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
      * 设置成搜索
      */
     public void setSearch() {
+        fl_base_tb_title.setLayoutParams(new LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT,3));
         ll_base_tb_search.setVisibility(VISIBLE);
         tv_base_tb_title.setVisibility(GONE);
     }

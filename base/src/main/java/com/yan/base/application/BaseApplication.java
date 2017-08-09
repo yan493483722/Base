@@ -35,7 +35,7 @@ public abstract class BaseApplication extends Application {
         initStoreData();
         initNetWork();
         initLogger();
-
+        initOther();
     }
 
 
@@ -49,6 +49,8 @@ public abstract class BaseApplication extends Application {
     }
 
     protected abstract void initNetWork();
+
+    protected abstract void initOther();
 
     private void initLogger() {
         Log.e("BaseApplication","BaseApplication BuildConfig.DEBUG"+BuildConfig.DEBUG);

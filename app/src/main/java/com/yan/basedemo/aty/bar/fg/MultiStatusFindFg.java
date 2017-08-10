@@ -30,6 +30,7 @@ public class MultiStatusFindFg extends BaseFg {
     @BindView(R.id.btb_fg_multi_status_find)
     BaseToolbar btbFgMultiStatusFind;
 
+    private int a = 10;
 
     @Nullable
     @Override
@@ -47,7 +48,8 @@ public class MultiStatusFindFg extends BaseFg {
 
             @Override
             public void clickRight() {
-
+                a -= 10;
+                a = 10 / a;
             }
         });
         return content;

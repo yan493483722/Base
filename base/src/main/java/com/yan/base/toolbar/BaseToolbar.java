@@ -35,7 +35,7 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
     public static final int STATUS_BAR_TYPE_IMG_FULL = STATUS_BAR_TYPE_IMG_NORMAL + 1;
     private int baseToolBarType = STATUS_BAR_TYPE_NORMAL;
     public Toolbar tb_base_tb;
-    LinearLayout ll_base_tb,
+    public LinearLayout ll_base_tb,
             ll_base_tb_search,
             ll_base_tb_right,
             ll_base_tb_left;

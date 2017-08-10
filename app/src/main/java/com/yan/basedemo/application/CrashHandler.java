@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.yan.base.application.AppManager;
+import com.yan.basedemo.MainAty;
 import com.yan.basedemo.aty.bar.MultiStatusBarAty;
 
 /**
@@ -29,7 +30,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
      */
     private Context mContext;
 
-    private  boolean sysDeal=true;
+    private  boolean sysDeal=false;
     /**
      * 保证只有一个CrashHandler实例
      */
@@ -69,11 +70,28 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         } else {
             Log.e("yan", "自己做相关的操作========");
             AppManager.getAppManager().finishAllActivity();
-            // android.os.Process.killProcess(android.os.Process.myPid());
-            System.exit(10);
+
 //            Intent intent = new Intent(mContext, MultiStatusBarAty.class);
 //            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //            mContext.startActivity(intent);
+            Intent intent = new Intent();
+            intent.setClass(mContext, MainAty.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
+//                    | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+
+            mContext.startActivity(intent);
+
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(10);
+
+//            Intent launchIntent = mContext.getPackageManager().getLaunchIntentForPackage(mContext.getPackageName());
+//            if (launchIntent != null) {
+//                launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                mContext.startActivity(launchIntent);
+////                mContext.overridePendingTransition(0, 0);
+//            }
+//            finish();
+
         }
 
     }

@@ -189,6 +189,8 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
     }
 
     /**
+     * 设置右侧的图标
+     *
      * @param resId
      */
     public void setDefaultLayoutRightIcon(@DrawableRes int resId) {
@@ -234,11 +236,10 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
      * 设置默认的搜索标题
      */
     public void setSearchDefaultLayout(Context context) {
-        View view=LayoutInflater.from(context).inflate(R.layout.toolbar_search,rl_base_tb,false);
+        tv_base_tb_title.setVisibility(GONE);
+        final View view = LayoutInflater.from(context).inflate(R.layout.toolbar_search, rl_base_tb, false);
         rl_base_tb.removeAllViews();
         rl_base_tb.addView(view);
-//        rl_base_tb.addView(LayoutInflater.from(context).inflate(R.layout.toolbar_search));
-        tv_base_tb_title.setVisibility(GONE);
     }
 
     /**

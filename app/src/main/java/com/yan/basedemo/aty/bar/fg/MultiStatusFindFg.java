@@ -39,7 +39,7 @@ public class MultiStatusFindFg extends BaseFg {
         ButterKnife.bind(this, content);
         setBaseToolbar(btbFgMultiStatusFind, false);
         btbFgMultiStatusFind.setTitleText("发现");
-        btbFgMultiStatusFind.setRightText("发动态");
+        btbFgMultiStatusFind.setDefaultLayoutRightText("发动态");
         btbFgMultiStatusFind.setBaseToolbarListener(new BaseToolbar.BaseToolbarListener() {
             @Override
             public void clickLeft() {

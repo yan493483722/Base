@@ -44,17 +44,34 @@ public class StretchableAty extends BaseAty {
     @Override
     protected void initView() {
         if (getIntent() != null && getIntent().getExtras() != null) {
-            btbStretchableStatusBar.setBaseToolBarType(getIntent().getExtras().getInt("type"));
+            int type = getIntent().getExtras().getInt("type");
+            switch (type) {
+                case BaseToolbar.STATUS_BAR_TYPE_NORMAL:
+                    btbStretchableStatusBar.setBaseToolBarType(BaseToolbar.STATUS_BAR_TYPE_NORMAL);
+                    break;
+                case BaseToolbar.STATUS_BAR_TYPE_FULL:
+                    btbStretchableStatusBar.setBaseToolBarType(BaseToolbar.STATUS_BAR_TYPE_FULL);
+                    break;
+                case BaseToolbar.STATUS_BAR_TYPE_IMG_NORMAL:
+                    btbStretchableStatusBar.setBaseToolBarType(BaseToolbar.STATUS_BAR_TYPE_IMG_NORMAL);
+                    break;
+                case BaseToolbar.STATUS_BAR_TYPE_IMG_FULL:
+                    btbStretchableStatusBar.setBaseToolBarType(BaseToolbar.STATUS_BAR_TYPE_IMG_FULL);
+                    break;
+                default:
+                    btbStretchableStatusBar.setBaseToolBarType(BaseToolbar.STATUS_BAR_TYPE_NORMAL);
+                    break;
+            }
             btbStretchableStatusBar.setBackgroundColor(getResources().getColor(R.color.transparent));
             tvbStretchableStatusBar.setBackgroundColor(getResources().getColor(R.color.transparent));
             ivbStretchableStatusBar.setImageResource(R.drawable.img_htys);
         }
         setStatusBarInFragment();
         setBaseToolbar(btbStretchableStatusBar, true);
-        baseToolBarHeight = btbStretchableStatusBar.getHeight(mAty);
-        ctlStretchableStatusBar.setMinimumHeight(btbStretchableStatusBar.getHeight(mAty));
+        baseToolBarHeight = btbStretchableStatusBar.getHeight(mAty,true);
+        ctlStretchableStatusBar.setMinimumHeight(btbStretchableStatusBar.getHeight(mAty,true));
         btbStretchableStatusBar.setTitleText("散文欣赏");
-        btbStretchableStatusBar.setRightText("图片");
+        btbStretchableStatusBar.setDefaultLayoutRightText("图片");
 
         aplStretchableStatusBar.addOnOffsetChangedListener(appBarLayoutListener);
 

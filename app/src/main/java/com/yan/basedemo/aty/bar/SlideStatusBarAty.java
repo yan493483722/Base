@@ -47,11 +47,28 @@ public class SlideStatusBarAty extends BaseAty {
     protected void initView() {
 //        btlSlideStatusBar.setBaseToolBarType(1);
         if (getIntent() != null && getIntent().getExtras() != null) {
-            btlSlideStatusBar.setBaseToolBarType(getIntent().getExtras().getInt("type"));
+            int type = getIntent().getExtras().getInt("type");
+            switch (type) {
+                case BaseToolbar.STATUS_BAR_TYPE_NORMAL:
+                    btlSlideStatusBar.setBaseToolBarType(BaseToolbar.STATUS_BAR_TYPE_NORMAL);
+                    break;
+                case BaseToolbar.STATUS_BAR_TYPE_FULL:
+                    btlSlideStatusBar.setBaseToolBarType(BaseToolbar.STATUS_BAR_TYPE_FULL);
+                    break;
+                case BaseToolbar.STATUS_BAR_TYPE_IMG_NORMAL:
+                    btlSlideStatusBar.setBaseToolBarType(BaseToolbar.STATUS_BAR_TYPE_IMG_NORMAL);
+                    break;
+                case BaseToolbar.STATUS_BAR_TYPE_IMG_FULL:
+                    btlSlideStatusBar.setBaseToolBarType(BaseToolbar.STATUS_BAR_TYPE_IMG_FULL);
+                    break;
+                default:
+                    btlSlideStatusBar.setBaseToolBarType(BaseToolbar.STATUS_BAR_TYPE_NORMAL);
+                    break;
+            }
         }
         btlSlideStatusBar.setTitleText("两边侧滑");
-        btlSlideStatusBar.setLeftIcon(R.drawable.icon_menu);
-        btlSlideStatusBar.setRightIcon(R.drawable.icon_more);
+        btlSlideStatusBar.setToolBarLeftIcon(R.drawable.icon_menu);
+        btlSlideStatusBar.setDefaultLayoutRightIcon(R.drawable.icon_more);
         setStatusBarInSlide(btlSlideStatusBar, true);
     }
 

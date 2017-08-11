@@ -31,7 +31,7 @@ public class ImgFullStatusBarAty extends BaseAty {
     protected void initView() {
         setStatusBar(btbStatusBarImg, true);
         btbStatusBarImg.setTitleText("图片的状态栏");
-        btbStatusBarImg.setRightText("图片");
+        btbStatusBarImg.setDefaultLayoutRightText("图片");
 
         btbStatusBarImg.setBaseToolbarListener(new BaseToolbar.BaseToolbarListener() {
             @Override

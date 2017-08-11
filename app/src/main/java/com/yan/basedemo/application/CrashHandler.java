@@ -30,7 +30,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
      */
     private Context mContext;
 
-    private  boolean sysDeal=false;
+    private  boolean sysDeal=true;
     /**
      * 保证只有一个CrashHandler实例
      */
@@ -70,7 +70,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         } else {
             Log.e("yan", "自己做相关的操作========");
             AppManager.getAppManager().finishAllActivity();
-
+            System.out.println(e.getLocalizedMessage());
 //            Intent intent = new Intent(mContext, MultiStatusBarAty.class);
 //            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //            mContext.startActivity(intent);

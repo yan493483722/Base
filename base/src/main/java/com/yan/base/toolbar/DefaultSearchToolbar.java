@@ -6,6 +6,8 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.yan.base.R;
 
@@ -24,7 +26,7 @@ public class DefaultSearchToolbar extends BaseToolbar {
 
     public DefaultSearchToolbar(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        et_base_tb_search = (EditText) findViewById(R.id.et_base_tb_search);
+
     }
 
     public DefaultSearchToolbar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
@@ -49,7 +51,17 @@ public class DefaultSearchToolbar extends BaseToolbar {
      */
     public void setSearchDefaultLayout(Context context) {
         tv_base_tb_title.setVisibility(GONE);
+        et_base_tb_search = (EditText) findViewById(R.id.et_base_tb_search);
         final View view = LayoutInflater.from(context).inflate(R.layout.toolbar_search, rl_base_tb, false);
+
+        ImageButton iv_base_tb_search_delete= (ImageButton) view.findViewById(R.id.iv_base_tb_search_delete);
+
+        iv_base_tb_search_delete.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         rl_base_tb.removeAllViews();
         rl_base_tb.addView(view);
     }

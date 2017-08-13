@@ -1,39 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ll_base_tb_search"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="13dp"
-    android:layout_marginLeft="30dp"
-    android:layout_marginRight="30dp"
-    android:layout_marginTop="13dp"
-    android:background="@drawable/search_base_tool_bar"
     android:gravity="center_vertical"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/padding_all_left_right"
+    android:paddingRight="@dimen/padding_all_left_right">
 
     <ImageView
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="1dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:scaleType="fitXY"
-        android:src="@drawable/icon_search" />
+        android:src="@drawable/icon_back" />
 
-    <EditText
-        android:id="@+id/et_base_tb_search"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/ll_base_tb_search"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="13dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="13dp"
+        android:layout_weight="1"
+        android:background="@drawable/search_base_tool_bar"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="1dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_search" />
+
+        <EditText
+            android:id="@+id/et_base_tb_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="2dp"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:lines="1"
+            android:maxLines="1"
+            android:scrollHorizontally="false"
+            android:singleLine="true"
+            android:textColor="@color/font_black"
+            android:textCursorDrawable="@drawable/cursor_color"
+            android:textSize="@dimen/font_middle" />
+        <!--    android:ellipsize="end" -->
+
+
+        <ImageView
+            android:id="@+id/iv_base_tb_search_delete"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="2dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/selector_edit_delete" />
+    </LinearLayout>
+
+
+    <TextView
+        style="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="2dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="2dp"
-        android:background="@color/transparent"
-        android:ellipsize="end"
-        android:lines="1"
-        android:textColor="@color/font_black"
-        android:textCursorDrawable="@drawable/cursor_color"
-        android:textSize="@dimen/font_middle" />
+        android:paddingLeft="15dp"
+        android:paddingStart="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@drawable/selector_text_white_to_light"
+        android:text="搜索"
+        />
 </LinearLayout>

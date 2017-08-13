@@ -29,7 +29,7 @@ import java.lang.annotation.RetentionPolicy;
  * modify:
  * modify date:
  */
-public class BaseToolbar extends LinearLayout implements View.OnClickListener {
+public  class BaseToolbar extends LinearLayout implements View.OnClickListener {
 
     private static final String TAG = "BaseToolbar";
 
@@ -135,7 +135,7 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
         tv_base_tb_right = (TextView) findViewById(R.id.tv_base_tb_right);
         tv_base_tb_title = (TextView) findViewById(R.id.tv_base_tb_title);
         rl_base_tb = (RelativeLayout) findViewById(R.id.rl_base_tb);
-        et_base_tb_search = (EditText) findViewById(R.id.et_base_tb_search);
+
         //设置 toolbar默认的返回按钮
         tb_base_tb.setNavigationIcon(R.drawable.icon_back);
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { 根据需求自己设置
@@ -150,7 +150,11 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
         }
         //设置背景色
         setBackgroundColor(backgroundColor);
+        
+        initOtherLayout(context);
     }
+
+      void initOtherLayout(Context context){};
 
     /**
      * 标题
@@ -232,15 +236,7 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
         this.backgroundColor = color;
     }
 
-    /**
-     * 设置默认的搜索标题
-     */
-    public void setSearchDefaultLayout(Context context) {
-        tv_base_tb_title.setVisibility(GONE);
-        final View view = LayoutInflater.from(context).inflate(R.layout.toolbar_search, rl_base_tb, false);
-        rl_base_tb.removeAllViews();
-        rl_base_tb.addView(view);
-    }
+ 
 
     /**
      * 获得当前title整体高度
@@ -266,14 +262,6 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
         return result;
     }
 
-    /**
-     * 获得输入框中的内容
-     *
-     * @return
-     */
-    public EditText getEt_base_tb_search() {
-        return et_base_tb_search;
-    }
 
     /**
      * 左边的自定义布局

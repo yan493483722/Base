@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.yan.base.toolbar.BaseToolbar
-        android:id="@+id/btb_search"
+    <com.yan.base.toolbar.DefaultSearchToolbar
+        android:id="@+id/dst_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         baseToolBar:baseToolBarType="full" />

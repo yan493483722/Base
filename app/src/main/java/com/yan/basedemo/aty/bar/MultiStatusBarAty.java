@@ -72,10 +72,10 @@ public class MultiStatusBarAty extends BaseAty {
                 .setGravity(Gravity.TOP | Gravity.END).setHideOnSelect(true);
         bnbMultiStatusBar.setMode(BottomNavigationBar.MODE_FIXED);
         bnbMultiStatusBar
-                .addItem(new BottomNavigationItem(R.drawable.icon_msg, "消息").setActiveColorResource(R.color.color_teal).setBadgeItem(numberBadgeItem))
-                .addItem(new BottomNavigationItem(R.drawable.icon_home, "主页").setActiveColorResource(R.color.color_teal))
-                .addItem(new BottomNavigationItem(R.drawable.icon_find, "发现").setActiveColorResource(R.color.color_teal).setBadgeItem(shapeBadgeItem))
-                .addItem(new BottomNavigationItem(R.drawable.icon_me, "我的").setActiveColorResource(R.color.color_teal))
+                .addItem(new BottomNavigationItem(R.drawable.icon_msg_select, "消息").setInactiveIconResource(R.drawable.icon_msg).setActiveColorResource(R.color.font_red).setBadgeItem(numberBadgeItem))
+                .addItem(new BottomNavigationItem(R.drawable.icon_home_select, "主页").setInactiveIconResource(R.drawable.icon_home).setActiveColorResource(R.color.font_red))
+                .addItem(new BottomNavigationItem(R.drawable.icon_find_select, "发现").setInactiveIconResource(R.drawable.icon_find).setActiveColorResource(R.color.font_red).setBadgeItem(shapeBadgeItem))
+                .addItem(new BottomNavigationItem(R.drawable.icon_me_select, "我的").setInactiveIconResource(R.drawable.icon_me).setActiveColorResource(R.color.font_red))
                 .setFirstSelectedPosition(0)
                 .initialise();
         bnbMultiStatusBar.setTabSelectedListener(tabSelectedListener);

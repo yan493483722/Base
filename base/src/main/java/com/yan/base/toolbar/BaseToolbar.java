@@ -12,7 +12,6 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -29,7 +28,7 @@ import java.lang.annotation.RetentionPolicy;
  * modify:
  * modify date:
  */
-public  class BaseToolbar extends LinearLayout implements View.OnClickListener {
+public class BaseToolbar extends LinearLayout implements View.OnClickListener {
 
     private static final String TAG = "BaseToolbar";
 
@@ -88,10 +87,7 @@ public  class BaseToolbar extends LinearLayout implements View.OnClickListener {
      * 标题
      */
     tv_base_tb_title;
-    /**
-     * 搜索
-     */
-    public EditText et_base_tb_search;
+
     /**
      * 监听器
      */
@@ -150,11 +146,13 @@ public  class BaseToolbar extends LinearLayout implements View.OnClickListener {
         }
         //设置背景色
         setBackgroundColor(backgroundColor);
-        
+
         initOtherLayout(context);
     }
 
-      void initOtherLayout(Context context){};
+     void initOtherLayout(Context context) {
+
+    }
 
     /**
      * 标题
@@ -236,7 +234,6 @@ public  class BaseToolbar extends LinearLayout implements View.OnClickListener {
         this.backgroundColor = color;
     }
 
- 
 
     /**
      * 获得当前title整体高度

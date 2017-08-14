@@ -40,7 +40,7 @@ public class MainAty extends BaseAty {
     }
 
     @OnClick({R.id.btn_main_dialog, R.id.btn_main_loading, R.id.btn_main_permission, R.id.btn_main_web,
-            R.id.btn_main_status_bar,
+            R.id.btn_main_status_bar,R.id.btn_main_net,
             R.id.btn_main_multi_download})
     public void click(View view) {
         switch (view.getId()) {

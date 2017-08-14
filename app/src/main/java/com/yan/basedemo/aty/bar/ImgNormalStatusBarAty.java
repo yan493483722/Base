@@ -29,7 +29,7 @@ public class ImgNormalStatusBarAty extends BaseAty {
 
     @Override
     protected void initView() {
-        setStatusBar(btbStatusBarImg, true);
+        setBaseToolbar(btbStatusBarImg, true);
         btbStatusBarImg.setTitleText("图片的状态栏");
         btbStatusBarImg.setDefaultLayoutRightText("图片");
 

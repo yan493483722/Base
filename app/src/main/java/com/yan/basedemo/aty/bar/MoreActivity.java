@@ -29,7 +29,7 @@ public class MoreActivity extends BaseAty {
         setContentView(R.layout.aty_more);
         ButterKnife.bind(this);
 
-        setStatusBar(btbMore, false);
+        setBaseToolbar(btbMore, false);
         btbMore.setTitleText("更多");
 
         btbMore.setBaseToolbarListener(new BaseToolbar.BaseToolbarListener() {

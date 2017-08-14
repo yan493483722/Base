@@ -24,7 +24,7 @@ public class NormalStatusBarAty extends BaseAty {
         setContentView(R.layout.aty_normal_status_bar);
 
         ButterKnife.bind(this);
-        setStatusBar(btbStatusBarNormal,true);
+        setBaseToolbar(btbStatusBarNormal,true);
         btbStatusBarNormal.setBaseToolbarListener(new BaseToolbar.BaseToolbarListener() {
             @Override
             public void clickLeft() {

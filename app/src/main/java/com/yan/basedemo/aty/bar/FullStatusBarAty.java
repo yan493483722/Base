@@ -26,7 +26,7 @@ public class FullStatusBarAty extends BaseAty {
 
     @Override
     protected void initView() {
-        setStatusBar(btbStatusBarFull, true);
+        setBaseToolbar(btbStatusBarFull, true);
         btbStatusBarFull.setTitleText("全屏的状态栏");
         btbStatusBarFull.setDefaultLayoutRightText("全屏");
 

@@ -141,7 +141,7 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
      * @param toolbar
      * @param showLeftIcon
      */
-    public void setStatusBar(BaseToolbar toolbar, boolean showLeftIcon) {
+    public void setBaseToolbar(BaseToolbar toolbar, boolean showLeftIcon) {
         setSupportActionBar(toolbar.tb_base_tb);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(showLeftIcon);
@@ -159,7 +159,7 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
      * @param toolbar
      * @param showLeftIcon
      */
-    public void setStatusBarInSlide(BaseToolbar toolbar, boolean showLeftIcon) {
+    public void setBaseToolbarSlide(BaseToolbar toolbar, boolean showLeftIcon) {
         setSupportActionBar(toolbar.tb_base_tb);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(showLeftIcon);
@@ -168,7 +168,7 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
         }
     }
 
-    public void setStatusBarInFragment() {
+    public void setBaseToolbarInFragment() {
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -194,7 +194,7 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
      * @param toolbar
      * @param showLeftIcon
      */
-    public void setBaseToolbar(BaseToolbar toolbar, boolean showLeftIcon) {
+    public void setBaseToolbarStretchable(BaseToolbar toolbar, boolean showLeftIcon) {
         setSupportActionBar(toolbar.tb_base_tb);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(showLeftIcon);

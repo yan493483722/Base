@@ -59,7 +59,7 @@ public class MultiStatusBarAty extends BaseAty {
 
     @Override
     protected void initView() {
-        setStatusBarInFragment();
+        setBaseToolbarInFragment();
         numberBadgeItem = new TextBadgeItem()
                 .setBorderWidth(0)
                 .setBackgroundColorResource(R.color.bg_color_red)

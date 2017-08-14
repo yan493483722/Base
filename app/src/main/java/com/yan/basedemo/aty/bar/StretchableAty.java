@@ -66,8 +66,8 @@ public class StretchableAty extends BaseAty {
             tvbStretchableStatusBar.setBackgroundColor(getResources().getColor(R.color.transparent));
             ivbStretchableStatusBar.setImageResource(R.drawable.img_htys);
         }
-        setStatusBarInFragment();
-        setBaseToolbar(btbStretchableStatusBar, true);
+        setBaseToolbarInFragment();
+        setBaseToolbarStretchable(btbStretchableStatusBar, true);
         baseToolBarHeight = btbStretchableStatusBar.getHeight(mAty,true);
         ctlStretchableStatusBar.setMinimumHeight(btbStretchableStatusBar.getHeight(mAty,true));
         btbStretchableStatusBar.setTitleText("散文欣赏");

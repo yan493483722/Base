@@ -67,6 +67,11 @@ public class DefaultSearchToolbar extends BaseToolbar implements TextWatcher {
         ib_base_tb_search_delete = (ImageButton) view.findViewById(R.id.ib_base_tb_search_delete);
         et_base_tb_search = (EditText) view.findViewById(R.id.et_base_tb_search);
 
+        setDeleteEditText();
+
+    }
+
+    private void setDeleteEditText() {
         ib_base_tb_search_delete.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +95,6 @@ public class DefaultSearchToolbar extends BaseToolbar implements TextWatcher {
         });
 
         et_base_tb_search.addTextChangedListener(this);
-
     }
 
     @Override

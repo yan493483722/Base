@@ -76,7 +76,7 @@ public class SlideStatusBarAty extends BaseAty {
     public void initData() {
         btlSlideStatusBar.setBaseToolbarListener(new BaseToolbar.BaseToolbarListener() {
             @Override
-            public void clickLeft() {
+            public void clickLeft(int type) {
                 if(!dlSlideStatusBar.isDrawerOpen(nvSlideStatusBarLeft)){
                     dlSlideStatusBar.openDrawer(nvSlideStatusBarLeft);
                 }
@@ -84,7 +84,7 @@ public class SlideStatusBarAty extends BaseAty {
             }
 
             @Override
-            public void clickRight() {
+            public void clickRight(int type) {
                 if(!dlSlideStatusBar.isDrawerOpen(nvSlideStatusBarRight)){
                     dlSlideStatusBar.openDrawer(nvSlideStatusBarRight);
                 }

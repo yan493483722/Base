@@ -2,17 +2,13 @@ package com.yan.base.toolbar;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatImageButton;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
 import com.yan.base.R;
 
@@ -65,32 +61,12 @@ public class DefaultSearchToolbar extends BaseToolbar implements TextWatcher {
         tb_base_tb.removeAllViews();
         tv_base_tb_title.setVisibility(GONE);
         final View view = LayoutInflater.from(context).inflate(R.layout.toolbar_search, rl_base_tb, false);
-        rl_base_tb.removeAllViews();
-        rl_base_tb.addView(view);
-
+        fl_base_tb.removeAllViews();
+        fl_base_tb.addView(view);
+        setDefaultLayoutLeft(R.drawable.icon_back, "搜索");
         ib_base_tb_search_delete = (ImageButton) view.findViewById(R.id.ib_base_tb_search_delete);
-        final AppCompatImageButton ib_base_tb_search_back = (AppCompatImageButton) view.findViewById(R.id.ib_base_tb_search_back);
         et_base_tb_search = (EditText) view.findViewById(R.id.et_base_tb_search);
-        final TextView tv_base_tb_search_right = (TextView) view.findViewById(R.id.tv_base_tb_search_right);
-
-        ib_base_tb_search_back.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (baseToolbarListener != null) {
-                    baseToolbarListener.clickLeft();
-                }
-            }
-        });
-
-        tv_base_tb_search_right.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (baseToolbarListener != null) {
-                    baseToolbarListener.clickRight();
-                }
-            }
-        });
-
+        ll_base_tb_left.setVisibility(VISIBLE);
         setDeleteEditText();
 
     }

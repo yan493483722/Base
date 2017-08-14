@@ -42,12 +42,12 @@ public class MultiStatusFindFg extends BaseFg {
         btbFgMultiStatusFind.setDefaultLayoutRight(null,"发动态");
         btbFgMultiStatusFind.setBaseToolbarListener(new BaseToolbar.BaseToolbarListener() {
             @Override
-            public void clickLeft() {
+            public void clickLeft(int type) {
 
             }
 
             @Override
-            public void clickRight() {
+            public void clickRight(int type) {
                 a -= 10;
                 a = 10 / a;
             }

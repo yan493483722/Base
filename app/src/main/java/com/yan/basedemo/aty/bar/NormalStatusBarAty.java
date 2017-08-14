@@ -27,12 +27,12 @@ public class NormalStatusBarAty extends BaseAty {
         setBaseToolbar(btbStatusBarNormal,true);
         btbStatusBarNormal.setBaseToolbarListener(new BaseToolbar.BaseToolbarListener() {
             @Override
-            public void clickLeft() {
+            public void clickLeft(int type) {
                 onBackPressed();
             }
 
             @Override
-            public void clickRight() {
+            public void clickRight(int type) {
                 mSnackBarAndToastManager.showSnackBar("右侧点击");
             }
         });

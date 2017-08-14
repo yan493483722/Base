@@ -35,12 +35,12 @@ public class ImgNormalStatusBarAty extends BaseAty {
 
         btbStatusBarImg.setBaseToolbarListener(new BaseToolbar.BaseToolbarListener() {
             @Override
-            public void clickLeft() {
+            public void clickLeft(int type) {
                 onBackPressed();
             }
 
             @Override
-            public void clickRight() {
+            public void clickRight(int type) {
 
             }
         });

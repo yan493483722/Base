@@ -12,6 +12,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -63,19 +64,12 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
      * 自定义的父布局
      */
     public RelativeLayout rl_base_tb;
-    public LinearLayout
-            /**
-             * 搜索的父布局
-             */
-//            ll_base_tb_search,
-            /**
-             * 右边的布局
-             */
-            ll_base_tb_right,
+
     /**
-     * 左边的布局
+     * 左右边的布局
      */
-    ll_base_tb_left;
+    public LinearLayout ll_base_tb_left, ll_base_tb_right;
+
     /**
      * 左右边默认自定义布局的图片
      */
@@ -89,6 +83,7 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
      */
     tv_base_tb_title;
 
+    protected FrameLayout fl_base_tb;
     /**
      * 监听器
      */
@@ -128,12 +123,22 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
         tb_base_tb = (Toolbar) findViewById(R.id.tb_base_tb);
         ll_base_tb_right = (LinearLayout) findViewById(R.id.ll_base_tb_right);
         ll_base_tb_left = (LinearLayout) findViewById(R.id.ll_base_tb_left);
-        iv_base_tb_right = (ImageView) findViewById(R.id.iv_base_tb_right);
+
+        tv_base_tb_left = (TextView) findViewById(R.id.tv_base_tb_left);
         iv_base_tb_left = (ImageView) findViewById(R.id.iv_base_tb_left);
         tv_base_tb_right = (TextView) findViewById(R.id.tv_base_tb_right);
-        tv_base_tb_left = (TextView) findViewById(R.id.tv_base_tb_left);
+        iv_base_tb_right = (ImageView) findViewById(R.id.iv_base_tb_right);
+
+        fl_base_tb = (FrameLayout) findViewById(R.id.fl_base_tb);
+
         tv_base_tb_title = (TextView) findViewById(R.id.tv_base_tb_title);
         rl_base_tb = (RelativeLayout) findViewById(R.id.rl_base_tb);
+
+        tv_base_tb_left.setOnClickListener(this);
+        iv_base_tb_left.setOnClickListener(this);
+        tv_base_tb_right.setOnClickListener(this);
+        iv_base_tb_right.setOnClickListener(this);
+
 
         //设置 toolbar默认的返回按钮
         tb_base_tb.setNavigationIcon(R.drawable.icon_back);
@@ -166,46 +171,10 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
         tv_base_tb_title.setText(title);
     }
 
-    /**
-     * 右侧文字,图片
-     *
-     * @param resId
-     * @param right
-     */
-    public void setDefaultLayoutRight(@DrawableRes int resId, String right) {
-        if (Tools.isNull(right)) {
-            tv_base_tb_right.setVisibility(GONE);
-        } else {
-            tv_base_tb_right.setText(right);
-        }
-        if (resId == 0) {
-            iv_base_tb_right.setVisibility(GONE);
-        } else {
-            iv_base_tb_right.setImageResource(resId);
-        }
-    }
 
     /**
      * 右侧文字,图片
-     *
-     * @param icon
-     * @param right
-     */
-    public void setDefaultLayoutRight(@Nullable Drawable icon, String right) {
-        if (Tools.isNull(right)) {
-            tv_base_tb_right.setVisibility(GONE);
-        } else {
-            tv_base_tb_right.setText(right);
-        }
-        if (icon == null) {
-            iv_base_tb_right.setVisibility(GONE);
-        } else {
-            iv_base_tb_right.setImageDrawable(icon);
-        }
-    }
-
-    /**
-     * 右侧文字,图片
+     * 覆写此方法 ，设置左侧
      *
      * @param resId
      * @param right
@@ -221,11 +190,15 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
         } else {
             iv_base_tb_left.setImageResource(resId);
         }
+        if (!Tools.isNull(right) && resId != 0) {
+            findViewById(R.id.view_base_tb_right).setVisibility(VISIBLE);
+        }
     }
 
 
     /**
      * 右侧文字,图片
+     * 覆写此方法 ，设置左侧
      *
      * @param icon
      * @param right
@@ -241,8 +214,56 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
         } else {
             iv_base_tb_left.setImageDrawable(icon);
         }
+        if (!Tools.isNull(right) && icon != null) {
+            findViewById(R.id.view_base_tb_right).setVisibility(VISIBLE);
+        }
     }
 
+    /**
+     * 右侧文字,图片
+     * 覆写此方法 ，设置右侧
+     *
+     * @param resId
+     * @param right
+     */
+    public void setDefaultLayoutRight(@DrawableRes int resId, String right) {
+        if (Tools.isNull(right)) {
+            tv_base_tb_right.setVisibility(GONE);
+        } else {
+            tv_base_tb_right.setText(right);
+        }
+        if (resId == 0) {
+            iv_base_tb_right.setVisibility(GONE);
+        } else {
+            iv_base_tb_right.setImageResource(resId);
+        }
+        if (!Tools.isNull(right) && resId != 0) {
+            findViewById(R.id.view_base_tb_left).setVisibility(VISIBLE);
+        }
+    }
+
+    /**
+     * 右侧文字,图片
+     * 覆写此方法 ，设置右侧
+     *
+     * @param icon
+     * @param right
+     */
+    public void setDefaultLayoutRight(@Nullable Drawable icon, String right) {
+        if (Tools.isNull(right)) {
+            tv_base_tb_right.setVisibility(GONE);
+        } else {
+            tv_base_tb_right.setText(right);
+        }
+        if (icon == null) {
+            iv_base_tb_right.setVisibility(GONE);
+        } else {
+            iv_base_tb_right.setImageDrawable(icon);
+        }
+        if (!Tools.isNull(right) && icon != null) {
+            findViewById(R.id.view_base_tb_left).setVisibility(VISIBLE);
+        }
+    }
 
     /**
      * tb_base_tb 的左侧图标
@@ -265,9 +286,16 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.ll_base_tb_right) {
-            baseToolbarListener.clickRight();
+        if (v.getId() == R.id.tv_base_tb_left) {
+            baseToolbarListener.clickLeft(1);
+        } else if (v.getId() == R.id.iv_base_tb_left) {
+            baseToolbarListener.clickLeft(0);
+        } else if (v.getId() == R.id.tv_base_tb_right) {
+            baseToolbarListener.clickRight(1);
+        } else if (v.getId() == R.id.iv_base_tb_right) {
+            baseToolbarListener.clickRight(0);
         }
+
     }
 
     /**
@@ -347,20 +375,29 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
 
     public void setBaseToolbarListener(BaseToolbarListener baseToolbarListener) {
         this.baseToolbarListener = baseToolbarListener;
-        ll_base_tb_right.setOnClickListener(this);
         tb_base_tb.setNavigationOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                BaseToolbar.this.baseToolbarListener.clickLeft();
+                BaseToolbar.this.baseToolbarListener.clickLeft(0);
             }
         });
     }
 
     public interface BaseToolbarListener {
 
-        void clickLeft();
+        /**
+         * 0 图片 1 文字
+         *
+         * @param type
+         */
+        void clickLeft(int type);
 
-        void clickRight();
+        /**
+         * 0 图片 1 文字
+         *
+         * @param type
+         */
+        void clickRight(int type);
 
     }
 

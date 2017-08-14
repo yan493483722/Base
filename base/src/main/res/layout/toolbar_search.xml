@@ -3,27 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:paddingLeft="@dimen/padding_all_left_right"
-    android:paddingRight="11dp">
-
-    <android.support.v7.widget.AppCompatImageButton
-        android:id="@+id/ib_base_tb_search_back"
-        style="@style/Widget.AppCompat.Toolbar.Button.Navigation"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/icon_back" />
+    android:orientation="horizontal">
 
     <LinearLayout
         android:id="@+id/ll_base_tb_search"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="13dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginStart="15dp"
         android:layout_marginTop="13dp"
-        android:layout_weight="1"
         android:background="@drawable/search_base_tool_bar"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -71,16 +58,5 @@
             android:scaleType="fitXY"
             android:src="@drawable/selector_edit_delete" />
     </LinearLayout>
-    <!--  style="@style/Base.TextAppearance.AppCompat.Menu" -->
 
-    <TextView
-        android:id="@+id/tv_base_tb_search_right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:padding="5dp"
-        android:text="搜索"
-        android:textColor="@drawable/selector_text_white_to_light" />
 </LinearLayout>

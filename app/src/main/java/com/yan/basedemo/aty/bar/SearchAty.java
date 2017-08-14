@@ -25,16 +25,16 @@ public class SearchAty extends BaseAty {
         setContentView(R.layout.aty_search);
         ButterKnife.bind(this);
         setBaseToolbar(dstSearch, true);
-        dstSearch.setDefaultLayoutRight(null,"搜索");
+        dstSearch.setDefaultLayoutRight(R.drawable.icon_menu,"搜索");
 //        btbSearch.setSearchDefaultLayout(mAty);
         dstSearch.setBaseToolbarListener(new BaseToolbar.BaseToolbarListener() {
             @Override
-            public void clickLeft() {
+            public void clickLeft(int type) {
                 onBackPressed();
             }
 
             @Override
-            public void clickRight() {
+            public void clickRight(int type) {
                 mSnackBarAndToastManager.showSnackBar("搜索");
             }
         });

@@ -37,7 +37,7 @@ public class NormalStatusBarAty extends BaseAty {
             }
         });
         btbStatusBarNormal.setTitleText("正常的标题");
-        btbStatusBarNormal.setDefaultLayoutRightText("确定");
+        btbStatusBarNormal.setDefaultLayoutRight(null,"确定");
 
 
     }

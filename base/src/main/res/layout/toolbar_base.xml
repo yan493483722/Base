@@ -42,21 +42,28 @@
             android:gravity="center_vertical|start"
             android:orientation="horizontal"
             android:paddingLeft="@dimen/padding_all_left_right"
-            android:paddingRight="@dimen/padding_all_left_right">
+            android:paddingRight="11dp">
 
-            <ImageView
+            <android.support.v7.widget.AppCompatImageButton
                 android:id="@+id/iv_base_tb_left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                style="@style/Widget.AppCompat.Toolbar.Button.Navigation"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:scaleType="fitXY" />
 
             <TextView
                 android:id="@+id/tv_base_tb_left"
-                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                style="@style/Widget.AppCompat.Toolbar.Button.Navigation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:ellipsize="end"
                 android:lines="1"
-                android:textColor="@drawable/selector_text_white_to_light" />
+                android:padding="5dp"
+                android:textColor="@drawable/selector_text_white_to_light"
+                android:textSize="@dimen/font_middle" />
 
         </LinearLayout>
 
@@ -73,19 +80,25 @@
             android:paddingRight="@dimen/padding_all_left_right">
 
 
-            <ImageView
+            <android.support.v7.widget.AppCompatImageButton
                 android:id="@+id/iv_base_tb_right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                style="@style/Widget.AppCompat.Toolbar.Button.Navigation"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:scaleType="fitXY" />
 
             <TextView
                 android:id="@+id/tv_base_tb_right"
-                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:ellipsize="end"
                 android:lines="1"
-                android:textColor="@drawable/selector_text_white_to_light" />
+                android:padding="5dp"
+                android:textColor="@drawable/selector_text_white_to_light"
+                android:textSize="@dimen/font_middle" />
         </LinearLayout>
     </RelativeLayout>
 </FrameLayout>

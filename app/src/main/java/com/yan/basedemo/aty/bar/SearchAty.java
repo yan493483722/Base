@@ -25,7 +25,7 @@ public class SearchAty extends BaseAty {
         setContentView(R.layout.aty_search);
         ButterKnife.bind(this);
         setBaseToolbar(dstSearch, true);
-        dstSearch.setDefaultLayoutRightText("搜索");
+        dstSearch.setDefaultLayoutRight(null,"搜索");
 //        btbSearch.setSearchDefaultLayout(mAty);
         dstSearch.setBaseToolbarListener(new BaseToolbar.BaseToolbarListener() {
             @Override

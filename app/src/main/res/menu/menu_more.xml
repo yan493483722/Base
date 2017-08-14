@@ -6,9 +6,7 @@
         android:id="@+id/menu_more_1"
         android:title="更多1"
         android:orderInCategory="100"
-        app:showAsAction="ifRoom" >
-
-    </item>
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menu_more_0"
         android:icon="@drawable/icon_more"

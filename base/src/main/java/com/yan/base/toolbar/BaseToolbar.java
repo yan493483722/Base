@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yan.base.R;
+import com.yan.base.uitls.Tools;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -76,13 +77,13 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
      */
     ll_base_tb_left;
     /**
-     * 右边默认自定义布局的图片
+     * 左右边默认自定义布局的图片
      */
-    ImageView iv_base_tb_right;
+    ImageView iv_base_tb_left, iv_base_tb_right;
     /**
      * 右边默认自定义布局的文字
      */
-    public TextView tv_base_tb_right,
+    public TextView tv_base_tb_left, tv_base_tb_right,
     /**
      * 标题
      */
@@ -91,7 +92,7 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
     /**
      * 监听器
      */
-    private BaseToolbarListener baseToolbarListener;
+    protected BaseToolbarListener baseToolbarListener;
 
     /**
      * 背景色
@@ -128,7 +129,9 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
         ll_base_tb_right = (LinearLayout) findViewById(R.id.ll_base_tb_right);
         ll_base_tb_left = (LinearLayout) findViewById(R.id.ll_base_tb_left);
         iv_base_tb_right = (ImageView) findViewById(R.id.iv_base_tb_right);
+        iv_base_tb_left = (ImageView) findViewById(R.id.iv_base_tb_left);
         tv_base_tb_right = (TextView) findViewById(R.id.tv_base_tb_right);
+        tv_base_tb_left = (TextView) findViewById(R.id.tv_base_tb_left);
         tv_base_tb_title = (TextView) findViewById(R.id.tv_base_tb_title);
         rl_base_tb = (RelativeLayout) findViewById(R.id.rl_base_tb);
 
@@ -150,7 +153,7 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
         initOtherLayout(context);
     }
 
-     void initOtherLayout(Context context) {
+    void initOtherLayout(Context context) {
 
     }
 
@@ -164,13 +167,82 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
     }
 
     /**
-     * 右侧文字
+     * 右侧文字,图片
      *
+     * @param resId
      * @param right
      */
-    public void setDefaultLayoutRightText(String right) {
-        tv_base_tb_right.setText(right);
+    public void setDefaultLayoutRight(@DrawableRes int resId, String right) {
+        if (Tools.isNull(right)) {
+            tv_base_tb_right.setVisibility(GONE);
+        } else {
+            tv_base_tb_right.setText(right);
+        }
+        if (resId == 0) {
+            iv_base_tb_right.setVisibility(GONE);
+        } else {
+            iv_base_tb_right.setImageResource(resId);
+        }
     }
+
+    /**
+     * 右侧文字,图片
+     *
+     * @param icon
+     * @param right
+     */
+    public void setDefaultLayoutRight(@Nullable Drawable icon, String right) {
+        if (Tools.isNull(right)) {
+            tv_base_tb_right.setVisibility(GONE);
+        } else {
+            tv_base_tb_right.setText(right);
+        }
+        if (icon == null) {
+            iv_base_tb_right.setVisibility(GONE);
+        } else {
+            iv_base_tb_right.setImageDrawable(icon);
+        }
+    }
+
+    /**
+     * 右侧文字,图片
+     *
+     * @param resId
+     * @param right
+     */
+    public void setDefaultLayoutLeft(@DrawableRes int resId, String right) {
+        if (Tools.isNull(right)) {
+            tv_base_tb_left.setVisibility(GONE);
+        } else {
+            tv_base_tb_left.setText(right);
+        }
+        if (resId == 0) {
+            iv_base_tb_left.setVisibility(GONE);
+        } else {
+            iv_base_tb_left.setImageResource(resId);
+        }
+    }
+
+
+    /**
+     * 右侧文字,图片
+     *
+     * @param icon
+     * @param right
+     */
+    public void setDefaultLayoutLeft(@Nullable Drawable icon, String right) {
+        if (Tools.isNull(right)) {
+            tv_base_tb_left.setVisibility(GONE);
+        } else {
+            tv_base_tb_left.setText(right);
+        }
+        if (icon == null) {
+            iv_base_tb_left.setVisibility(GONE);
+        } else {
+            iv_base_tb_left.setImageDrawable(icon);
+        }
+    }
+
 
     /**
      * tb_base_tb 的左侧图标
@@ -190,23 +262,6 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
         tb_base_tb.setNavigationIcon(icon);
     }
 
-    /**
-     * 设置右侧的图标
-     *
-     * @param resId
-     */
-    public void setDefaultLayoutRightIcon(@DrawableRes int resId) {
-        iv_base_tb_right.setImageResource(resId);
-    }
-
-    /**
-     * 设置右侧的默认视图标题
-     *
-     * @param icon
-     */
-    public void setDefaultLayoutRightIcon(@Nullable Drawable icon) {
-        iv_base_tb_right.setImageDrawable(icon);
-    }
 
     @Override
     public void onClick(View v) {

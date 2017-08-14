@@ -68,10 +68,10 @@ public class StretchableAty extends BaseAty {
         }
         setBaseToolbarInFragment();
         setBaseToolbarStretchable(btbStretchableStatusBar, true);
-        baseToolBarHeight = btbStretchableStatusBar.getHeight(mAty,true);
-        ctlStretchableStatusBar.setMinimumHeight(btbStretchableStatusBar.getHeight(mAty,true));
+        baseToolBarHeight = btbStretchableStatusBar.getHeight(mAty, true);
+        ctlStretchableStatusBar.setMinimumHeight(btbStretchableStatusBar.getHeight(mAty, true));
         btbStretchableStatusBar.setTitleText("散文欣赏");
-        btbStretchableStatusBar.setDefaultLayoutRightText("图片");
+        btbStretchableStatusBar.setDefaultLayoutRight(null, "图片");
 
         aplStretchableStatusBar.addOnOffsetChangedListener(appBarLayoutListener);
 
@@ -103,7 +103,7 @@ public class StretchableAty extends BaseAty {
                 float rate = Math.abs(verticalOffset) / (float) (totalHeight - baseToolBarHeight);
                 if (rate > 0.75) {//0.75-1
                     btbStretchableStatusBar.setTitleText("散文欣赏");
-                    btbStretchableStatusBar.tv_base_tb_title.setAlpha((rate - 0.75f) / 0.25f+0.25f);//不从0开始变，从0.25开始变化，防止一直不可见
+                    btbStretchableStatusBar.tv_base_tb_title.setAlpha((rate - 0.75f) / 0.25f + 0.25f);//不从0开始变，从0.25开始变化，防止一直不可见
                 } else {//0-0.75
                     btbStretchableStatusBar.setTitleText("作者简介");
                     btbStretchableStatusBar.tv_base_tb_title.setAlpha(1.25f - rate / 0.75f);//不减到 0 因为 0.25 基本已经不可见了

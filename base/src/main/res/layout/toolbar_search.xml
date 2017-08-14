@@ -5,9 +5,11 @@
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingLeft="@dimen/padding_all_left_right"
-    android:paddingRight="@dimen/padding_all_left_right">
+    android:paddingRight="11dp">
 
-    <ImageView
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/ib_base_tb_search_back"
+        style="@style/Widget.AppCompat.Toolbar.Button.Navigation"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:scaleType="fitXY"
@@ -60,26 +62,25 @@
             android:id="@+id/ib_base_tb_search_delete"
             android:layout_width="31dp"
             android:layout_height="36dp"
-            android:paddingRight="10dp"
-            android:paddingLeft="5dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:cropToPadding="true"
             android:background="@color/transparent"
+            android:cropToPadding="true"
+            android:paddingBottom="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
             android:scaleType="fitXY"
             android:src="@drawable/selector_edit_delete" />
     </LinearLayout>
-
+    <!--  style="@style/Base.TextAppearance.AppCompat.Menu" -->
 
     <TextView
-        style="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+        android:id="@+id/tv_base_tb_search_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="15dp"
-        android:paddingStart="15dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:textColor="@drawable/selector_text_white_to_light"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="5dp"
         android:text="搜索"
-        />
+        android:textColor="@drawable/selector_text_white_to_light" />
 </LinearLayout>

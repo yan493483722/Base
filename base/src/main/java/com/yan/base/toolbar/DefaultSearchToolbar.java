@@ -63,7 +63,7 @@ public class DefaultSearchToolbar extends BaseToolbar implements TextWatcher {
         final View view = LayoutInflater.from(context).inflate(R.layout.toolbar_search, rl_base_tb, false);
         fl_base_tb.removeAllViews();
         fl_base_tb.addView(view);
-        setDefaultLayoutLeft(R.drawable.icon_back, "搜索");
+        setDefaultLayoutLeft(R.drawable.icon_back, null);
         ib_base_tb_search_delete = (ImageButton) view.findViewById(R.id.ib_base_tb_search_delete);
         et_base_tb_search = (EditText) view.findViewById(R.id.et_base_tb_search);
         ll_base_tb_left.setVisibility(VISIBLE);

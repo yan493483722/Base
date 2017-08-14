@@ -3,7 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_vertical"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingEnd="@dimen/padding_all_left_right"
+    android:paddingLeft="@dimen/padding_all_left_right"
+    android:paddingRight="@dimen/padding_all_left_right"
+    android:paddingStart="@dimen/padding_all_left_right">
 
     <LinearLayout
         android:id="@+id/ll_base_tb_search"

@@ -1,6 +1,5 @@
 package com.yan.basedemo.aty;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,10 +30,14 @@ public class LoginAty extends BaseAty {
     @BindView(R.id.btb_login)
     BaseToolbar btbLogin;
 
+
+    //
+    private static final String TEST_URL = "http://172.17.0.120:8107/Api/Account/Login2";
+
+
     @Override
     protected void initContentView() {
         setContentView(R.layout.aty_login);
-
         ButterKnife.bind(this);
     }
 
@@ -65,11 +68,4 @@ public class LoginAty extends BaseAty {
         mSnackBarAndToastManager.showSnackBar("clicked btn ");
     }
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

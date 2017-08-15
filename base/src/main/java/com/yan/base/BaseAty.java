@@ -104,6 +104,7 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
         mProgressDialogManager = new ProgressDialogManager(mAty);
 
         initContentView();
+
         if (isFirstPage) {//如果是通过第三方应用安装，则启动的方式有所不同
             // 部分系统会每次点击图标都重启launcher 页面 所以需要关闭launcher
             if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
@@ -111,12 +112,10 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
                 return;
             }
         }
-
-
         AppManager.getAppManager().addActivity(this);
+
         initView();
         initData();
-
 
     }
 

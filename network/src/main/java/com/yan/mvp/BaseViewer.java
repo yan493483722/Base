@@ -20,4 +20,5 @@ public interface BaseViewer {
      * 后台异常，404 505 或者是其他的各种异常
      */
     void serviceError(Call call);
+
 }

@@ -1,8 +1,10 @@
 package com.yan.basedemo.mvp.view;
 
+import com.yan.basedemo.mvp.model.response.LoginRes;
 import com.yan.mvp.BaseViewer;
 
-import okhttp3.Call;
+import retrofit2.Call;
+
 
 /**
  * Created by YanZi on 2017/8/15.
@@ -10,14 +12,9 @@ import okhttp3.Call;
  * modify:
  * modify date:
  */
-public class LoginViewer implements BaseViewer {
-    @Override
-    public void netError(Object tag) {
+public interface LoginViewer extends BaseViewer {
 
-    }
+    void success(Call call, LoginRes loginRes);
 
-    @Override
-    public void serviceError(Call call) {
-
-    }
+    void  fail(Call call);
 }

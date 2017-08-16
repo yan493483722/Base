@@ -1,5 +1,6 @@
 package com.yan.basedemo.aty;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -7,6 +8,9 @@ import android.widget.EditText;
 import com.yan.base.BaseAty;
 import com.yan.base.toolbar.BaseToolbar;
 import com.yan.basedemo.R;
+import com.yan.basedemo.mvp.model.response.LoginRes;
+import com.yan.basedemo.mvp.presenter.LoginPresenter;
+import com.yan.basedemo.mvp.view.LoginViewer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,7 +23,7 @@ import butterknife.OnClick;
  * Modify Description (修改描述):
  */
 
-public class LoginAty extends BaseAty {
+public class LoginAty extends BaseAty implements LoginViewer {
 
     @BindView(R.id.tv_name)
     EditText tvName;
@@ -30,7 +34,7 @@ public class LoginAty extends BaseAty {
     @BindView(R.id.btb_login)
     BaseToolbar btbLogin;
 
-
+    LoginPresenter loginPresenter;
     //
     private static final String TEST_URL = "http://172.17.0.120:8107/Api/Account/Login2";
 
@@ -56,6 +60,8 @@ public class LoginAty extends BaseAty {
 
             }
         });
+
+        loginPresenter = new LoginPresenter(this, this);
     }
 
     @Override
@@ -65,7 +71,28 @@ public class LoginAty extends BaseAty {
 
     @OnClick({R.id.btn_login})
     void click(View view) {
+        loginPresenter.login();
         mSnackBarAndToastManager.showSnackBar("clicked btn ");
     }
 
+
+    @Override
+    public void netError(Object tag) {
+
+    }
+
+    @Override
+    public void serviceError(retrofit2.Call call) {
+
+    }
+
+    @Override
+    public void success(retrofit2.Call call, LoginRes loginRes) {
+        Log.e("yan", "this is success in activity  " + loginRes.toString());
+    }
+
+    @Override
+    public void fail(retrofit2.Call call) {
+
+    }
 }

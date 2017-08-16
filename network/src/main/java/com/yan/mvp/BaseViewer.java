@@ -1,6 +1,7 @@
 package com.yan.mvp;
 
-import okhttp3.Call;
+
+import retrofit2.Call;
 
 /**
  * Created by YanZi on 2017/6/16.

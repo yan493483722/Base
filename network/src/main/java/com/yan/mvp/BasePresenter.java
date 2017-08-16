@@ -5,11 +5,8 @@ import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.yan.base.BaseAty;
-
 import com.yan.base.uitls.Tools;
-import com.yan.network.OkHttp3LogInterceptor;
 
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
@@ -18,9 +15,7 @@ import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
  * Created by YanZi on 2017/6/16.
@@ -39,13 +34,18 @@ public class BasePresenter<T extends BaseViewer> {
     public BasePresenter(BaseAty baseAty, T t) {
         this.baseAty = baseAty;
         this.viewer = t;
-//
-//        mOkHttpClient = new OkHttpClient().newBuilder().addInterceptor(getLogInterceptor(OkHttp3LogInterceptor.Level.BODY))
-//                .connectTimeout(10, TimeUnit.SECONDS)
-//                .readTimeout(10, TimeUnit.SECONDS)
-//                .writeTimeout(10, TimeUnit.SECONDS)
-//                .retryOnConnectionFailure(false)
-//                .build();
+        HttpLoggingInterceptor httpLoggingInterceptor;
+//        if () {
+//        httpLoggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE);
+//        } else {
+        httpLoggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
+//        }
+        mOkHttpClient = new OkHttpClient().newBuilder().addInterceptor(httpLoggingInterceptor)
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(10, TimeUnit.SECONDS)
+                .writeTimeout(10, TimeUnit.SECONDS)
+                .retryOnConnectionFailure(false)
+                .build();
 //    }
 
 //    protected boolean noNetAndCallBack(Object tag) {
@@ -67,18 +67,13 @@ public class BasePresenter<T extends BaseViewer> {
 
         OkHttpClient mOkHttpClient;
 
-        mOkHttpClient = new OkHttpClient().newBuilder().addInterceptor(OkHttp3LogInterceptor.getLogInterceptor(OkHttp3LogInterceptor.Level.BODY))
+        mOkHttpClient = new OkHttpClient().newBuilder().addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
                 .writeTimeout(10, TimeUnit.SECONDS)
                 .retryOnConnectionFailure(false)
                 .build();
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("")
-                .client(mOkHttpClient)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+
         if (autoShowLoading) {
             baseAty.getmProgressDialogManager().showSystemLoading("加载中");
         }
@@ -143,47 +138,47 @@ public class BasePresenter<T extends BaseViewer> {
 
 
     protected <D> void sendRequestModel(Object requestModel, String url, final boolean autoShowLoading, Object tag) {
-        if (autoShowLoading) {
-            baseAty.getmProgressDialogManager().showSystemLoading("加载中");
-        }
-        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), JSON.toJSONString(requestModel));
-//创建一个Request
-        final Request request = new Request.Builder()
-                .url(url)
-                .post(body).tag(tag)
-                .build();
-
-        Call call = mOkHttpClient.newCall(request);
-//请求加入调度 enqueue是异步execute是同步
-        call.enqueue(new BaseCallBack<D>() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.e("yan", "无法连接服务器" + call.request().toString());
-                viewer.serviceError(call);
-            }
-
-            @Override
-            void success(D d) {
-                if (autoShowLoading) {
-                    baseAty.getmProgressDialogManager().cancelSystemLoading();
-                }
-            }
-
-            @Override
-            void fail(D d) {
-                if (autoShowLoading) {
-                    baseAty.getmProgressDialogManager().cancelSystemLoading();
-                }
-            }
-
-            @Override
-            void serviceError(Call call) {
-                if (autoShowLoading) {
-                    baseAty.getmProgressDialogManager().cancelSystemLoading();
-                }
-                serviceError(call);
-            }
-        });
+//        if (autoShowLoading) {
+//            baseAty.getmProgressDialogManager().showSystemLoading("加载中");
+//        }
+//        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), JSON.toJSONString(requestModel));
+////创建一个Request
+//        final Request request = new Request.Builder()
+//                .url(url)
+//                .post(body).tag(tag)
+//                .build();
+//
+//        Call call = mOkHttpClient.newCall(request);
+////请求加入调度 enqueue是异步execute是同步
+//        call.enqueue(new BaseCallBack<D>() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                Log.e("yan", "无法连接服务器" + call.request().toString());
+//                viewer.serviceError(call);
+//            }
+//
+//            @Override
+//            void success(D d) {
+//                if (autoShowLoading) {
+//                    baseAty.getmProgressDialogManager().cancelSystemLoading();
+//                }
+//            }
+//
+//            @Override
+//            void fail(D d) {
+//                if (autoShowLoading) {
+//                    baseAty.getmProgressDialogManager().cancelSystemLoading();
+//                }
+//            }
+//
+//            @Override
+//            void serviceError(Call call) {
+//                if (autoShowLoading) {
+//                    baseAty.getmProgressDialogManager().cancelSystemLoading();
+//                }
+//                serviceError(call);
+//            }
+//        });
     }
 
 

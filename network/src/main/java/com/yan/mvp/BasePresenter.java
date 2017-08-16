@@ -7,8 +7,10 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.yan.base.BaseAty;
 
 import com.yan.base.uitls.Tools;
+import com.yan.network.OkHttp3LogInterceptor;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -16,6 +18,9 @@ import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by YanZi on 2017/6/16.
@@ -41,7 +46,7 @@ public class BasePresenter<T extends BaseViewer> {
 //                .writeTimeout(10, TimeUnit.SECONDS)
 //                .retryOnConnectionFailure(false)
 //                .build();
-    }
+//    }
 
 //    protected boolean noNetAndCallBack(Object tag) {
 //        if (!Tools.isOnline(baseAty)) {
@@ -51,22 +56,32 @@ public class BasePresenter<T extends BaseViewer> {
 //            return false;
 //        }
 //    }
-//
-//    OkHttp3LogInterceptor getLogInterceptor(OkHttp3LogInterceptor.Level level) {
-//        OkHttp3LogInterceptor logInterceptor = new OkHttp3LogInterceptor();
-//        logInterceptor.setLevel(level);
-//        return logInterceptor;
-//    }
+
+    }
 
     protected void sendRequestModel(Object requestModel, String url, boolean autoShowLoading, Object tag, Callback callBack) {
         sendRequestModel(null, requestModel, url, autoShowLoading, tag, callBack);
     }
 
     protected void sendRequestModel(String token, Object requestModel, String url, boolean autoShowLoading, Object tag, Callback callBack) {
+
+        OkHttpClient mOkHttpClient;
+
+        mOkHttpClient = new OkHttpClient().newBuilder().addInterceptor(OkHttp3LogInterceptor.getLogInterceptor(OkHttp3LogInterceptor.Level.BODY))
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(10, TimeUnit.SECONDS)
+                .writeTimeout(10, TimeUnit.SECONDS)
+                .retryOnConnectionFailure(false)
+                .build();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("")
+                .client(mOkHttpClient)
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
         if (autoShowLoading) {
             baseAty.getmProgressDialogManager().showSystemLoading("加载中");
         }
-
         //        RequestBody requestBody = new FormBody.Builder()
 //                .add("usernameOrEmailAddress", usernameOrEmailAddress)
 //                .add("validateCode", "sample string 2")

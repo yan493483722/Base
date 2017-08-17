@@ -72,44 +72,6 @@ public class BaseSingleInputDoubleBtnDialog extends BaseDialog {
             }
         }
 
-//
-//        @Override
-//        void initBtn(FrameLayout fl_dg_bottom, final Dialog dialog) {
-//            final View view = LayoutInflater.from(context).inflate(R.layout.dg_base_bottom_double, fl_dg_bottom, false);
-//            fl_dg_bottom.removeAllViews();
-//            fl_dg_bottom.addView(view);
-//
-//            final TextView tv_dg_double_left = (TextView) view
-//                    .findViewById(R.id.tv_dg_double_left);
-//            final TextView tv_dg_double_right = (TextView) view
-//                    .findViewById(R.id.tv_dg_double_right);
-//
-//            if (!Tools.isNull(leftBtnString)) {
-//                tv_dg_double_left.setText(leftBtnString);
-//            }
-//            if (!Tools.isNull(rightBtnString)) {
-//                tv_dg_double_right.setText(rightBtnString);
-//            }
-//            tv_dg_double_left.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (baseDialogInputDoubleBtnClickListener != null) {
-//                        baseDialogInputDoubleBtnClickListener.clickLeftBtn(type, et_dg_input_content.getText().toString());
-//                    }
-//                    dialog.dismiss();
-//                }
-//            });
-//            tv_dg_double_right.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (baseDialogInputDoubleBtnClickListener != null) {
-//                        baseDialogInputDoubleBtnClickListener.clickRightBtn(type, et_dg_input_content.getText().toString());
-//                    }
-//                    dialog.dismiss();
-//                }
-//            });
-//
-//        }
 
         @Override
         int setContentLayout() {

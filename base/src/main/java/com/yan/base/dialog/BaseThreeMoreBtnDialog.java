@@ -14,7 +14,8 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.yan.base.R;
-import com.yan.base.listener.BaseDialogSingleBtnClickListener;
+import com.yan.base.listener.BaseDialogThreeMoreBtnClickListener;
+import com.yan.base.uitls.RecyclerListDiv;
 
 import java.util.ArrayList;
 
@@ -24,23 +25,23 @@ import java.util.ArrayList;
  * modify:
  * modify date:
  */
-public class BaseThreeBtnDialog extends BaseDialog {
+public class BaseThreeMoreBtnDialog extends BaseDialog {
 
     public Context mContext;
 
-    public BaseThreeBtnDialog(Context context) {
+    public BaseThreeMoreBtnDialog(Context context) {
         super(context);
         this.mContext = context;
     }
 
-    public BaseThreeBtnDialog(Context context, int themeResId) {
+    public BaseThreeMoreBtnDialog(Context context, int themeResId) {
         super(context, themeResId);
         this.mContext = context;
 
 
     }
 
-    protected BaseThreeBtnDialog(Context context, boolean cancelable, DialogInterface.OnCancelListener cancelListener) {
+    protected BaseThreeMoreBtnDialog(Context context, boolean cancelable, DialogInterface.OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
         this.mContext = context;
     }
@@ -50,15 +51,16 @@ public class BaseThreeBtnDialog extends BaseDialog {
         protected ArrayList<String> btnText;
 
 
-        protected BaseDialogSingleBtnClickListener baseDialogSingleBtnClickListener;
+        protected BaseDialogThreeMoreBtnClickListener baseDialogThreeMoreBtnClickListener;
 
-        public BaseThreeBtnDialog.Builder setBaseThreeBtnDialog(BaseDialogSingleBtnClickListener baseDialogSingleBtnClickListener) {
-            this.baseDialogSingleBtnClickListener = baseDialogSingleBtnClickListener;
+        public BaseThreeMoreBtnDialog.Builder setBaseDialogThreeMoreBtnClickListener(BaseDialogThreeMoreBtnClickListener baseDialogThreeMoreBtnClickListener) {
+            this.baseDialogThreeMoreBtnClickListener = baseDialogThreeMoreBtnClickListener;
             return this;
         }
 
-        public void setBtnText(ArrayList<String> btnText) {
+        public Builder setBtnText(ArrayList<String> btnText) {
             this.btnText = btnText;
+            return this;
         }
 
 
@@ -68,19 +70,22 @@ public class BaseThreeBtnDialog extends BaseDialog {
 
         @Override
         void initBtn(FrameLayout fl_dg_bottom, final Dialog dialog) {
-            final View view = LayoutInflater.from(context).inflate(R.layout.dg_base_bottom_btn_more, fl_dg_bottom, false);
+            final View view = LayoutInflater.from(context).inflate(R.layout.dg_base_bottom_btn_three_more, fl_dg_bottom, false);
             fl_dg_bottom.removeAllViews();
             fl_dg_bottom.addView(view);
 
             // 设置按钮
-            RecyclerView tv_dg_single = (RecyclerView) view
-                    .findViewById(R.id.rv_tv_dg_single);
+            RecyclerView rv_dg_base_bottom = (RecyclerView) view
+                    .findViewById(R.id.rv_dg_base_bottom);
 
-            ThreeMoreBtnAdapter messageDetailAdapter = new ThreeMoreBtnAdapter(context, btnText);
+            ThreeMoreBtnAdapter messageDetailAdapter = new ThreeMoreBtnAdapter(context, btnText,dialog);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+
+            rv_dg_base_bottom.addItemDecoration(new RecyclerListDiv(RecyclerListDiv.HORIZONTAL, 2, context.getResources().getColor(R.color.divider_line_color)));
+
             linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
-            tv_dg_single.setLayoutManager(linearLayoutManager);
-            tv_dg_single.setAdapter(messageDetailAdapter);
+            rv_dg_base_bottom.setLayoutManager(linearLayoutManager);
+            rv_dg_base_bottom.setAdapter(messageDetailAdapter);
 
 
         }
@@ -96,9 +101,12 @@ public class BaseThreeBtnDialog extends BaseDialog {
 
             private Context mContext;
 
-            public ThreeMoreBtnAdapter(Context mContext, ArrayList<String> btnTextList) {
+            private Dialog dialog;
+
+            public ThreeMoreBtnAdapter(Context mContext, ArrayList<String> btnTextList, Dialog dialog) {
                 this.mContext = mContext;
                 this.btnTextList = btnTextList;
+                this.dialog = dialog;
             }
 
             @Override
@@ -108,7 +116,7 @@ public class BaseThreeBtnDialog extends BaseDialog {
             }
 
             @Override
-            public void onBindViewHolder(ThreeMoreBtnAdapter.ViewHolder holder, int position) {
+            public void onBindViewHolder(ThreeMoreBtnAdapter.ViewHolder holder, final int position) {
                 if (position < btnTextList.size() - 1) {
                     holder.tv_dg_single.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.selector_rect_white_gray));
 //               holder.tv_dg_single.setBackground(mContext.getResources().getDrawable(R.drawable.selector_rect_white_gray));
@@ -119,7 +127,10 @@ public class BaseThreeBtnDialog extends BaseDialog {
                 holder.tv_dg_single.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        if (baseDialogThreeMoreBtnClickListener != null) {
+                            baseDialogThreeMoreBtnClickListener.clickBtn(position, type);
+                        }
+                        dialog.dismiss();
                     }
                 });
             }

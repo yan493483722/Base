@@ -7,13 +7,14 @@ package com.yan.base.listener;
  * modify date:
  * modify desc:
  */
-public interface BaseDialogThreeBtnClickListener {
+public interface BaseDialogThreeMoreBtnClickListener {
 
     /**
      * 弹窗类型 多个弹窗时候使用此type来区分
+     * @param position
      * @param type
      */
-    void clickBtnTop(int type);
+    void clickBtn(int position,int type);
 
 
 

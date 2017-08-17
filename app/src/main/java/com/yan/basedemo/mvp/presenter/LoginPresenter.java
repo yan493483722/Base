@@ -14,7 +14,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -101,7 +100,7 @@ public class LoginPresenter extends BasePresenter<LoginViewer> {
                 .baseUrl("http://192.168.1.118:8010/")
                 .client(mOkHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+//                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
         //获取接口实例
         LoginService loginService = retrofit.create(LoginService.class);
@@ -138,7 +137,7 @@ public class LoginPresenter extends BasePresenter<LoginViewer> {
                 .baseUrl("http://192.168.1.118:8010/")
                 .client(mOkHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+//                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
         //获取接口实例
         LoginService loginService = retrofit.create(LoginService.class);

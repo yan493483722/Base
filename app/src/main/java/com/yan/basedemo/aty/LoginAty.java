@@ -69,9 +69,18 @@ public class LoginAty extends BaseAty implements LoginViewer {
 
     }
 
-    @OnClick({R.id.btn_login})
+    @OnClick({R.id.btn_login,R.id.btn_download,R.id.btn_upload})
     void click(View view) {
-        loginPresenter.login();
+        switch (view.getId()){
+            case R.id.btn_login:
+                break;
+            case R.id.btn_download:
+                break;
+
+            case R.id.btn_upload:
+                break;
+        }
+        loginPresenter.login3();
         mSnackBarAndToastManager.showSnackBar("clicked btn ");
     }
 
@@ -88,6 +97,7 @@ public class LoginAty extends BaseAty implements LoginViewer {
 
     @Override
     public void success(retrofit2.Call call, LoginRes loginRes) {
+        mSnackBarAndToastManager.showSnackBar("ssssss");
         Log.e("yan", "this is success in activity  " + loginRes.toString());
     }
 

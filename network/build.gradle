@@ -30,10 +30,10 @@ dependencies {
 
     //rxandroid  链接 https://github.com/ReactiveX/RxAndroid/
 
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+//    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
 // Because RxAndroid releases are few and far between, it is recommended you also
 // explicitly depend on RxJava's latest version for bug fixes and new features.
-    compile 'io.reactivex.rxjava2:rxjava:2.1.2'
+//    compile 'io.reactivex.rxjava2:rxjava:2.1.2'
     //https://github.com/google/gson/blob/master/UserGuide.md
     compile 'com.google.code.gson:gson:2.8.0'//Gson 库
     //retrofit 链接 http://square.github.io/retrofit/
@@ -41,7 +41,7 @@ dependencies {
     //Gson解析支持
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     //RX JAva解析支持
-//    compile 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
     //ok http 网络请求 https://github.com/square/okhttp/tree/master
     compile 'com.squareup.okhttp3:okhttp:3.8.1'
     //ok http 日志拦截器 https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor

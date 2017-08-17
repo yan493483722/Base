@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tv_dg_double_left"
+        style="@style/base_dg_btn_text"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/selector_dg_btn_left"
+        android:text="@string/base_ac_cancel" />
+
+    <View style="@style/div_vertical_1px" />
+
+    <TextView
+        android:id="@+id/tv_dg_double_right"
+        style="@style/base_dg_btn_text"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/selector_dg_btn_right"
+        android:text="@string/base_ac_confirm" />
+</LinearLayout>

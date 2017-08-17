@@ -131,4 +131,18 @@ public class LoginPresenter extends BasePresenter<LoginViewer> {
         //enqueue异步调用时，回调方法默认是在主线程里面的
         //Response<MovieSubject> response = call.execute();
     }
+
+
+    public void downLoad(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.1.118:8010/")
+                .client(mOkHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+        //获取接口实例
+        LoginService loginService = retrofit.create(LoginService.class);
+
+//        loginService.downloadFileWithDynamicUrlAsync("");
+    }
 }

@@ -99,6 +99,9 @@ public class BaseDialog extends Dialog {
 
             fl_dg_content = (FrameLayout) dialogView
                     .findViewById(R.id.fl_dg_content);
+         final  FrameLayout  fl_dg_bottom = (FrameLayout) dialogView
+                    .findViewById(R.id.fl_dg_bottom);
+
             v_dg_divider_10 = dialogView
                     .findViewById(R.id.v_dg_divider_10);
 
@@ -112,7 +115,7 @@ public class BaseDialog extends Dialog {
                         .findViewById(R.id.tv_dg_title)).setText(title);
             }
             //按钮
-            initBtn(dialogView, dialog);
+            initBtn(fl_dg_bottom, dialog);
             //内容
             contentLayout = setContentLayout();
             if (contentLayout != 0) {
@@ -137,9 +140,9 @@ public class BaseDialog extends Dialog {
         /**
          * 实例化按钮 此时已经有了单个按钮和多个按钮 只需要去实例化就行了并且添加点击事件
          *
-         * @param dialogView 用于findViewById
+         * @param fl_dg_bottom 底部的父布局，自己注入新的布局
          */
-        abstract void initBtn(View dialogView, Dialog dialog);
+        abstract void initBtn(FrameLayout fl_dg_bottom, Dialog dialog);
 
         /**
          * 如果没有的话 默认会给予一个 TextView  R.layout.dg_base_content

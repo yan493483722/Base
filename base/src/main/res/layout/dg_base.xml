@@ -27,10 +27,7 @@
         <FrameLayout
             android:id="@+id/fl_dg_content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-        </FrameLayout>
+            android:layout_height="wrap_content"/>
 
         <View
             android:layout_width="match_parent"
@@ -39,38 +36,10 @@
 
     <View style="@style/div_horizontal_1px" />
 
-    <TextView
-        android:id="@+id/tv_dg_single"
-        style="@style/base_dg_btn_text"
+    <FrameLayout
+        android:id="@+id/fl_dg_bottom"
         android:layout_width="match_parent"
-        android:background="@drawable/selector_dg_single"
-        android:text="@string/base_ac_confirm" />
+        android:layout_height="wrap_content"/>
 
-    <LinearLayout
-        android:id="@+id/ll_dg_double_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tv_dg_double_left"
-            style="@style/base_dg_btn_text"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:background="@drawable/selector_dg_btn_left"
-            android:text="@string/base_ac_cancel" />
-
-        <View style="@style/div_vertical_1px" />
-
-        <TextView
-            android:id="@+id/tv_dg_double_right"
-            style="@style/base_dg_btn_text"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:background="@drawable/selector_dg_btn_right"
-            android:text="@string/base_ac_confirm" />
-
-
-    </LinearLayout>
 
 </LinearLayout>

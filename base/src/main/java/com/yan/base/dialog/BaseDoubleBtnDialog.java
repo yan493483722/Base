@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.yan.base.R;
@@ -76,15 +77,15 @@ public class BaseDoubleBtnDialog extends BaseDialog {
 
 
         @Override
-        void initBtn(View dialogView, final Dialog dialog) {
-            TextView tv_dg_single = (TextView) dialogView
-                    .findViewById(R.id.tv_dg_single);
-            TextView tv_dg_double_left = (TextView) dialogView
-                    .findViewById(R.id.tv_dg_double_left);
-            TextView tv_dg_double_right = (TextView) dialogView
-                    .findViewById(R.id.tv_dg_double_right);
+        void initBtn(FrameLayout fl_dg_bottom, final Dialog dialog) {
+            final View view = LayoutInflater.from(context).inflate(R.layout.dg_base_bottom_double, fl_dg_bottom, false);
+            fl_dg_bottom.removeAllViews();
+            fl_dg_bottom.addView(view);
 
-            tv_dg_single.setVisibility(View.GONE);
+            final TextView tv_dg_double_left = (TextView) view
+                    .findViewById(R.id.tv_dg_double_left);
+            final TextView tv_dg_double_right = (TextView) view
+                    .findViewById(R.id.tv_dg_double_right);
 
             if (!Tools.isNull(leftBtnString)) {
                 tv_dg_double_left.setText(leftBtnString);

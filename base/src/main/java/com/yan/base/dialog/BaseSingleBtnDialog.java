@@ -5,7 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.yan.base.R;
@@ -68,14 +68,15 @@ public class BaseSingleBtnDialog extends BaseDialog {
 
 
         @Override
-        void initBtn(View dialogView, final Dialog dialog) {
-            // 设置按钮
-            TextView tv_dg_single = (TextView) dialogView
-                    .findViewById(R.id.tv_dg_single);
-            LinearLayout ll_dg_double_btn = (LinearLayout) dialogView
-                    .findViewById(R.id.ll_dg_double_btn);
+        void initBtn(FrameLayout fl_dg_bottom, final Dialog dialog) {
+            final View view = LayoutInflater.from(context).inflate(R.layout.dg_base_bottom_single, fl_dg_bottom, false);
+            fl_dg_bottom.removeAllViews();
+            fl_dg_bottom.addView(view);
 
-            ll_dg_double_btn.setVisibility(View.GONE);
+            // 设置按钮
+            TextView tv_dg_single = (TextView) view
+                    .findViewById(R.id.tv_dg_single);
+
             if (!Tools.isNull(btnText)) {
                 tv_dg_single.setText(btnText);
             }

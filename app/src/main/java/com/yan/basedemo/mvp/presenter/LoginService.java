@@ -6,12 +6,16 @@ import com.yan.mvp.BaseResponse;
 
 import java.util.Map;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Streaming;
+import retrofit2.http.Url;
 
 /**
  * Created by YanZi on 2017/8/16.
@@ -36,4 +40,12 @@ public interface LoginService {
 
     @POST("api/Account/Authenticate")
     Call<BaseResponse<LoginRes>> login3(@Body LoginReq loginReq);
+
+
+//    // option 1: a resource relative to your base URL
+//    @GET("/resource/example.zip")
+//    Call<ResponseBody> downloadFileWithFixedUrl();
+
+
+
 }

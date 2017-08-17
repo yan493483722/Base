@@ -9,6 +9,7 @@ import com.yan.base.dialog.BaseDoubleBtnDialog;
 import com.yan.base.dialog.BaseInputDoubleBtnDialog;
 import com.yan.base.dialog.BaseSingleBtnDialog;
 import com.yan.base.dialog.BaseSingleInputDoubleBtnDialog;
+import com.yan.base.dialog.BaseThreeBtnDialog;
 import com.yan.base.listener.BaseDialogDoubleBtnClickListener;
 import com.yan.base.listener.BaseDialogInputDoubleBtnClickListener;
 import com.yan.base.listener.BaseDialogSingleBtnClickListener;
@@ -70,6 +71,7 @@ public class DialogExampleAty extends BaseAty {
 
     @OnClick({R.id.btn_dialog_example_single, R.id.btn_dialog_example_double
             , R.id.btn_dialog_example_input_one, R.id.btn_dialog_example_input
+            ,R.id.btn_dialog_example_many
             , R.id.btn_dialog_example_input_password, R.id.btn_dialog_photo})
     void onClick(View view) {
         switch (view.getId()) {
@@ -89,6 +91,12 @@ public class DialogExampleAty extends BaseAty {
                         .setType(DIALOG_TYPE_ONE).setTitle("见到你很高兴，你好你好")
                         .create().show();
                 break;
+            case    R.id.btn_dialog_example_many:
+                new BaseThreeBtnDialog.Builder(mAty, mLayoutInflater).setContent("见到你很高兴，你好你好")
+                        .setTitle("你好")
+                        .create().show();
+                break;
+
             case R.id.btn_dialog_example_double:
                 new BaseDoubleBtnDialog.Builder(mAty, mLayoutInflater).
                         setBaseDialogDoubleBtnClickListener(mBaseDialogDoubleBtnClickListener)

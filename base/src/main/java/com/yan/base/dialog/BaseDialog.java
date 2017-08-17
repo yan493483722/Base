@@ -135,7 +135,16 @@ public class BaseDialog extends Dialog {
          *
          * @param dialogView 用于findViewById
          */
-        abstract void initContent(View dialogView);
+         void initContent(View dialogView){
+             if (!Tools.isNull(content)) {
+                 ((TextView) dialogView.findViewById(R.id.tv_dg_content)).setText(content);
+             } else {
+                 dialogView.findViewById(R.id.tv_dg_content).setVisibility(View.GONE);
+                 if (v_dg_divider_10.getVisibility() == View.VISIBLE) {
+                     v_dg_divider_10.setVisibility(View.GONE);
+                 }
+             }
+         }
 
         /**
          * 实例化按钮 此时已经有了单个按钮和多个按钮 只需要去实例化就行了并且添加点击事件

@@ -55,21 +55,8 @@ public class BaseSingleBtnDialog extends BaseDialog {
         }
 
         @Override
-        void initContent(View dialogView) {
-            if (!Tools.isNull(content)) {
-                ((TextView) dialogView.findViewById(R.id.tv_dg_content)).setText(content);
-            } else {
-                dialogView.findViewById(R.id.tv_dg_content).setVisibility(View.GONE);
-                if (v_dg_divider_10.getVisibility() == View.VISIBLE) {
-                    v_dg_divider_10.setVisibility(View.GONE);
-                }
-            }
-        }
-
-
-        @Override
         void initBtn(FrameLayout fl_dg_bottom, final Dialog dialog) {
-            final View view = LayoutInflater.from(context).inflate(R.layout.dg_base_bottom_single, fl_dg_bottom, false);
+            final View view = LayoutInflater.from(context).inflate(R.layout.dg_base_bottom_btn_single, fl_dg_bottom, false);
             fl_dg_bottom.removeAllViews();
             fl_dg_bottom.addView(view);
 

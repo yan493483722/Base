@@ -81,7 +81,7 @@ public class BaseThreeMoreBtnDialog extends BaseDialog {
             ThreeMoreBtnAdapter messageDetailAdapter = new ThreeMoreBtnAdapter(context, btnText,dialog);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
 
-            rv_dg_base_bottom.addItemDecoration(new RecyclerListDiv(RecyclerListDiv.HORIZONTAL, 2, context.getResources().getColor(R.color.divider_line_color)));
+            rv_dg_base_bottom.addItemDecoration(new RecyclerListDiv(RecyclerListDiv.HORIZONTAL,2, context.getResources().getColor(R.color.divider_line_color)));
 
             linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
             rv_dg_base_bottom.setLayoutManager(linearLayoutManager);

@@ -6,12 +6,16 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.IntDef;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 /**
- * 项目名称：cailaia
+ * 项目名称：
  * 类描述：
  * 创建人：yanzi
  * 创建时间：2016/6/21 14:52
@@ -46,13 +50,19 @@ public class RecyclerListDiv extends RecyclerView.ItemDecoration {
     //默认的
     private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
 
+
+    @IntDef({HORIZONTAL, VERTICAL})
+    @Retention(RetentionPolicy.SOURCE)
+    @interface  TYPE {
+    }
+
     /**
      * 默认分割线：高度为2px，颜色为灰色
      *
      * @param context
      * @param divType 分割线类型 HORIZONTAL VERTICAL
      */
-    public RecyclerListDiv(Context context, int divType) {
+    public RecyclerListDiv(Context context, @TYPE int divType) {
         checkArgument(divType);
         mDivHeight = DEFAULT_HEIGHT;
         final TypedArray a = context.obtainStyledAttributes(ATTRS);
@@ -68,7 +78,7 @@ public class RecyclerListDiv extends RecyclerView.ItemDecoration {
      * @param divType    分割线类型 HORIZONTAL VERTICAL
      * @param drawableId 分割线图片
      */
-    public RecyclerListDiv(Context context, int divType, int drawableId) {
+    public RecyclerListDiv(Context context, @TYPE  int divType, int drawableId) {
         checkArgument(divType);
         mDivider = ContextCompat.getDrawable(context, drawableId);
         mDivHeight = mDivider.getIntrinsicHeight();
@@ -77,11 +87,10 @@ public class RecyclerListDiv extends RecyclerView.ItemDecoration {
     /**
      * 自定义分割线
      *
-     * @param
      * @param dividerHeight 分割线高度
      * @param dividerColor  分割线颜色
      */
-    public RecyclerListDiv(int divType, int dividerHeight, int dividerColor) {
+    public RecyclerListDiv( @TYPE int divType, int dividerHeight, int dividerColor) {
         checkArgument(divType);
         mDivHeight = dividerHeight < 2 ? DEFAULT_HEIGHT : dividerHeight;
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -102,17 +111,27 @@ public class RecyclerListDiv extends RecyclerView.ItemDecoration {
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
         int total = parent.getAdapter().getItemCount();
-        int eachVerticalHeight = (mDivHeight * (total - 1)) / total;
+
         int position = parent.getChildLayoutPosition(view);
         if (divType == HORIZONTAL) {
-            int top = position == 0 ? 0 : (position == total - 1) ? eachVerticalHeight : eachVerticalHeight / 2;
-            int bottom = position == total - 1 ? 0 : position == 0 ? eachVerticalHeight : eachVerticalHeight / 2;
-            outRect.set(0, top, 0, bottom);
+            int top = position == 0 ? 0 :  mDivHeight ;
+            outRect.set(0, top, 0, 0);
         } else {
-            int left = position == 0 ? 0 : (position == total - 1) ? eachVerticalHeight : eachVerticalHeight / 2;
-            int right = position == total - 1 ? 0 : position == 0 ? eachVerticalHeight : eachVerticalHeight / 2;
-            outRect.set(left, 0, right, 0);
+            int left = position == 0 ? 0 :mDivHeight;
+            outRect.set(left, 0, 0, 0);
         }
+
+//        int eachVerticalHeight = (mDivHeight * (total - 1)) / total;
+//        int position = parent.getChildLayoutPosition(view);
+//        if (divType == HORIZONTAL) {
+//            int top = position == 0 ? 0 : (position == total - 1) ? eachVerticalHeight : eachVerticalHeight / 2;
+//            int bottom = position == total - 1 ? 0 : position == 0 ? eachVerticalHeight : eachVerticalHeight / 2;
+//            outRect.set(0, top, 0, bottom);
+//        } else {
+//            int left = position == 0 ? 0 : (position == total - 1) ? eachVerticalHeight : eachVerticalHeight / 2;
+//            int right = position == total - 1 ? 0 : position == 0 ? eachVerticalHeight : eachVerticalHeight / 2;
+//            outRect.set(left, 0, right, 0);
+//        }
     }
 
 

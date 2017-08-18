@@ -47,7 +47,7 @@ dependencies {
     //Gson解析支持
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     //RX JAva解析支持
-//    compile 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
     //ok http 网络请求 https://github.com/square/okhttp/tree/master
     compile 'com.squareup.okhttp3:okhttp:3.8.1'
     //ok http 日志拦截器 https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor

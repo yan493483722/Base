@@ -6,11 +6,15 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.yan.base.BaseAty;
+import com.yan.base.listener.BaseDialogThreeMoreBtnClickListener;
 import com.yan.base.toolbar.BaseToolbar;
 import com.yan.basedemo.R;
 import com.yan.basedemo.mvp.model.response.LoginRes;
 import com.yan.basedemo.mvp.presenter.LoginPresenter;
 import com.yan.basedemo.mvp.view.LoginViewer;
+import com.yan.network.download.apk.APKUpdateManager;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +42,8 @@ public class LoginAty extends BaseAty implements LoginViewer {
     //
     private static final String TEST_URL = "http://172.17.0.120:8107/Api/Account/Login2";
 
+
+    APKUpdateManager apkUpdateManager;
 
     @Override
     protected void initContentView() {
@@ -69,18 +75,45 @@ public class LoginAty extends BaseAty implements LoginViewer {
 
     }
 
-    @OnClick({R.id.btn_login,R.id.btn_download,R.id.btn_upload})
+    @OnClick({R.id.btn_login, R.id.btn_download, R.id.btn_upload})
     void click(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btn_login:
+                loginPresenter.login3();
                 break;
             case R.id.btn_download:
-                break;
+                String download = "http://58.215.175.244/qkonline/qkonline.apk";
 
+                String saveApkPath= "/sdcard/" +"qkonline";
+                if (apkUpdateManager == null) {
+                    apkUpdateManager = new APKUpdateManager(mAty, download, saveApkPath, mLayoutInflater);
+                    apkUpdateManager.setTitle("发现新版本");
+                    apkUpdateManager.setContent("版本更新啦！！！" +
+                            "\n 版本号:V1.2.0" +
+                            "\n 更新内容：" +
+                            "\n   1.修复部分bug" +
+                            "\n   2.优化部分用户体验" +
+                            "\n   3.增加炫酷模式"
+                            );
+                    ArrayList<String> btnTexts = new ArrayList<>();
+                    btnTexts.add("当前版本不再提醒");
+                    btnTexts.add("暂不更新");
+                    btnTexts.add("立即更新");
+                    apkUpdateManager.setBtnTexts(btnTexts);
+                }
+                apkUpdateManager.showUpdateDialog(new BaseDialogThreeMoreBtnClickListener() {
+                    @Override
+                    public void clickBtn(int position, int tag) {
+                        if (position == 2) {
+                            apkUpdateManager.download();
+                        }
+                    }
+                });
+                break;
             case R.id.btn_upload:
                 break;
         }
-        loginPresenter.login3();
+
         mSnackBarAndToastManager.showSnackBar("clicked btn ");
     }
 

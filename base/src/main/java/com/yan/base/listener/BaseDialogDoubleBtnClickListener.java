@@ -10,16 +10,16 @@ package com.yan.base.listener;
 public interface BaseDialogDoubleBtnClickListener {
 
     /**
-     * 弹窗类型 多个弹窗时候使用此type来区分
-     * @param type
+     * 弹窗类型 多个弹窗时候使用此tag来区分
+     * @param tag
      */
-    void clickLeftBtn(int type);
+    void clickLeftBtn(int tag);
 
     /**
-     * 弹窗类型 多个弹窗时候使用此type来区分
+     * 弹窗类型 多个弹窗时候使用此tag来区分
      * @param type
      */
-    void clickRightBtn(int type);
+    void clickRightBtn(int tag);
 
 
 }

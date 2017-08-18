@@ -73,7 +73,7 @@ public class BaseSingleBtnDialog extends BaseDialog {
                 public void onClick(View v) {
                     dialog.dismiss();
                     if (baseDialogSingleBtnClickListener != null) {
-                        baseDialogSingleBtnClickListener.clickBtn(type);
+                        baseDialogSingleBtnClickListener.clickBtn(tag);
                     }
                 }
             });

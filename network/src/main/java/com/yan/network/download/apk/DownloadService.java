@@ -12,7 +12,7 @@ import retrofit2.http.Url;
  * modify:
  * modify date:
  */
-public interface APKDownloadService {
+public interface DownloadService {
 
     @Streaming
     @GET

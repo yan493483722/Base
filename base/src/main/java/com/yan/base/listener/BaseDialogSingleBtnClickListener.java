@@ -10,9 +10,9 @@ package com.yan.base.listener;
 public interface BaseDialogSingleBtnClickListener{
 
     /**
-     * 弹窗类型 多个弹窗时候使用此type来区分
-     * @param type
+     * 弹窗类型 多个弹窗时候使用此tag来区分
+     * @param tag
      */
-    void clickBtn(int type);
+    void clickBtn(int tag);
 
 }

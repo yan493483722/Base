@@ -86,7 +86,7 @@ public class BaseDoubleBtnDialog extends BaseDialog {
                 public void onClick(View v) {
                     dialog.dismiss();
                     if (baseDialogDoubleBtnClickListener != null) {
-                        baseDialogDoubleBtnClickListener.clickLeftBtn(type);
+                        baseDialogDoubleBtnClickListener.clickLeftBtn(tag);
                     }
                 }
             });
@@ -97,7 +97,7 @@ public class BaseDoubleBtnDialog extends BaseDialog {
                 public void onClick(View v) {
                     dialog.dismiss();
                     if (baseDialogDoubleBtnClickListener != null) {
-                        baseDialogDoubleBtnClickListener.clickRightBtn(type);
+                        baseDialogDoubleBtnClickListener.clickRightBtn(tag);
                     }
                 }
             });

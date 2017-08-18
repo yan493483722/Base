@@ -130,7 +130,7 @@ public class BaseThreeMoreBtnDialog extends BaseDialog {
                     @Override
                     public void onClick(View v) {
                         if (baseDialogThreeMoreBtnClickListener != null) {
-                            baseDialogThreeMoreBtnClickListener.clickBtn(position, type);
+                            baseDialogThreeMoreBtnClickListener.clickBtn(position, tag);
                         }
                         dialog.dismiss();
                     }

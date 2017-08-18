@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -53,12 +54,14 @@ public class BaseDialog extends Dialog {
         /**
          * 类型 用于多个弹窗设置同一个listener的回调区分
          */
-        protected int type;
+        protected int tag;
         /**
          * 内容的layout
          */
         @LayoutRes
         protected int contentLayout = 0;
+
+        private int textContentGravity = Gravity.CENTER;
 
         public Builder(Activity context, LayoutInflater mLayoutInflater) {
             this.context = context;
@@ -77,10 +80,10 @@ public class BaseDialog extends Dialog {
 
 
         /**
-         * 类型 用于多个弹窗设置同一个listener的回调区分
+         * 类型 用于多个弹窗设置同一个listener 的回调区分
          */
-        public Builder setType(int type) {
-            this.type = type;
+        public Builder setTag(int tag) {
+            this.tag = tag;
             return this;
         }
 
@@ -99,7 +102,7 @@ public class BaseDialog extends Dialog {
 
             fl_dg_content = (FrameLayout) dialogView
                     .findViewById(R.id.fl_dg_content);
-         final  FrameLayout  fl_dg_bottom = (FrameLayout) dialogView
+            final FrameLayout fl_dg_bottom = (FrameLayout) dialogView
                     .findViewById(R.id.fl_dg_bottom);
 
             v_dg_divider_10 = dialogView
@@ -135,16 +138,23 @@ public class BaseDialog extends Dialog {
          *
          * @param dialogView 用于findViewById
          */
-         void initContent(View dialogView){
-             if (!Tools.isNull(content)) {
-                 ((TextView) dialogView.findViewById(R.id.tv_dg_content)).setText(content);
-             } else {
-                 dialogView.findViewById(R.id.tv_dg_content).setVisibility(View.GONE);
-                 if (v_dg_divider_10.getVisibility() == View.VISIBLE) {
-                     v_dg_divider_10.setVisibility(View.GONE);
-                 }
-             }
-         }
+        void initContent(View dialogView) {
+            if (!Tools.isNull(content)) {
+                final TextView textView = ((TextView) dialogView.findViewById(R.id.tv_dg_content));
+                textView.setGravity(textContentGravity);
+                textView.setText(content);
+            } else {
+                dialogView.findViewById(R.id.tv_dg_content).setVisibility(View.GONE);
+                if (v_dg_divider_10.getVisibility() == View.VISIBLE) {
+                    v_dg_divider_10.setVisibility(View.GONE);
+                }
+            }
+        }
+
+        public Builder setContentTextGravity(int textContentGravity) {
+            this.textContentGravity = textContentGravity;
+            return this;
+        }
 
         /**
          * 实例化按钮 此时已经有了单个按钮和多个按钮 只需要去实例化就行了并且添加点击事件

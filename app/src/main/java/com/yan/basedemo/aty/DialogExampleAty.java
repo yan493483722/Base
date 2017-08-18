@@ -99,6 +99,8 @@ public class DialogExampleAty extends BaseAty {
                 btnTexts.add("one");
                 btnTexts.add("two");
                 btnTexts.add("three");
+                btnTexts.add("more....");
+                btnTexts.add("最后一个");
                 new BaseThreeMoreBtnDialog.Builder(mAty, mLayoutInflater).setBtnText(btnTexts).setBaseDialogThreeMoreBtnClickListener(new BaseDialogThreeMoreBtnClickListener() {
                     @Override
                     public void clickBtn(int position, int type) {

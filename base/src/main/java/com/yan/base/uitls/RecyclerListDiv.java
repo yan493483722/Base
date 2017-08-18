@@ -110,7 +110,6 @@ public class RecyclerListDiv extends RecyclerView.ItemDecoration {
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
-        int total = parent.getAdapter().getItemCount();
 
         int position = parent.getChildLayoutPosition(view);
         if (divType == HORIZONTAL) {
@@ -121,6 +120,8 @@ public class RecyclerListDiv extends RecyclerView.ItemDecoration {
             outRect.set(left, 0, 0, 0);
         }
 
+
+//        int total = parent.getAdapter().getItemCount();
 //        int eachVerticalHeight = (mDivHeight * (total - 1)) / total;
 //        int position = parent.getChildLayoutPosition(view);
 //        if (divType == HORIZONTAL) {

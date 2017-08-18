@@ -78,10 +78,10 @@ public class BaseThreeMoreBtnDialog extends BaseDialog {
             RecyclerView rv_dg_base_bottom = (RecyclerView) view
                     .findViewById(R.id.rv_dg_base_bottom);
 
-            ThreeMoreBtnAdapter messageDetailAdapter = new ThreeMoreBtnAdapter(context, btnText,dialog);
+            ThreeMoreBtnAdapter messageDetailAdapter = new ThreeMoreBtnAdapter(context, btnText, dialog);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
 
-            rv_dg_base_bottom.addItemDecoration(new RecyclerListDiv(RecyclerListDiv.HORIZONTAL,2, context.getResources().getColor(R.color.divider_line_color)));
+            rv_dg_base_bottom.addItemDecoration(new RecyclerListDiv(RecyclerListDiv.HORIZONTAL, 2, context.getResources().getColor(R.color.divider_line_color)));
 
             linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
             rv_dg_base_bottom.setLayoutManager(linearLayoutManager);
@@ -117,10 +117,12 @@ public class BaseThreeMoreBtnDialog extends BaseDialog {
 
             @Override
             public void onBindViewHolder(ThreeMoreBtnAdapter.ViewHolder holder, final int position) {
+                if (null != btnTextList.get(position)) {
+                    holder.tv_dg_single.setText(btnTextList.get(position));
+                }
                 if (position < btnTextList.size() - 1) {
                     holder.tv_dg_single.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.selector_rect_white_gray));
 //               holder.tv_dg_single.setBackground(mContext.getResources().getDrawable(R.drawable.selector_rect_white_gray));
-                    holder.tv_dg_single.setText(btnTextList.get(position));
                 } else {
                     holder.tv_dg_single.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.selector_dg_single));
                 }

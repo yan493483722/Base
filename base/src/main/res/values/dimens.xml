@@ -10,7 +10,7 @@
     <dimen name="margin_all_left_right">16dp</dimen>
     <dimen name="padding_all_top_bottom">16dp</dimen>
     <dimen name="margin_all_top_bottom">16dp</dimen>
-    <dimen name="divider_line_1px">0.5dp</dimen>
+    <dimen name="divider_line_1px">1px</dimen>
 
 
     <dimen name="font_large">22sp</dimen>

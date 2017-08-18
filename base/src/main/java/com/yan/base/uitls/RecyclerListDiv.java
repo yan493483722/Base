@@ -38,7 +38,7 @@ public class RecyclerListDiv extends RecyclerView.ItemDecoration {
     public static final int VERTICAL = 2;
 
     /**
-     * 默认2   ====1像素，0.5dp
+     * 默认2px
      */
     private static final int DEFAULT_HEIGHT = 2;
     private Paint mPaint;
@@ -92,7 +92,7 @@ public class RecyclerListDiv extends RecyclerView.ItemDecoration {
      */
     public RecyclerListDiv( @TYPE int divType, int dividerHeight, int dividerColor) {
         checkArgument(divType);
-        mDivHeight = dividerHeight < 2 ? DEFAULT_HEIGHT : dividerHeight;
+        mDivHeight = dividerHeight < 1 ? DEFAULT_HEIGHT : dividerHeight;
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setColor(dividerColor);
         mPaint.setStyle(Paint.Style.FILL);

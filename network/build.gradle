@@ -46,12 +46,17 @@ dependencies {
     //ok http 日志拦截器 https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
 
+    //解决 retrofit 报错无法下载问题：解决步骤
+//    1.新建一个新的项目，编译下载，
+//    2.rebuild当前项目，错误解决
+    
     //retrofit 链接 http://square.github.io/retrofit/
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     //Gson解析支持
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     //RX JAva解析支持 https://github.com/square/retrofit/tree/master/retrofit-adapters/rxjava2
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+
 
     testCompile 'junit:junit:4.12'
     compile project(':base')

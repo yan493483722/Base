@@ -2,13 +2,13 @@ apply plugin: 'com.android.library'
 
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.0"
 
     defaultConfig {
 //        applicationId "com.yan.base"
         minSdkVersion 15
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
 
@@ -28,10 +28,12 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:support-v4:25.3.1'
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
+    compile 'com.android.support:palette-v7:26.0.0-alpha1'
+    compile 'com.android.support:support-v4:26.0.0-alpha1'
+    compile 'com.android.support:design:26.0.0-alpha1'
+
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:design:25.3.1'
     //日志崩溃记录
     //https://github.com/wangjiegulu/AndroidBucket
     compile 'com.github.wangjiegulu:AndroidBucket:1.0.4'
@@ -62,11 +64,9 @@ dependencies {
     //上下拉刷新
     //gitHub https://github.com/Aspsine/SwipeToLoadLayout
     compile 'com.github.Aspsine:SwipeToLoadLayout:1.0.3'
-
-
     //grpc
     //    compile 'io.grpc:grpc-okhttp:0.9.0'
     //    compile 'io.grpc:grpc-protobuf-nano:0.9.0'
     //    compile 'io.grpc:grpc-stub:0.9.0'
-    compile 'com.android.support:palette-v7:25.3.1'
+
 }

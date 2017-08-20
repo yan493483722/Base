@@ -98,7 +98,7 @@ public class APKDownloadPresenter extends BasePresenter {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Log.e("yan", "this is the down load " + response);
                 if (response.code() == 200) {
-                    writeResponseBodyToDisk(response.body(), saveApkPath);
+//                    writeResponseBodyToDisk(response.body(), saveApkPath);
                 }
 
             }

@@ -9,4 +9,5 @@ package com.yan.network.download;
 public interface DownloadProgressListener {
 
     void update(long totalBytesRead, long totalLength, boolean complete);
+
 }

@@ -2,7 +2,11 @@ package com.yan.basedemo.application;
 
 import android.content.Context;
 
+import com.yan.base.BuildConfig;
 import com.yan.base.application.BaseApplication;
+import com.yan.basedemo.network.ConstanceNet;
+import com.yan.network.Retrofit2Client;
+
 /**
  * Created by YanZi on 2017/4/13.
  * describe：
@@ -16,6 +20,10 @@ public class BaseDemoApplication extends BaseApplication {
     @Override
     protected void initNetWork() {
         mContext=   getApplicationContext();
+        //
+        Retrofit2Client.setBaseUrl(ConstanceNet.ACCOUNT_URl);
+        Retrofit2Client.setContext(mContext);
+        Retrofit2Client.setDebug(BuildConfig.DEBUG);
     }
 
 

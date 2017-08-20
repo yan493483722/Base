@@ -15,4 +15,10 @@ public class ConstanceNet {
     public static String LOGIN = "/mbracct/v1/login";
     //https://api.douban.com/v2/book/search?q=%E5%B1%B1%E6%B5%B7%E7%BB%8F&tag=&start=0&count=1
 
+
+    public static String BASE_URL_ACCOUNT="";
+    public static String BASE_URL_TREAD="";
+
+
+
 }

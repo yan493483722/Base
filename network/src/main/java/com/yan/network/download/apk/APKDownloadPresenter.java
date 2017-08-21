@@ -67,6 +67,7 @@ public class APKDownloadPresenter extends BasePresenter {
                 okhttp3.Response originalResponse = chain.proceed(chain.request());
                 return originalResponse.newBuilder().body(
                         new DownloadProgressResponseBody(originalResponse.body(), new DownloadProgressListener() {
+
                             @Override
                             public void onStart(long totalLength) {
 
@@ -84,11 +85,16 @@ public class APKDownloadPresenter extends BasePresenter {
 
                             @Override
                             public void onCompleted() {
-                                Log.e("yan", "complete ");
+
                             }
 
                             @Override
-                            public void onError(DownloadEntity downLoadEntity, Throwable throwable) {
+                            public void netError(Object tag) {
+
+                            }
+
+                            @Override
+                            public void serviceError(Call call) {
 
                             }
                         }))
@@ -119,7 +125,7 @@ public class APKDownloadPresenter extends BasePresenter {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Log.e("yan", "this is the down load " + response);
                 if (response.code() == 200) {
-                    writeResponseBodyToDisk(response.body(), saveApkPath, fileName);
+                    writeStreamToFile(response.body(), saveApkPath, fileName);
                 }
 
             }
@@ -133,33 +139,19 @@ public class APKDownloadPresenter extends BasePresenter {
     }
 
 
-    private boolean writeResponseBodyToDisk(ResponseBody body, String saveApkPath, String fileName) {
+    private boolean writeStreamToFile(ResponseBody body, String saveApkPath, String fileName) {
         try {
-
             File dir = new File(saveApkPath);
-            if (dir.isDirectory()) {//存在的处理
-                //大小一致。。校验包是否是自己的？？
-                Log.e("yan", "存在 isDirectory");
-            } else {
-                Log.e("yan", "不存在");
+            if (!dir.isDirectory()) {//存在的处理
                 dir.mkdirs();
             }
-
-            if (dir.isDirectory()) {
-                Log.e("yan", "存在了路径：" + saveApkPath);
-            }
-
             File apkFile = new File(saveApkPath, fileName);
-
             InputStream inputStream = null;
             OutputStream outputStream = null;
-
             try {
                 byte[] fileReader = new byte[4096];
-
                 long fileSize = body.contentLength();
                 long fileSizeDownloaded = 0;
-
                 inputStream = body.byteStream();
                 outputStream = new FileOutputStream(apkFile);
                 while (true) {
@@ -182,7 +174,6 @@ public class APKDownloadPresenter extends BasePresenter {
                 if (inputStream != null) {
                     inputStream.close();
                 }
-
                 if (outputStream != null) {
                     outputStream.close();
                 }

@@ -22,11 +22,11 @@ import com.yan.base.uitls.Tools;
 public class BaseDialog extends Dialog {
 
 
-    public BaseDialog(Context context) {
+    protected BaseDialog(Context context) {
         super(context);
     }
 
-    public BaseDialog(Context context, int themeResId) {
+    protected BaseDialog(Context context, int themeResId) {
         super(context, themeResId);
     }
 

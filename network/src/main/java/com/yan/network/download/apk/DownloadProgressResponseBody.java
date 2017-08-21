@@ -1,5 +1,7 @@
 package com.yan.network.download.apk;
 
+import android.util.Log;
+
 import com.yan.network.download.DownloadProgressListener;
 
 import java.io.IOException;
@@ -18,7 +20,7 @@ import okio.Source;
  * modify:
  * modify date:
  */
-public class DownloadProgressResponseBody  extends ResponseBody {
+public class DownloadProgressResponseBody extends ResponseBody {
     private ResponseBody responseBody;
     private DownloadProgressListener progressListener;
     private BufferedSource bufferedSource;
@@ -58,7 +60,16 @@ public class DownloadProgressResponseBody  extends ResponseBody {
                 totalBytesRead += bytesRead != -1 ? bytesRead : 0;
 
                 if (null != progressListener) {
-                    progressListener.update(totalBytesRead, responseBody.contentLength(), bytesRead == -1);
+                    if (bytesRead == -1) {
+                        progressListener.onCompleted();
+                    } else {
+                        if(bytesRead==byteCount){
+                            progressListener.onStart(responseBody.contentLength());
+                        }else{
+                            progressListener.onDownloading(totalBytesRead, responseBody.contentLength());
+                        }
+                    }
+
                 }
                 return bytesRead;
             }

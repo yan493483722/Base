@@ -22,6 +22,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by YanZi on 2017/8/20 .
  * Description（描述）：
+ * retrofit 使用详解
+ * http://blog.csdn.net/carson_ho/article/details/73732076
  * Modify(修改) :
  * Modify Description (修改描述):
  */
@@ -30,6 +32,9 @@ public class Retrofit2Client {
 
     private static final int DEFAULT_TIMEOUT = 30;
 //    private BaseApiService apiService;
+
+
+    private Map<String,Retrofit>  retrofitMap;
 
     private static Map<String, String> headers;
     private static Map<String, String> parameters;
@@ -41,7 +46,7 @@ public class Retrofit2Client {
     private static String mBaseUrl;
 
 
-    private Context mContext;
+    private  Context mContext;
     private static boolean isDebug;
 
 
@@ -111,6 +116,7 @@ public class Retrofit2Client {
             httpCacheDirectory = new File(mContext.getCacheDir(), "net_cache");
         }
 
+
         try {
             if (cache == null) {
                 cache = new Cache(httpCacheDirectory, 10 * 1024 * 1024);
@@ -118,7 +124,6 @@ public class Retrofit2Client {
         } catch (Exception e) {
             Log.e("OKHttp", "Could not create http cache", e);
         }
-
 
         okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(new BaseInterceptor(headers))

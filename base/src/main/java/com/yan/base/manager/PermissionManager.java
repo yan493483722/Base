@@ -112,7 +112,6 @@ public class PermissionManager {
                 if (listener != null) {
                     listener.permissionSuccess(REQUEST_CODE_PERMISSION);
                 }
-
             } else {
                 if (listener != null) {
                     listener.permissionFail(REQUEST_CODE_PERMISSION);

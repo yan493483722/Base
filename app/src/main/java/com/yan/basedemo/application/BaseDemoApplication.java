@@ -22,7 +22,7 @@ public class BaseDemoApplication extends BaseApplication {
         mContext=   getApplicationContext();
         //
         Retrofit2Client.setBaseUrl(ConstanceNet.ACCOUNT_URl);
-        Retrofit2Client.setContext(mContext);
+//        Retrofit2Client.setContext(mContext);
         Retrofit2Client.setDebug(BuildConfig.DEBUG);
     }
 

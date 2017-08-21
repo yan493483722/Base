@@ -8,12 +8,14 @@ import android.widget.EditText;
 import com.yan.base.BaseAty;
 import com.yan.base.listener.BaseDialogThreeMoreBtnClickListener;
 import com.yan.base.toolbar.BaseToolbar;
+import com.yan.base.uitls.FileUtil;
 import com.yan.basedemo.R;
 import com.yan.basedemo.mvp.model.response.LoginRes;
 import com.yan.basedemo.mvp.presenter.LoginPresenter;
 import com.yan.basedemo.mvp.view.LoginViewer;
 import com.yan.network.download.apk.APKUpdateManager;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -84,9 +86,10 @@ public class LoginAty extends BaseAty implements LoginViewer {
             case R.id.btn_download:
                 String download = "http://58.215.175.244/qkonline/qkonline.apk";
 
-                String saveApkPath= "/sdcard/" +"qkonline";
+              String saveFilePath=FileUtil.getBasePath(mAty)+File.separator+"apkfile";
+              String fileName="qkonline.apk";
                 if (apkUpdateManager == null) {
-                    apkUpdateManager = new APKUpdateManager(mAty, download, saveApkPath, mLayoutInflater);
+                    apkUpdateManager = new APKUpdateManager(mAty, download, saveFilePath,fileName, mLayoutInflater);
                     apkUpdateManager.setTitle("发现新版本");
                     apkUpdateManager.setContent("版本更新啦！！！" +
                             "\n 版本号:V1.2.0" +

@@ -1,5 +1,7 @@
 package com.yan.network.download.apk;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -7,6 +9,7 @@ import android.view.LayoutInflater;
 import com.yan.base.BaseAty;
 import com.yan.base.dialog.BaseThreeMoreBtnDialog;
 import com.yan.base.listener.BaseDialogThreeMoreBtnClickListener;
+import com.yan.base.uitls.FileUtil;
 import com.yan.base.uitls.Tools;
 
 import java.io.File;
@@ -15,6 +18,10 @@ import java.util.ArrayList;
 /**
  * Created by YanZi on 2017/8/17.
  * describe：
+ * 下载可能出现的bug
+ * http://blog.csdn.net/qqyanjiang/article/details/51076940
+ * http://blog.csdn.net/liwujun11111/article/details/52170337
+ *
  * modify:
  * modify date:
  */
@@ -32,14 +39,16 @@ public class APKUpdateManager {
 
     private String url;
 
-    private String saveApkPath;
+    private String saveFilePath;
+    private String fileName;
 
     ArrayList<String> btnTexts;
 
-    public APKUpdateManager(BaseAty baseAty, String url, String saveApkPath, LayoutInflater layoutInflater) {
+    public APKUpdateManager(BaseAty baseAty, String url, String saveFilePath,String fileName, LayoutInflater layoutInflater) {
         this.baseAty = baseAty;
         this.url = url;
-        this.saveApkPath = saveApkPath;
+        this.saveFilePath = saveFilePath;
+        this.fileName = fileName;
         this.layoutInflater = layoutInflater;
     }
 
@@ -78,13 +87,20 @@ public class APKUpdateManager {
 
     public void download() {
 
-        if (new File(saveApkPath).exists()) {//存在的处理
-            //大小一致。。校验包是否是自己的？？
-        }
+
+//        NotificationManager  notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//
+//        notificationBuilder = new NotificationCompat.Builder(this)
+//                .setSmallIcon(R.mipmap.ic_download)
+//                .setContentTitle("Download")
+//                .setContentText("Downloading File")
+//                .setAutoCancel(true);
+//
+//        notificationManager.notify(0, notificationBuilder.build());
 
         APKDownloadPresenter apkDownloadPresenter = new APKDownloadPresenter(baseAty, null);
 
-        apkDownloadPresenter.downLoad(url, saveApkPath);
+        apkDownloadPresenter.downLoad(url, saveFilePath,fileName);
     }
 
 }

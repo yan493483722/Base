@@ -1,5 +1,6 @@
 package com.yan.basedemo;
 
+import android.Manifest;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
@@ -32,15 +33,20 @@ public class MainAty extends BaseAty {
     @BindView(R.id.btn_main_multi_download)
     Button btnMainMultiDownload;
 
+    private int REQUEST_PERMISSION = 10;
 
     @Override
     protected void initContentView() {
         setContentView(R.layout.aty_main);
         ButterKnife.bind(this);
+
+        requestPermission(new String[]{Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE
+                , Manifest.permission.CAMERA}, REQUEST_PERMISSION);
     }
 
     @OnClick({R.id.btn_main_dialog, R.id.btn_main_loading, R.id.btn_main_permission, R.id.btn_main_web,
-            R.id.btn_main_status_bar,R.id.btn_main_net,
+            R.id.btn_main_status_bar, R.id.btn_main_net,
             R.id.btn_main_multi_download})
     public void click(View view) {
         switch (view.getId()) {
@@ -79,6 +85,22 @@ public class MainAty extends BaseAty {
     @Override
     public void initData() {
         needCatchKeycodeBack = true;
+    }
+
+
+    @Override
+    public void permissionFail(int requestCode) {
+        if (requestCode == REQUEST_PERMISSION) {
+            mSnackBarAndToastManager.showSnackBar("读写文件权限没有打开");
+        }
+    }
+
+
+    @Override
+    public void permissionSuccess(int requestCode) {
+        if (requestCode == REQUEST_PERMISSION) {
+            mSnackBarAndToastManager.showSnackBar("读写文件权限打开了");
+        }
     }
 
 }

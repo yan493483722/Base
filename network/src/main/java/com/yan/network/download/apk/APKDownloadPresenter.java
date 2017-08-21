@@ -6,6 +6,7 @@ import android.util.Log;
 import com.yan.base.BaseAty;
 import com.yan.mvp.BasePresenter;
 import com.yan.mvp.BaseViewer;
+import com.yan.network.download.DownloadEntity;
 import com.yan.network.download.DownloadProgressListener;
 
 import java.io.File;
@@ -40,7 +41,7 @@ public class APKDownloadPresenter extends BasePresenter {
     //下载进度
     private ProgressDialog mypDialog;
 
-    void downLoad(String url, final String saveApkPath) {
+    void downLoad(String url, final String saveApkPath, final String fileName) {
 
         //开始下载
         mypDialog = new ProgressDialog(baseAty);
@@ -67,8 +68,28 @@ public class APKDownloadPresenter extends BasePresenter {
                 return originalResponse.newBuilder().body(
                         new DownloadProgressResponseBody(originalResponse.body(), new DownloadProgressListener() {
                             @Override
-                            public void update(long totalBytesRead, long totalLength, boolean complete) {
-                                Log.e("yan", "totalBytesRead=" + totalBytesRead + " totalLength=" + totalLength + " complete" + complete);
+                            public void onStart(long totalLength) {
+
+                            }
+
+                            @Override
+                            public void onCancel() {
+
+                            }
+
+                            @Override
+                            public void onDownloading(long totalBytesRead, long totalLength) {
+                                Log.e("yan", "totalBytesRead=" + totalBytesRead + " totalLength=" + totalLength);
+                            }
+
+                            @Override
+                            public void onCompleted() {
+                                Log.e("yan", "complete ");
+                            }
+
+                            @Override
+                            public void onError(DownloadEntity downLoadEntity, Throwable throwable) {
+
                             }
                         }))
                         .build();
@@ -98,7 +119,7 @@ public class APKDownloadPresenter extends BasePresenter {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Log.e("yan", "this is the down load " + response);
                 if (response.code() == 200) {
-//                    writeResponseBodyToDisk(response.body(), saveApkPath);
+                    writeResponseBodyToDisk(response.body(), saveApkPath, fileName);
                 }
 
             }
@@ -112,9 +133,23 @@ public class APKDownloadPresenter extends BasePresenter {
     }
 
 
-    private boolean writeResponseBodyToDisk(ResponseBody body, String saveApkPath) {
+    private boolean writeResponseBodyToDisk(ResponseBody body, String saveApkPath, String fileName) {
         try {
-            File futureStudioIconFile = new File(saveApkPath);
+
+            File dir = new File(saveApkPath);
+            if (dir.isDirectory()) {//存在的处理
+                //大小一致。。校验包是否是自己的？？
+                Log.e("yan", "存在 isDirectory");
+            } else {
+                Log.e("yan", "不存在");
+                dir.mkdirs();
+            }
+
+            if (dir.isDirectory()) {
+                Log.e("yan", "存在了路径：" + saveApkPath);
+            }
+
+            File apkFile = new File(saveApkPath, fileName);
 
             InputStream inputStream = null;
             OutputStream outputStream = null;
@@ -126,7 +161,7 @@ public class APKDownloadPresenter extends BasePresenter {
                 long fileSizeDownloaded = 0;
 
                 inputStream = body.byteStream();
-                outputStream = new FileOutputStream(futureStudioIconFile);
+                outputStream = new FileOutputStream(apkFile);
                 while (true) {
                     int read = inputStream.read(fileReader);
                     if (read == -1) {
@@ -136,7 +171,11 @@ public class APKDownloadPresenter extends BasePresenter {
                     fileSizeDownloaded += read;
                 }
                 outputStream.flush();
-                return true;
+                if (fileSizeDownloaded == fileSize) {
+                    return true;
+                } else {
+                    return false;
+                }
             } catch (IOException e) {
                 return false;
             } finally {

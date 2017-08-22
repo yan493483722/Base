@@ -2,14 +2,12 @@ package com.yan.base.widget;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.RectF;
-import android.graphics.SweepGradient;
 import android.graphics.Typeface;
 import android.text.TextPaint;
 import android.util.AttributeSet;
@@ -78,9 +76,7 @@ public class CircleProgress extends View {
     private float mArcWidth;
     private float mStartAngle, mSweepAngle;
     private RectF mRectF;
-    //渐变的颜色是360度，如果只显示270，那么则会缺失部分颜色
-    private SweepGradient mSweepGradient;
-    private int[] mGradientColors = {Color.GREEN, Color.YELLOW, Color.RED};
+
     //当前进度，[0.0f,1.0f]
     private float mPercent;
     //动画时间
@@ -91,6 +87,9 @@ public class CircleProgress extends View {
     //绘制背景圆弧
     private Paint mBgArcPaint;
     private int mBgArcColor;
+    private int arcColor;
+
+
     private float mBgArcWidth;
 
     //圆心坐标，半径
@@ -143,29 +142,9 @@ public class CircleProgress extends View {
         mBgArcWidth = typedArray.getDimension(R.styleable.CircleProgressBar_bgArcWidth, DEFAULT_ARC_WIDTH);
         mTextOffsetPercentInRadius = typedArray.getFloat(R.styleable.CircleProgressBar_textOffsetPercentInRadius, 0.33f);
 
-        //mPercent = typedArray.getFloat(R.styleable.CircleProgressBar_percent, 0);
         mAnimTime = typedArray.getInt(R.styleable.CircleProgressBar_animTime, DEFAULT_ANIM_TIME);
 
-        int gradientArcColors = typedArray.getResourceId(R.styleable.CircleProgressBar_arcColors, 0);
-        if (gradientArcColors != 0) {
-            try {
-                int[] gradientColors = getResources().getIntArray(gradientArcColors);
-                if (gradientColors.length == 0) {//如果渐变色为数组为0，则尝试以单色读取色值
-                    int color = getResources().getColor(gradientArcColors);
-                    mGradientColors = new int[2];
-                    mGradientColors[0] = color;
-                    mGradientColors[1] = color;
-                } else if (gradientColors.length == 1) {//如果渐变数组只有一种颜色，默认设为两种相同颜色
-                    mGradientColors = new int[2];
-                    mGradientColors[0] = gradientColors[0];
-                    mGradientColors[1] = gradientColors[0];
-                } else {
-                    mGradientColors = gradientColors;
-                }
-            } catch (Resources.NotFoundException e) {
-                throw new Resources.NotFoundException("the give resource not found.");
-            }
-        }
+        arcColor = typedArray.getColor(R.styleable.CircleProgressBar_arcColor, 0);
 
         typedArray.recycle();
     }
@@ -204,6 +183,11 @@ public class CircleProgress extends View {
         // 当画笔样式为STROKE或FILL_OR_STROKE时，设置笔刷的图形样式，如圆形样式
         // Cap.ROUND,或方形样式 Cap.SQUARE
         mArcPaint.setStrokeCap(Paint.Cap.ROUND);
+        if (arcColor == 0) {
+            mArcPaint.setColor(Color.BLUE);
+        } else {
+            mArcPaint.setColor(arcColor);
+        }
 
         mBgArcPaint = new Paint();
         mBgArcPaint.setAntiAlias(antiAlias);
@@ -211,6 +195,7 @@ public class CircleProgress extends View {
         mBgArcPaint.setStyle(Paint.Style.STROKE);
         mBgArcPaint.setStrokeWidth(mBgArcWidth);
         mBgArcPaint.setStrokeCap(Paint.Cap.ROUND);
+
     }
 
     @Override
@@ -245,11 +230,8 @@ public class CircleProgress extends View {
         mValueOffset = mCenterPoint.y + getBaselineOffsetFromY(mValuePaint);
         mHintOffset = mCenterPoint.y - mRadius * mTextOffsetPercentInRadius + getBaselineOffsetFromY(mHintPaint);
         mUnitOffset = mCenterPoint.y + mRadius * mTextOffsetPercentInRadius + getBaselineOffsetFromY(mUnitPaint);
-        updateArcPaint();
-        Log.d(TAG, "onSizeChanged: 控件大小 = " + "(" + w + ", " + h + ")"
-                + "圆心坐标 = " + mCenterPoint.toString()
-                + ";圆半径 = " + mRadius
-                + ";圆的外接矩形 = " + mRectF.toString());
+
+
     }
 
     private float getBaselineOffsetFromY(Paint paint) {
@@ -299,15 +281,6 @@ public class CircleProgress extends View {
         canvas.restore();
     }
 
-    /**
-     * 更新圆弧画笔
-     */
-    private void updateArcPaint() {
-        // 设置渐变
-        int[] mGradientColors = {Color.GREEN, Color.YELLOW, Color.RED};
-        mSweepGradient = new SweepGradient(mCenterPoint.x, mCenterPoint.y, mGradientColors, null);
-        mArcPaint.setShader(mSweepGradient);
-    }
 
     public boolean isAntiAlias() {
         return antiAlias;
@@ -393,19 +366,6 @@ public class CircleProgress extends View {
         mPrecisionFormat = ViewUtil.getPrecisionFormat(precision);
     }
 
-    public int[] getGradientColors() {
-        return mGradientColors;
-    }
-
-    /**
-     * 设置渐变
-     *
-     * @param gradientColors
-     */
-    public void setGradientColors(int[] gradientColors) {
-        mGradientColors = gradientColors;
-        updateArcPaint();
-    }
 
     public long getAnimTime() {
         return mAnimTime;

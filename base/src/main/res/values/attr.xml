@@ -77,7 +77,7 @@
         <!-- 圆弧宽度 -->
         <attr name="arcWidth" format="dimension" />
         <!-- 圆弧颜色， -->
-        <attr name="arcColors" format="color|reference" />
+        <attr name="arcColor" format="color|reference" />
         <!-- 文字的偏移量。相对于圆半径而言，默认三分之一 -->
         <attr name="textOffsetPercentInRadius" format="float" />
 

@@ -21,17 +21,21 @@
         android:layout_marginTop="120dp"
         circleProgressBar:antiAlias="true"
         circleProgressBar:arcWidth="8dp"
-        circleProgressBar:bgArcColor="@android:color/darker_gray"
+        circleProgressBar:bgArcColor="@color/download_bgArcColor"
         circleProgressBar:bgArcWidth="8dp"
+        circleProgressBar:arcColor="@color/download_arcColor"
         circleProgressBar:hint="当前进度"
-        circleProgressBar:hintSize="@dimen/font_small"
+        circleProgressBar:hintSize="@dimen/font_big"
+        circleProgressBar:hintColor="@color/font_white"
+        circleProgressBar:valueColor="@color/font_white"
+        circleProgressBar:unitColor="@color/font_white"
         circleProgressBar:maxValue="100"
         circleProgressBar:startAngle="270"
         circleProgressBar:sweepAngle="360"
         circleProgressBar:unit="%"
-        circleProgressBar:unitSize="@dimen/font_small"
+        circleProgressBar:unitSize="@dimen/font_big"
         circleProgressBar:value="100"
-        circleProgressBar:valueSize="@dimen/font_small" />
+        circleProgressBar:valueSize="@dimen/font_big" />
 
     <LinearLayout
         android:id="@+id/ll_apk_download"

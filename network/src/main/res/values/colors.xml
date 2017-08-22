@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="download_background">#4e99f9</color>
     <color name="download_background_dark">#6699f9</color>
+    <color name="download_arcColor">#fc9f66</color>
+    <color name="download_bgArcColor">#cc9966</color>
+
 </resources>

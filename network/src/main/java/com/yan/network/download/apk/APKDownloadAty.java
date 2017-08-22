@@ -41,7 +41,7 @@ public class APKDownloadAty extends BaseAty implements View.OnClickListener {
 
     @Override
     public void initData() {
-
+//        cp_apk_download.setPrecision();
     }
 
     @Override

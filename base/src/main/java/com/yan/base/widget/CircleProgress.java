@@ -115,59 +115,59 @@ public class CircleProgress extends View {
     }
 
     private void initAttrs(AttributeSet attrs) {
-//        TypedArray typedArray = mContext.obtainStyledAttributes(attrs, R.styleable.CircleProgressBar);
-//
-//        antiAlias = typedArray.getBoolean(R.styleable.CircleProgressBar_antiAlias, ANTI_ALIAS);
-//
-//        mHint = typedArray.getString(R.styleable.CircleProgressBar_hint);
-//        mHintColor = typedArray.getColor(R.styleable.CircleProgressBar_hintColor, Color.BLACK);
-//        mHintSize = typedArray.getDimension(R.styleable.CircleProgressBar_hintSize, DEFAULT_HINT_SIZE);
-//
-//        mValue = typedArray.getFloat(R.styleable.CircleProgressBar_value, DEFAULT_VALUE);
-//        mMaxValue = typedArray.getFloat(R.styleable.CircleProgressBar_maxValue, DEFAULT_MAX_VALUE);
-//        //内容数值精度格式
-//        mPrecision = typedArray.getInt(R.styleable.CircleProgressBar_precision, 0);
-//        mPrecisionFormat = ViewUtil.getPrecisionFormat(mPrecision);
-//        mValueColor = typedArray.getColor(R.styleable.CircleProgressBar_valueColor, Color.BLACK);
-//        mValueSize = typedArray.getDimension(R.styleable.CircleProgressBar_valueSize, DEFAULT_VALUE_SIZE);
-//
-//        mUnit = typedArray.getString(R.styleable.CircleProgressBar_unit);
-//        mUnitColor = typedArray.getColor(R.styleable.CircleProgressBar_unitColor, Color.BLACK);
-//        mUnitSize = typedArray.getDimension(R.styleable.CircleProgressBar_unitSize, DEFAULT_UNIT_SIZE);
-//
-//        mArcWidth = typedArray.getDimension(R.styleable.CircleProgressBar_arcWidth, DEFAULT_ARC_WIDTH);
-//        mStartAngle = typedArray.getFloat(R.styleable.CircleProgressBar_startAngle, DEFAULT_START_ANGLE);
-//        mSweepAngle = typedArray.getFloat(R.styleable.CircleProgressBar_sweepAngle, DEFAULT_SWEEP_ANGLE);
-//
-//        mBgArcColor = typedArray.getColor(R.styleable.CircleProgressBar_bgArcColor, Color.WHITE);
-//        mBgArcWidth = typedArray.getDimension(R.styleable.CircleProgressBar_bgArcWidth, DEFAULT_ARC_WIDTH);
-//        mTextOffsetPercentInRadius = typedArray.getFloat(R.styleable.CircleProgressBar_textOffsetPercentInRadius, 0.33f);
-//
-//        //mPercent = typedArray.getFloat(R.styleable.CircleProgressBar_percent, 0);
-//        mAnimTime = typedArray.getInt(R.styleable.CircleProgressBar_animTime, DEFAULT_ANIM_TIME);
-//
-//        int gradientArcColors = typedArray.getResourceId(R.styleable.CircleProgressBar_arcColors, 0);
-//        if (gradientArcColors != 0) {
-//            try {
-//                int[] gradientColors = getResources().getIntArray(gradientArcColors);
-//                if (gradientColors.length == 0) {//如果渐变色为数组为0，则尝试以单色读取色值
-//                    int color = getResources().getColor(gradientArcColors);
-//                    mGradientColors = new int[2];
-//                    mGradientColors[0] = color;
-//                    mGradientColors[1] = color;
-//                } else if (gradientColors.length == 1) {//如果渐变数组只有一种颜色，默认设为两种相同颜色
-//                    mGradientColors = new int[2];
-//                    mGradientColors[0] = gradientColors[0];
-//                    mGradientColors[1] = gradientColors[0];
-//                } else {
-//                    mGradientColors = gradientColors;
-//                }
-//            } catch (Resources.NotFoundException e) {
-//                throw new Resources.NotFoundException("the give resource not found.");
-//            }
-//        }
-//
-//        typedArray.recycle();
+        TypedArray typedArray = mContext.obtainStyledAttributes(attrs, R.styleable.CircleProgressBar);
+
+        antiAlias = typedArray.getBoolean(R.styleable.CircleProgressBar_antiAlias, ANTI_ALIAS);
+
+        mHint = typedArray.getString(R.styleable.CircleProgressBar_hint);
+        mHintColor = typedArray.getColor(R.styleable.CircleProgressBar_hintColor, Color.BLACK);
+        mHintSize = typedArray.getDimension(R.styleable.CircleProgressBar_hintSize, DEFAULT_HINT_SIZE);
+
+        mValue = typedArray.getFloat(R.styleable.CircleProgressBar_value, DEFAULT_VALUE);
+        mMaxValue = typedArray.getFloat(R.styleable.CircleProgressBar_maxValue, DEFAULT_MAX_VALUE);
+        //内容数值精度格式
+        mPrecision = typedArray.getInt(R.styleable.CircleProgressBar_precision, 0);
+        mPrecisionFormat = ViewUtil.getPrecisionFormat(mPrecision);
+        mValueColor = typedArray.getColor(R.styleable.CircleProgressBar_valueColor, Color.BLACK);
+        mValueSize = typedArray.getDimension(R.styleable.CircleProgressBar_valueSize, DEFAULT_VALUE_SIZE);
+
+        mUnit = typedArray.getString(R.styleable.CircleProgressBar_unit);
+        mUnitColor = typedArray.getColor(R.styleable.CircleProgressBar_unitColor, Color.BLACK);
+        mUnitSize = typedArray.getDimension(R.styleable.CircleProgressBar_unitSize, DEFAULT_UNIT_SIZE);
+
+        mArcWidth = typedArray.getDimension(R.styleable.CircleProgressBar_arcWidth, DEFAULT_ARC_WIDTH);
+        mStartAngle = typedArray.getFloat(R.styleable.CircleProgressBar_startAngle, DEFAULT_START_ANGLE);
+        mSweepAngle = typedArray.getFloat(R.styleable.CircleProgressBar_sweepAngle, DEFAULT_SWEEP_ANGLE);
+
+        mBgArcColor = typedArray.getColor(R.styleable.CircleProgressBar_bgArcColor, Color.WHITE);
+        mBgArcWidth = typedArray.getDimension(R.styleable.CircleProgressBar_bgArcWidth, DEFAULT_ARC_WIDTH);
+        mTextOffsetPercentInRadius = typedArray.getFloat(R.styleable.CircleProgressBar_textOffsetPercentInRadius, 0.33f);
+
+        //mPercent = typedArray.getFloat(R.styleable.CircleProgressBar_percent, 0);
+        mAnimTime = typedArray.getInt(R.styleable.CircleProgressBar_animTime, DEFAULT_ANIM_TIME);
+
+        int gradientArcColors = typedArray.getResourceId(R.styleable.CircleProgressBar_arcColors, 0);
+        if (gradientArcColors != 0) {
+            try {
+                int[] gradientColors = getResources().getIntArray(gradientArcColors);
+                if (gradientColors.length == 0) {//如果渐变色为数组为0，则尝试以单色读取色值
+                    int color = getResources().getColor(gradientArcColors);
+                    mGradientColors = new int[2];
+                    mGradientColors[0] = color;
+                    mGradientColors[1] = color;
+                } else if (gradientColors.length == 1) {//如果渐变数组只有一种颜色，默认设为两种相同颜色
+                    mGradientColors = new int[2];
+                    mGradientColors[0] = gradientColors[0];
+                    mGradientColors[1] = gradientColors[0];
+                } else {
+                    mGradientColors = gradientColors;
+                }
+            } catch (Resources.NotFoundException e) {
+                throw new Resources.NotFoundException("the give resource not found.");
+            }
+        }
+
+        typedArray.recycle();
     }
 
     private void initPaint() {

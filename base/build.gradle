@@ -26,7 +26,6 @@ android {
         dexInProcess true
         preDexLibraries true
         javaMaxHeapSize "4g"//越大越好
-        incremental true
         jumboMode = true
     }
 }

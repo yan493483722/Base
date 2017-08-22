@@ -1,4 +1,4 @@
-package com.yan.base.uitls;
+package com.yan.base.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;

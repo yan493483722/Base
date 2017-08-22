@@ -27,19 +27,19 @@ android {
         preDexLibraries true
         javaMaxHeapSize "4g"//越大越好
         incremental true
+        jumboMode = true
     }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-            exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
     compile 'com.android.support:palette-v7:26.0.0-alpha1'
     compile 'com.android.support:support-v4:26.0.0-alpha1'
     compile 'com.android.support:design:26.0.0-alpha1'
-
     testCompile 'junit:junit:4.12'
     //日志崩溃记录
     //https://github.com/wangjiegulu/AndroidBucket
@@ -75,5 +75,4 @@ dependencies {
     //    compile 'io.grpc:grpc-okhttp:0.9.0'
     //    compile 'io.grpc:grpc-protobuf-nano:0.9.0'
     //    compile 'io.grpc:grpc-stub:0.9.0'
-
 }

@@ -48,7 +48,7 @@ public class FlowLayout extends ViewGroup {
 
         try {
             int index = a.getInt(R.styleable.FlowLayout_android_gravity, -1);
-            if(index > 0) {
+            if (index > 0) {
                 setGravity(index);
             }
         } finally {
@@ -78,14 +78,14 @@ public class FlowLayout extends ViewGroup {
 
         int childCount = getChildCount();
 
-        for(int i = 0; i < childCount; i++) {
+        for (int i = 0; i < childCount; i++) {
 
             View child = getChildAt(i);
             boolean lastChild = i == childCount - 1;
 
-            if(child.getVisibility() == View.GONE) {
+            if (child.getVisibility() == View.GONE) {
 
-                if(lastChild) {
+                if (lastChild) {
                     width = Math.max(width, lineWidth);
                     height += lineHeight;
                 }
@@ -103,15 +103,15 @@ public class FlowLayout extends ViewGroup {
             int childHeightMode = MeasureSpec.AT_MOST;
             int childHeightSize = sizeHeight;
 
-            if(lp.width == LayoutParams.MATCH_PARENT) {
-                childWidthMode = MeasureSpec.EXACTLY    ;
+            if (lp.width == LayoutParams.MATCH_PARENT) {
+                childWidthMode = MeasureSpec.EXACTLY;
                 childWidthSize -= lp.leftMargin + lp.rightMargin;
-            } else if(lp.width >= 0) {
+            } else if (lp.width >= 0) {
                 childWidthMode = MeasureSpec.EXACTLY;
                 childWidthSize = lp.width;
             }
 
-            if(lp.height >= 0) {
+            if (lp.height >= 0) {
                 childHeightMode = MeasureSpec.EXACTLY;
                 childHeightSize = lp.height;
             } else if (modeHeight == MeasureSpec.UNSPECIFIED) {
@@ -126,7 +126,7 @@ public class FlowLayout extends ViewGroup {
 
             int childWidth = child.getMeasuredWidth() + lp.leftMargin + lp.rightMargin;
 
-            if(lineWidth + childWidth > sizeWidth) {
+            if (lineWidth + childWidth > sizeWidth) {
 
                 width = Math.max(width, lineWidth);
                 lineWidth = childWidth;
@@ -139,7 +139,7 @@ public class FlowLayout extends ViewGroup {
                 lineHeight = Math.max(lineHeight, child.getMeasuredHeight() + lp.topMargin + lp.bottomMargin);
             }
 
-            if(lastChild) {
+            if (lastChild) {
                 width = Math.max(width, lineWidth);
                 height += lineHeight;
             }
@@ -186,11 +186,11 @@ public class FlowLayout extends ViewGroup {
                 break;
         }
 
-        for(int i = 0; i < getChildCount(); i++) {
+        for (int i = 0; i < getChildCount(); i++) {
 
             View child = getChildAt(i);
 
-            if(child.getVisibility() == View.GONE) {
+            if (child.getVisibility() == View.GONE) {
                 continue;
             }
 
@@ -199,7 +199,7 @@ public class FlowLayout extends ViewGroup {
             int childWidth = child.getMeasuredWidth() + lp.leftMargin + lp.rightMargin;
             int childHeight = child.getMeasuredHeight() + lp.bottomMargin + lp.topMargin;
 
-            if(lineWidth + childWidth > width) {
+            if (lineWidth + childWidth > width) {
                 mLineHeights.add(lineHeight);
                 mLines.add(lineViews);
                 mLineMargins.add((int) ((width - lineWidth) * horizontalGravityFactor) + getPaddingLeft());
@@ -223,7 +223,7 @@ public class FlowLayout extends ViewGroup {
         linesSum += lineHeight;
 
         int verticalGravityMargin = 0;
-        switch ((mGravity & Gravity.VERTICAL_GRAVITY_MASK)	) {
+        switch ((mGravity & Gravity.VERTICAL_GRAVITY_MASK)) {
             case Gravity.TOP:
             default:
                 break;
@@ -240,7 +240,7 @@ public class FlowLayout extends ViewGroup {
         int left;
         int top = getPaddingTop();
 
-        for(int i = 0; i < numLines; i++) {
+        for (int i = 0; i < numLines; i++) {
 
             lineHeight = mLineHeights.get(i);
             lineViews = mLines.get(i);
@@ -248,24 +248,24 @@ public class FlowLayout extends ViewGroup {
 
             int children = lineViews.size();
 
-            for(int j = 0; j < children; j++) {
+            for (int j = 0; j < children; j++) {
 
                 View child = lineViews.get(j);
 
-                if(child.getVisibility() == View.GONE) {
+                if (child.getVisibility() == View.GONE) {
                     continue;
                 }
 
                 LayoutParams lp = (LayoutParams) child.getLayoutParams();
 
                 // if height is match_parent we need to remeasure child to line height
-                if(lp.height == LayoutParams.MATCH_PARENT) {
+                if (lp.height == LayoutParams.MATCH_PARENT) {
                     int childWidthMode = MeasureSpec.AT_MOST;
                     int childWidthSize = lineWidth;
 
-                    if(lp.width == LayoutParams.MATCH_PARENT) {
+                    if (lp.width == LayoutParams.MATCH_PARENT) {
                         childWidthMode = MeasureSpec.EXACTLY;
-                    } else if(lp.width >= 0) {
+                    } else if (lp.width >= 0) {
                         childWidthMode = MeasureSpec.EXACTLY;
                         childWidthSize = lp.width;
                     }
@@ -281,14 +281,14 @@ public class FlowLayout extends ViewGroup {
 
                 int gravityMargin = 0;
 
-                if(Gravity.isVertical(lp.gravity)) {
+                if (Gravity.isVertical(lp.gravity)) {
                     switch (lp.gravity) {
                         case Gravity.TOP:
                         default:
                             break;
                         case Gravity.CENTER_VERTICAL:
                         case Gravity.CENTER:
-                            gravityMargin = (lineHeight - childHeight - lp.topMargin - lp.bottomMargin) / 2 ;
+                            gravityMargin = (lineHeight - childHeight - lp.topMargin - lp.bottomMargin) / 2;
                             break;
                         case Gravity.BOTTOM:
                             gravityMargin = lineHeight - childHeight - lp.topMargin - lp.bottomMargin;
@@ -331,18 +331,19 @@ public class FlowLayout extends ViewGroup {
         return new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
     }
 
-    @Override protected boolean checkLayoutParams(ViewGroup.LayoutParams p) {
+    @Override
+    protected boolean checkLayoutParams(ViewGroup.LayoutParams p) {
         return super.checkLayoutParams(p) && p instanceof LayoutParams;
     }
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     public void setGravity(int gravity) {
-        if(mGravity != gravity) {
-            if((gravity & Gravity.RELATIVE_HORIZONTAL_GRAVITY_MASK) == 0) {
+        if (mGravity != gravity) {
+            if ((gravity & Gravity.RELATIVE_HORIZONTAL_GRAVITY_MASK) == 0) {
                 gravity |= isIcs() ? Gravity.START : Gravity.LEFT;
             }
 
-            if((gravity & Gravity.VERTICAL_GRAVITY_MASK) == 0) {
+            if ((gravity & Gravity.VERTICAL_GRAVITY_MASK) == 0) {
                 gravity |= Gravity.TOP;
             }
 

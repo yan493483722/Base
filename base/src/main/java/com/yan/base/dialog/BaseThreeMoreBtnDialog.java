@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.yan.base.R;
 import com.yan.base.listener.BaseDialogThreeMoreBtnClickListener;
-import com.yan.base.uitls.RecyclerListDiv;
+import com.yan.base.widget.RecyclerListDiv;
 
 import java.util.ArrayList;
 

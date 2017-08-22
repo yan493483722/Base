@@ -42,4 +42,35 @@
         </attr>
         <attr name="baseToolBarColor" format="reference|color" />
     </declare-styleable>
+
+    <!--&lt;!&ndash; 圆形进度条 &ndash;&gt;-->
+    <!--<declare-styleable name="CircleProgressBar">-->
+        <!--<attr name="antiAlias" />-->
+        <!--<attr name="startAngle" />-->
+        <!--<attr name="sweepAngle" />-->
+        <!--<attr name="animTime" />-->
+        <!--<attr name="maxValue" />-->
+        <!--<attr name="value" />-->
+        <!--<attr name="precision" />-->
+        <!--<attr name="valueSize" />-->
+        <!--<attr name="valueColor" />-->
+        <!--<attr name="textOffsetPercentInRadius" />-->
+        <!--&lt;!&ndash; 绘制内容相应的提示语 &ndash;&gt;-->
+        <!--<attr name="hint" />-->
+        <!--<attr name="hintSize" />-->
+        <!--<attr name="hintColor" />-->
+        <!--&lt;!&ndash; 绘制内容的单位 &ndash;&gt;-->
+        <!--<attr name="unit" />-->
+        <!--<attr name="unitSize" />-->
+        <!--<attr name="unitColor" />-->
+        <!--&lt;!&ndash; 圆弧宽度 &ndash;&gt;-->
+        <!--<attr name="arcWidth" />-->
+        <!--<attr name="arcColors" />-->
+        <!--&lt;!&ndash; 背景圆弧颜色 &ndash;&gt;-->
+        <!--<attr name="bgArcColor" />-->
+        <!--&lt;!&ndash; 背景圆弧宽度 &ndash;&gt;-->
+        <!--<attr name="bgArcWidth" format="dimension" />-->
+    <!--</declare-styleable>-->
+
+
 </resources>

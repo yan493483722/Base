@@ -1,6 +1,7 @@
 package com.yan.network.download.apk;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.util.Log;
 
 import com.yan.base.BaseAty;
@@ -18,7 +19,6 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,7 +41,7 @@ public class APKDownloadPresenter extends BasePresenter {
     private ProgressDialog mypDialog;
 
     void downLoad(String url, final String saveApkPath, final String fileName) {
-        Log.e("yan", "发起请求 url" + ""+saveApkPath);
+        Log.e("yan", "发起请求 url" + "" + saveApkPath);
         //开始下载
         mypDialog = new ProgressDialog(baseAty);
         mypDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -52,7 +52,7 @@ public class APKDownloadPresenter extends BasePresenter {
         mypDialog.setCancelable(false);
         mypDialog.setProgressNumberFormat("%1d kb/ %2d kb");
         mypDialog.show();
-
+        baseAty.startActivity(new Intent(baseAty, APKDownloadAty.class));
 
 //        HttpLoggingInterceptor httpLoggingInterceptor;
 //        if () {
@@ -122,16 +122,17 @@ public class APKDownloadPresenter extends BasePresenter {
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call,final Response<ResponseBody> response) {
+            public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
                 Log.e("yan", "this is the down load " + response);
                 if (response.code() == 200) {
 
-                    new Thread(){
+                    new Thread() {
                         @Override
                         public void run() {
-                            if(writeStreamToFile(response.body(), saveApkPath, fileName)){
+                            if (writeStreamToFile(response.body(), saveApkPath, fileName)) {
                                 Log.e("yan", "下载完成了 ");
-                            };
+                            }
+                            ;
                         }
                     }.start();
 

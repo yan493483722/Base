@@ -6,7 +6,6 @@ import android.util.Log;
 import com.yan.base.BaseAty;
 import com.yan.mvp.BasePresenter;
 import com.yan.mvp.BaseViewer;
-import com.yan.network.download.DownloadEntity;
 import com.yan.network.download.DownloadProgressListener;
 
 import java.io.File;
@@ -42,7 +41,7 @@ public class APKDownloadPresenter extends BasePresenter {
     private ProgressDialog mypDialog;
 
     void downLoad(String url, final String saveApkPath, final String fileName) {
-
+        Log.e("yan", "发起请求 url" + ""+saveApkPath);
         //开始下载
         mypDialog = new ProgressDialog(baseAty);
         mypDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -55,11 +54,11 @@ public class APKDownloadPresenter extends BasePresenter {
         mypDialog.show();
 
 
-        HttpLoggingInterceptor httpLoggingInterceptor;
+//        HttpLoggingInterceptor httpLoggingInterceptor;
 //        if () {
 //        httpLoggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE);
 //        } else {
-        httpLoggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
+//        httpLoggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
 
         mOkHttpClient = new OkHttpClient().newBuilder().addInterceptor(new Interceptor() {
             @Override
@@ -70,7 +69,7 @@ public class APKDownloadPresenter extends BasePresenter {
 
                             @Override
                             public void onStart(long totalLength) {
-
+                                Log.e("yan", "onStart  " + " totalLength=" + totalLength);
                             }
 
                             @Override
@@ -85,7 +84,7 @@ public class APKDownloadPresenter extends BasePresenter {
 
                             @Override
                             public void onCompleted() {
-
+                                Log.e("yan", "onCompleted");
                             }
 
                             @Override
@@ -100,7 +99,8 @@ public class APKDownloadPresenter extends BasePresenter {
                         }))
                         .build();
             }
-        }).addInterceptor(httpLoggingInterceptor)
+        })
+//                .addInterceptor(httpLoggingInterceptor)
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
                 .writeTimeout(10, TimeUnit.SECONDS)
@@ -122,10 +122,19 @@ public class APKDownloadPresenter extends BasePresenter {
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<ResponseBody> call,final Response<ResponseBody> response) {
                 Log.e("yan", "this is the down load " + response);
                 if (response.code() == 200) {
-                    writeStreamToFile(response.body(), saveApkPath, fileName);
+
+                    new Thread(){
+                        @Override
+                        public void run() {
+                            if(writeStreamToFile(response.body(), saveApkPath, fileName)){
+                                Log.e("yan", "下载完成了 ");
+                            };
+                        }
+                    }.start();
+
                 }
 
             }

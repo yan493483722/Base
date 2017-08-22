@@ -63,7 +63,7 @@ public class DownloadProgressResponseBody extends ResponseBody {
                     if (bytesRead == -1) {
                         progressListener.onCompleted();
                     } else {
-                        if(bytesRead==byteCount){
+                        if(bytesRead==responseBody.contentLength()){
                             progressListener.onStart(responseBody.contentLength());
                         }else{
                             progressListener.onDownloading(totalBytesRead, responseBody.contentLength());

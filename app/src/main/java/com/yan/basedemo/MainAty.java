@@ -12,6 +12,7 @@ import com.yan.basedemo.aty.DialogExampleAty;
 import com.yan.basedemo.aty.LoginAty;
 import com.yan.basedemo.aty.MultiDownloadAty;
 import com.yan.basedemo.aty.bar.StatusBarAty;
+import com.yan.network.download.apk.APKDownloadAty;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,7 +72,8 @@ public class MainAty extends BaseAty {
                 mSnackBarAndToastManager.showSnackBar("main permission");
                 break;
             case R.id.btn_main_web:
-                mSnackBarAndToastManager.showSnackBar("main web");
+                startActivity(new Intent(mAty, APKDownloadAty.class));
+//                mSnackBarAndToastManager.showSnackBar("main web");
                 break;
             case R.id.btn_main_status_bar:
                 startActivity(new Intent(mAty, StatusBarAty.class));

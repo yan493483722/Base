@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:baseToolBar="http://schemas.android.com/apk/res-auto"
+    xmlns:circleProgressBar="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_color_yellow"
-    xmlns:circleProgressBar="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:background="@color/download_background">
+
+    <com.yan.base.toolbar.BaseToolbar
+        android:id="@+id/btb_apk_download"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        baseToolBar:baseToolBarColor="@color/download_background"
+        baseToolBar:baseToolBarType="full" />
 
     <com.yan.base.widget.CircleProgress
         android:id="@+id/cp_apk_download"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="120dp"
         circleProgressBar:antiAlias="true"
         circleProgressBar:arcWidth="8dp"
         circleProgressBar:bgArcColor="@android:color/darker_gray"
@@ -25,4 +33,41 @@
         circleProgressBar:value="100"
         circleProgressBar:valueSize="@dimen/font_small" />
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_apk_download"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/tv_apk_download_left"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingBottom="@dimen/padding_all_top_bottom"
+            android:paddingTop="@dimen/padding_all_top_bottom"
+            android:gravity="center"
+            android:text="取消"
+            android:textSize="@dimen/font_middle"
+            android:textColor="@drawable/selector_text_white_to_light" />
+
+        <View style="@style/div_vertical_1px" />
+
+        <TextView
+            android:gravity="center"
+            android:id="@+id/tv_apk_download_right"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingBottom="@dimen/padding_all_top_bottom"
+            android:paddingTop="@dimen/padding_all_top_bottom"
+            android:text="暂停"
+            android:textSize="@dimen/font_middle"
+            android:textColor="@drawable/selector_text_white_to_light" />
+    </LinearLayout>
+
+    <View
+        style="@style/div_horizontal_1px"
+        android:layout_above="@id/ll_apk_download" />
+
+</RelativeLayout>

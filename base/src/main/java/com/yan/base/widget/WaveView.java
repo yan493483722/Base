@@ -165,7 +165,7 @@ public class WaveView extends View {
      */
     private void drawDarkWave(Canvas canvas) {
         mWavePaint.setColor(darkWaveColor);
-        drawWave(canvas, mWavePaint, mDarkPoints);
+        drawWave(canvas, mWavePaint, mDarkPoints,mDarkWaveOffset);
     }
 
     /**
@@ -176,20 +176,20 @@ public class WaveView extends View {
     private void drawLightWave(Canvas canvas) {
         mWavePaint.setColor(lightWaveColor);
         //从右向左的水波位移应该被减去
-        drawWave(canvas, mWavePaint, mLightPoints);
+        drawWave(canvas, mWavePaint, mLightPoints,mLightWaveOffset);
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
-    private void drawWave(Canvas canvas, Paint paint, Point[] points) {
+    private void drawWave(Canvas canvas, Paint paint, Point[] points, float waveOffset) {
         mWaveLimitPath.reset();
         mWavePath.reset();
 //        float height = lockWave ? 0 : mRadius - 2 * mRadius * mPercent;
         //moveTo和lineTo绘制出水波区域矩形
-        mWavePath.moveTo(points[0].x , points[0].y );
+        mWavePath.moveTo(points[0].x+waveOffset , points[0].y );
 
         for (int i = 1; i < mAllPointCount; i += 2) {
-            mWavePath.quadTo(points[i].x , points[i].y ,
-                    points[i + 1].x , points[i + 1].y );
+            mWavePath.quadTo(points[i].x+waveOffset , points[i].y ,
+                    points[i + 1].x +waveOffset, points[i + 1].y );
         }
         //mWavePath.lineTo(points[mAllPointCount - 1].x, points[mAllPointCount - 1].y + height);
         //不管如何移动，波浪与圆路径的交集底部永远固定，否则会造成上移的时候底部为空的情况
@@ -213,7 +213,7 @@ public class WaveView extends View {
         if (mLightWaveAnimator != null && mLightWaveAnimator.isRunning()) {
             return;
         }
-        mLightWaveAnimator = ValueAnimator.ofFloat(0, 2 );
+        mLightWaveAnimator = ValueAnimator.ofFloat(0, 2 *getWidth()/2);
         mLightWaveAnimator.setDuration(lightWaveAnimTime);
         mLightWaveAnimator.setRepeatCount(ValueAnimator.INFINITE);
         mLightWaveAnimator.setInterpolator(new LinearInterpolator());
@@ -252,7 +252,7 @@ public class WaveView extends View {
         if (mDarkWaveAnimator != null && mDarkWaveAnimator.isRunning()) {
             return;
         }
-        mDarkWaveAnimator = ValueAnimator.ofFloat(0, 2);
+        mDarkWaveAnimator = ValueAnimator.ofFloat(0, 2 *getWidth()/2);
         mDarkWaveAnimator.setDuration(darkWaveAnimTime);
         mDarkWaveAnimator.setRepeatCount(ValueAnimator.INFINITE);
         mDarkWaveAnimator.setInterpolator(new LinearInterpolator());

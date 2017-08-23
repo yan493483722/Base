@@ -111,7 +111,7 @@ public class WaveView extends View {
         mLightPoints = getPoint(waveDirect, waveWidth);
     }
 
-    int  height=getHeight() / 2;
+    int  height;
     /**
      * 从左往右或者从右往左获取贝塞尔点
      *

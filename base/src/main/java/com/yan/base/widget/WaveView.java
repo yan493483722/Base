@@ -47,7 +47,6 @@ public class WaveView extends View {
 
 
     //水波路径
-    private Path mWaveLimitPath;
     private Path mWavePath;
 
     private ValueAnimator mDarkWaveAnimator;
@@ -58,6 +57,8 @@ public class WaveView extends View {
     private float mDarkWaveOffset;
     //浅色波浪移动距离
     private float mLightWaveOffset;
+
+    int  height;
 
     public WaveView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -87,7 +88,6 @@ public class WaveView extends View {
         mWavePaint.setAntiAlias(true);
         mWavePaint.setStyle(Paint.Style.FILL);
 
-        mWaveLimitPath = new Path();
         mWavePath = new Path();
     }
 
@@ -109,7 +109,7 @@ public class WaveView extends View {
         mLightPoints = getPoint( waveWidth);
     }
 
-    int  height;
+
     /**
      * 从左往右或者从右往左获取贝塞尔点
      *
@@ -124,19 +124,13 @@ public class WaveView extends View {
 
         points[mHalfPointCount] = new Point(getWidth() / 2, height);
 
-//        if (waveDirect == 0) {
-//
-//        } else {
-//
-//        }
-
         //屏幕内的贝塞尔曲线点
         for (int i = mHalfPointCount + 1; i < mAllPointCount; i += 4) {
             float width = points[mHalfPointCount].x + waveWidth * (i / 4 - waveNum);
-            points[i] = new Point((int) (waveWidth / 4 + width),(int) ( getHeight() / 2 - waveHeight));
-            points[i + 1] = new Point((int) (waveWidth / 2 + width), getHeight() / 2);
-            points[i + 2] = new Point((int) (waveWidth * 3 / 4 + width), (int) (getHeight() / 2 - waveHeight));
-            points[i + 3] = new Point((int) (waveWidth + width), getHeight() / 2);
+            points[i] = new Point((int) (waveWidth / 4 + width),(int) (height- waveHeight));
+            points[i + 1] = new Point((int) (waveWidth / 2 + width), height);
+            points[i + 2] = new Point((int) (waveWidth * 3 / 4 + width), (int) (height - waveHeight));
+            points[i + 3] = new Point((int) (waveWidth + width), height);
         }
         //屏幕外的贝塞尔曲线点
         for (int i = 0; i < mHalfPointCount; i++) {
@@ -179,7 +173,6 @@ public class WaveView extends View {
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private void drawWave(Canvas canvas, Paint paint, Point[] points, float waveOffset) {
-        mWaveLimitPath.reset();
         mWavePath.reset();
 //        float height = lockWave ? 0 : mRadius - 2 * mRadius * mPercent;
         //moveTo和lineTo绘制出水波区域矩形
@@ -194,10 +187,9 @@ public class WaveView extends View {
         mWavePath.lineTo(points[mAllPointCount - 1].x, height);
         mWavePath.lineTo(points[0].x, height);
         mWavePath.close();
-        mWaveLimitPath.addCircle(getWidth()/2,getHeight()/2, height, Path.Direction.CW);
         //取该圆与波浪路径的交集，形成波浪在圆内的效果
-        mWaveLimitPath.op(mWavePath, Path.Op.INTERSECT);
-        canvas.drawPath(mWaveLimitPath, paint);
+//        mWaveLimitPath.op(mWavePath, Path.Op.INTERSECT);
+//        canvas.drawPath(mWaveLimitPath, paint);
     }
 
 

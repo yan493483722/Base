@@ -153,11 +153,11 @@ public class MultiStatusBarAty extends BaseAty {
         private FragmentTransaction obtainFragmentTransaction(int index) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             // 设置切换动画
-            if (index > currentTab) {
-                ft.setCustomAnimations(com.wangjie.androidbucket.R.anim.slide_left_in, com.wangjie.androidbucket.R.anim.slide_left_out);
-            } else {
-                ft.setCustomAnimations(com.wangjie.androidbucket.R.anim.slide_right_in, com.wangjie.androidbucket.R.anim.slide_right_out);
-            }
+//            if (index > currentTab) {
+//                ft.setCustomAnimations(com.wangjie.androidbucket.R.anim.slide_left_in, com.wangjie.androidbucket.R.anim.slide_left_out);
+//            } else {
+//                ft.setCustomAnimations(com.wangjie.androidbucket.R.anim.slide_right_in, com.wangjie.androidbucket.R.anim.slide_right_out);
+//            }
             return ft;
         }
     };

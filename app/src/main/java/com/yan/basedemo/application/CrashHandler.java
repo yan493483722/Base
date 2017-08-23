@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.util.Log;
 
-import com.wangjie.androidbucket.log.Logger;
 import com.yan.base.application.AppManager;
 import com.yan.basedemo.MainAty;
 
@@ -177,7 +176,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
                 mDeviceCrashInfo.put("versionCode", Integer.valueOf(pi.versionCode));
             }
         } catch (PackageManager.NameNotFoundException var9) {
-            Logger.e(TAG, "Error while collect package info", var9);
+            Log.e(TAG, "Error while collect package info", var9);
         }
 
         Field[] var10 = Build.class.getDeclaredFields();
@@ -191,7 +190,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
                 field.setAccessible(true);
                 mDeviceCrashInfo.put(field.getName(), field.get(null));
             } catch (Exception var8) {
-                Logger.e(TAG, "Error while collect crash info", var8);
+                Log.e(TAG, "Error while collect crash info", var8);
             }
         }
 

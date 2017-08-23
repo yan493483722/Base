@@ -21,7 +21,6 @@
         wave:darkWaveColor="@color/colorPrimaryDark"
         wave:lightWaveAnimTime="2000"
         wave:lockWave="true"
-        wave:waveDirect="left_to_right"
         wave:valueSize="@dimen/font_middle"
         wave:waveHeight="30dp"
         wave:waveNum="1" />

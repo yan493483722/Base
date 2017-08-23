@@ -101,11 +101,6 @@
         <attr name="darkWaveColor" format="color|reference" />
         <!-- 浅色水波颜色 -->
         <attr name="lightWaveColor" format="color|reference" />
-        <!-- 浅色水波的方向 -->
-        <attr name="waveDirect" format="enum">
-            <enum name="left_to_right" value="0" />
-            <enum name="right_to_left" value="1" />
-        </attr>
     </declare-styleable>
 
 </resources>

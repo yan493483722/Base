@@ -42,7 +42,6 @@ public class WaveView extends View {
     private int waveNum;
     private int darkWaveColor;
     private int lightWaveColor;
-    private int waveDirect;
     //深色水波
     private Paint mWavePaint;
 
@@ -78,7 +77,6 @@ public class WaveView extends View {
         darkWaveColor = typedArray.getResourceId(R.styleable.Wave_darkWaveColor, getResources().getColor(android.R.color.holo_blue_dark));
         lightWaveColor = typedArray.getResourceId(R.styleable.Wave_lightWaveColor, getResources().getColor(android.R.color.holo_green_light));
 
-        waveDirect = typedArray.getInt(R.styleable.Wave_waveDirect, 0);
         typedArray.recycle();
         initPaint();
     }
@@ -107,8 +105,8 @@ public class WaveView extends View {
         float waveWidth = getWidth() / waveNum;
         mAllPointCount = 8 * waveNum + 1;
         mHalfPointCount = mAllPointCount / 2;
-        mDarkPoints = getPoint(waveDirect, waveWidth);
-        mLightPoints = getPoint(waveDirect, waveWidth);
+        mDarkPoints = getPoint(waveWidth);
+        mLightPoints = getPoint( waveWidth);
     }
 
     int  height;
@@ -117,7 +115,7 @@ public class WaveView extends View {
      *
      * @return
      */
-    private Point[] getPoint(int waveDirect, float waveWidth) {
+    private Point[] getPoint( float waveWidth) {
 
         height=getHeight() / 2;
 

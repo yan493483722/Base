@@ -22,7 +22,7 @@
         wave:lightWaveAnimTime="2000"
         wave:lockWave="true"
         wave:valueSize="@dimen/font_middle"
-        wave:waveHeight="30dp"
+        wave:waveHeight="80dp"
         wave:waveNum="1" />
 
     <!--<android.support.v7.widget.RecyclerView-->

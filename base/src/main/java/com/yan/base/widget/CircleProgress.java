@@ -11,7 +11,6 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.text.TextPaint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import com.yan.base.R;
@@ -52,20 +51,18 @@ public class CircleProgress extends View {
     private CharSequence mHint;
     private int mHintColor;
     private float mHintSize;
-    private float mHintOffset;
 
     //绘制单位
     private TextPaint mUnitPaint;
     private CharSequence mUnit;
     private int mUnitColor;
     private float mUnitSize;
-    private float mUnitOffset;
 
     //绘制数值
     private TextPaint mValuePaint;
     private float mValue;
     private float mMaxValue;
-    private float mValueOffset;
+    //    private float mValueOffset;
     private int mPrecision;
     private String mPrecisionFormat;
     private int mValueColor;
@@ -95,7 +92,10 @@ public class CircleProgress extends View {
     //圆心坐标，半径
     private Point mCenterPoint;
     private float mRadius;
-    private float mTextOffsetPercentInRadius;
+
+
+    private float[] centerX = new float[3];
+    private float[] centerY = new float[3];
 
     public CircleProgress(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -110,7 +110,7 @@ public class CircleProgress extends View {
         mCenterPoint = new Point();
         initAttrs(attrs);
         initPaint();
-        setValue(mValue);
+        setValueWithAnimation(mValue);
     }
 
     private void initAttrs(AttributeSet attrs) {
@@ -140,7 +140,7 @@ public class CircleProgress extends View {
 
         mBgArcColor = typedArray.getColor(R.styleable.CircleProgressBar_bgArcColor, Color.WHITE);
         mBgArcWidth = typedArray.getDimension(R.styleable.CircleProgressBar_bgArcWidth, DEFAULT_ARC_WIDTH);
-        mTextOffsetPercentInRadius = typedArray.getFloat(R.styleable.CircleProgressBar_textOffsetPercentInRadius, 0.33f);
+
 
         mAnimTime = typedArray.getInt(R.styleable.CircleProgressBar_animTime, DEFAULT_ANIM_TIME);
 
@@ -208,7 +208,6 @@ public class CircleProgress extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        Log.d(TAG, "onSizeChanged: w = " + w + "; h = " + h + "; oldw = " + oldw + "; oldh = " + oldh);
         //求圆弧和背景圆弧的最大宽度
         float maxArcWidth = Math.max(mArcWidth, mBgArcWidth);
         //求最小值作为实际值
@@ -227,10 +226,18 @@ public class CircleProgress extends View {
         //计算文字绘制时的 baseline
         //由于文字的baseline、descent、ascent等属性只与textSize和typeface有关，所以此时可以直接计算
         //若value、hint、unit由同一个画笔绘制或者需要动态设置文字的大小，则需要在每次更新后再次计算
-        mValueOffset = mCenterPoint.y + getBaselineOffsetFromY(mValuePaint);
-        mHintOffset = mCenterPoint.y - mRadius * mTextOffsetPercentInRadius + getBaselineOffsetFromY(mHintPaint);
-        mUnitOffset = mCenterPoint.y + mRadius * mTextOffsetPercentInRadius + getBaselineOffsetFromY(mUnitPaint);
-
+        centerY[0] = 2 * h / 5 - getBaselineOffsetFromY(mHintPaint);
+        centerY[2] = centerY[1] = 3 * h / 5 + getBaselineOffsetFromY(mValuePaint);
+        if (mMaxValue == 0) {
+            mMaxValue = 100;
+        }
+        float hintWidth = mValuePaint.measureText(String.format(mPrecisionFormat, mMaxValue));
+        float unitWidth = mUnitPaint.measureText(mUnit.toString());
+        centerX[0] = w / 2;
+        float total = hintWidth + unitWidth;
+        float left = (w - total) / 2 - 2;//四舍五入会导致部分精度丢失，向左偏移2像素，减少精度缺失
+        centerX[1] = left + hintWidth / 2;
+        centerX[2] = left + hintWidth + unitWidth / 2;
 
     }
 
@@ -254,14 +261,14 @@ public class CircleProgress extends View {
         // 计算文字宽度，由于Paint已设置为居中绘制，故此处不需要重新计算
         // float textWidth = mValuePaint.measureText(mValue.toString());
         // float x = mCenterPoint.x - textWidth / 2;
-        canvas.drawText(String.format(mPrecisionFormat, mValue), mCenterPoint.x, mValueOffset, mValuePaint);
+        canvas.drawText(String.format(mPrecisionFormat, mValue), centerX[1], centerY[1], mValuePaint);
 
         if (mHint != null) {
-            canvas.drawText(mHint.toString(), mCenterPoint.x, mHintOffset, mHintPaint);
+            canvas.drawText(mHint.toString(), centerX[0], centerY[0], mHintPaint);
         }
 
         if (mUnit != null) {
-            canvas.drawText(mUnit.toString(), mCenterPoint.x, mUnitOffset, mUnitPaint);
+            canvas.drawText(mUnit.toString(), centerX[2], centerY[2], mUnitPaint);
         }
     }
 
@@ -311,7 +318,7 @@ public class CircleProgress extends View {
      *
      * @param value
      */
-    public void setValue(float value) {
+    public void setValueWithAnimation(float value) {
         if (value > mMaxValue) {
             value = mMaxValue;
         }
@@ -319,6 +326,21 @@ public class CircleProgress extends View {
         float end = value / mMaxValue;
         startAnimator(start, end, mAnimTime);
     }
+
+    /**
+     * 设置当前值
+     *
+     * @param value
+     */
+    public void setValueWithoutAnimation(float value) {
+        if (value > mMaxValue) {
+            value = mMaxValue;
+        }
+        mPercent = value / mMaxValue;
+        mValue = mPercent * mMaxValue;
+        postInvalidate();
+    }
+
 
     private void startAnimator(float start, float end, long animTime) {
         mAnimator = ValueAnimator.ofFloat(start, end);

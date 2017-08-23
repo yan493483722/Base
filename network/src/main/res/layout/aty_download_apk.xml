@@ -20,22 +20,22 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="120dp"
         circleProgressBar:antiAlias="true"
+        circleProgressBar:arcColor="@color/download_arcColor"
         circleProgressBar:arcWidth="8dp"
         circleProgressBar:bgArcColor="@color/download_bgArcColor"
         circleProgressBar:bgArcWidth="8dp"
-        circleProgressBar:arcColor="@color/download_arcColor"
         circleProgressBar:hint="当前进度"
-        circleProgressBar:hintSize="@dimen/font_big"
         circleProgressBar:hintColor="@color/font_white"
-        circleProgressBar:valueColor="@color/font_white"
-        circleProgressBar:unitColor="@color/font_white"
+        circleProgressBar:hintSize="@dimen/font_big_more"
         circleProgressBar:maxValue="100"
         circleProgressBar:startAngle="270"
         circleProgressBar:sweepAngle="360"
         circleProgressBar:unit="%"
+        circleProgressBar:unitColor="@color/font_white"
         circleProgressBar:unitSize="@dimen/font_big"
-        circleProgressBar:value="100"
-        circleProgressBar:valueSize="@dimen/font_big" />
+        circleProgressBar:value="10"
+        circleProgressBar:valueColor="@color/font_white"
+        circleProgressBar:valueSize="@dimen/font_big_more" />
 
     <LinearLayout
         android:id="@+id/ll_apk_download"
@@ -48,26 +48,28 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/selector_transparent"
+            android:gravity="center"
             android:paddingBottom="@dimen/padding_all_top_bottom"
             android:paddingTop="@dimen/padding_all_top_bottom"
-            android:gravity="center"
             android:text="取消"
-            android:textSize="@dimen/font_middle"
-            android:textColor="@drawable/selector_text_white_to_light" />
+            android:textColor="@drawable/selector_text_white_to_light"
+            android:textSize="@dimen/font_middle" />
 
         <View style="@style/div_vertical_1px" />
 
         <TextView
-            android:gravity="center"
             android:id="@+id/tv_apk_download_right"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/selector_transparent"
+            android:gravity="center"
             android:paddingBottom="@dimen/padding_all_top_bottom"
             android:paddingTop="@dimen/padding_all_top_bottom"
             android:text="暂停"
-            android:textSize="@dimen/font_middle"
-            android:textColor="@drawable/selector_text_white_to_light" />
+            android:textColor="@drawable/selector_text_white_to_light"
+            android:textSize="@dimen/font_middle" />
     </LinearLayout>
 
     <View

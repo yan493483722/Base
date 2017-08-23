@@ -85,4 +85,15 @@ public class ViewUtil {
         return (Math.abs(fontMetrics.ascent) - fontMetrics.descent);
     }
 
+    /**
+     * 测量文字高度
+     *
+     * @param paint
+     * @return
+     */
+    public static float measureTextWidth(Paint paint) {
+        Paint.FontMetrics fontMetrics = paint.getFontMetrics();
+        return (Math.abs(fontMetrics.ascent) - fontMetrics.descent);
+    }
+
 }

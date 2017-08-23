@@ -44,10 +44,16 @@ public class APKDownloadAty extends BaseAty implements View.OnClickListener {
 //        cp_apk_download.setPrecision();
     }
 
+    int  value=0;
+    int add=0;
+
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.tv_apk_download_left) {
-
+            if(add==5){
+                add--;
+            }
+            cp_apk_download.setValueWithoutAnimation(  value+=(add++));
         } else if (view.getId() == R.id.tv_apk_download_right) {
 
         }

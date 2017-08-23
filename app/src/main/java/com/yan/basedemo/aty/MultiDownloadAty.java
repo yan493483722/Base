@@ -20,13 +20,16 @@ public class MultiDownloadAty extends BaseAty {
 
     @BindView(R.id.btb_multi_download)
     BaseToolbar btbMultiDownload;
-    @BindView(R.id.rc_multi_download)
-    RecyclerView rcMultiDownload;
+//    @BindView(R.id.rc_multi_download)
+//    RecyclerView rcMultiDownload;
 
     @Override
     protected void initContentView() {
         setContentView(R.layout.aty_multi_download);
         ButterKnife.bind(this);
+
+        btbMultiDownload.setTitleText("列表下载");
+
         btbMultiDownload.setBaseToolbarListener(new BaseToolbar.BaseToolbarListener() {
             @Override
             public void clickLeft(int type) {

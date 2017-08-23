@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:wave="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <com.yan.base.toolbar.BaseToolbar
@@ -10,9 +11,23 @@
         android:layout_height="wrap_content" />
 
 
+    <com.yan.base.widget.WaveView
+        android:id="@+id/wave_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        wave:darkWaveAnimTime="1000"
+        wave:lightWaveColor="@color/colorPrimary"
+        wave:darkWaveColor="@color/colorPrimaryDark"
+        wave:lightWaveAnimTime="2000"
+        wave:lockWave="true"
+        wave:waveDirect="left_to_right"
+        wave:valueSize="@dimen/font_middle"
+        wave:waveHeight="30dp"
+        wave:waveNum="1" />
 
-    <android.support.v7.widget.RecyclerView
-    android:id="@+id/rc_multi_download"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:id="@+id/rc_multi_download"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent" />-->
 </LinearLayout>

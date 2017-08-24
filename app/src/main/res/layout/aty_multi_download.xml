@@ -23,7 +23,7 @@
         wave:lockWave="true"
         wave:valueSize="@dimen/font_middle"
         wave:waveHeight="80dp"
-        wave:waveNum="1" />
+        wave:waveNum="3" />
 
     <!--<android.support.v7.widget.RecyclerView-->
     <!--android:id="@+id/rc_multi_download"-->

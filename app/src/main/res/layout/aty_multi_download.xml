@@ -16,14 +16,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
-        wave:darkWaveAnimTime="3000"
-        wave:lightWaveColor="@color/colorPrimary"
-        wave:darkWaveColor="@color/colorPrimaryDark"
-        wave:lightWaveAnimTime="3000"
+        wave:darkWaveAnimTime="2300"
+        wave:lightWaveColor="@color/download_background"
+        wave:darkWaveColor="@color/download_background_dark"
+        wave:lightWaveAnimTime="1100"
         wave:lockWave="true"
         wave:valueSize="@dimen/font_middle"
         wave:waveHeight="80dp"
-        wave:waveNum="3" />
+        wave:waveNum="1" />
 
     <!--<android.support.v7.widget.RecyclerView-->
     <!--android:id="@+id/rc_multi_download"-->

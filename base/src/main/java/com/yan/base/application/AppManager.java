@@ -1,9 +1,12 @@
 package com.yan.base.application;
 
 import android.app.Activity;
+import android.app.Application;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -20,7 +23,7 @@ public class AppManager {
     private static Stack<Activity> activityStack;
 
     //内部静态类有引用之后才会被加载到内存中，所以为懒加载
-    static class ActivityManager{
+    private static class ActivityManager{
         private static AppManager appManager=new AppManager();
     }
 
@@ -210,5 +213,49 @@ public class AppManager {
 
     }
 
+    private Application.ActivityLifecycleCallbacks activityLifecycleCallbacks=new Application.ActivityLifecycleCallbacks() {
 
+        @Override
+        public void onActivityStopped(Activity activity) {
+            Log.e("yan", activity.getLocalClassName()+" onActivityStopped");
+        }
+
+        @Override
+        public void onActivityStarted(Activity activity) {
+            Log.e("yan", activity.getLocalClassName()+" onActivityStarted");
+        }
+
+        @Override
+        public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+            Log.e("yan",activity.getLocalClassName()+ " onActivitySaveInstanceState");
+        }
+
+        @Override
+        public void onActivityResumed(Activity activity) {
+            Log.e("yan", activity.getLocalClassName()+" onActivityResumed");
+        }
+
+        @Override
+        public void onActivityPaused(Activity activity) {
+            Log.e("yan",activity.getLocalClassName()+ " onActivityPaused");
+        }
+
+        @Override
+        public void onActivityDestroyed(Activity activity) {
+            Log.e("yan",activity.getLocalClassName()+ " onActivityDestroyed");
+            removeActivity(activity);
+        }
+
+        @Override
+        public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+            addActivity(activity);
+            Log.e("yan", activity.getLocalClassName()+" onActivityCreated"+ "stack size=" +activityStack.size());
+
+        }
+
+    };
+
+    public Application.ActivityLifecycleCallbacks getActivityLifecycleCallbacks() {
+        return activityLifecycleCallbacks;
+    }
 }

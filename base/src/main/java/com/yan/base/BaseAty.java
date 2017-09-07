@@ -7,7 +7,9 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
@@ -93,6 +95,11 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
     protected ProgressDialogManager mProgressDialogManager;
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAty = this;
@@ -112,7 +119,7 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
                 return;
             }
         }
-        AppManager.getAppManager().addActivity(this);
+
 
         initView();
         initData();
@@ -218,13 +225,21 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
     protected void onDestroy() {
         if (mProgressDialogManager.mSystemProgressDialog != null && mProgressDialogManager.mSystemProgressDialog.isShowing()) {
             mProgressDialogManager.mSystemProgressDialog.dismiss();
             mProgressDialogManager.mSystemProgressDialog = null;
         }
-
-        AppManager.getAppManager().removeActivity(this);
         super.onDestroy();
     }
 

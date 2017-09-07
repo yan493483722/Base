@@ -31,6 +31,7 @@ public abstract class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        registerActivityLifecycleCallbacks(AppManager.getAppManager().getActivityLifecycleCallbacks());
         getScreenHW();
         initStoreData();
         initNetWork();
@@ -53,12 +54,12 @@ public abstract class BaseApplication extends Application {
     protected abstract void initOther();
 
     private void initLogger() {
-        Log.e("BaseApplication","BaseApplication BuildConfig.DEBUG"+BuildConfig.DEBUG);
+        Log.e("BaseApplication", "BaseApplication BuildConfig.DEBUG" + BuildConfig.DEBUG);
 //        if (BuildConfig.DEBUG) {//debug打开，preview 也是打开的 debuggable 为true release 关闭
-            Logger.init("yan")                                  // default PRETTYLOGGER or use just init()
-                    .methodCount(1)                             // default 2
-                    .logLevel(LogLevel.FULL)                    // default LogLevel.FULL
-                    .methodOffset(0);                           // default 0
+        Logger.init("yan")                                  // default PRETTYLOGGER or use just init()
+                .methodCount(1)                             // default 2
+                .logLevel(LogLevel.FULL)                    // default LogLevel.FULL
+                .methodOffset(0);                           // default 0
 //        } else {
 //            Logger.init("yan").logLevel(LogLevel.NONE);
 //        }

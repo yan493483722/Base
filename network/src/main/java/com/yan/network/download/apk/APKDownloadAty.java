@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.yan.base.BaseAty;
+import com.yan.base.application.AppManager;
 import com.yan.base.toolbar.BaseToolbar;
 import com.yan.base.widget.CircleProgress;
 import com.yan.base.widget.WaveView;

@@ -8,23 +8,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Stack;
 
-
 /**
- * activity 管理类
- *
- * @author Administrator
+ * Created by YanZi QQ：493483722 on 2017/7/24.
+ * describe：AppManager  activity 管理类
+ * usage： Application onCreate()
+ * 中registerActivityLifecycleCallbacks(AppManager.getAppManager().getActivityLifecycleCallbacks());
+ * modify:
+ * modify date:
+ * modify describe：
  */
 public class AppManager {
 
-    private static Stack<Activity> activityStack;
+    private static final String TAG = ActivityManager.class.getSimpleName();
+
+    private static Stack<WeakReference<Activity>> activityStack;
 
     //内部静态类有引用之后才会被加载到内存中，所以为懒加载
-    private static class ActivityManager{
-        private static AppManager appManager=new AppManager();
+    private static class ActivityManager {
+        private static AppManager appManager = new AppManager();
     }
 
 
@@ -52,17 +58,30 @@ public class AppManager {
      * 添加Activity到堆栈
      */
     public void addActivity(Activity activity) {
-        activityStack.add(activity);
+        activityStack.add(new WeakReference<>(activity));
     }
 
     /**
      * 获取当前Activity（堆栈中最后一个压入的）
      */
     public Activity currentActivity() {
+        return getLastElement();
+    }
+
+    private Activity getLastElement() {
         if (activityStack.isEmpty()) {
             return null;
         }
-        Activity activity = activityStack.lastElement();
+        Activity activity;
+        do {
+            activity = activityStack.lastElement().get();
+            if (activity == null) {//当前Activity 因为内存不足被销毁了，顺序获取下一个
+                activityStack.pop();
+            }
+            if (activityStack.isEmpty()) {
+                return null;
+            }
+        } while (activity != null);
         return activity;
     }
 
@@ -75,7 +94,7 @@ public class AppManager {
         if (activityStack.size() < 2) {
             return null;
         }
-        return activityStack.get(activityStack.size() - 1);
+        return getLastElement();
     }
 
     /**
@@ -85,7 +104,7 @@ public class AppManager {
         if (activityStack.empty()) {
             return;
         }
-        Activity activity = activityStack.lastElement();
+        Activity activity = getLastElement();
         finishActivity(activity);
     }
 
@@ -96,7 +115,15 @@ public class AppManager {
      */
     public void removeActivity(Activity activity) {
         if (activity != null) {
-            activityStack.remove(activity);
+            Iterator<WeakReference<Activity>> iterator = activityStack.iterator();//迭代器模式效率高于增强for循环
+            while (iterator.hasNext()) {
+                Activity activity1 = iterator.next().get();
+                if (activity1 != null) {
+                    if (activity == activity1) {//指针想同 同一个
+                        iterator.remove();
+                    }
+                }
+            }
         }
     }
 
@@ -105,9 +132,8 @@ public class AppManager {
      */
     public void finishActivity(Activity activity) {
         if (activity != null) {
-            if (activityStack.remove(activity)) {
-                activity.finish();
-            }
+            removeActivity(activity);
+            activity.finish();
         }
     }
 
@@ -115,11 +141,11 @@ public class AppManager {
      * 结束指定类名的Activity
      */
     public void finishActivity(Class<?> cls) {
-        Iterator<Activity> iterator = activityStack.iterator();
+        Iterator<WeakReference<Activity>> iterator = activityStack.iterator();//迭代器模式效率高于增强for循环
         while (iterator.hasNext()) {
-            Activity activity = iterator.next();
-            if (activity.getClass().equals(cls)) {
-                if (activity != null) {
+            Activity activity = iterator.next().get();
+            if (activity != null) {
+                if (activity.getClass().equals(cls)) {
                     iterator.remove();
                     activity.finish();
                 }
@@ -136,11 +162,11 @@ public class AppManager {
      * 结束所有Activity
      */
     public void finishAllActivity() {
-        ArrayList<Activity> activityList = new ArrayList<>(
+        ArrayList<WeakReference<Activity>> activityList = new ArrayList<>(
                 activityStack);
         for (int i = 0, size = activityList.size(); i < size; i++) {
-            if (null != activityList.get(i)) {
-                activityList.get(i).finish();
+            if (null != activityList.get(i).get()) {
+                activityList.get(i).get().finish();
             }
         }
         activityStack.clear();
@@ -152,13 +178,13 @@ public class AppManager {
     public void finishAllActivityExcludeFirst() {
         int stackSize = activityStack.size();
         if (stackSize >= 1) {
-            ArrayList<Activity> activityList = new ArrayList<>(
+            ArrayList<WeakReference<Activity>> activityList = new ArrayList<>(
                     activityStack.subList(1, stackSize));
             for (int i = 0, size = activityList.size(); i < size; i++) {
-                Activity activity = activityList.get(i);
-                if (activity != null) {
-                    activity.finish();
-                    activityStack.remove(activity);
+                WeakReference<Activity> weakReference = activityList.get(i);
+                activityStack.remove(weakReference);
+                if (weakReference.get() != null) {
+                    weakReference.get().finish();
                 }
             }
         }
@@ -167,16 +193,16 @@ public class AppManager {
     /**
      * 结束所有Activity保留最底部几个界面
      */
-    public void finishActivityKeepTop(int keepTopNum) {
+    public void finishActivityKeepBottom(int keepBottomNum) {
         int stackSize = activityStack.size();
-        if (stackSize >= keepTopNum) {
-            ArrayList<Activity> activityList = new ArrayList<>(
-                    activityStack.subList(keepTopNum, stackSize));
+        if (stackSize >= keepBottomNum) {
+            ArrayList<WeakReference<Activity>> activityList = new ArrayList<>(
+                    activityStack.subList(keepBottomNum, stackSize));
             for (int i = 0, size = activityList.size(); i < size; i++) {
-                Activity activity = activityList.get(i);
-                if (activity != null) {
-                    activity.finish();
-                    activityStack.remove(activity);
+                WeakReference<Activity> weakReference = activityList.get(i);
+                activityStack.remove(weakReference);
+                if (weakReference.get() != null) {
+                    weakReference.get().finish();
                 }
             }
         }
@@ -213,43 +239,43 @@ public class AppManager {
 
     }
 
-    private Application.ActivityLifecycleCallbacks activityLifecycleCallbacks=new Application.ActivityLifecycleCallbacks() {
+    private Application.ActivityLifecycleCallbacks activityLifecycleCallbacks = new Application.ActivityLifecycleCallbacks() {
 
         @Override
         public void onActivityStopped(Activity activity) {
-            Log.e("yan", activity.getLocalClassName()+" onActivityStopped");
+            Log.e(TAG, activity.getLocalClassName() + " onActivityStopped");
         }
 
         @Override
         public void onActivityStarted(Activity activity) {
-            Log.e("yan", activity.getLocalClassName()+" onActivityStarted");
+            Log.e(TAG, activity.getLocalClassName() + " onActivityStarted");
         }
 
         @Override
         public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-            Log.e("yan",activity.getLocalClassName()+ " onActivitySaveInstanceState");
+            Log.e(TAG, activity.getLocalClassName() + " onActivitySaveInstanceState");
         }
 
         @Override
         public void onActivityResumed(Activity activity) {
-            Log.e("yan", activity.getLocalClassName()+" onActivityResumed");
+            Log.e(TAG, activity.getLocalClassName() + " onActivityResumed");
         }
 
         @Override
         public void onActivityPaused(Activity activity) {
-            Log.e("yan",activity.getLocalClassName()+ " onActivityPaused");
+            Log.e(TAG, activity.getLocalClassName() + " onActivityPaused");
         }
 
         @Override
         public void onActivityDestroyed(Activity activity) {
-            Log.e("yan",activity.getLocalClassName()+ " onActivityDestroyed");
             removeActivity(activity);
+            Log.e(TAG, activity.getLocalClassName() + " onActivityDestroyed ==>" + TAG + " stack size=" + activityStack.size());
         }
 
         @Override
         public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
             addActivity(activity);
-            Log.e("yan", activity.getLocalClassName()+" onActivityCreated"+ "stack size=" +activityStack.size());
+            Log.e(TAG, activity.getLocalClassName() + " onActivityCreated ==>" + TAG + " stack size=" + activityStack.size());
 
         }
 

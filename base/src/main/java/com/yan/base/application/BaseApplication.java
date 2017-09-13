@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
+import com.bumptech.glide.Glide;
 import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
 import com.yan.base.BuildConfig;
@@ -46,7 +47,6 @@ public abstract class BaseApplication extends Application {
     private void initStoreData() {
         GlobalPreference.init(this.getApplicationContext(), this.getPackageName() + "_preference", MODE_PRIVATE);
         //TODO　database
-
     }
 
     protected abstract void initNetWork();

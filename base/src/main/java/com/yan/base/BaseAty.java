@@ -121,7 +121,6 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
             }
         }
 
-        Glide.with(this).load("").fitCenter().
 
         initView();
         initData();

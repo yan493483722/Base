@@ -1,5 +1,7 @@
 package com.yan.basedemo.aty;
 
+import android.content.Intent;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -150,6 +152,9 @@ public class DialogExampleAty extends BaseAty {
                     @Override
                     public void clickMiddle() {
                         mSnackBarAndToastManager.showSnackBar("clickMiddle");
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);// 启动系统相机
+                        startActivityForResult(intent, 11);
+
                     }
 
                     @Override

@@ -19,7 +19,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.bumptech.glide.Glide;
 import com.yan.base.application.AppManager;
 import com.yan.base.application.GlobalPreference;
 import com.yan.base.listener.PermissionListener;

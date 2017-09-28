@@ -99,15 +99,15 @@ public class LoginAty extends BaseAty implements LoginViewer {
                             "\n   3.增加炫酷模式"
                             );
                     ArrayList<String> btnTexts = new ArrayList<>();
-                    btnTexts.add("当前版本不再提醒");
-                    btnTexts.add("暂不更新");
                     btnTexts.add("立即更新");
+                    btnTexts.add("当前版本不再提醒");
+                    btnTexts.add("下次再说");
                     apkUpdateManager.setBtnTexts(btnTexts);
                 }
                 apkUpdateManager.showUpdateDialog(new BaseDialogThreeMoreBtnClickListener() {
                     @Override
                     public void clickBtn(int position, int tag) {
-                        if (position == 2) {
+                        if (position == 0) {
                             apkUpdateManager.download();
                         }
                     }

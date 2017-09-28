@@ -2,13 +2,13 @@ apply plugin: 'com.android.library'
 
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
 
     defaultConfig {
 //        applicationId "com.yan.base"
         minSdkVersion 15
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
 
@@ -35,10 +35,11 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:palette-v7:25.3.1'
-    compile 'com.android.support:support-v4:25.3.1'
-    compile 'com.android.support:design:25.3.1'
+
+    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
+    compile 'com.android.support:palette-v7:26.0.0-alpha1'
+    compile 'com.android.support:support-v4:26.0.0-alpha1'
+    compile 'com.android.support:design:26.0.0-alpha1'
     testCompile 'junit:junit:4.12'
     //日志崩溃记录
     //https://github.com/wangjiegulu/AndroidBucket
@@ -51,7 +52,8 @@ dependencies {
     //图片缓存框架
     //gitHub https://github.com/bumptech/glide
     //glide与其他图片加载库对比 https://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en
-    compile 'com.github.bumptech.glide:glide:3.7.0'
+    //    compile 'com.github.bumptech.glide:annotationProcessor :4.1.1'
+    //    annotationProcessor 'com.github.bumptech.glide:compiler:4.1.1'
     //横向滚动页面效果
     //gitHub https://github.com/lsjwzh/RecyclerViewPager
     compile 'com.github.lsjwzh.RecyclerViewPager:lib:v1.1.0'
@@ -74,4 +76,5 @@ dependencies {
     //    compile 'io.grpc:grpc-okhttp:0.9.0'
     //    compile 'io.grpc:grpc-protobuf-nano:0.9.0'
     //    compile 'io.grpc:grpc-stub:0.9.0'
+
 }

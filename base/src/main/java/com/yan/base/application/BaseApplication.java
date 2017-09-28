@@ -4,7 +4,6 @@ import android.app.Application;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
-import com.bumptech.glide.Glide;
 import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
 import com.yan.base.BuildConfig;

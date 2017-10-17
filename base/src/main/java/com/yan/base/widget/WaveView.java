@@ -67,17 +67,17 @@ public class WaveView extends View {
     }
 
     private void init(Context context, AttributeSet attrs) {
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.Wave);
-        showLightWave = typedArray.getBoolean(R.styleable.Wave_showLightWave, true);
-        lockWave = typedArray.getBoolean(R.styleable.Wave_lockWave, true);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.WaveView);
+        showLightWave = typedArray.getBoolean(R.styleable.WaveView_showLightWave, true);
+        lockWave = typedArray.getBoolean(R.styleable.WaveView_lockWave, true);
 
-        darkWaveAnimTime = typedArray.getInt(R.styleable.Wave_darkWaveAnimTime, 1000);
-        lightWaveAnimTime = typedArray.getInt(R.styleable.Wave_lightWaveAnimTime, 1000);
-        waveNum = typedArray.getInt(R.styleable.Wave_waveNum, 1);
-        waveHeight = typedArray.getDimension(R.styleable.Wave_waveHeight, 50);
+        darkWaveAnimTime = typedArray.getInt(R.styleable.WaveView_darkWaveAnimTime, 1000);
+        lightWaveAnimTime = typedArray.getInt(R.styleable.WaveView_lightWaveAnimTime, 1000);
+        waveNum = typedArray.getInt(R.styleable.WaveView_waveNum, 1);
+        waveHeight = typedArray.getDimension(R.styleable.WaveView_waveHeight, 50);
 
-        darkWaveColor = typedArray.getColor(R.styleable.Wave_darkWaveColor, getResources().getColor(android.R.color.holo_blue_dark));
-        lightWaveColor = typedArray.getColor(R.styleable.Wave_lightWaveColor, getResources().getColor(android.R.color.holo_green_light));
+        darkWaveColor = typedArray.getColor(R.styleable.WaveView_darkWaveColor, getResources().getColor(android.R.color.holo_blue_dark));
+        lightWaveColor = typedArray.getColor(R.styleable.WaveView_lightWaveColor, getResources().getColor(android.R.color.holo_green_light));
         typedArray.recycle();
         initPaint();
     }

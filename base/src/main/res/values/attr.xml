@@ -7,7 +7,7 @@
         <attr name="android:layout_gravity" />
     </declare-styleable>
 
-    <declare-styleable name="InputView">
+    <declare-styleable name="PasswordInputView">
         <attr name="passwordCount" format="integer" />
         <attr name="stokeColor" format="color" />
         <attr name="symbolColor" format="color" />
@@ -32,7 +32,7 @@
         <attr name="arcPaddingBottom" format="dimension" />
     </declare-styleable>
 
-    <declare-styleable name="BaseToolBar">
+    <declare-styleable name="BaseToolbar">
         <attr name="baseToolBarType">
             <flag name="normal" value="0" />
             <flag name="full" value="1" />
@@ -84,7 +84,7 @@
         <attr name="bgArcWidth" format="dimension" />
     </declare-styleable>
 
-    <declare-styleable name="Wave">
+    <declare-styleable name="WaveView">
         <!-- 是否显示浅色水波 -->
         <attr name="showLightWave" format="boolean" />
         <!-- 锁定水波不随圆环进度改变，默认锁定在50%处 -->

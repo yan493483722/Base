@@ -1,5 +1,6 @@
 package com.yan.basedemo.aty;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -86,10 +87,10 @@ public class LoginAty extends BaseAty implements LoginViewer {
             case R.id.btn_download:
                 String download = "http://58.215.175.244/qkonline/qkonline.apk";
 
-              String saveFilePath=FileUtil.getBasePath(mAty)+File.separator+"apkfile";
-              String fileName="qkonline.apk";
+                String saveFilePath = FileUtil.getBasePath(mAty) + File.separator + "apkfile";
+                String fileName = "qkonline.apk";
                 if (apkUpdateManager == null) {
-                    apkUpdateManager = new APKUpdateManager(mAty, download, saveFilePath,fileName, mLayoutInflater);
+                    apkUpdateManager = new APKUpdateManager(mAty, download, saveFilePath, fileName, mLayoutInflater);
                     apkUpdateManager.setTitle("发现新版本");
                     apkUpdateManager.setContent("版本更新啦！！！" +
                             "\n 版本号:V1.2.0" +
@@ -97,7 +98,7 @@ public class LoginAty extends BaseAty implements LoginViewer {
                             "\n   1.修复部分bug" +
                             "\n   2.优化部分用户体验" +
                             "\n   3.增加炫酷模式"
-                            );
+                    );
                     ArrayList<String> btnTexts = new ArrayList<>();
                     btnTexts.add("立即更新");
                     btnTexts.add("当前版本不再提醒");
@@ -114,6 +115,7 @@ public class LoginAty extends BaseAty implements LoginViewer {
                 });
                 break;
             case R.id.btn_upload:
+                startActivity(new Intent(mAty, UploadAty.class));
                 break;
         }
 

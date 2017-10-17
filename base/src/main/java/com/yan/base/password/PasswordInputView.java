@@ -143,13 +143,13 @@ public class PasswordInputView extends View {
      * @param attrs
      */
     private void getAttrs(Context context, AttributeSet attrs) {
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.InputView);
-        passwordCount = typedArray.getInteger(R.styleable.InputView_passwordCount, DEFAULT_PASSWORD_COUNT);
-        strokeColor = typedArray.getColor(R.styleable.InputView_stokeColor, DEFAULT_STOCK_COLOR);
-        symbolColor = typedArray.getColor(R.styleable.InputView_symbolColor, DEFAULT_SYMBOL_COLOR);
-        mRadius = typedArray.getDimension(R.styleable.InputView_radius, DEFAULT_PASSWORD_RADIUS);
-        mSymbolRadius = typedArray.getDimension(R.styleable.InputView_symbolRadius, DEFAULT_PASSWORD_SYMBOL_RADIUS);
-        inputBoxStroke = typedArray.getDimension(R.styleable.InputView_inputBoxStroke, DEFAULT_PASSWORD_BOX_WIDTH);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.PasswordInputView);
+        passwordCount = typedArray.getInteger(R.styleable.PasswordInputView_passwordCount, DEFAULT_PASSWORD_COUNT);
+        strokeColor = typedArray.getColor(R.styleable.PasswordInputView_stokeColor, DEFAULT_STOCK_COLOR);
+        symbolColor = typedArray.getColor(R.styleable.PasswordInputView_symbolColor, DEFAULT_SYMBOL_COLOR);
+        mRadius = typedArray.getDimension(R.styleable.PasswordInputView_radius, DEFAULT_PASSWORD_RADIUS);
+        mSymbolRadius = typedArray.getDimension(R.styleable.PasswordInputView_symbolRadius, DEFAULT_PASSWORD_SYMBOL_RADIUS);
+        inputBoxStroke = typedArray.getDimension(R.styleable.PasswordInputView_inputBoxStroke, DEFAULT_PASSWORD_BOX_WIDTH);
         typedArray.recycle();
     }
 

@@ -19,7 +19,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.yan.base.application.AppManager;
 import com.yan.base.application.GlobalPreference;
 import com.yan.base.listener.PermissionListener;
 import com.yan.base.manager.PermissionManager;
@@ -127,7 +126,8 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
     }
 
     /**
-     * butterKnife
+     * 这里 调用 setContentView();
+     * 自由选择是否ButterKnife.bind(this) ,所以将 setContentView() 设置自己配置
      */
     protected abstract void initContentView();
 

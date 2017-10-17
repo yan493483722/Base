@@ -147,9 +147,9 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
 //        }
         //获取自定义属性
         if (attrs != null) {
-            TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.BaseToolBar);
-            baseToolBarType = typedArray.getInteger(R.styleable.BaseToolBar_baseToolBarType, STATUS_BAR_TYPE_NORMAL);
-            backgroundColor = typedArray.getColor(R.styleable.BaseToolBar_baseToolBarColor, getResources().getColor(R.color.colorPrimary));
+            TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.BaseToolbar);
+            baseToolBarType = typedArray.getInteger(R.styleable.BaseToolbar_baseToolBarType, STATUS_BAR_TYPE_NORMAL);
+            backgroundColor = typedArray.getColor(R.styleable.BaseToolbar_baseToolBarColor, getResources().getColor(R.color.colorPrimary));
             typedArray.recycle();
         }
         //设置背景色

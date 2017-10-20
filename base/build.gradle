@@ -52,8 +52,8 @@ dependencies {
     //图片缓存框架
     //gitHub https://github.com/bumptech/glide
     //glide与其他图片加载库对比 https://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en
-    //    compile 'com.github.bumptech.glide:annotationProcessor :4.1.1'
-    //    annotationProcessor 'com.github.bumptech.glide:compiler:4.1.1'
+    compile 'com.github.bumptech.glide:glide:4.2.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.2.0'
     //横向滚动页面效果
     //gitHub https://github.com/lsjwzh/RecyclerViewPager
     compile 'com.github.lsjwzh.RecyclerViewPager:lib:v1.1.0'
@@ -76,5 +76,8 @@ dependencies {
     //    compile 'io.grpc:grpc-okhttp:0.9.0'
     //    compile 'io.grpc:grpc-protobuf-nano:0.9.0'
     //    compile 'io.grpc:grpc-stub:0.9.0'
-
+    //https://github.com/crazycodeboy/TakePhoto
+    compile 'com.jph.takephoto:takephoto_library:4.0.3'
+//    https://github.com/scwang90/SmartRefreshLayout
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
 }

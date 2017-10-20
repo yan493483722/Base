@@ -1,10 +1,14 @@
 package com.yan.basedemo.aty;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.jph.takephoto.app.TakePhoto;
+import com.jph.takephoto.model.InvokeParam;
 import com.yan.base.BaseAty;
+import com.yan.base.pop.SelectPhotoPop;
 import com.yan.base.toolbar.BaseToolbar;
 import com.yan.basedemo.R;
 
@@ -35,6 +39,19 @@ public class UploadAty extends BaseAty {
     @BindView(R.id.ll_root)
     LinearLayout llRoot;
 
+
+    String uid;
+
+     SelectPhotoPop selectPhotoPop;
+    private TakePhoto takePhoto;
+    InvokeParam invokeParam;
+    float totalHeight = 0;
+
+    //保存到本地的图的Uri
+    Uri idUirZheng;
+    Uri idUirFan;
+    Uri bankUirZheng;
+
     @Override
     protected void initContentView() {
         setContentView(R.layout.aty_upload);
@@ -43,11 +60,22 @@ public class UploadAty extends BaseAty {
 
     @Override
     protected void initView() {
+        btbUpload.setBaseToolbarListener(new BaseToolbar.BaseToolbarListener() {
+            @Override
+            public void clickLeft(int type) {
+                onBackPressed();
+            }
 
+            @Override
+            public void clickRight(int type) {
+
+            }
+        });
     }
 
     @Override
     public void initData() {
+
 
     }
 

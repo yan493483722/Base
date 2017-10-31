@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.yan.base.BaseAty;
 import com.yan.base.R;
-import com.yan.base.loading.PassWordProgressbar;
+import com.yan.base.loading.PasswordProgressbar;
 
 /**
  * Created by YanZi on 2017/5/8.
@@ -37,7 +37,7 @@ public class PasswordInputDialog extends DialogFragment implements View.OnClickL
 
     private LinearLayout ll_dg_password;
 
-    private PassWordProgressbar pwp_dg_password;
+    private PasswordProgressbar pwp_dg_password;
 
     private BaseAty mAty;
 
@@ -79,7 +79,7 @@ public class PasswordInputDialog extends DialogFragment implements View.OnClickL
         piv_dg_password = (PasswordInputView) view.findViewById(R.id.piv_dg_password);
         pk_dg_password = (PasswordKeyboard) view.findViewById(R.id.pk_dg_password);
         ll_dg_password = (LinearLayout) view.findViewById(R.id.ll_dg_password);
-        pwp_dg_password = (PassWordProgressbar) view.findViewById(R.id.pwp_dg_password);
+        pwp_dg_password = (PasswordProgressbar) view.findViewById(R.id.pwp_dg_password);
 
         tv_dg_password_cancel.setOnClickListener(this);
         tv_dg_password_forget.setOnClickListener(this);
@@ -200,7 +200,7 @@ public class PasswordInputDialog extends DialogFragment implements View.OnClickL
     };
 
 
-    public interface PasswordInputDialogListener extends PassWordProgressbar.AnimationEndListener, PasswordInputView.PasswordInputListener {
+    public interface PasswordInputDialogListener extends PasswordProgressbar.AnimationEndListener, PasswordInputView.PasswordInputListener {
 
         void cancel();
 

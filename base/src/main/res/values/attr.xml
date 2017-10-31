@@ -16,7 +16,7 @@
         <attr name="inputBoxStroke" format="dimension" />
     </declare-styleable>
 
-    <declare-styleable name="PassWordProgressbar">
+    <declare-styleable name="PasswordProgressbar">
         <attr name="barColor" format="reference|color" />
         <attr name="barStockWidth" format="dimension" />
         <attr name="barRectWidthHeight" format="dimension" />

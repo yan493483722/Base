@@ -26,7 +26,7 @@ import com.yan.base.R;
  * modify:
  * modify date:
  */
-public class PassWordProgressbar extends View {
+public class PasswordProgressbar extends View {
 
     private final static int LOAD_STATUS_NONE = -1;
     private final static int LOAD_STATUS_ARC = 0;
@@ -105,20 +105,20 @@ public class PassWordProgressbar extends View {
     private AnimationEndListener animationEnd;
 
     //    第一个构造函数：     当不需要使用xml声明或者不需要使用inflate动态加载时候，实现此构造函数即可
-    public PassWordProgressbar(Context context) {
+    public PasswordProgressbar(Context context) {
         super(context);
         init();
     }
 
     // 第二个构造函数:     当需要在xml中声明此控件，则需要实现此构造函数。并且在构造函数中把自定义的属性与控件的数据成员连接起来。
-    public PassWordProgressbar(Context context, AttributeSet attrs) {
+    public PasswordProgressbar(Context context, AttributeSet attrs) {
         super(context, attrs);
         getAttr(context, attrs);
         init();
     }
 
     // 第三个构造函数：     接受一个style资源
-    public PassWordProgressbar(Context context, AttributeSet attrs, int defStyleAttr) {
+    public PasswordProgressbar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         getAttr(context, attrs);
         init();
@@ -126,7 +126,7 @@ public class PassWordProgressbar extends View {
 
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public PassWordProgressbar(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public PasswordProgressbar(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         getAttr(context, attrs);
         init();
@@ -139,20 +139,20 @@ public class PassWordProgressbar extends View {
      * @param attrs
      */
     private void getAttr(Context context, AttributeSet attrs) {
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.PassWordProgressbar);
-        barColor = typedArray.getColor(R.styleable.PassWordProgressbar_barColor, DEFAULT_COLOR);
-        barStockWidth = typedArray.getDimension(R.styleable.PassWordProgressbar_barStockWidth, 4.0f);
-        textSize = typedArray.getDimensionPixelSize(R.styleable.PassWordProgressbar_textSize, (int) getResources().getDimension(R.dimen.font_middle));
-        textColor = typedArray.getColor(R.styleable.PassWordProgressbar_textColor, DEFAULT_COLOR);
-        barRectHeight = typedArray.getDimension(R.styleable.PassWordProgressbar_barRectWidthHeight, 80f);
-        textPaddingLeft = typedArray.getDimension(R.styleable.PassWordProgressbar_textPaddingLeft, 0f);
-        textPaddingRight = typedArray.getDimension(R.styleable.PassWordProgressbar_textPaddingRight, 0f);
-        textPaddingTop = typedArray.getDimension(R.styleable.PassWordProgressbar_textPaddingTop, 0f);
-        textPaddingBottom = typedArray.getDimension(R.styleable.PassWordProgressbar_textPaddingBottom, 0f);
-        arcPaddingLeft = typedArray.getDimension(R.styleable.PassWordProgressbar_arcPaddingLeft, 0f);
-        arcPaddingRight = typedArray.getDimension(R.styleable.PassWordProgressbar_arcPaddingRight, 0f);
-        arcPaddingTop = typedArray.getDimension(R.styleable.PassWordProgressbar_arcPaddingTop, 0f);
-        arcPaddingBottom = typedArray.getDimension(R.styleable.PassWordProgressbar_arcPaddingBottom, 0f);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.PasswordProgressbar);
+        barColor = typedArray.getColor(R.styleable.PasswordProgressbar_barColor, DEFAULT_COLOR);
+        barStockWidth = typedArray.getDimension(R.styleable.PasswordProgressbar_barStockWidth, 4.0f);
+        textSize = typedArray.getDimensionPixelSize(R.styleable.PasswordProgressbar_textSize, (int) getResources().getDimension(R.dimen.font_middle));
+        textColor = typedArray.getColor(R.styleable.PasswordProgressbar_textColor, DEFAULT_COLOR);
+        barRectHeight = typedArray.getDimension(R.styleable.PasswordProgressbar_barRectWidthHeight, 80f);
+        textPaddingLeft = typedArray.getDimension(R.styleable.PasswordProgressbar_textPaddingLeft, 0f);
+        textPaddingRight = typedArray.getDimension(R.styleable.PasswordProgressbar_textPaddingRight, 0f);
+        textPaddingTop = typedArray.getDimension(R.styleable.PasswordProgressbar_textPaddingTop, 0f);
+        textPaddingBottom = typedArray.getDimension(R.styleable.PasswordProgressbar_textPaddingBottom, 0f);
+        arcPaddingLeft = typedArray.getDimension(R.styleable.PasswordProgressbar_arcPaddingLeft, 0f);
+        arcPaddingRight = typedArray.getDimension(R.styleable.PasswordProgressbar_arcPaddingRight, 0f);
+        arcPaddingTop = typedArray.getDimension(R.styleable.PasswordProgressbar_arcPaddingTop, 0f);
+        arcPaddingBottom = typedArray.getDimension(R.styleable.PasswordProgressbar_arcPaddingBottom, 0f);
         typedArray.recycle();
     }
 

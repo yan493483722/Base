@@ -1,8 +1,6 @@
 apply plugin: 'com.android.application'
-//butterknife 历史版本
-// apply plugin: 'com.neenbedankt.android-apt'
-apply plugin: 'com.jakewharton.butterknife'
 apply plugin: 'org.greenrobot.greendao'
+
 
 android {
     compileSdkVersion 26
@@ -14,6 +12,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+
     }
     buildTypes {
         release {
@@ -21,6 +21,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 
 }
 
@@ -30,9 +31,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
-    //注解框架
-    compile 'com.jakewharton:butterknife:8.5.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     //数据库
     //gitHub https://github.com/greenrobot/greenDAO
     compile 'org.greenrobot:greendao:3.2.0'

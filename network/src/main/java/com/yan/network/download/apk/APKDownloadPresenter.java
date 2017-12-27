@@ -132,7 +132,6 @@ public class APKDownloadPresenter extends BasePresenter {
                             if (writeStreamToFile(response.body(), saveApkPath, fileName)) {
                                 Log.e("yan", "下载完成了 ");
                             }
-                            ;
                         }
                     }.start();
 

@@ -2,8 +2,7 @@ package com.yan.mvp;
 
 import android.util.Log;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.google.gson.Gson;
 import com.yan.base.BaseAty;
 import com.yan.base.uitls.Tools;
 
@@ -83,8 +82,12 @@ public class BasePresenter<T extends BaseViewer> {
 //                .add("password", password)
 //                .add("rememberMe", "true")
 //                .build();
-
-        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), JSON.toJSONString(requestModel, SerializerFeature.WriteMapNullValue));
+        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"),
+                new Gson().toJson(requestModel)
+                );
+//        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"),
+//
+//                JSON.toJSONString(requestModel, SerializerFeature.WriteMapNullValue));
 //创建一个Request
         Request request;
         if (Tools.isNull(token)) {

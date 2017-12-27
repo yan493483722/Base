@@ -3,8 +3,6 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.2"
-
     defaultConfig {
 //        applicationId "com.yan.base"
         minSdkVersion 15
@@ -20,6 +18,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
 
     dexOptions {
@@ -32,49 +34,71 @@ android {
 
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-
+    testImplementation 'junit:junit:4.12'
+    //noinspection GradleCompatible
     api 'com.android.support:appcompat-v7:26.0.0-alpha1'
     api 'com.android.support:palette-v7:26.0.0-alpha1'
     api 'com.android.support:support-v4:26.0.0-alpha1'
     api 'com.android.support:design:26.0.0-alpha1'
-    testCompile 'junit:junit:4.12'
+
     //日志崩溃记录
+
     //https://github.com/wangjiegulu/AndroidBucket
     api 'com.github.wangjiegulu:AndroidBucket:1.0.4'
+
     //gitHub https://github.com/JakeWharton/butterknife
+
     //doc http://jakewharton.github.io/butterknife/
+
     //butter knife
+
     //    compile 'com.jakewharton:butterknife:8.4.0'
+
     //    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+
     //图片缓存框架
+
     //gitHub https://github.com/bumptech/glide
+
     //glide与其他图片加载库对比 https://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en
-//    compile 'com.github.bumptech.glide:glide:3.6.0'
-//    annotationProcessor 'com.github.bumptech.glide:compiler:4.2.0'
+
+    //    compile 'com.github.bumptech.glide:glide:3.6.0'
+
+    //    annotationProcessor 'com.github.bumptech.glide:compiler:4.2.0'
+
     //横向滚动页面效果
+
     //gitHub https://github.com/lsjwzh/RecyclerViewPager
     api 'com.github.lsjwzh.RecyclerViewPager:lib:v1.1.0'
+
     //日志打印
+
     //gitHub https://github.com/orhanobut/logger
     api 'com.orhanobut:logger:1.15'
-    //阿里巴巴实体类和json的转换
-    //gitHub https://github.com/Alibaba/fastjson/wiki/%E9%A6%96%E9%A1%B5
-    api 'com.alibaba:fastjson:1.1.48.android'
+
     //消息传递
+
     //gitHub https://github.com/greenrobot/EventBus
     api 'org.greenrobot:eventbus:3.0.0'
+
     //手势翻转扩大缩小的图片查看器
+
     //gitHub https://github.com/chrisbanes/PhotoView
     api 'com.github.chrisbanes:PhotoView:1.3.1'
+
     //grpc
+
     //    compile 'io.grpc:grpc-okhttp:0.9.0'
+
     //    compile 'io.grpc:grpc-protobuf-nano:0.9.0'
+
     //    compile 'io.grpc:grpc-stub:0.9.0'
+
     //https://github.com/crazycodeboy/TakePhoto
-//    compile 'com.jph.takephoto:takephoto_library:4.0.3'
-//    https://github.com/scwang90/SmartRefreshLayout
+
+    //    compile 'com.jph.takephoto:takephoto_library:4.0.3'
+
+    //    https://github.com/scwang90/SmartRefreshLayout
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
+
 }

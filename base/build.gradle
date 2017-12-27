@@ -48,10 +48,6 @@ dependencies {
     //https://github.com/wangjiegulu/AndroidBucket
     api 'com.github.wangjiegulu:AndroidBucket:1.0.4'
 
-    //gitHub https://github.com/JakeWharton/butterknife
-    //doc http://jakewharton.github.io/butterknife/
-    api 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
     //数据库
     //gitHub https://github.com/greenrobot/greenDAO

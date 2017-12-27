@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
-
+apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion 27
@@ -45,6 +45,10 @@ dependencies {
     releaseImplementation project(':network')
 
 
+    //gitHub https://github.com/JakeWharton/butterknife
+    //doc http://jakewharton.github.io/butterknife/
+    api 'com.jakewharton:butterknife:8.4.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
 
 //
 //    //目前强制指定注解编译版本

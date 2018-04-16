@@ -120,7 +120,7 @@ public class BaseToolbarUtil {
         View mChildView = mContentView.getChildAt(0);
         if (mChildView != null) {
             //设置 设置窗体自适应 自适应
-            ViewCompat.setFitsSystemWindows(mChildView, false);
+            mChildView.setFitsSystemWindows(false);
             //设置requestFitSystemWindows后请求一个新的调度
             ViewCompat.requestApplyInsets(mChildView);//是否需要调用？嵌套了?
         }
@@ -146,7 +146,7 @@ public class BaseToolbarUtil {
         ViewGroup mContentView = (ViewGroup) window.findViewById(Window.ID_ANDROID_CONTENT);
         View mChildView = mContentView.getChildAt(0);
         if (mChildView != null) {
-            ViewCompat.setFitsSystemWindows(mChildView, false);
+            mChildView.setFitsSystemWindows(false);
             ViewCompat.requestApplyInsets(mChildView);
         }
         toolbar.tb_base_tb.setFitsSystemWindows(true);
@@ -163,7 +163,7 @@ public class BaseToolbarUtil {
         ViewGroup mContentView = (ViewGroup) window.findViewById(Window.ID_ANDROID_CONTENT);
         View mChildView = mContentView.getChildAt(0);
         if (mChildView != null) {
-            ViewCompat.setFitsSystemWindows(mChildView, false);
+            mChildView.setFitsSystemWindows(false);
             ViewCompat.requestApplyInsets(mChildView);
         }
         toolbar.setPadding(0, getStatusBarHeight(aty), 0, 0);
@@ -180,7 +180,7 @@ public class BaseToolbarUtil {
         View mChildView = mContentView.getChildAt(0);
         if (mChildView != null) {
             //设置 设置窗体自适应 自适应
-            ViewCompat.setFitsSystemWindows(mChildView, false);
+            mChildView.setFitsSystemWindows(false);
             //设置requestFitSystemWindows后请求一个新的调度
             ViewCompat.requestApplyInsets(mChildView);//是否需要调用？嵌套了?
         }

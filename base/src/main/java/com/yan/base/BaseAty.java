@@ -30,7 +30,7 @@ import com.yan.base.toolbar.BaseToolbarUtil;
 /**
  * 项目名称：Base
  * 类描述：
- * 创建人：yanzi
+ * 创建人：YanZi
  * 创建时间：2016/7/7 10:02
  * 修改人：
  * 修改时间：
@@ -185,7 +185,7 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
         ViewGroup mContentView = (ViewGroup) window.findViewById(Window.ID_ANDROID_CONTENT);
         View mChildView = mContentView.getChildAt(0);
         if (mChildView != null) {
-            ViewCompat.setFitsSystemWindows(mChildView, false);
+            mChildView.setFitsSystemWindows(false);
             ViewCompat.requestApplyInsets(mChildView);
         }
     }

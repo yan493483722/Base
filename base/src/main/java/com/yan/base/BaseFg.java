@@ -21,8 +21,8 @@ public class BaseFg extends Fragment {
      主要区别就在与对于fragment是否销毁，下面细说：
      FragmentPagerAdapter：对于不再需要的fragment，选择调用detach方法，仅销毁视图，并不会销毁fragment实例。
      FragmentStatePagerAdapter：会销毁不再需要的fragment，当当前事务提交以后，
-     会彻底的将fragment从当前Activity的FragmentManager中移除，state标明，销毁时，
-     会将其onSaveInstanceState(Bundle outState)中的bundle信息保存下来，当用户切换回来，
+     会彻底的将fragment从当前Activity的FragmentManager中移除，state标明，
+     销毁时，会将其onSaveInstanceState(Bundle outState)中的bundle信息保存下来，当用户切换回来，
      可以通过该bundle恢复生成新的fragment，也就是说，你可以在onSaveInstanceState(Bundle outState)方法中保存一些数据，
      在onCreate中进行恢复创建。
      如上所说，使用FragmentStatePagerAdapter当然更省内存，但是销毁新建也是需要时间的。

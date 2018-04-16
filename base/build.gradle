@@ -39,14 +39,14 @@ dependencies {
     api 'com.ashokvarma.android:bottom-navigation-bar:2.0.2'
 
 
-    api 'com.android.support:appcompat-v7:27.0.2'
-    api 'com.android.support:palette-v7:27.0.2'
-    api 'com.android.support:support-v4:27.0.2'
-    api 'com.android.support:design:27.0.2'
+    api 'com.android.support:appcompat-v7:27.1.1'
+    api 'com.android.support:palette-v7:27.1.1'
+    api 'com.android.support:support-v4:27.1.1'
+    api 'com.android.support:design:27.1.1'
 
     //日志崩溃记录
     //https://github.com/wangjiegulu/AndroidBucket
-    api 'com.github.wangjiegulu:AndroidBucket:1.0.4'
+//    api 'com.github.wangjiegulu:AndroidBucket:1.0.4'
 
 
     //数据库
@@ -62,7 +62,7 @@ dependencies {
     //高斯模糊
     api 'jp.wasabeef:glide-transformations:3.0.1'
     // If you want to use the GPU Filters  GPU渲染
-    compile 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
+    implementation 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
     //横向滚动页面效果
 
     //gitHub https://github.com/lsjwzh/RecyclerViewPager
@@ -84,7 +84,7 @@ dependencies {
     api 'com.jph.takephoto:takephoto_library:4.0.3'
 
     //https://github.com/scwang90/SmartRefreshLayout
-    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
+    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4-7'
 
     //GRPC
     //compile 'io.grpc:grpc-okhttp:0.9.0'

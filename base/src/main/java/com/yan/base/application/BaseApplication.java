@@ -31,7 +31,7 @@ public  class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        registerActivityLifecycleCallbacks(AppManager.getAppManager().getActivityLifecycleCallbacks());
+        AppManager.getAppManager().setApplication(this);
         getScreenHW();
         initStoreData();
         initNetWork();

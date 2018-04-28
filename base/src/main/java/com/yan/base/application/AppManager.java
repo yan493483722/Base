@@ -243,22 +243,22 @@ public class AppManager {
 
         @Override
         public void onActivityStarted(Activity activity) {
-            Log.e(TAG, activity.getLocalClassName() + " onActivityStarted");
+            Log.e(TAG, activity.getLocalClassName() + " onActivityStarted ");
         }
 
         @Override
         public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-            Log.e(TAG, activity.getLocalClassName() + " onActivitySaveInstanceState");
+            Log.e(TAG, activity.getLocalClassName() + " onActivitySaveInstanceState ");
         }
 
         @Override
         public void onActivityResumed(Activity activity) {
-            Log.e(TAG, activity.getLocalClassName() + " onActivityResumed");
+            Log.e(TAG, activity.getLocalClassName() + " onActivityResumed ");
         }
 
         @Override
         public void onActivityPaused(Activity activity) {
-            Log.e(TAG, activity.getLocalClassName() + " onActivityPaused");
+            Log.e(TAG, activity.getLocalClassName() + " onActivityPaused ");
         }
 
         @Override
@@ -276,7 +276,8 @@ public class AppManager {
 
     };
 
-    public Application.ActivityLifecycleCallbacks getActivityLifecycleCallbacks() {
-        return activityLifecycleCallbacks;
+    public void  setApplication(Application application){
+        application.unregisterActivityLifecycleCallbacks(activityLifecycleCallbacks);
+        application.registerActivityLifecycleCallbacks(activityLifecycleCallbacks);
     }
 }

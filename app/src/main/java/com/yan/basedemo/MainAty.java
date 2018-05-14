@@ -44,13 +44,14 @@ public class MainAty extends BaseAty {
         setContentView(R.layout.aty_main);
         ButterKnife.bind(this);
 
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermission(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_READ_STORAGE);
+            requestPermission(new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_READ_PHONE_STATE);
+            requestPermission(new String[]{Manifest.permission.READ_PHONE_STATE
+                    , Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    , Manifest.permission.CAMERA}, PERMISSION_OTHERS);
         }
-        requestPermission(new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_READ_PHONE_STATE);
-        requestPermission(new String[]{Manifest.permission.READ_PHONE_STATE
-                , Manifest.permission.WRITE_EXTERNAL_STORAGE
-                , Manifest.permission.CAMERA}, PERMISSION_OTHERS);
+
     }
 
     @OnClick({R.id.btn_main_dialog, R.id.btn_main_loading, R.id.btn_main_permission, R.id.btn_main_web,

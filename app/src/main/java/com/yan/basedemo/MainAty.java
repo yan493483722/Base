@@ -3,8 +3,11 @@ package com.yan.basedemo;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.yan.base.BaseAty;
@@ -13,6 +16,8 @@ import com.yan.basedemo.aty.LoginAty;
 import com.yan.basedemo.aty.MultiDownloadAty;
 import com.yan.basedemo.aty.bar.StatusBarAty;
 import com.yan.network.download.apk.APKDownloadAty;
+
+import java.math.BigDecimal;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -127,5 +132,72 @@ public class MainAty extends BaseAty {
 //                break;
 //        }
     }
+
+
+    @NonNull
+    private String setNumber(CharSequence charSequence, EditText etSubjectMatterTax) {
+
+        int integerSize = 8;
+        int decimalSize = 2;
+
+        String tempTax = charSequence.toString();
+        //如果不为null且只有一个.
+        if (!TextUtils.isEmpty(tempTax)) {
+            if (tempTax.startsWith(".")) {//如果以.开头
+                tempTax = "0" + tempTax;
+            } else {//不以点开头
+                if (tempTax.startsWith("0")) {//如果有超过1个以上的连续的0，截取掉前面多余的0
+                    if (tempTax.contains(".")) {
+                        tempTax = tempTax.replaceAll("^(0+)", "");
+                        if (tempTax.startsWith(".")) {
+                            tempTax = "0" + tempTax;
+                        }
+                    } else {
+                        tempTax = tempTax.replaceAll("^(0+)", "");
+                        if (TextUtils.isEmpty(tempTax)) {
+                            tempTax = "0";
+                        }
+                    }
+                }
+            }
+        }
+        //小数点后最多保留两位
+        int posDot = tempTax.indexOf(".");
+        if (posDot > 0) {
+            if (tempTax.length() - posDot - 1 > decimalSize) {
+                tempTax = tempTax.substring(0, posDot + decimalSize + 1);
+            }
+        }
+
+        //防止整数部分大于8位
+        int dotPosition = tempTax.indexOf(".");
+        if (dotPosition > 0) {//小数
+            if (dotPosition > integerSize) {
+                tempTax = tempTax.substring(0, integerSize) + tempTax.substring(dotPosition);
+            }
+        } else {//整数
+            if (tempTax.length() > integerSize) {
+                tempTax = tempTax.substring(0, integerSize);
+            }
+        }
+
+
+        if (!tempTax.equals(charSequence.toString())) {
+            etSubjectMatterTax.setText(tempTax);
+            etSubjectMatterTax.setSelection(tempTax.length());
+        }
+        return tempTax;
+    }
+
+    String addSum(String tempTax, String tempPrice) {
+
+        try {
+            BigDecimal bigDecimal = new BigDecimal(tempTax);
+            return bigDecimal.add(new BigDecimal(tempPrice)).toString();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 
 }

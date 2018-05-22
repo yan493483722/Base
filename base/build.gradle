@@ -47,7 +47,9 @@ dependencies {
     //日志崩溃记录
     //https://github.com/wangjiegulu/AndroidBucket
 //    api 'com.github.wangjiegulu:AndroidBucket:1.0.4'
-
+    api 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+//
 
     //数据库
     //gitHub https://github.com/greenrobot/greenDAO
@@ -56,8 +58,8 @@ dependencies {
 
     //gitHub https://github.com/bumptech/glide
     //glide与其他图片加载库对比 https://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en
-    api 'com.github.bumptech.glide:glide:4.4.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
+    api 'com.github.bumptech.glide:glide:4.7.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
     api "com.github.bumptech.glide:okhttp3-integration:4.4.0"
     //高斯模糊
     api 'jp.wasabeef:glide-transformations:3.0.1'

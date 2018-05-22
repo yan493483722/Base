@@ -22,9 +22,8 @@ public class ImgFullStatusBarAty extends BaseAty {
     ImageView imgStatus;
 
     @Override
-    protected void initContentView() {
-        setContentView(R.layout.aty_img_full_status_bar);
-        ButterKnife.bind(this);
+    protected int setContentLayout() {
+        return R.layout.aty_img_full_status_bar;
     }
 
     @Override

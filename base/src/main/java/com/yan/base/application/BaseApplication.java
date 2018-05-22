@@ -17,7 +17,7 @@ import com.yan.base.BuildConfig;
  * modify desc:
  */
 
-public abstract class BaseApplication extends Application {
+public  class BaseApplication extends Application {
 
     /**
      * 用来保存当手机屏幕高度
@@ -31,7 +31,7 @@ public abstract class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        registerActivityLifecycleCallbacks(AppManager.getAppManager().getActivityLifecycleCallbacks());
+        AppManager.getAppManager().setApplication(this);
         getScreenHW();
         initStoreData();
         initNetWork();
@@ -48,9 +48,9 @@ public abstract class BaseApplication extends Application {
         //TODO　database
     }
 
-    protected abstract void initNetWork();
+    protected  void initNetWork(){};
 
-    protected abstract void initOther();
+    protected  void initOther(){};
 
     private void initLogger() {
         Log.e("BaseApplication", "BaseApplication BuildConfig.DEBUG" + BuildConfig.DEBUG);

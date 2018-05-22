@@ -38,9 +38,8 @@ public class SlideStatusBarAty extends BaseAty {
     DrawerLayout dlSlideStatusBar;
 
     @Override
-    protected void initContentView() {
-        setContentView(R.layout.aty_slide_status_bar);
-        ButterKnife.bind(this);
+    protected int setContentLayout() {
+        return R.layout.aty_slide_status_bar;
     }
 
     @Override

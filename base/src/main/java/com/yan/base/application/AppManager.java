@@ -1,16 +1,20 @@
 package com.yan.base.application;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Application;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.util.Log;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -24,12 +28,12 @@ import java.util.Stack;
  */
 public class AppManager {
 
-    private static final String TAG = ActivityManager.class.getSimpleName();
+    private static final String TAG = AppManager.class.getSimpleName();
 
     private static Stack<WeakReference<Activity>> activityStack;
 
     //内部静态类有引用之后才会被加载到内存中，所以为懒加载
-    private static class ActivityManager {
+    private static class AppManagerInner {
         private static AppManager appManager = new AppManager();
     }
 
@@ -42,8 +46,58 @@ public class AppManager {
      * 单一实例
      */
     public static AppManager getAppManager() {
-        return ActivityManager.appManager;
+        return AppManagerInner.appManager;
     }
+
+
+    public void setApplication(Application application) {
+        //防止被多次重复注册
+        application.unregisterActivityLifecycleCallbacks(activityLifecycleCallbacks);
+        application.registerActivityLifecycleCallbacks(activityLifecycleCallbacks);
+    }
+
+
+    private Application.ActivityLifecycleCallbacks activityLifecycleCallbacks = new Application.ActivityLifecycleCallbacks() {
+
+        @Override
+        public void onActivityStopped(Activity activity) {
+            Log.e(TAG, activity.getLocalClassName() + " onActivityStopped");
+        }
+
+        @Override
+        public void onActivityStarted(Activity activity) {
+            Log.e(TAG, activity.getLocalClassName() + " onActivityStarted ");
+        }
+
+        @Override
+        public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+            Log.e(TAG, activity.getLocalClassName() + " onActivitySaveInstanceState ");
+        }
+
+        @Override
+        public void onActivityResumed(Activity activity) {
+            Log.e(TAG, activity.getLocalClassName() + " onActivityResumed ");
+        }
+
+        @Override
+        public void onActivityPaused(Activity activity) {
+            Log.e(TAG, activity.getLocalClassName() + " onActivityPaused ");
+        }
+
+        @Override
+        public void onActivityDestroyed(Activity activity) {
+            removeActivity(activity);
+            Log.e(TAG, activity.getLocalClassName() + " onActivityDestroyed ==>" + TAG + " stack size=" + activityStack.size());
+        }
+
+        @Override
+        public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+            addActivity(activity);
+            Log.e(TAG, activity.getLocalClassName() + " onActivityCreated ==>" + TAG + " stack size=" + activityStack.size());
+
+        }
+
+    };
 
     /**
      * 栈中是否为空
@@ -59,53 +113,6 @@ public class AppManager {
      */
     public void addActivity(Activity activity) {
         activityStack.add(new WeakReference<>(activity));
-    }
-
-    /**
-     * 获取当前Activity（堆栈中最后一个压入的）
-     */
-    public Activity currentActivity() {
-        return getLastElement();
-    }
-
-    private Activity getLastElement() {
-        if (activityStack.isEmpty()) {
-            return null;
-        }
-        Activity activity;
-        do {
-            activity = activityStack.lastElement().get();
-            if (activity == null) {//当前Activity 因为内存不足被销毁了，顺序获取下一个
-                activityStack.pop();
-            }
-            if (activityStack.isEmpty()) {
-                return null;
-            }
-        } while (activity != null);
-        return activity;
-    }
-
-    /**
-     * 获取前一个activity，便于返回
-     *
-     * @return
-     */
-    public Activity lastActivity() {
-        if (activityStack.size() < 2) {
-            return null;
-        }
-        return getLastElement();
-    }
-
-    /**
-     * 结束当前Activity（堆栈中最后一个压入的）
-     */
-    public void finishCurrentActivity() {
-        if (activityStack.empty()) {
-            return;
-        }
-        Activity activity = getLastElement();
-        finishActivity(activity);
     }
 
     /**
@@ -128,11 +135,49 @@ public class AppManager {
     }
 
     /**
+     * 获取前一个activity，便于返回
+     *
+     * @return
+     */
+    private Activity getLastElement() {
+        Activity activity;
+        do {
+            if (activityStack.isEmpty()) {
+                return null;
+            }
+            activity = activityStack.lastElement().get();
+            if (activity == null) {//当前Activity 因为内存不足被销毁了，顺序获取下一个
+                activityStack.pop();
+            } else {
+                return activity;
+            }
+        } while (!activityStack.empty());
+        return null;
+    }
+
+    /**
+     * 获取当前Activity（堆栈中最后一个压入的）
+     */
+    public Activity getCurrentActivity() {
+        return getLastElement();
+    }
+
+    /**
+     * 结束当前Activity（堆栈中最后一个压入的）
+     */
+    public void finishCurrentActivity() {
+        if (activityStack.empty()) {
+            return;
+        }
+        Activity activity = getLastElement();
+        finishActivity(activity);
+    }
+
+    /**
      * 结束指定的Activity
      */
     public void finishActivity(Activity activity) {
         if (activity != null) {
-            removeActivity(activity);
             activity.finish();
         }
     }
@@ -146,7 +191,6 @@ public class AppManager {
             Activity activity = iterator.next().get();
             if (activity != null) {
                 if (activity.getClass().equals(cls)) {
-                    iterator.remove();
                     activity.finish();
                 }
             }
@@ -165,24 +209,6 @@ public class AppManager {
             }
         }
         activityStack.clear();
-    }
-
-    /**
-     * 结束所有Activity保留主界面
-     */
-    public void finishAllActivityExcludeFirst() {
-        int stackSize = activityStack.size();
-        if (stackSize >= 1) {
-            ArrayList<WeakReference<Activity>> activityList = new ArrayList<>(
-                    activityStack.subList(1, stackSize));
-            for (int i = 0, size = activityList.size(); i < size; i++) {
-                WeakReference<Activity> weakReference = activityList.get(i);
-                activityStack.remove(weakReference);
-                if (weakReference.get() != null) {
-                    weakReference.get().finish();
-                }
-            }
-        }
     }
 
     /**
@@ -209,10 +235,16 @@ public class AppManager {
     public void AppExit(Context context) {
         try {
             NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
-            mNotificationManager.cancel(1);
+            if (mNotificationManager != null) {
+                mNotificationManager.cancel(1);
+            }
             finishAllActivity();
+            ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+            if (activityManager != null) {
+                activityManager.restartPackage(context.getPackageName());
+            }
+            System.exit(0);
         } catch (Exception e) {
-        } finally {
             android.os.Process.killProcess(android.os.Process.myPid());
             System.exit(0);
         }
@@ -225,58 +257,32 @@ public class AppManager {
     public void AppExit(Context context, Intent intent) {
         try {
             context.stopService(intent);
-            finishAllActivity();
+            AppExit(context);
         } catch (Exception e) {
-        } finally {
             android.os.Process.killProcess(android.os.Process.myPid());
             System.exit(0);
         }
 
     }
 
-    private Application.ActivityLifecycleCallbacks activityLifecycleCallbacks = new Application.ActivityLifecycleCallbacks() {
-
-        @Override
-        public void onActivityStopped(Activity activity) {
-            Log.e(TAG, activity.getLocalClassName() + " onActivityStopped");
+    /**
+     * 获取launcher activity
+     *
+     * @param context     上下文
+     * @param packageName 包名
+     * @return launcher activity
+     */
+    public static String getLauncherActivity(Context context, String packageName) {
+        Intent intent = new Intent(Intent.ACTION_MAIN, null);
+        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+        PackageManager pm = context.getPackageManager();
+        List<ResolveInfo> infos = pm.queryIntentActivities(intent, 0);
+        for (ResolveInfo info : infos) {
+            if (info.activityInfo.packageName.equals(packageName)) {
+                return info.activityInfo.name;
+            }
         }
-
-        @Override
-        public void onActivityStarted(Activity activity) {
-            Log.e(TAG, activity.getLocalClassName() + " onActivityStarted");
-        }
-
-        @Override
-        public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-            Log.e(TAG, activity.getLocalClassName() + " onActivitySaveInstanceState");
-        }
-
-        @Override
-        public void onActivityResumed(Activity activity) {
-            Log.e(TAG, activity.getLocalClassName() + " onActivityResumed");
-        }
-
-        @Override
-        public void onActivityPaused(Activity activity) {
-            Log.e(TAG, activity.getLocalClassName() + " onActivityPaused");
-        }
-
-        @Override
-        public void onActivityDestroyed(Activity activity) {
-            removeActivity(activity);
-            Log.e(TAG, activity.getLocalClassName() + " onActivityDestroyed ==>" + TAG + " stack size=" + activityStack.size());
-        }
-
-        @Override
-        public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-            addActivity(activity);
-            Log.e(TAG, activity.getLocalClassName() + " onActivityCreated ==>" + TAG + " stack size=" + activityStack.size());
-
-        }
-
-    };
-
-    public Application.ActivityLifecycleCallbacks getActivityLifecycleCallbacks() {
-        return activityLifecycleCallbacks;
+        return "no " + packageName;
     }
+
 }

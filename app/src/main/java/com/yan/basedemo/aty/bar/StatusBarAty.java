@@ -18,9 +18,8 @@ import butterknife.OnClick;
 public class StatusBarAty extends BaseAty {
 
     @Override
-    protected void initContentView() {
-        setContentView(R.layout.aty_status_bar);
-        ButterKnife.bind(this);
+    protected int setContentLayout() {
+        return R.layout.aty_status_bar;
     }
 
     @Override

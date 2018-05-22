@@ -49,9 +49,8 @@ public class LoginAty extends BaseAty implements LoginViewer {
     APKUpdateManager apkUpdateManager;
 
     @Override
-    protected void initContentView() {
-        setContentView(R.layout.aty_login);
-        ButterKnife.bind(this);
+    protected int setContentLayout() {
+        return R.layout.aty_login;
     }
 
     @Override

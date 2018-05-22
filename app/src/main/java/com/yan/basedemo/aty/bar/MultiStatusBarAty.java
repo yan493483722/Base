@@ -52,9 +52,8 @@ public class MultiStatusBarAty extends BaseAty {
     List<BaseFg> baseFgs;
 
     @Override
-    protected void initContentView() {
-        setContentView(R.layout.aty_multi_status_bar);
-        ButterKnife.bind(this);
+    protected int setContentLayout() {
+        return R.layout.aty_multi_status_bar;
     }
 
     @Override

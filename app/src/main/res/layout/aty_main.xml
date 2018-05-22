@@ -51,4 +51,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="web load" />
+
+
+    <Button
+        android:id="@+id/btn_green_dao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="green dao" />
 </LinearLayout>

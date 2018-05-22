@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PersistableBundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
@@ -27,10 +28,12 @@ import com.yan.base.manager.SnackBarAndToastManager;
 import com.yan.base.toolbar.BaseToolbar;
 import com.yan.base.toolbar.BaseToolbarUtil;
 
+import butterknife.ButterKnife;
+
 /**
  * 项目名称：Base
  * 类描述：
- * 创建人：yanzi
+ * 创建人：YanZi
  * 创建时间：2016/7/7 10:02
  * 修改人：
  * 修改时间：
@@ -109,8 +112,8 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
         mSnackBarAndToastManager = new SnackBarAndToastManager(mAty);
         mProgressDialogManager = new ProgressDialogManager(mAty);
 
-        initContentView();
-
+        setContentView(setContentLayout());
+        ButterKnife.bind(this);
         if (isFirstPage) {//如果是通过第三方应用安装，则启动的方式有所不同
             // 部分系统会每次点击图标都重启launcher 页面 所以需要关闭launcher
             if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
@@ -126,10 +129,9 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
     }
 
     /**
-     * 这里 调用 setContentView();
-     * 自由选择是否ButterKnife.bind(this) ,所以将 setContentView() 设置自己配置
+     * 设置content的布局
      */
-    protected abstract void initContentView();
+    protected abstract @LayoutRes int setContentLayout();
 
     /**
      * 实例化视图，设置标题的title等
@@ -185,7 +187,7 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
         ViewGroup mContentView = (ViewGroup) window.findViewById(Window.ID_ANDROID_CONTENT);
         View mChildView = mContentView.getChildAt(0);
         if (mChildView != null) {
-            ViewCompat.setFitsSystemWindows(mChildView, false);
+            mChildView.setFitsSystemWindows(false);
             ViewCompat.requestApplyInsets(mChildView);
         }
     }

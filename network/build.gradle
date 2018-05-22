@@ -60,9 +60,9 @@ dependencies {
     api 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
 
 
-    implementation project(':base')
-    debugImplementation project(':base')
-    releaseImplementation project(':base')
+    api project(':base')
+    debugApi project(':base')
+    releaseApi project(':base')
 
 
 }

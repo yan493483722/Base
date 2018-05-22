@@ -27,8 +27,8 @@ public class APKDownloadAty extends BaseAty implements View.OnClickListener {
     WaveView wv_apk_download;
 
     @Override
-    protected void initContentView() {
-        setContentView(R.layout.aty_download_apk);
+    protected int setContentLayout() {
+        return R.layout.aty_download_apk;
     }
 
     @Override

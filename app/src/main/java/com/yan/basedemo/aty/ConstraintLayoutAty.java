@@ -12,8 +12,8 @@ public class ConstraintLayoutAty extends BaseAty {
 
 
     @Override
-    protected void initContentView() {
-
+    protected int setContentLayout() {
+        return 0;
     }
 
     @Override

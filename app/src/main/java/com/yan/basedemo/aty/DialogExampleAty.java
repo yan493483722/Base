@@ -59,9 +59,8 @@ public class DialogExampleAty extends BaseAty {
     String tempPassword = "123456";
 
     @Override
-    protected void initContentView() {
-        setContentView(R.layout.aty_dialog_example);
-        ButterKnife.bind(this);
+    protected int setContentLayout() {
+        return R.layout.aty_dialog_example;
     }
 
     @Override

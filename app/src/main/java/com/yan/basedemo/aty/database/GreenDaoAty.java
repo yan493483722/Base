@@ -1,6 +1,7 @@
 package com.yan.basedemo.aty.database;
 
 import com.yan.base.BaseAty;
+import com.yan.basedemo.R;
 
 /**
  * Created by YanZi on 2018/5/22.
@@ -13,7 +14,7 @@ public class GreenDaoAty extends BaseAty {
 
     @Override
     protected int setContentLayout() {
-        return 0;
+        return R.layout.aty_green_dao;
     }
 
     @Override

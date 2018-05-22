@@ -20,10 +20,12 @@ public class NormalStatusBarAty extends BaseAty {
     BaseToolbar btbStatusBarNormal;
 
     @Override
-    protected void initContentView() {
-        setContentView(R.layout.aty_normal_status_bar);
+    protected int setContentLayout() {
+        return R.layout.aty_normal_status_bar;
+    }
 
-        ButterKnife.bind(this);
+    @Override
+    protected void initView() {
         setBaseToolbar(btbStatusBarNormal,true);
         btbStatusBarNormal.setBaseToolbarListener(new BaseToolbar.BaseToolbarListener() {
             @Override
@@ -38,12 +40,6 @@ public class NormalStatusBarAty extends BaseAty {
         });
         btbStatusBarNormal.setTitleText("正常的标题");
         btbStatusBarNormal.setDefaultLayoutRight(null,"确定");
-
-
-    }
-
-    @Override
-    protected void initView() {
 
     }
 

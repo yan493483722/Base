@@ -24,10 +24,12 @@ public class MultiDownloadAty extends BaseAty {
 //    RecyclerView rcMultiDownload;
 
     @Override
-    protected void initContentView() {
-        setContentView(R.layout.aty_multi_download);
-        ButterKnife.bind(this);
+    protected int setContentLayout() {
+        return R.layout.aty_multi_download;
+    }
 
+    @Override
+    protected void initView() {
         btbMultiDownload.setTitleText("列表下载");
 
         btbMultiDownload.setBaseToolbarListener(new BaseToolbar.BaseToolbarListener() {
@@ -41,11 +43,6 @@ public class MultiDownloadAty extends BaseAty {
 
             }
         });
-    }
-
-    @Override
-    protected void initView() {
-
     }
 
     @Override

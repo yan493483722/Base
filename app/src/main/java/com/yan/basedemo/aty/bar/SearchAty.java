@@ -21,9 +21,12 @@ public class SearchAty extends BaseAty {
     DefaultSearchToolbar dstSearch;
 
     @Override
-    protected void initContentView() {
-        setContentView(R.layout.aty_search);
-        ButterKnife.bind(this);
+    protected int setContentLayout() {
+        return R.layout.aty_search;
+    }
+
+    @Override
+    protected void initView() {
         setBaseToolbar(dstSearch, true);
         dstSearch.setDefaultLayoutRight(null, "搜索");
 //        btbSearch.setSearchDefaultLayout(mAty);
@@ -38,11 +41,6 @@ public class SearchAty extends BaseAty {
                 mSnackBarAndToastManager.showSnackBar("搜索");
             }
         });
-    }
-
-    @Override
-    protected void initView() {
-
     }
 
     @Override

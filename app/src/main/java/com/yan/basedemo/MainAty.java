@@ -15,6 +15,7 @@ import com.yan.basedemo.aty.DialogExampleAty;
 import com.yan.basedemo.aty.LoginAty;
 import com.yan.basedemo.aty.MultiDownloadAty;
 import com.yan.basedemo.aty.bar.StatusBarAty;
+import com.yan.basedemo.aty.database.GreenDaoAty;
 import com.yan.network.download.apk.APKDownloadAty;
 
 import java.math.BigDecimal;
@@ -45,22 +46,13 @@ public class MainAty extends BaseAty {
     private static final int PERMISSION_OTHERS = 12;
 
     @Override
-    protected void initContentView() {
-        setContentView(R.layout.aty_main);
-        ButterKnife.bind(this);
-
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
-            requestPermission(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_READ_STORAGE);
-        }
-        requestPermission(new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_READ_PHONE_STATE);
-        requestPermission(new String[]{Manifest.permission.READ_PHONE_STATE
-                , Manifest.permission.WRITE_EXTERNAL_STORAGE
-                , Manifest.permission.CAMERA}, PERMISSION_OTHERS);
+    protected int setContentLayout() {
+        return R.layout.aty_main;
     }
 
     @OnClick({R.id.btn_main_dialog, R.id.btn_main_loading, R.id.btn_main_permission, R.id.btn_main_web,
-            R.id.btn_main_status_bar, R.id.btn_main_net,
-            R.id.btn_main_multi_download})
+            R.id.btn_main_status_bar, R.id.btn_main_net,R.id.btn_main_multi_download,
+            R.id.btn_green_dao})
     public void click(View view) {
         switch (view.getId()) {
             case R.id.btn_main_dialog:
@@ -86,6 +78,9 @@ public class MainAty extends BaseAty {
             case R.id.btn_main_multi_download:
                 startActivity(new Intent(mAty, MultiDownloadAty.class));
                 break;
+            case R.id.btn_green_dao:
+                startActivity(new Intent(mAty, GreenDaoAty.class));
+                break;
             default:
                 break;
         }
@@ -99,6 +94,13 @@ public class MainAty extends BaseAty {
     @Override
     public void initData() {
         needCatchKeycodeBack = true;
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
+            requestPermission(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_READ_STORAGE);
+        }
+        requestPermission(new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_READ_PHONE_STATE);
+        requestPermission(new String[]{Manifest.permission.READ_PHONE_STATE
+                , Manifest.permission.WRITE_EXTERNAL_STORAGE
+                , Manifest.permission.CAMERA}, PERMISSION_OTHERS);
     }
 
 

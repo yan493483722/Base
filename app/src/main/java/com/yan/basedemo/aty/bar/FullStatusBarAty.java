@@ -18,10 +18,8 @@ public class FullStatusBarAty extends BaseAty {
     BaseToolbar btbStatusBarFull;
 
     @Override
-    protected void initContentView() {
-        setContentView(R.layout.aty_full_status_bar);
-        ButterKnife.bind(this);
-
+    protected int setContentLayout() {
+        return R.layout.aty_full_status_bar;
     }
 
     @Override

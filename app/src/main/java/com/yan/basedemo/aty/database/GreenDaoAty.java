@@ -1,14 +1,14 @@
-package com.yan.basedemo.aty;
+package com.yan.basedemo.aty.database;
 
 import com.yan.base.BaseAty;
 
 /**
- * Created by YanZi on 2017/9/18.
+ * Created by YanZi on 2018/5/22.
  * describe：
  * modify:
  * modify date:
  */
-public class ConstraintLayoutAty extends BaseAty {
+public class GreenDaoAty extends BaseAty {
 
 
     @Override

@@ -26,28 +26,10 @@ public class MoreActivity extends BaseAty {
 
 
     @Override
-    protected void initContentView() {
-        setContentView(R.layout.aty_more);
-        ButterKnife.bind(this);
-
-        setBaseToolbar(btbMore, false);
-        btbMore.setTitleText("更多");
-
-        btbMore.setBaseToolbarListener(new BaseToolbar.BaseToolbarListener() {
-            @Override
-            public void clickLeft(int type) {
-                onBackPressed();
-            }
-
-            @Override
-            public void clickRight(int type) {
-
-            }
-        });
-        btbMore.ll_base_tb_right.setVisibility(View.GONE);
-        btbMore.ll_base_tb_left.setVisibility(View.GONE);
-        btbMore.tb_base_tb.setOnMenuItemClickListener(onMenuItemClick);
+    protected int setContentLayout() {
+        return R.layout.aty_more;
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -85,6 +67,23 @@ public class MoreActivity extends BaseAty {
     @Override
     protected void initView() {
 
+        setBaseToolbar(btbMore, false);
+        btbMore.setTitleText("更多");
+
+        btbMore.setBaseToolbarListener(new BaseToolbar.BaseToolbarListener() {
+            @Override
+            public void clickLeft(int type) {
+                onBackPressed();
+            }
+
+            @Override
+            public void clickRight(int type) {
+
+            }
+        });
+        btbMore.ll_base_tb_right.setVisibility(View.GONE);
+        btbMore.ll_base_tb_left.setVisibility(View.GONE);
+        btbMore.tb_base_tb.setOnMenuItemClickListener(onMenuItemClick);
     }
 
     @Override

@@ -6,6 +6,8 @@ import android.widget.Button;
 
 import com.yan.base.BaseAty;
 import com.yan.basedemo.R;
+import com.yan.basedemo.bean.Cat;
+import com.yan.basedemo.bean.Mouse;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,6 +30,7 @@ public class GreenDaoAty extends BaseAty {
     Button btnGreenDaoChange;
     @BindView(R.id.btn_green_dao_query)
     Button btnGreenDaoQuery;
+
 
     @Override
     protected int setContentLayout() {

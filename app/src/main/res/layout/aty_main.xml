@@ -58,4 +58,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="green dao" />
+
+
+
+    <Button
+        android:id="@+id/btn_observer_simple"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Observer Simple" />
 </LinearLayout>

@@ -89,6 +89,10 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden|stateAlwaysHidden|adjustPan" />
         <activity
+            android:name=".aty.ObserverSimpleAty"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden|stateAlwaysHidden|adjustPan" />
+        <activity
             android:name=".aty.database.GreenDaoAty"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden|stateAlwaysHidden|adjustPan" />

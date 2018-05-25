@@ -34,6 +34,12 @@ android {
         // ... and any other excludes go here
         exclude 'META-INF/NOTICE.txt'
     }
+
+    greendao {
+        schemaVersion 1  //版本
+        daoPackage 'com.yan.basedemo.greendao' // 一般为app包名+生成文件的文件夹名
+        targetGenDir 'src/main/java' //生成文件路径
+    }
 }
 
 dependencies {

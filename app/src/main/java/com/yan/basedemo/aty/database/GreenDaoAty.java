@@ -15,6 +15,9 @@ import com.yan.basedemo.bean.Dog;
 import com.yan.basedemo.greendao.DaoMaster;
 import com.yan.basedemo.greendao.DaoSession;
 import com.yan.basedemo.greendao.DogDaoOperation;
+import com.yan.basedemo.greendao.GreenDaoManager;
+
+import org.greenrobot.greendao.rx.RxDao;
 
 import java.util.ArrayList;
 import java.util.List;

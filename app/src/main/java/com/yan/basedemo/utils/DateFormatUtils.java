@@ -1,5 +1,7 @@
 package com.yan.basedemo.utils;
 
+import android.util.Log;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,13 +41,17 @@ public class DateFormatUtils {
     List<String> days = new ArrayList<>(day);
     switch (day) {
       case 3:
+          System.out.println(3);
         days.add(0, getDateNextDay(new Date(), 2, FORMAT_DATE) + "后天");
       case 2:
+          System.out.println(2);
         days.add(0, getDateNextDay(new Date(), 1, FORMAT_DATE) + "明天");
       case 1:
+          System.out.println(1);
         days.add(0, "今天");
         break;
       default:
+          System.out.println("default");
         for (int index = 0; index < day; index++) {
           days.add(getDateNextDay(new Date(), index, FORMAT_DATE));
         }
@@ -63,7 +69,13 @@ public class DateFormatUtils {
     int div = dayMinute / timeDivision;//时间间隔～分钟数
     Date baseDate = parse(new Date(), FORMAT_DATE);
     for (int index = 0; index < timeDivision; index++) {
-      timeGaps.add(getDateNextSomeMinute(baseDate, div * index) + "~" + getDateNextSomeMinute(baseDate, div * (index + 1)));
+     if(index==timeDivision-1){
+       timeGaps.add(getDateNextSomeMinute(baseDate, div * index) + "~" + "24:00");
+     }else{
+       timeGaps.add(getDateNextSomeMinute(baseDate, div * index) + "~" + getDateNextSomeMinute(baseDate, div * (index + 1)));
+
+     }
+
     }
     return timeGaps;
   }
@@ -114,7 +126,7 @@ public class DateFormatUtils {
 
 
   public static void main(String[] args) {
-    DateFormatUtils bean = new DateFormatUtils(3,4);
+    DateFormatUtils bean = new DateFormatUtils(3,12);
 
     System.out.println(bean.getDays());
 

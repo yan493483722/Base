@@ -8,13 +8,19 @@ import java.util.Observable;
  * modify:
  * modify date:
  */
-public class Cat extends Observable {
+public class Cat  extends Observable {
 
     String name;
 
     int id;
 
     boolean isOut;
+
+    public Cat(String name, int id, boolean isOut) {
+        this.name = name;
+        this.id = id;
+        this.isOut = isOut;
+    }
 
     public String getName() {
         return name;
@@ -36,8 +42,11 @@ public class Cat extends Observable {
         return isOut;
     }
 
-    public void setOut(boolean out) {
+    public void setOut(boolean out,String where) {
         isOut = out;
+        setChanged();
+        notifyObservers(where);
+
     }
 
     @Override
@@ -48,4 +57,5 @@ public class Cat extends Observable {
                 ", isOut=" + isOut +
                 '}';
     }
+
 }

@@ -43,7 +43,7 @@ public  class BaseApplication extends Application {
     /**
      *
      */
-    private void initStoreData() {
+    protected void initStoreData() {
         GlobalPreference.init(this.getApplicationContext(), this.getPackageName() + "_preference", MODE_PRIVATE);
         //TODO　database
     }

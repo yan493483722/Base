@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.yan.base.BuildConfig;
 import com.yan.base.application.BaseApplication;
+import com.yan.basedemo.greendao.DaoMaster;
+import com.yan.basedemo.greendao.DaoSession;
 import com.yan.basedemo.network.ConstanceNet;
 import com.yan.network.Retrofit2Client;
 
@@ -26,8 +28,11 @@ public class BaseDemoApplication extends BaseApplication {
         Retrofit2Client.setDebug(BuildConfig.DEBUG);
     }
 
+    @Override
+    protected void initStoreData() {
+        super.initStoreData();
 
-
+    }
 
     @Override
     protected void  initOther(){

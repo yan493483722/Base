@@ -33,8 +33,6 @@ public class GreenDaoAdapter extends RecyclerView.Adapter<GreenDaoAdapter.MyEnti
 
     GreenDaoClickListener greenDaoClickListener;
 
-
-
     public GreenDaoAdapter(Context mContext, List<Dog> dogList) {
         this.mContext = mContext;
         this.dogList = dogList;

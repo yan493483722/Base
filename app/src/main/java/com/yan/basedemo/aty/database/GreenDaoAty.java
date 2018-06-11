@@ -7,17 +7,16 @@ import android.view.View;
 import android.widget.Button;
 
 import com.orhanobut.logger.Logger;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.yan.base.BaseAty;
 import com.yan.base.widget.RecyclerListDiv;
 import com.yan.basedemo.R;
 import com.yan.basedemo.adapter.GreenDaoAdapter;
 import com.yan.basedemo.bean.Dog;
-import com.yan.basedemo.greendao.DaoMaster;
-import com.yan.basedemo.greendao.DaoSession;
 import com.yan.basedemo.greendao.DogDaoOperation;
-import com.yan.basedemo.greendao.GreenDaoManager;
-
-import org.greenrobot.greendao.rx.RxDao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +43,11 @@ public class GreenDaoAty extends BaseAty {
     Button btnGreenDaoQuery;
     @BindView(R.id.rv_green_dao)
     RecyclerView rvGreenDao;
+    @BindView(R.id.sml_green_dao)
+    SmartRefreshLayout smlGreenDao;
 
     GreenDaoAdapter greenDaoAdapter;
+
     private List<Dog> dogList;
     int page;
 
@@ -56,7 +58,21 @@ public class GreenDaoAty extends BaseAty {
 
     @Override
     protected void initView() {
-
+        System.out.println(System.currentTimeMillis()/1000);
+        smlGreenDao.setEnableLoadmore(true);
+        smlGreenDao.setEnableRefresh(true);
+        smlGreenDao.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
+            }
+        });
+        smlGreenDao.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                refreshlayout.finishLoadmore(2000/*,false*/);//传入false表示刷新失败
+            }
+        });
     }
 
     @Override
@@ -76,7 +92,7 @@ public class GreenDaoAty extends BaseAty {
 
             @Override
             public void clickDelete(int position) {
-                DogDaoOperation.deleteData(mAty,dogList.get(position));
+                DogDaoOperation.deleteData(mAty, dogList.get(position));
                 dogList = DogDaoOperation.queryAll(mAty);
                 Logger.e("query " + " " + dogList.size());
                 greenDaoAdapter.notifyDataSetChanged(dogList);
@@ -107,8 +123,8 @@ public class GreenDaoAty extends BaseAty {
 
     private List<Dog> getDogList(int position) {
         List<Dog> list = new ArrayList();
-        for (int i = position; i < 100+position; i++) {
-            Dog dog = new Dog(null,(long) i, "小狗" + i);
+        for (int i = position; i < 1 + position; i++) {
+            Dog dog = new Dog(null, (long) i, "小狗" + i);
             list.add(dog);
         }
         return list;

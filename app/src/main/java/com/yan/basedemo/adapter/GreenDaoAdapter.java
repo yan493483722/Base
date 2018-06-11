@@ -34,10 +34,7 @@ public class GreenDaoAdapter extends RecyclerView.Adapter<GreenDaoAdapter.MyEnti
     //点击事件回调
     GreenDaoClickListener greenDaoClickListener;
 
-<<<<<<< HEAD
     //构造方法
-=======
->>>>>>> f945679358b0407874c87af2d57fac0be02f6d72
     public GreenDaoAdapter(Context mContext, List<Dog> dogList) {
         this.mContext = mContext;
         this.dogList = dogList;

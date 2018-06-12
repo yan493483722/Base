@@ -9,7 +9,7 @@ import android.widget.Button;
 import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.yan.base.BaseAty;
 import com.yan.base.widget.RecyclerListDiv;
@@ -59,7 +59,7 @@ public class GreenDaoAty extends BaseAty {
     @Override
     protected void initView() {
         System.out.println(System.currentTimeMillis()/1000);
-        smlGreenDao.setEnableLoadmore(true);
+        smlGreenDao.setEnableLoadMore(true);
         smlGreenDao.setEnableRefresh(true);
         smlGreenDao.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -67,10 +67,10 @@ public class GreenDaoAty extends BaseAty {
                 refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
             }
         });
-        smlGreenDao.setOnLoadmoreListener(new OnLoadmoreListener() {
+        smlGreenDao.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
-            public void onLoadmore(RefreshLayout refreshlayout) {
-                refreshlayout.finishLoadmore(2000/*,false*/);//传入false表示刷新失败
+            public void onLoadMore(RefreshLayout refreshlayout) {
+                refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示刷新失败
             }
         });
     }

@@ -44,7 +44,7 @@ public class GreenDaoAdapter extends RecyclerView.Adapter<GreenDaoAdapter.MyEnti
     public  void  notifyDataSetChanged( List<Dog> dogList){
         this.dogList=dogList;
         super.notifyDataSetChanged();
-    };
+    }
 
     public void setGreenDaoClickListener(GreenDaoClickListener greenDaoClickListener) {
         this.greenDaoClickListener = greenDaoClickListener;

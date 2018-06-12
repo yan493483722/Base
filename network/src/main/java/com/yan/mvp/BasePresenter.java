@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.yan.base.BaseAty;
+import com.yan.base.BuildConfig;
 import com.yan.base.uitls.Tools;
 
 import java.util.concurrent.TimeUnit;
@@ -15,6 +16,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by YanZi on 2017/6/16.
@@ -30,21 +33,34 @@ public class BasePresenter<T extends BaseViewer> {
 
     protected OkHttpClient mOkHttpClient;
 
+    Retrofit mRetrofit;
+
     public BasePresenter(BaseAty baseAty, T t) {
         this.baseAty = baseAty;
         this.viewer = t;
         HttpLoggingInterceptor httpLoggingInterceptor;
-//        if () {
-//        httpLoggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE);
-//        } else {
-        httpLoggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
-//        }
+        if (BuildConfig.DEBUG) {
+            httpLoggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE);
+        } else {
+            httpLoggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
+        }
         mOkHttpClient = new OkHttpClient().newBuilder().addInterceptor(httpLoggingInterceptor)
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
                 .writeTimeout(10, TimeUnit.SECONDS)
                 .retryOnConnectionFailure(false)
                 .build();
+
+        mRetrofit = new Retrofit.Builder()
+                //设置OKHttpClient
+                .client(mOkHttpClient)
+                //设置baseUrl,注意，baseUrl必须后缀"/"
+                .baseUrl("https://api.github.com/")
+
+                //添加Gson转换器
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
 //    }
 
 //    protected boolean noNetAndCallBack(Object tag) {
@@ -84,7 +100,7 @@ public class BasePresenter<T extends BaseViewer> {
 //                .build();
         RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"),
                 new Gson().toJson(requestModel)
-                );
+        );
 //        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"),
 //
 //                JSON.toJSONString(requestModel, SerializerFeature.WriteMapNullValue));

@@ -131,7 +131,8 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
     /**
      * 设置content的布局
      */
-    protected abstract @LayoutRes int setContentLayout();
+    protected abstract @LayoutRes
+    int setContentLayout();
 
     /**
      * 实例化视图，设置标题的title等
@@ -182,13 +183,14 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setStatusBarColor(Color.TRANSPARENT);
-        }
-        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        ViewGroup mContentView = (ViewGroup) window.findViewById(Window.ID_ANDROID_CONTENT);
-        View mChildView = mContentView.getChildAt(0);
-        if (mChildView != null) {
-            mChildView.setFitsSystemWindows(false);
-            ViewCompat.requestApplyInsets(mChildView);
+
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            ViewGroup mContentView = (ViewGroup) window.findViewById(Window.ID_ANDROID_CONTENT);
+            View mChildView = mContentView.getChildAt(0);
+            if (mChildView != null) {
+                mChildView.setFitsSystemWindows(false);
+                ViewCompat.requestApplyInsets(mChildView);
+            }
         }
     }
 
@@ -203,6 +205,7 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
      * @param showLeftIcon
      */
     public void setBaseToolbarStretchable(BaseToolbar toolbar, boolean showLeftIcon) {
+        setBaseToolbarInFragment();
         setSupportActionBar(toolbar.tb_base_tb);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(showLeftIcon);

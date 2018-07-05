@@ -1,6 +1,7 @@
 package com.yan.base;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -19,7 +20,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.lzy.okgo.OkGo;
+import com.yan.base.application.AppManager;
 import com.yan.base.application.GlobalPreference;
 import com.yan.base.listener.PermissionListener;
 import com.yan.base.manager.PermissionManager;
@@ -27,6 +35,8 @@ import com.yan.base.manager.ProgressDialogManager;
 import com.yan.base.manager.SnackBarAndToastManager;
 import com.yan.base.toolbar.BaseToolbar;
 import com.yan.base.toolbar.BaseToolbarUtil;
+
+import java.io.File;
 
 import butterknife.ButterKnife;
 
@@ -52,8 +62,6 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
      */
     private int clickKeycodeBackNum = 0;
 
-    //加载的loading
-    protected ProgressDialog mProgressDialog;
 
     /**
      * 全局变量的存取
@@ -194,6 +202,9 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
         }
     }
 
+    public LayoutInflater getmLayoutInflater() {
+        return mLayoutInflater;
+    }
 
     /**
      * 两边有侧滑时设置baseToolbar
@@ -241,9 +252,10 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
 
     @Override
     protected void onDestroy() {
-        if (mProgressDialogManager.mSystemProgressDialog != null && mProgressDialogManager.mSystemProgressDialog.isShowing()) {
-            mProgressDialogManager.mSystemProgressDialog.dismiss();
-            mProgressDialogManager.mSystemProgressDialog = null;
+        OkGo.getInstance().cancelTag(this);
+        if (mProgressDialogManager.getSystemProgressDialog() != null && mProgressDialogManager.getSystemProgressDialog().isShowing()) {
+            mProgressDialogManager.getSystemProgressDialog().dismiss();
+            mProgressDialogManager.release();
         }
         super.onDestroy();
     }
@@ -298,9 +310,9 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
         if (needCatchKeycodeBack) {
             if (clickKeycodeBackNum >= 1) {
                 //将当前进程移到背后
-                moveTaskToBack(true);
-//                AppManager.getAppManager().finishAllActivity();
-//                System.exit(0);//退出程序
+//                moveTaskToBack(true);
+                AppManager.getAppManager().finishAllActivity();
+                System.exit(0);//退出程序
             } else {
                 clickKeycodeBackNum++;
                 mSnackBarAndToastManager.showSnackBar("再次点击将退出应用");
@@ -322,11 +334,50 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
         return mPermissionManager;
     }
 
+    @Override
+    public void finish() {
+        hidePan();
+        super.finish();
+    }
+
     public SnackBarAndToastManager getmSnackBarAndToastManager() {
         return mSnackBarAndToastManager;
     }
 
     public ProgressDialogManager getmProgressDialogManager() {
         return mProgressDialogManager;
+    }
+
+    public void displayImage(String url, ImageView imageView) {
+        Glide.with(getApplicationContext())//
+                .load(url)//
+                .into(imageView);
+    }
+
+    public void displayImageNoCache(String url, ImageView imageView) {
+        Glide.with(this)
+                .load(url)
+                .apply(new RequestOptions().skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE))
+                .into(imageView);
+
+    }
+
+
+    public void displayImageNoCache(File file, ImageView imageView) {
+        Glide.with(this)
+                .load(file)
+                .apply(new RequestOptions().skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE))
+                .into(imageView);
+
+    }
+
+
+    protected void hidePan() {
+        InputMethodManager inputMethodManager = ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE));
+        View view = (mAty).getCurrentFocus();
+        if (view == null) {
+            view = new View(this);
+        }
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

@@ -45,8 +45,9 @@ public class BaseSingleBtnDialog extends BaseDialog {
             return this;
         }
 
-        public void setBtnText(String btnText) {
+        public Builder setBtnText(String btnText) {
             this.btnText = btnText;
+            return this;
         }
 
 

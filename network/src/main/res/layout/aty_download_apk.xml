@@ -50,7 +50,7 @@
         circleProgressBar:unit="%"
         circleProgressBar:unitColor="@color/font_white"
         circleProgressBar:unitSize="@dimen/font_big"
-        circleProgressBar:value="10"
+        circleProgressBar:value="0"
         circleProgressBar:valueColor="@color/font_white"
         circleProgressBar:valueSize="@dimen/font_big_more" />
 

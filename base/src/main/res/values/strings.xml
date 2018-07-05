@@ -23,6 +23,9 @@
     <string name="password_input_title">请输入支付密码</string>
 
 
+    <string name="web_load_fail">加载失败</string>
+
+
     <string name="get_call_permission">当前没有拨打电话权限，是否申请拨打电话权限？</string>
     <string name="allow_call_permission">允许</string>
     <string name="please_open_call_permission">请打开拨打电话权限</string>

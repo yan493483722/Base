@@ -53,6 +53,7 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
     /**
      * 类型
      */
+    @BaseToolBarType
     private int baseToolBarType = STATUS_BAR_TYPE_NORMAL;
 
     /**
@@ -94,6 +95,9 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
      */
     @ColorInt
     int backgroundColor;
+
+    @DrawableRes
+    int backgroundDrawableRes;
 
     @IntDef({STATUS_BAR_TYPE_NORMAL, STATUS_BAR_TYPE_FULL, STATUS_BAR_TYPE_IMG_NORMAL, STATUS_BAR_TYPE_IMG_FULL})
     @Retention(RetentionPolicy.SOURCE)
@@ -150,10 +154,14 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
             TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.BaseToolbar);
             baseToolBarType = typedArray.getInteger(R.styleable.BaseToolbar_baseToolBarType, STATUS_BAR_TYPE_NORMAL);
             backgroundColor = typedArray.getColor(R.styleable.BaseToolbar_baseToolBarColor, getResources().getColor(R.color.colorPrimary));
+            backgroundDrawableRes = typedArray.getResourceId(R.styleable.BaseToolbar_baseToolBarDrawableRes, 0);
             typedArray.recycle();
         }
         //设置背景色
         setBackgroundColor(backgroundColor);
+        if (backgroundDrawableRes != 0) {
+            setBackgroundDrawable(getResources().getDrawable(backgroundDrawableRes));
+        }
 
         initOtherLayout(context);
     }
@@ -177,21 +185,22 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
      * 覆写此方法 ，设置左侧
      *
      * @param resId
-     * @param right
+     * @param left
      */
-    public void setDefaultLayoutLeft(@DrawableRes int resId, String right) {
-        if (Tools.isNull(right)) {
+    public void setDefaultLayoutLeft(@DrawableRes int resId, String left) {
+        if (Tools.isNull(left)) {
             tv_base_tb_left.setVisibility(GONE);
         } else {
-            tv_base_tb_left.setText(right);
+            tv_base_tb_left.setText(left);
+            ll_base_tb_left.setVisibility(VISIBLE);
         }
         if (resId == 0) {
             iv_base_tb_left.setVisibility(GONE);
         } else {
             iv_base_tb_left.setImageResource(resId);
         }
-        if (!Tools.isNull(right) && resId != 0) {
-            findViewById(R.id.view_base_tb_right).setVisibility(VISIBLE);
+        if (!Tools.isNull(left) && resId != 0) {
+            findViewById(R.id.view_base_tb_left).setVisibility(VISIBLE);
         }
     }
 
@@ -201,21 +210,22 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
      * 覆写此方法 ，设置左侧
      *
      * @param icon
-     * @param right
+     * @param left
      */
-    public void setDefaultLayoutLeft(@Nullable Drawable icon, String right) {
-        if (Tools.isNull(right)) {
+    public void setDefaultLayoutLeft(@Nullable Drawable icon, String left) {
+        if (Tools.isNull(left)) {
             tv_base_tb_left.setVisibility(GONE);
         } else {
-            tv_base_tb_left.setText(right);
+            tv_base_tb_left.setText(left);
+            ll_base_tb_left.setVisibility(VISIBLE);
         }
         if (icon == null) {
             iv_base_tb_left.setVisibility(GONE);
         } else {
             iv_base_tb_left.setImageDrawable(icon);
         }
-        if (!Tools.isNull(right) && icon != null) {
-            findViewById(R.id.view_base_tb_right).setVisibility(VISIBLE);
+        if (!Tools.isNull(left) && icon != null) {
+            findViewById(R.id.view_base_tb_left).setVisibility(VISIBLE);
         }
     }
 
@@ -286,6 +296,10 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        if (baseToolbarListener == null) {
+            return;
+        }
+
         if (v.getId() == R.id.tv_base_tb_left) {
             baseToolbarListener.clickLeft(1);
         } else if (v.getId() == R.id.iv_base_tb_left) {
@@ -314,7 +328,6 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
     @Override
     public void setBackgroundColor(@ColorInt int color) {
         super.setBackgroundColor(color);
-        this.backgroundColor = color;
     }
 
 
@@ -349,8 +362,11 @@ public class BaseToolbar extends LinearLayout implements View.OnClickListener {
      * @param leftChild
      */
     public void setDefaultLayoutLeftView(ViewGroup leftChild) {
-        ll_base_tb_left.removeAllViews();
-        ll_base_tb_left.addView(leftChild);
+        if (leftChild != null) {
+            ll_base_tb_left.removeAllViews();
+            ll_base_tb_left.addView(leftChild);
+            ll_base_tb_left.setVisibility(VISIBLE);
+        }
     }
 
     /**

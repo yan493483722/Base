@@ -41,6 +41,7 @@
             <flag name="img_full" value="3" />
         </attr>
         <attr name="baseToolBarColor" format="reference|color" />
+        <attr name="baseToolBarDrawableRes" format="reference|integer" />
     </declare-styleable>
 
     <!-- 圆形进度条 -->

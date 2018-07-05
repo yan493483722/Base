@@ -13,7 +13,7 @@ import com.yan.base.BaseAty;
  */
 public class ProgressDialogManager {
 
-   public ProgressDialog mSystemProgressDialog;
+    private ProgressDialog mSystemProgressDialog;
 
     private BaseAty baseAty;
 
@@ -28,11 +28,12 @@ public class ProgressDialogManager {
     public void showSystemLoading(String content) {
         if (null == mSystemProgressDialog) {
             mSystemProgressDialog = new ProgressDialog(baseAty);
+            mSystemProgressDialog.setCancelable(false);
         }
         if (!TextUtils.isEmpty(content)) {
             mSystemProgressDialog.setMessage(content);
         } else {
-            mSystemProgressDialog.setMessage("loading now");
+            mSystemProgressDialog.setMessage("加载中");
         }
         if (!baseAty.isFinishing()) {
             mSystemProgressDialog.show();
@@ -64,4 +65,11 @@ public class ProgressDialogManager {
         }
     }
 
+    public ProgressDialog getSystemProgressDialog() {
+        return mSystemProgressDialog;
+    }
+
+    public void release() {
+        mSystemProgressDialog = null;
+    }
 }

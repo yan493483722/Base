@@ -1,12 +1,22 @@
 package com.yan.base;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
+import com.bumptech.glide.load.engine.Resource;
 import com.yan.base.toolbar.BaseToolbar;
 import com.yan.base.toolbar.BaseToolbarUtil;
+
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by YanZi on 2017/2/27.
@@ -14,7 +24,7 @@ import com.yan.base.toolbar.BaseToolbarUtil;
  * modify:
  * modify date:
  */
-public class BaseFg extends Fragment {
+public abstract class BaseFg extends Fragment {
 
     /**
      * FragmentPagerAdapter与FragmentStatePagerAdapter区别:
@@ -65,5 +75,50 @@ public class BaseFg extends Fragment {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
             BaseToolbarUtil.setFragmentBaseToolbar(toolbar, getActivity());
         }
+    }
+
+
+    private View mFragmentView;
+
+    protected String TAG;
+    private Unbinder unbinder;
+
+    public abstract void initView(View view);
+
+    public abstract void initData();
+
+    public abstract int setContentLayout();
+
+    protected BaseAty mAty;
+    protected Resources mResources;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        TAG = this.getClass().getSimpleName();
+        if (mFragmentView == null) {
+            mAty= (BaseAty) getActivity();
+            mResources=getResources();
+            mFragmentView = inflater.inflate(setContentLayout(), container, false);
+            unbinder = ButterKnife.bind(this, mFragmentView);
+            initView(mFragmentView);
+            initData();
+        }
+        return mFragmentView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
     }
 }

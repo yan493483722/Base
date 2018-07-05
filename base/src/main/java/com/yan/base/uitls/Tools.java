@@ -1110,9 +1110,9 @@ public class Tools {
     }
 
     /**
-     * @return ArrayList<HashMap<String,Object>> 返回类型
+     * @return ArrayList<HashMap < String , Object>> 返回类型
      * @Title: mapToArrayList
-     * @Description: 从hashmap中获得arraylArrayList<HashMap<String, Object>>，从而可以排序
+     * @Description: 从hashmap中获得arraylArrayList<HashMap < String ,   Object>>，从而可以排序
      * @author lory
      */
     public static ArrayList<HashMap<String, Object>> mapToArrayList(
@@ -1158,7 +1158,7 @@ public class Tools {
             bitmap = BitmapFactory.decodeByteArray(bitmapArray, 0,
                     bitmapArray.length);
         } catch (Exception e) {
-            Log.e("tools","图片转换失败" + e.getMessage());
+            Log.e("tools", "图片转换失败" + e.getMessage());
         }
         return bitmap;
     }
@@ -1173,10 +1173,10 @@ public class Tools {
         String imsi = ((TelephonyManager) context
                 .getSystemService(Context.TELEPHONY_SERVICE)).getSubscriberId();
         if (Tools.isNull(imsi)) {
-            Log.e("tools","没有卡");
+            Log.e("tools", "没有卡");
             return false;
         } else {
-            Log.e("tools","有卡");
+            Log.e("tools", "有卡");
             return true;
         }
     }
@@ -1354,7 +1354,8 @@ public class Tools {
 
     /**
      * 格式化价格
-     *保留两位
+     * 保留两位
+     *
      * @param floatNum
      * @return String
      */
@@ -1372,21 +1373,21 @@ public class Tools {
     }
 
 
-    public static String getRealFilePath( final Context context, final Uri uri ) {
-        if ( null == uri ) return null;
+    public static String getRealFilePath(final Context context, final Uri uri) {
+        if (null == uri) return null;
         final String scheme = uri.getScheme();
         String data = null;
-        if ( scheme == null )
+        if (scheme == null)
             data = uri.getPath();
-        else if ( ContentResolver.SCHEME_FILE.equals( scheme ) ) {
+        else if (ContentResolver.SCHEME_FILE.equals(scheme)) {
             data = uri.getPath();
-        } else if ( ContentResolver.SCHEME_CONTENT.equals( scheme ) ) {
-            Cursor cursor = context.getContentResolver().query( uri, new String[] { MediaStore.Images.ImageColumns.DATA }, null, null, null );
-            if ( null != cursor ) {
-                if ( cursor.moveToFirst() ) {
-                    int index = cursor.getColumnIndex( MediaStore.Images.ImageColumns.DATA );
-                    if ( index > -1 ) {
-                        data = cursor.getString( index );
+        } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
+            Cursor cursor = context.getContentResolver().query(uri, new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
+            if (null != cursor) {
+                if (cursor.moveToFirst()) {
+                    int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                    if (index > -1) {
+                        data = cursor.getString(index);
                     }
                 }
                 cursor.close();
@@ -1408,15 +1409,16 @@ public class Tools {
 
     /**
      * 获取状态栏的高度
+     *
      * @param context
      * @return
      */
-    private static int getStatusHeight(Context context){
+    private static int getStatusHeight(Context context) {
         int statusHeight = 0;
         Rect localRect = new Rect();
         ((Activity) context).getWindow().getDecorView().getWindowVisibleDisplayFrame(localRect);
         statusHeight = localRect.top;
-        if (0 == statusHeight){
+        if (0 == statusHeight) {
             Class<?> localClass;
             try {
                 localClass = Class.forName("com.android.internal.R$dimen");
@@ -1471,6 +1473,11 @@ public class Tools {
     public static int sp2px(Context context, float spValue) {
         final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale + 0.5f);
+    }
+
+    public static String bigDecimalToString(BigDecimal bigDecimal) {
+        BigDecimal bd = bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP);
+        return bd.toString();
     }
 
 }

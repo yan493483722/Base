@@ -17,7 +17,7 @@ public interface BaseDialogDoubleBtnClickListener {
 
     /**
      * 弹窗类型 多个弹窗时候使用此tag来区分
-     * @param type
+     * @param tag
      */
     void clickRightBtn(int tag);
 

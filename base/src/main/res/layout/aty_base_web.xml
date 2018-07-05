@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:baseToolBar="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_setting_aty_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color_all"
+    android:orientation="vertical">
+
+    <com.yan.base.toolbar.BaseToolbar
+        android:id="@+id/btb_base_web"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        baseToolBar:baseToolBarType="normal" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <WebView
+            android:id="@+id/wv_base_web"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+        <RelativeLayout
+            android:id="@+id/rl_base_web_fail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bg_color_white"
+            android:visibility="gone">
+
+            <TextView
+                android:onClick="click"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:padding="20dp"
+                android:text="@string/web_load_fail"
+                android:textSize="18sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

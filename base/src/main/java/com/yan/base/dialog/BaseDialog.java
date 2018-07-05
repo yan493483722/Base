@@ -54,7 +54,7 @@ public class BaseDialog extends Dialog {
         /**
          * 类型 用于多个弹窗设置同一个listener的回调区分
          */
-        protected int tag;
+        protected int tag=-1;
         /**
          * 内容的layout
          */

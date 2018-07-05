@@ -1,6 +1,7 @@
 package com.yan.base.application;
 
 import android.app.Application;
+import android.content.Context;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
@@ -19,6 +20,8 @@ import com.yan.base.BuildConfig;
 
 public  class BaseApplication extends Application {
 
+    public static Context mContext;
+
     /**
      * 用来保存当手机屏幕高度
      */
@@ -31,6 +34,7 @@ public  class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        mContext = getApplicationContext();
         AppManager.getAppManager().setApplication(this);
         getScreenHW();
         initStoreData();
@@ -52,16 +56,8 @@ public  class BaseApplication extends Application {
 
     protected  void initOther(){};
 
-    private void initLogger() {
-        Log.e("BaseApplication", "BaseApplication BuildConfig.DEBUG" + BuildConfig.DEBUG);
-//        if (BuildConfig.DEBUG) {//debug打开，preview 也是打开的 debuggable 为true release 关闭
-        Logger.init("yan")                                  // default PRETTYLOGGER or use just init()
-                .methodCount(1)                             // default 2
-                .logLevel(LogLevel.FULL)                    // default LogLevel.FULL
-                .methodOffset(0);                           // default 0
-//        } else {
-//            Logger.init("yan").logLevel(LogLevel.NONE);
-//        }
+    protected void initLogger() {
+
     }
 
     /**

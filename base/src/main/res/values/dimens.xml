@@ -13,12 +13,20 @@
     <dimen name="divider_line_1px">1px</dimen>
 
 
+    <dimen name="font_largest">36sp</dimen>
+    <dimen name="font_large_more">26sp</dimen>
     <dimen name="font_large">22sp</dimen>
     <dimen name="font_big_more">20sp</dimen>
     <dimen name="font_big">17sp</dimen>
     <dimen name="font_middle">15sp</dimen>
     <dimen name="font_small">13sp</dimen>
     <dimen name="font_small_more">11sp</dimen>
+
+
+
+    <dimen name="fixed_label_active">12sp</dimen>
+    <dimen name="badge_text_size">10sp</dimen>
+    <dimen name="fixed_height_bottom_padding">7dp</dimen>
 
 
 </resources>

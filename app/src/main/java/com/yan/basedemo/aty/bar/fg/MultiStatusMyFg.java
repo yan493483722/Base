@@ -24,13 +24,20 @@ public class MultiStatusMyFg extends BaseFg {
     @BindView(R.id.btb_fg_multi_status_my)
     BaseToolbar btbFgMultiStatusMy;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View content = inflater.inflate(R.layout.fg_multi_status_my, container, false);
-        ButterKnife.bind(this,content);
+    public void initView(View view) {
+
+    }
+
+    @Override
+    public void initData() {
         setBaseToolbar(btbFgMultiStatusMy,false);
         btbFgMultiStatusMy.setTitleText("我的");
-        return content;
     }
+
+    @Override
+    public int setContentLayout() {
+        return R.layout.fg_multi_status_my;
+    }
+
 }

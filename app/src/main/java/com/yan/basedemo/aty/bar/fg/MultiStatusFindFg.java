@@ -32,11 +32,13 @@ public class MultiStatusFindFg extends BaseFg {
 
     private int a = 10;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View content = inflater.inflate(R.layout.fg_multi_status_find, container, false);
-        ButterKnife.bind(this, content);
+    public void initView(View view) {
+
+    }
+
+    @Override
+    public void initData() {
         setBaseToolbar(btbFgMultiStatusFind, false);
         btbFgMultiStatusFind.setTitleText("发现");
         btbFgMultiStatusFind.setDefaultLayoutRight(null,"发动态");
@@ -52,6 +54,12 @@ public class MultiStatusFindFg extends BaseFg {
                 a = 10 / a;
             }
         });
-        return content;
     }
+
+    @Override
+    public int setContentLayout() {
+        return R.layout.fg_multi_status_find;
+    }
+
+
 }

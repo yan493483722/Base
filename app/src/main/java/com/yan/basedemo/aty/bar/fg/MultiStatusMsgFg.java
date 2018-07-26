@@ -33,6 +33,7 @@ public class MultiStatusMsgFg extends BaseFg {
     public void initData() {
         setBaseToolbar(btbFgMultiStatusMsg, false);
         btbFgMultiStatusMsg.setTitleText("消息");
+
     }
 
 

@@ -1,8 +1,10 @@
-package com.yan.basedemo.greendao;
+package com.yan.basedemo.greendao.manager;
 
 import android.content.Context;
 
 import com.yan.basedemo.bean.Dog;
+import com.yan.basedemo.greendao.DogDao;
+import com.yan.basedemo.greendao.manager.GreenDaoManager;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 

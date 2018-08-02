@@ -16,7 +16,7 @@ import com.yan.base.widget.RecyclerListDiv;
 import com.yan.basedemo.R;
 import com.yan.basedemo.adapter.GreenDaoAdapter;
 import com.yan.basedemo.bean.Dog;
-import com.yan.basedemo.greendao.DogDaoOperation;
+import com.yan.basedemo.greendao.manager.DogDaoOperation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -124,7 +124,8 @@ public class GreenDaoAty extends BaseAty {
     private List<Dog> getDogList(int position) {
         List<Dog> list = new ArrayList();
         for (int i = position; i < 1 + position; i++) {
-            Dog dog = new Dog(null, (long) i, "小狗" + i);
+//            Dog dog = new Dog(null, (long) i, "小狗" + i);
+            Dog dog = new Dog(null, (long) i, "小狗" + i,"主人  " + i+" 号");
             list.add(dog);
         }
         return list;

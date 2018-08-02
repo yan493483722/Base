@@ -10,7 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.orhanobut.logger.Logger;
 import com.yan.base.BaseAty;
+import com.yan.base.BuildConfig;
 import com.yan.basedemo.aty.DialogExampleAty;
 import com.yan.basedemo.aty.LoginAty;
 import com.yan.basedemo.aty.MultiDownloadAty;
@@ -92,7 +94,7 @@ public class MainAty extends BaseAty {
 
     @Override
     protected void initView() {
-
+        Logger.e("this "+ BuildConfig.APPLICATION_ID);
     }
 
     @Override

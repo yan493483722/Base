@@ -53,6 +53,7 @@ dependencies {
     //数据库
     //gitHub https://github.com/greenrobot/greenDAO
     api 'org.greenrobot:greendao:3.2.2'
+    api 'com.github.yuweiguocn:GreenDaoUpgradeHelper:v2.1.0'
     //图片缓存框架
 
     //gitHub https://github.com/bumptech/glide

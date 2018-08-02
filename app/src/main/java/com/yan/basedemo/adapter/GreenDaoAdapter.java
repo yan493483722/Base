@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.yan.basedemo.R;
 import com.yan.basedemo.bean.Dog;
+import com.yan.basedemo.bean.Dog;
 
 import java.util.List;
 
@@ -59,7 +60,7 @@ public class GreenDaoAdapter extends RecyclerView.Adapter<GreenDaoAdapter.MyEnti
 
     @Override
     public void onBindViewHolder(@NonNull MyEntity holder, final int position) {
-        holder.tvItemGreenDaoName.setText(dogList.get(position).getDogId()+"  "+dogList.get(position).getName());
+        holder.tvItemGreenDaoName.setText(dogList.get(position).getDogId()+"  "+dogList.get(position).getName()+"  "+dogList.get(position).getMaster());
         holder.ivItemGreenDaoDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

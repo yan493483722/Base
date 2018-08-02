@@ -27,6 +27,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.lzy.okgo.OkGo;
+import com.orhanobut.logger.Logger;
 import com.yan.base.application.AppManager;
 import com.yan.base.application.GlobalPreference;
 import com.yan.base.listener.PermissionListener;
@@ -129,7 +130,7 @@ public abstract class BaseAty extends AppCompatActivity implements PermissionLis
                 return;
             }
         }
-
+//        Logger.e("this "+BuildConfig.APPLICATION_ID);
 
         initView();
         initData();

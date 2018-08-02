@@ -1,7 +1,10 @@
-package com.yan.basedemo.greendao;
+package com.yan.basedemo.greendao.manager;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.yan.basedemo.greendao.DaoMaster;
+import com.yan.basedemo.greendao.DaoSession;
 
 /**
  * Created by YanZi on 2018/5/23.
@@ -11,23 +14,13 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public class GreenDaoManager {
     // 是否加密
-    public static final boolean ENCRYPTED = true;
+    public static final boolean ENCRYPTED = false;
 
     private static final String DB_NAME = "BaseDemo.db";
     private static GreenDaoManager mDbManager;
     private static DaoMaster.DevOpenHelper mDevOpenHelper;
     private static DaoMaster mDaoMaster;
     private static DaoSession mDaoSession;
-
-    private Context mContext;
-
-    private GreenDaoManager(Context context) {
-        this.mContext = context;
-        // 初始化数据库信息
-        mDevOpenHelper = new DaoMaster.DevOpenHelper(context, DB_NAME);
-        getDaoMaster(context);
-        getDaoSession(context);
-    }
 
     public static GreenDaoManager getInstance(Context context) {
         if (null == mDbManager) {
@@ -40,6 +33,20 @@ public class GreenDaoManager {
         return mDbManager;
     }
 
+    private GreenDaoManager(Context context) {
+        // 初始化数据库信息
+//        mDevOpenHelper =  new DaoMaster.DevOpenHelper(this, ENCRYPTED ? "notes-db-encrypted" : "user-db");
+        mDevOpenHelper = new DaoMaster.DevOpenHelper(context, DB_NAME);
+        mDevOpenHelper = new MySQLiteOpenHelper(context, DB_NAME,
+                null);
+
+//        MySQLiteOpenHelper helper = new MySQLiteOpenHelper(context, DB_NAME,
+//                null);
+        getDaoMaster(context);
+        getDaoSession(context);
+    }
+
+
     /**
      * 获取可读数据库
      *
@@ -50,6 +57,8 @@ public class GreenDaoManager {
         if (null == mDevOpenHelper) {
             getInstance(context);
         }
+        //        Database db = ENCRYPTED ? mDevOpenHelper.getEncryptedWritableDb("super-secret") : mDevOpenHelper.getWritableDb();
+        //
         return mDevOpenHelper.getReadableDatabase();
     }
 
@@ -63,9 +72,11 @@ public class GreenDaoManager {
         if (null == mDevOpenHelper) {
             getInstance(context);
         }
-
+//        Database db = ENCRYPTED ? mDevOpenHelper.getEncryptedWritableDb("super-secret") : mDevOpenHelper.getWritableDb();
+//
         return mDevOpenHelper.getWritableDatabase();
     }
+
 
     /**
      * 获取DaoMaster

@@ -3,6 +3,8 @@ package com.yan.basedemo.bean;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Keep;
+import org.greenrobot.greendao.annotation.Transient;
 
 /**
  * Created by YanZi on 2018/5/22.
@@ -16,11 +18,14 @@ public class Dog {
     private Long id;
     long dogId;
     String name;
-    @Generated(hash = 1073004011)
-    public Dog(Long id, long dogId, String name) {
+//    @Transient
+    String master;
+    @Generated(hash = 489780208)
+    public Dog(Long id, long dogId, String name, String master) {
         this.id = id;
         this.dogId = dogId;
         this.name = name;
+        this.master = master;
     }
     @Generated(hash = 2001499333)
     public Dog() {
@@ -44,7 +49,11 @@ public class Dog {
         this.name = name;
     }
 
-    
+    public String getMaster() {
+        return master;
+    }
 
-
+    public void setMaster(String master) {
+        this.master = master;
+    }
 }

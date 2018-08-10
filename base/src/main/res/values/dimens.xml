@@ -24,9 +24,10 @@
 
 
 
-    <dimen name="fixed_label_active">12sp</dimen>
+    <dimen name="fixed_label_active">14sp</dimen>
     <dimen name="badge_text_size">10sp</dimen>
     <dimen name="fixed_height_bottom_padding">7dp</dimen>
+    <dimen name="fixed_label_active_to_inactive_ratio">1</dimen>
 
 
 </resources>

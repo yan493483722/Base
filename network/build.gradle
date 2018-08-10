@@ -76,8 +76,6 @@ dependencies {
 
 
     api project(':base')
-    debugApi project(':base')
-    releaseApi project(':base')
 
 
 }

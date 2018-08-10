@@ -17,6 +17,7 @@ import com.yan.basedemo.aty.DialogExampleAty;
 import com.yan.basedemo.aty.LoginAty;
 import com.yan.basedemo.aty.MultiDownloadAty;
 import com.yan.basedemo.aty.ObserverSimpleAty;
+import com.yan.basedemo.aty.ScanSimpleAty;
 import com.yan.basedemo.aty.bar.StatusBarAty;
 import com.yan.basedemo.aty.database.GreenDaoAty;
 import com.yan.network.download.apk.APKDownloadAty;
@@ -55,7 +56,7 @@ public class MainAty extends BaseAty {
 
     @OnClick({R.id.btn_main_dialog, R.id.btn_main_loading, R.id.btn_main_permission, R.id.btn_main_web,
             R.id.btn_main_status_bar, R.id.btn_main_net,R.id.btn_main_multi_download,R.id.btn_green_dao,
-            R.id.btn_observer_simple})
+            R.id.btn_observer_simple,R.id.btn_scan_simple})
     public void click(View view) {
         switch (view.getId()) {
             case R.id.btn_main_dialog:
@@ -86,6 +87,9 @@ public class MainAty extends BaseAty {
                 break;
             case R.id.btn_observer_simple:
                 startActivity(new Intent(mAty, ObserverSimpleAty.class));
+                break;
+            case R.id.btn_scan_simple:
+                startActivity(new Intent(mAty, ScanSimpleAty.class));
                 break;
             default:
                 break;

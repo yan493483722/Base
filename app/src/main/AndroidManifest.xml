@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yan.basedemo">
-
+    <uses-permission android:name="android.permission.CAMERA" />
     <application
         android:name=".application.BaseDemoApplication"
         android:allowBackup="true"
@@ -94,6 +94,10 @@
             android:windowSoftInputMode="adjustResize|stateHidden|stateAlwaysHidden|adjustPan" />
         <activity
             android:name=".aty.database.GreenDaoAty"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden|stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".aty.ScanSimpleAty"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden|stateAlwaysHidden|adjustPan" />
 

@@ -9,12 +9,12 @@
     <cn.earthyan.codescanner.ZXingScannerView
         android:id="@+id/zx_view_scan"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="180dp"
         app:laserEnabled="true"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:maskColor="@color/bg_color_white"
+        app:maskColor="@color/color_blue"
         app:shouldScaleToFill="true" />
 
     <Button

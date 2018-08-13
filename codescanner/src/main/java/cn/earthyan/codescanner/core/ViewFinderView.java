@@ -12,27 +12,25 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import cn.earthyan.codescanner.R;
-import cn.earthyan.codescanner.core.DisplayUtils;
-import cn.earthyan.codescanner.core.IViewFinder;
 
 public class ViewFinderView extends View implements IViewFinder {
     private static final String TAG = "ViewFinderView";
 
     private Rect mFramingRect;
 
-    private static final float PORTRAIT_WIDTH_RATIO = 8f/8;
+    private static final float PORTRAIT_WIDTH_RATIO = 8f / 8;
     private static final float PORTRAIT_WIDTH_HEIGHT_RATIO = 1f;
 
-    private static final float LANDSCAPE_HEIGHT_RATIO = 8f/8;
+    private static final float LANDSCAPE_HEIGHT_RATIO = 8f / 8;
     private static final float LANDSCAPE_WIDTH_HEIGHT_RATIO = 1f;
     private static final int MIN_DIMENSION_DIFF = 0;
 
     private static final float DEFAULT_SQUARE_DIMENSION_RATIO = 1;
 
-    private static final int[] SCANNER_ALPHA = {0, 64, 128, 192, 255, 192, 128, 64};
-    private int scannerAlpha;
+    private int moveIndex = 40;
+    private boolean reverse = true;
     private static final int POINT_SIZE = 10;
-    private static final long ANIMATION_DELAY = 80l;
+    private static final long ANIMATION_DELAY = 30;
 
     private final int mDefaultLaserColor = getResources().getColor(R.color.viewfinder_laser);
     private final int mDefaultMaskColor = getResources().getColor(R.color.viewfinder_mask);
@@ -47,7 +45,7 @@ public class ViewFinderView extends View implements IViewFinder {
     protected boolean mSquareViewFinder;
     private boolean mIsLaserEnabled;
     private float mBordersAlpha;
-    private int mViewFinderOffset = 0;
+    private int mViewFinderOffset = 5;
 
     public ViewFinderView(Context context) {
         super(context);
@@ -105,7 +103,9 @@ public class ViewFinderView extends View implements IViewFinder {
     }
 
     @Override
-    public void setLaserEnabled(boolean isLaserEnabled) { mIsLaserEnabled = isLaserEnabled; }
+    public void setLaserEnabled(boolean isLaserEnabled) {
+        mIsLaserEnabled = isLaserEnabled;
+    }
 
     @Override
     public void setBorderCornerRounded(boolean isBorderCornersRounded) {
@@ -150,7 +150,7 @@ public class ViewFinderView extends View implements IViewFinder {
 
     @Override
     public void onDraw(Canvas canvas) {
-        if(getFramingRect() == null) {
+        if (getFramingRect() == null) {
             return;
         }
 
@@ -166,7 +166,7 @@ public class ViewFinderView extends View implements IViewFinder {
         int width = canvas.getWidth();
         int height = canvas.getHeight();
         Rect framingRect = getFramingRect();
-        
+
         canvas.drawRect(0, 0, width, framingRect.top, mFinderMaskPaint);
         canvas.drawRect(0, framingRect.top, framingRect.left, framingRect.bottom + 1, mFinderMaskPaint);
         canvas.drawRect(framingRect.right + 1, framingRect.top, width, framingRect.bottom + 1, mFinderMaskPaint);
@@ -204,12 +204,22 @@ public class ViewFinderView extends View implements IViewFinder {
 
     public void drawLaser(Canvas canvas) {
         Rect framingRect = getFramingRect();
-        
+
         // Draw a red "laser scanner" line through the middle to show decoding is active
-        mLaserPaint.setAlpha(SCANNER_ALPHA[scannerAlpha]);
-        scannerAlpha = (scannerAlpha + 1) % SCANNER_ALPHA.length;
-        int middle = framingRect.height() / 2 + framingRect.top;
-        canvas.drawRect(framingRect.left + 2, middle - 1, framingRect.right - 1, middle + 2, mLaserPaint);
+        int height = framingRect.height();
+        if (moveIndex == 40 || moveIndex == 160) {
+            reverse = !reverse;
+        }
+
+        if (reverse) {
+            moveIndex--;
+        } else {
+            moveIndex++;
+        }
+        int width=framingRect.width() / 10;
+
+        int top = height * moveIndex / 200+ framingRect.top;
+        canvas.drawRect(framingRect.left + width, top, framingRect.right - framingRect.width() / 10, top + 6, mLaserPaint);
 
         postInvalidateDelayed(ANIMATION_DELAY,
                 framingRect.left - POINT_SIZE,
@@ -229,8 +239,8 @@ public class ViewFinderView extends View implements IViewFinder {
         int height;
         int orientation = DisplayUtils.getScreenOrientation(getContext());
 
-        if(mSquareViewFinder) {
-            if(orientation != Configuration.ORIENTATION_PORTRAIT) {
+        if (mSquareViewFinder) {
+            if (orientation != Configuration.ORIENTATION_PORTRAIT) {
                 height = (int) (getHeight() * DEFAULT_SQUARE_DIMENSION_RATIO);
                 width = height;
             } else {
@@ -238,7 +248,7 @@ public class ViewFinderView extends View implements IViewFinder {
                 height = width;
             }
         } else {
-            if(orientation != Configuration.ORIENTATION_PORTRAIT) {
+            if (orientation != Configuration.ORIENTATION_PORTRAIT) {
                 height = (int) (getHeight() * LANDSCAPE_HEIGHT_RATIO);
                 width = (int) (LANDSCAPE_WIDTH_HEIGHT_RATIO * height);
             } else {
@@ -247,12 +257,12 @@ public class ViewFinderView extends View implements IViewFinder {
             }
         }
 
-        if(width > getWidth()) {
-            width = getWidth() - MIN_DIMENSION_DIFF;
+        if (width > getWidth()) {
+            width = getWidth() - MIN_DIMENSION_DIFF-mDefaultBorderStrokeWidth;
         }
 
-        if(height > getHeight()) {
-            height = getHeight() - MIN_DIMENSION_DIFF;
+        if (height > getHeight()) {
+            height = getHeight() - MIN_DIMENSION_DIFF-mDefaultBorderStrokeWidth;
         }
 
         int leftOffset = (viewResolution.x - width) / 2;

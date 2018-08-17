@@ -13,6 +13,7 @@ import android.view.View;
 
 import cn.earthyan.codescanner.R;
 
+
 public class ViewFinderView extends View implements IViewFinder {
     private static final String TAG = "ViewFinderView";
 
@@ -27,10 +28,11 @@ public class ViewFinderView extends View implements IViewFinder {
 
     private static final float DEFAULT_SQUARE_DIMENSION_RATIO = 1;
 
+    private boolean resumeLaser = true;
     private int moveIndex = 40;
     private boolean reverse = true;
     private static final int POINT_SIZE = 10;
-    private static final long ANIMATION_DELAY = 30;
+    private static final long ANIMATION_DELAY = 20;
 
     private final int mDefaultLaserColor = getResources().getColor(R.color.viewfinder_laser);
     private final int mDefaultMaskColor = getResources().getColor(R.color.viewfinder_mask);
@@ -108,6 +110,19 @@ public class ViewFinderView extends View implements IViewFinder {
     }
 
     @Override
+    public void stopLaser() {
+        resumeLaser = false;
+    }
+
+    @Override
+    public void resumeLaser() {
+        resumeLaser = true;
+        moveIndex = 40;
+        reverse = true;
+        postInvalidate();
+    }
+
+    @Override
     public void setBorderCornerRounded(boolean isBorderCornersRounded) {
         if (isBorderCornersRounded) {
             mBorderPaint.setStrokeJoin(Paint.Join.ROUND);
@@ -158,7 +173,9 @@ public class ViewFinderView extends View implements IViewFinder {
         drawViewFinderBorder(canvas);
 
         if (mIsLaserEnabled) {
-            drawLaser(canvas);
+            if (resumeLaser) {
+                drawLaser(canvas);
+            }
         }
     }
 
@@ -213,12 +230,14 @@ public class ViewFinderView extends View implements IViewFinder {
 
         if (reverse) {
             moveIndex--;
+            moveIndex--;
         } else {
             moveIndex++;
+            moveIndex++;
         }
-        int width=framingRect.width() / 10;
+        int width = framingRect.width() / 10;
 
-        int top = height * moveIndex / 200+ framingRect.top;
+        int top = height * moveIndex / 200 + framingRect.top;
         canvas.drawRect(framingRect.left + width, top, framingRect.right - framingRect.width() / 10, top + 6, mLaserPaint);
 
         postInvalidateDelayed(ANIMATION_DELAY,
@@ -258,11 +277,11 @@ public class ViewFinderView extends View implements IViewFinder {
         }
 
         if (width > getWidth()) {
-            width = getWidth() - MIN_DIMENSION_DIFF-mDefaultBorderStrokeWidth;
+            width = getWidth() - MIN_DIMENSION_DIFF - mDefaultBorderStrokeWidth;
         }
 
         if (height > getHeight()) {
-            height = getHeight() - MIN_DIMENSION_DIFF-mDefaultBorderStrokeWidth;
+            height = getHeight() - MIN_DIMENSION_DIFF - mDefaultBorderStrokeWidth;
         }
 
         int leftOffset = (viewResolution.x - width) / 2;

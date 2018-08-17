@@ -29,6 +29,7 @@ import java.util.Map;
 import cn.earthyan.codescanner.core.BarcodeScannerView;
 import cn.earthyan.codescanner.core.DisplayUtils;
 
+
 public class ZXingScannerView extends BarcodeScannerView {
     private static final String TAG = "ZXingScannerView";
 

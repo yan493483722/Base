@@ -11,6 +11,9 @@ public interface IViewFinder {
     void setBorderLineLength(int borderLineLength);
     void setLaserEnabled(boolean isLaserEnabled);
 
+    void stopLaser();
+    void resumeLaser();
+
     void setBorderCornerRounded(boolean isBorderCornersRounded);
     void setBorderAlpha(float alpha);
     void setBorderCornerRadius(int borderCornersRadius);

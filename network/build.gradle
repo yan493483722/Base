@@ -77,5 +77,6 @@ dependencies {
 
     api project(':base')
 
+    implementation project(':dialogandpop')
 
 }

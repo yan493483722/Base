@@ -17,7 +17,6 @@
     <!-- 相册选择颜色为应用主题色  -->
     <color name="multiple_image_select_primaryDark">@color/colorPrimary</color>
 
-    color
     <!-- 基类弹出对话框 -->
     <color name="bg_color_all">#F3F7FF</color>
     <color name="bg_color_white">#FFFFFF</color>

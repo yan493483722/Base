@@ -1,17 +1,15 @@
 package com.yan.basedemo.aty;
 
 import android.net.Uri;
-import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.yan.base.BaseAty;
-import com.yan.base.pop.SelectPhotoPop;
 import com.yan.base.toolbar.BaseToolbar;
 import com.yan.basedemo.R;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+import cn.earthyan.dialogandpop.pop.SelectPhotoPop;
 
 /**
  * Created by YanZi on 2017/10/17.

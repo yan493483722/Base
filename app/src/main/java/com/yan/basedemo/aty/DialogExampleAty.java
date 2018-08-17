@@ -7,24 +7,23 @@ import android.view.View;
 import android.widget.Button;
 
 import com.yan.base.BaseAty;
-import com.yan.base.dialog.BaseDoubleBtnDialog;
-import com.yan.base.dialog.BaseInputDoubleBtnDialog;
-import com.yan.base.dialog.BaseSingleBtnDialog;
-import com.yan.base.dialog.BaseSingleInputDoubleBtnDialog;
-import com.yan.base.dialog.BaseThreeMoreBtnDialog;
-import com.yan.base.listener.BaseDialogDoubleBtnClickListener;
-import com.yan.base.listener.BaseDialogInputDoubleBtnClickListener;
-import com.yan.base.listener.BaseDialogSingleBtnClickListener;
-import com.yan.base.listener.BaseDialogThreeMoreBtnClickListener;
-import com.yan.base.password.PasswordInputDialog;
-import com.yan.base.pop.SelectPhotoPop;
 import com.yan.basedemo.R;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.earthyan.dialogandpop.dialog.BaseDoubleBtnDialog;
+import cn.earthyan.dialogandpop.dialog.BaseInputDoubleBtnDialog;
+import cn.earthyan.dialogandpop.dialog.BaseSingleBtnDialog;
+import cn.earthyan.dialogandpop.dialog.BaseSingleInputDoubleBtnDialog;
+import cn.earthyan.dialogandpop.dialog.BaseThreeMoreBtnDialog;
+import cn.earthyan.dialogandpop.dialog.password.PasswordInputDialog;
+import cn.earthyan.dialogandpop.listener.BaseDialogDoubleBtnClickListener;
+import cn.earthyan.dialogandpop.listener.BaseDialogInputDoubleBtnClickListener;
+import cn.earthyan.dialogandpop.listener.BaseDialogSingleBtnClickListener;
+import cn.earthyan.dialogandpop.listener.BaseDialogThreeMoreBtnClickListener;
+import cn.earthyan.dialogandpop.pop.SelectPhotoPop;
 
 /**
  * Created by YanZi on 2017/4/14.
@@ -75,7 +74,7 @@ public class DialogExampleAty extends BaseAty {
 
     @OnClick({R.id.btn_dialog_example_single, R.id.btn_dialog_example_double
             , R.id.btn_dialog_example_input_one, R.id.btn_dialog_example_input
-            ,R.id.btn_dialog_example_many
+            , R.id.btn_dialog_example_many
             , R.id.btn_dialog_example_input_password, R.id.btn_dialog_photo})
     void onClick(View view) {
         switch (view.getId()) {
@@ -95,8 +94,8 @@ public class DialogExampleAty extends BaseAty {
                         .setTag(DIALOG_TYPE_ONE).setTitle("见到你很高兴，你好你好")
                         .create().show();
                 break;
-            case    R.id.btn_dialog_example_many:
-                ArrayList<String> btnTexts=new ArrayList<>();
+            case R.id.btn_dialog_example_many:
+                ArrayList<String> btnTexts = new ArrayList<>();
                 btnTexts.add("one");
                 btnTexts.add("two");
                 btnTexts.add("three");
@@ -105,7 +104,7 @@ public class DialogExampleAty extends BaseAty {
                 new BaseThreeMoreBtnDialog.Builder(mAty, mLayoutInflater).setBtnText(btnTexts).setBaseDialogThreeMoreBtnClickListener(new BaseDialogThreeMoreBtnClickListener() {
                     @Override
                     public void clickBtn(int position, int type) {
-                        mSnackBarAndToastManager.showSnackBar("position==" +position);
+                        mSnackBarAndToastManager.showSnackBar("position==" + position);
                     }
                 }).setContent("见到你很高兴，你好你好")
                         .setTitle("你好")
@@ -183,12 +182,12 @@ public class DialogExampleAty extends BaseAty {
 
         @Override
         public void forgetPassword() {
-            mSnackBarAndToastManager.showSnackBar( "忘记密码",passwordInputDialog.getView());
+            mSnackBarAndToastManager.showSnackBar("忘记密码", passwordInputDialog.getView());
         }
 
         @Override
         public void successAnimationEnd() {
-            mSnackBarAndToastManager.showSnackBar("成功了动画结束",passwordInputDialog.getView());
+            mSnackBarAndToastManager.showSnackBar("成功了动画结束", passwordInputDialog.getView());
             passwordInputDialog.dismiss();
         }
 
@@ -200,7 +199,7 @@ public class DialogExampleAty extends BaseAty {
 
         @Override
         public void onPasswordInputComplete(final CharSequence text) {
-            mSnackBarAndToastManager.showSnackBar( "输入结果是：" + text + "\n" + "正确的结果为：" + tempPassword + "\n",passwordInputDialog.getView());
+            mSnackBarAndToastManager.showSnackBar("输入结果是：" + text + "\n" + "正确的结果为：" + tempPassword + "\n", passwordInputDialog.getView());
             passwordInputDialog.loadArc("支付结果确认中...");
             final int resetTime = passwordInputDialog.getResetTime();
             new Thread() { //每一次都要去舍弃上一次的结果，如果是网络请求，可以将当前的次数进行传递回来

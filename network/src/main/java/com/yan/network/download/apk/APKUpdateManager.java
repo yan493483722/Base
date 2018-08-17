@@ -1,19 +1,16 @@
 package com.yan.network.download.apk;
 
-import android.app.NotificationManager;
-import android.content.Context;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 
 import com.yan.base.BaseAty;
-import com.yan.base.dialog.BaseThreeMoreBtnDialog;
-import com.yan.base.listener.BaseDialogThreeMoreBtnClickListener;
-import com.yan.base.uitls.FileUtil;
 import com.yan.base.uitls.Tools;
 
-import java.io.File;
 import java.util.ArrayList;
+
+import cn.earthyan.dialogandpop.dialog.BaseThreeMoreBtnDialog;
+import cn.earthyan.dialogandpop.listener.BaseDialogThreeMoreBtnClickListener;
 
 /**
  * Created by YanZi on 2017/8/17.
@@ -21,7 +18,7 @@ import java.util.ArrayList;
  * 下载可能出现的bug
  * http://blog.csdn.net/qqyanjiang/article/details/51076940
  * http://blog.csdn.net/liwujun11111/article/details/52170337
- *
+ * <p>
  * modify:
  * modify date:
  */
@@ -44,7 +41,7 @@ public class APKUpdateManager {
 
     ArrayList<String> btnTexts;
 
-    public APKUpdateManager(BaseAty baseAty, String url, String saveFilePath,String fileName, LayoutInflater layoutInflater) {
+    public APKUpdateManager(BaseAty baseAty, String url, String saveFilePath, String fileName, LayoutInflater layoutInflater) {
         this.baseAty = baseAty;
         this.url = url;
         this.saveFilePath = saveFilePath;
@@ -100,7 +97,7 @@ public class APKUpdateManager {
 
         APKDownloadPresenter apkDownloadPresenter = new APKDownloadPresenter(baseAty, null);
 
-        apkDownloadPresenter.downLoad(url, saveFilePath,fileName);
+        apkDownloadPresenter.downLoad(url, saveFilePath, fileName);
     }
 
 }

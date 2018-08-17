@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="bg_divider_color">#666666</color>
+    <!-- 透明-->
+    <color name="transparent">#00FFFFFF</color>
+    <!-- 蒙层-->
+    <color name="transparent_half">#60010101</color>
+
+    <color name="colorPrimary">#FF3259</color>
+    <color name="colorPrimaryDark">#FF0072</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="font_primary">@color/colorPrimary</color>
+
+    <!-- 相册选择颜色为应用主题色  -->
+    <color name="multiple_image_select_primaryDark">@color/colorPrimary</color>
+
+    <!-- 基类弹出对话框 -->
+    <color name="bg_color_all">#F3F7FF</color>
+    <color name="bg_color_white">#FFFFFF</color>
+    <color name="bg_color_gray_light">#DDDDDD</color>
+    <color name="bg_color_gray">#666666</color>
+    <color name="bg_color_black">#333333</color>
+    <color name="bg_color_blue">#8AB6FE</color>
+    <color name="bg_color_green">#36BC5F</color>
+    <color name="bg_color_yellow">#EEB42D</color>
+    <color name="bg_color_red">#FE4040</color>
+    <color name="bg_color_red_dark">#AA0000</color>
+
+    <!-- 字体颜色 -->
+    <color name="font_black">#333333</color>
+    <color name="font_gray">#666666</color>
+    <color name="font_gray2">#999999</color>
+    <color name="font_white">#FFFFFF</color>
+    <color name="font_red">#FE4040</color>
+    <color name="font_blue">#2B76F3</color>
+    <color name="font_green">#36BC5F</color>
+
+
+    <!-- 分割线颜色 -->
+    <color name="divider_line_color">#D9D9D9</color>
+
+    <!-- 透明-->
+    <color name="transparent_no">#02FFFFFF</color>
+
+</resources>

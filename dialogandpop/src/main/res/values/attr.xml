@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="PasswordInputView">
+        <attr name="passwordCount" format="integer" />
+        <attr name="stokeColor" format="color" />
+        <attr name="symbolColor" format="color" />
+        <attr name="radius" format="dimension" />
+        <attr name="symbolRadius" format="dimension" />
+        <attr name="inputBoxStroke" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="PasswordProgressbar">
+        <attr name="barColor" format="reference|color" />
+        <attr name="barStockWidth" format="dimension" />
+        <attr name="barRectWidthHeight" format="dimension" />
+        <attr name="textSize" format="reference|dimension" />
+        <attr name="textColor" format="reference|color" />
+        <attr name="textPaddingLeft" format="dimension" />
+        <attr name="textPaddingRight" format="dimension" />
+        <attr name="textPaddingTop" format="dimension" />
+        <attr name="textPaddingBottom" format="dimension" />
+        <attr name="arcPaddingLeft" format="dimension" />
+        <attr name="arcPaddingRight" format="dimension" />
+        <attr name="arcPaddingTop" format="dimension" />
+        <attr name="arcPaddingBottom" format="dimension" />
+    </declare-styleable>
+
+</resources>

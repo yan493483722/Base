@@ -1,1 +1,1 @@
-include ':app', ':base', ':network', ':codescanner'
+include ':app', ':base', ':network', ':codescanner', ':dialogandpop'

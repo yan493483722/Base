@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.yan.base.BaseAty;
-import com.yan.base.listener.BaseDialogThreeMoreBtnClickListener;
 import com.yan.base.toolbar.BaseToolbar;
 import com.yan.base.uitls.FileUtil;
 import com.yan.basedemo.R;
@@ -20,8 +19,8 @@ import java.io.File;
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.earthyan.dialogandpop.listener.BaseDialogThreeMoreBtnClickListener;
 
 /**
  * Created by YanZi on 2017/7/1 .

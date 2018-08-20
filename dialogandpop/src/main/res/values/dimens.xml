@@ -16,7 +16,7 @@
 
     <dimen name="font_large_plus_plus">30sp</dimen>
     <dimen name="font_large_plus">22sp</dimen>
-    <dimen name="font_large">18sp</dimen>
+    <dimen name="font_large">17sp</dimen>
     <dimen name="font_medium">16sp</dimen> <!-- 16sp -->
     <dimen name="font_small">14sp</dimen>
     <dimen name="font_small_plus">12sp</dimen>  <!-- 12sp -->

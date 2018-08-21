@@ -23,17 +23,6 @@ public class BaseInputDoubleBtnDialog extends BaseDialog {
 
     private static final int MAX_LENGTH = 100;
 
-    public BaseInputDoubleBtnDialog(Context context) {
-        super(context);
-    }
-
-    public BaseInputDoubleBtnDialog(Context context, int themeResId) {
-        super(context, themeResId);
-    }
-
-    protected BaseInputDoubleBtnDialog(Context context, boolean cancelable, DialogInterface.OnCancelListener cancelListener) {
-        super(context, cancelable, cancelListener);
-    }
 
     public static class Builder extends BaseSingleInputDoubleBtnDialog.Builder {
 

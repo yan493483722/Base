@@ -23,18 +23,6 @@ import cn.earthyan.dialogandpop.listener.BaseDialogDoubleBtnClickListener;
 public class BaseDoubleBtnDialog extends BaseDialog {
 
 
-    public BaseDoubleBtnDialog(Context context) {
-        super(context);
-    }
-
-    public BaseDoubleBtnDialog(Context context, int themeResId) {
-        super(context, themeResId);
-    }
-
-    protected BaseDoubleBtnDialog(Context context, boolean cancelable, DialogInterface.OnCancelListener cancelListener) {
-        super(context, cancelable, cancelListener);
-    }
-
     public static class Builder extends BaseDialog.Builder {
         //左侧按钮文字
         protected String leftBtnString;

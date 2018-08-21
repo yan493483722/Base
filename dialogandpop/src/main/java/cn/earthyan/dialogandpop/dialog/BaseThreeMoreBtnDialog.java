@@ -27,25 +27,6 @@ import cn.earthyan.dialogandpop.util.RecyclerListDiv;
  */
 public class BaseThreeMoreBtnDialog extends BaseDialog {
 
-    public Context mContext;
-
-    public BaseThreeMoreBtnDialog(Context context) {
-        super(context);
-        this.mContext = context;
-    }
-
-    public BaseThreeMoreBtnDialog(Context context, int themeResId) {
-        super(context, themeResId);
-        this.mContext = context;
-
-
-    }
-
-    protected BaseThreeMoreBtnDialog(Context context, boolean cancelable, DialogInterface.OnCancelListener cancelListener) {
-        super(context, cancelable, cancelListener);
-        this.mContext = context;
-    }
-
     public static class Builder extends BaseDialog.Builder {
 
         protected ArrayList<String> btnText;

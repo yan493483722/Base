@@ -23,17 +23,7 @@ import cn.earthyan.dialogandpop.listener.BaseDialogSingleBtnClickListener;
 public class BaseSingleBtnDialog extends BaseDialog {
 
 
-    public BaseSingleBtnDialog(Context context) {
-        super(context);
-    }
 
-    public BaseSingleBtnDialog(Context context, int themeResId) {
-        super(context, themeResId);
-    }
-
-    protected BaseSingleBtnDialog(Context context, boolean cancelable, DialogInterface.OnCancelListener cancelListener) {
-        super(context, cancelable, cancelListener);
-    }
 
     public static class Builder extends BaseDialog.Builder {
 

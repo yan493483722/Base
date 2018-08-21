@@ -2,6 +2,7 @@ package cn.earthyan.dialogandpop.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.text.TextUtils;
@@ -20,20 +21,8 @@ import cn.earthyan.dialogandpop.R;
  * modify:
  * modify date:
  */
-public class BaseDialog extends Dialog {
+public class BaseDialog extends DialogFragment {
 
-
-    protected BaseDialog(Context context) {
-        super(context);
-    }
-
-    protected BaseDialog(Context context, int themeResId) {
-        super(context, themeResId);
-    }
-
-    protected BaseDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
-        super(context, cancelable, cancelListener);
-    }
 
     public static abstract class Builder {
         //上下文

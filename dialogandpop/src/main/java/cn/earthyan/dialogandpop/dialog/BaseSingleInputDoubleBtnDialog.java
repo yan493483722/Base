@@ -21,18 +21,6 @@ import cn.earthyan.dialogandpop.listener.BaseDialogInputDoubleBtnClickListener;
 public class BaseSingleInputDoubleBtnDialog extends BaseDialog {
 
 
-    public BaseSingleInputDoubleBtnDialog(Context context) {
-        super(context);
-    }
-
-    public BaseSingleInputDoubleBtnDialog(Context context, int themeResId) {
-        super(context, themeResId);
-    }
-
-    protected BaseSingleInputDoubleBtnDialog(Context context, boolean cancelable, DialogInterface.OnCancelListener cancelListener) {
-        super(context, cancelable, cancelListener);
-    }
-
     public static class Builder extends BaseDoubleBtnDialog.Builder {
 
         protected EditText et_dg_input_content;

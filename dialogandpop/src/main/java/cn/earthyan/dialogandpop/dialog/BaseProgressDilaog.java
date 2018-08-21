@@ -15,18 +15,6 @@ import android.widget.FrameLayout;
  */
 public class BaseProgressDilaog extends BaseDialog {
 
-    protected BaseProgressDilaog(Context context) {
-        super(context);
-    }
-
-    protected BaseProgressDilaog(Context context, int themeResId) {
-        super(context, themeResId);
-    }
-
-    protected BaseProgressDilaog(Context context, boolean cancelable, DialogInterface.OnCancelListener cancelListener) {
-        super(context, cancelable, cancelListener);
-    }
-
     class Builder  extends BaseDialog.Builder {
 
         public Builder(Activity context, LayoutInflater mLayoutInflater) {

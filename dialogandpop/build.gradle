@@ -10,7 +10,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 27
         versionCode 1
-        versionName "0.1.0"
+        versionName "0.1.1"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -40,7 +40,7 @@ dependencies {
 def siteUrl = 'https://github.com/yan493483722'                        // #CONFIG# // project homepage
 def gitUrl = 'https://github.com/yan493483722'                     // #CONFIG# // project git
 group = "cn.earthyan.dialogandpop"
-version = "0.1.0"//定义版本标识
+version = "0.1.1"//定义版本标识
 
 install {
     repositories.mavenInstaller {
@@ -59,7 +59,13 @@ install {
                         url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
                     }
                 }
-
+                developers {
+                    developer {
+                        id 'yan493483722'
+                        name 'zi.yan'
+                        email '493483722@qq.com'
+                    }
+                }
                 scm {
                     connection gitUrl
                     developerConnection gitUrl
@@ -105,5 +111,17 @@ bintray {
         desc = 'An style like iOS of android dialog & popwindow'
 //描述，不重要
         publish = true
+    }
+}
+
+
+androidJavadocs {
+    options{
+        //如果你的项目里面有中文注释的话，必须将格式设置为UTF-8，不然会出现乱码
+        encoding "UTF-8"
+        charSet 'UTF-8'
+        author true
+        version true
+        links "http://docs.oracle.com/javase/7/docs/api"
     }
 }

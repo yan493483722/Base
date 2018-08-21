@@ -10,7 +10,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 27
         versionCode 1
-        versionName "0.1.2"
+        versionName "0.1.3"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -40,7 +40,7 @@ dependencies {
 def siteUrl = 'https://github.com/yan493483722'                        // #CONFIG# // project homepage
 def gitUrl = 'https://github.com/yan493483722'                     // #CONFIG# // project git
 group = "cn.earthyan.dialogandpop"
-version = "0.1.2"//定义版本标识
+version = "0.1.3"//定义版本标识
 
 install {
     repositories.mavenInstaller {

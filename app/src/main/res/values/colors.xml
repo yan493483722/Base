@@ -6,4 +6,21 @@
     <color name="color_blue">#2196F3</color>
     <color name="color_grey">#607D8B</color>
     <color name="color_orange">#F57C00</color>
+
+
+
+
+
+    <color name="colorPrimary">#00796B</color>
+    <color name="colorPrimaryDark">#01796B</color>
+    <color name="colorAccent">#00796B</color>
+
+    <color name="font_primary">@color/colorPrimary</color>
+
+    <!-- 相册选择颜色为应用主题色  -->
+    <color name="multiple_image_select_primaryDark">@color/colorPrimary</color>
+
+
+
+
 </resources>

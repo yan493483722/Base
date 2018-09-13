@@ -93,4 +93,8 @@ dependencies {
     api 'com.lzy.net:okrx2:2.0.2'
     api 'com.lzy.net:okserver:2.0.5'
 
+    //md 风格的弹窗
+    api 'com.afollestad.material-dialogs:commons:0.9.6.0'
+
+    api project(':dialogandpop')
 }

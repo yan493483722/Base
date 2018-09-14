@@ -108,6 +108,7 @@ public class DialogExampleAty extends BaseAty {
                     }
                 }).setContent("见到你很高兴，你好你好")
                         .setTitle("你好")
+                        .setCloseVisible(View.VISIBLE)
                         .create().show();
                 break;
 

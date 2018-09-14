@@ -9,8 +9,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 
 import cn.earthyan.dialogandpop.R;
 
@@ -40,10 +40,12 @@ public class BaseDialog extends DialogFragment {
         //布局加载器
         protected LayoutInflater mLayoutInflater;
 
+
+        protected int visibility=View.GONE;
         /**
          * 类型 用于多个弹窗设置同一个listener的回调区分
          */
-        protected int tag=-1;
+        protected int tag = -1;
         /**
          * 内容的layout
          */
@@ -76,6 +78,21 @@ public class BaseDialog extends DialogFragment {
             return this;
         }
 
+
+        /**
+         * 类型 用于多个弹窗设置同一个listener 的回调区分
+         */
+        /**
+         * Set the visibility state of this view.
+         *
+         * @param visibility One of { #View.VISIBLE}, { #INVISIBLE}, or { #GONE}.
+         * @attr ref android.R.styleable#View_visibility
+         */
+        public Builder setCloseVisible(int visibility) {
+            this.visibility = visibility;
+            return this;
+        }
+
         /**
          * 创建一个dialog
          *
@@ -97,6 +114,8 @@ public class BaseDialog extends DialogFragment {
             v_dg_divider_10 = dialogView
                     .findViewById(R.id.v_dg_divider_10);
 
+             dialogView
+                    .findViewById(R.id.rl_close).setVisibility(visibility);
             //标题
             if (TextUtils.isEmpty(title)) {
                 dialogView

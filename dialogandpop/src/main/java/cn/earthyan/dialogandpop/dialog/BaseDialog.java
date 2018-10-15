@@ -102,7 +102,7 @@ public class BaseDialog extends DialogFragment {
             if (context.isFinishing()) {
                 return null;
             }
-            Dialog dialog = new Dialog(context, R.style.base_dg);
+            final Dialog dialog = new Dialog(context, R.style.base_dg);
             dialogView = mLayoutInflater.inflate(R.layout.dg_base, null);
 
 
@@ -116,6 +116,13 @@ public class BaseDialog extends DialogFragment {
 
              dialogView
                     .findViewById(R.id.rl_close).setVisibility(visibility);
+            dialogView
+                    .findViewById(R.id.rl_close).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
             //标题
             if (TextUtils.isEmpty(title)) {
                 dialogView

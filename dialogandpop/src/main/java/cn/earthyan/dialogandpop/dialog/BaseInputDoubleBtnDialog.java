@@ -11,6 +11,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import cn.earthyan.dialogandpop.R;
 
 /**
@@ -34,6 +37,7 @@ public class BaseInputDoubleBtnDialog extends BaseDialog {
 
         public Builder(Activity context, LayoutInflater mLayoutInflater) {
             super(context, mLayoutInflater);
+            ArrayList<String> arr = new ArrayList<String>();
         }
 
         public Builder setTextHint(String textHint) {

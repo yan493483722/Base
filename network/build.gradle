@@ -36,15 +36,15 @@ dependencies {
 
     testImplementation 'junit:junit:4.12'
     //rxandroid  链接 https://github.com/ReactiveX/RxAndroid/
-    api 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    api 'io.reactivex.rxjava2:rxandroid:2.0.2'
     // Because RxAndroid releases are few and far between, it is recommended you also
     // explicitly depend on RxJava's latest version for bug fixes and new features.
-    api 'io.reactivex.rxjava2:rxjava:2.1.7'
+    api 'io.reactivex.rxjava2:rxjava:2.1.9'
     //Gson 库 Gson  用法解析 https://github.com/google/gson/blob/master/UserGuide.md
-    api 'com.google.code.gson:gson:2.8.2'
+    api 'com.google.code.gson:gson:2.8.5'
 
     //ok http 网络请求 https://github.com/square/okhttp/tree/master
-    api 'com.squareup.okhttp3:okhttp:3.9.1'
+    api 'com.squareup.okhttp3:okhttp:3.10.0'
     //ok http 日志拦截器 https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor
     api 'com.squareup.okhttp3:logging-interceptor:3.9.1'
 

@@ -3,7 +3,6 @@ package cn.earthyan.dialogandpop.dialog;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
@@ -31,7 +30,6 @@ public class BaseThreeMoreBtnDialog extends BaseDialog {
 
         protected ArrayList<String> btnText;
 
-
         protected BaseDialogThreeMoreBtnClickListener baseDialogThreeMoreBtnClickListener;
 
         public BaseThreeMoreBtnDialog.Builder setBaseDialogThreeMoreBtnClickListener(BaseDialogThreeMoreBtnClickListener baseDialogThreeMoreBtnClickListener) {
@@ -43,7 +41,6 @@ public class BaseThreeMoreBtnDialog extends BaseDialog {
             this.btnText = btnText;
             return this;
         }
-
 
         public Builder(Activity context, LayoutInflater mLayoutInflater) {
             super(context, mLayoutInflater);
@@ -67,8 +64,6 @@ public class BaseThreeMoreBtnDialog extends BaseDialog {
             linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
             rv_dg_base_bottom.setLayoutManager(linearLayoutManager);
             rv_dg_base_bottom.setAdapter(messageDetailAdapter);
-
-
         }
 
         @Override
@@ -135,6 +130,5 @@ public class BaseThreeMoreBtnDialog extends BaseDialog {
             }
         }
     }
-
 
 }

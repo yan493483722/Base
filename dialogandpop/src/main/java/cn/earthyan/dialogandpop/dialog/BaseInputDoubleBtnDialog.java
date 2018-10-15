@@ -1,8 +1,6 @@
 package cn.earthyan.dialogandpop.dialog;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.text.InputFilter;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -10,8 +8,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import cn.earthyan.dialogandpop.R;
@@ -25,7 +21,6 @@ import cn.earthyan.dialogandpop.R;
 public class BaseInputDoubleBtnDialog extends BaseDialog {
 
     private static final int MAX_LENGTH = 100;
-
 
     public static class Builder extends BaseSingleInputDoubleBtnDialog.Builder {
 
@@ -65,7 +60,6 @@ public class BaseInputDoubleBtnDialog extends BaseDialog {
             et_dg_input_content.setBackgroundDrawable(new EditText(context)
                     .getBackground());
         }
-
 
     }
 }

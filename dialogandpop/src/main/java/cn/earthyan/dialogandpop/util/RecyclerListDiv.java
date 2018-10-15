@@ -53,7 +53,7 @@ public class RecyclerListDiv extends RecyclerView.ItemDecoration {
 
     @IntDef({HORIZONTAL, VERTICAL})
     @Retention(RetentionPolicy.SOURCE)
-    @interface  TYPE {
+    @interface TYPE {
     }
 
     /**
@@ -78,7 +78,7 @@ public class RecyclerListDiv extends RecyclerView.ItemDecoration {
      * @param divType    分割线类型 HORIZONTAL VERTICAL
      * @param drawableId 分割线图片
      */
-    public RecyclerListDiv(Context context, @TYPE  int divType, int drawableId) {
+    public RecyclerListDiv(Context context, @TYPE int divType, int drawableId) {
         checkArgument(divType);
         mDivider = ContextCompat.getDrawable(context, drawableId);
         mDivHeight = mDivider.getIntrinsicHeight();
@@ -113,10 +113,10 @@ public class RecyclerListDiv extends RecyclerView.ItemDecoration {
 
         int position = parent.getChildLayoutPosition(view);
         if (divType == HORIZONTAL) {
-            int top = position == 0 ? 0 :  mDivHeight ;
+            int top = position == 0 ? 0 : mDivHeight;
             outRect.set(0, top, 0, 0);
         } else {
-            int left = position == 0 ? 0 :mDivHeight;
+            int left = position == 0 ? 0 : mDivHeight;
             outRect.set(left, 0, 0, 0);
         }
 
@@ -134,7 +134,6 @@ public class RecyclerListDiv extends RecyclerView.ItemDecoration {
 //            outRect.set(left, 0, right, 0);
 //        }
     }
-
 
     //绘制分割线
     @Override
@@ -190,6 +189,5 @@ public class RecyclerListDiv extends RecyclerView.ItemDecoration {
             }
         }
     }
-
 
 }

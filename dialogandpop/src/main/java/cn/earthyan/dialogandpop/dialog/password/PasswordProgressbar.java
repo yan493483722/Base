@@ -33,7 +33,6 @@ public class PasswordProgressbar extends View {
     private final static int LOAD_STATUS_SUCCESS = 1;
     private final static int LOAD_STATUS_FAIL = 2;
 
-
     private float startX1;
     private float startY1;
     private float stopX1;
@@ -42,7 +41,6 @@ public class PasswordProgressbar extends View {
     private float startY2;
     private float stopX2;
     private float stopY2;
-
 
     private int barColor;
     private float barStockWidth;
@@ -54,22 +52,16 @@ public class PasswordProgressbar extends View {
     private int textColor;
 
     private float barRectHeight;
-
     //http://mikewang.blog.51cto.com/3826268/871765//
     //http://blog.csdn.net/linghu_java/article/details/46404081
     private Paint textPaint;
     private Paint shapePaint;
-
     //初始化的最小的角度
     private static final float START_ANGLE = -90;
-    /**
-     * 初始化变化的幅度
-     */
+    // 初始化变化的幅度
     private static float MIN_ANGLE = 60f;
-
     //圆弧默认颜色
     private final static int DEFAULT_COLOR = Color.BLUE;
-
     //加载中的圆弧动画
     private AnimatorSet arcAnimatorSet;
     //成功的对勾动画
@@ -79,7 +71,6 @@ public class PasswordProgressbar extends View {
     boolean halfTack = false;
 
     private int loadingStatus = LOAD_STATUS_NONE;
-
     //圆弧对应的矩形
     private RectF arcRectF;
     private float innerRectWidth;
@@ -87,17 +78,10 @@ public class PasswordProgressbar extends View {
     //TextView对应的矩形
     private Rect textRect;
 
-
     private CharSequence msg = "加载中...";
-
-    /**
-     * 初始化的角度
-     */
+    // 初始化的角度
     private float startAngle = START_ANGLE;
-
-    /**
-     * 摆动的角度
-     */
+    // 摆动的角度
     private float sweepAngle = MIN_ANGLE - 15;//初始化减小，防止第一帧绘制多次造成卡顿视觉效果
 
     private float textPaddingLeft, textPaddingRight, textPaddingTop, textPaddingBottom, arcPaddingLeft, arcPaddingRight, arcPaddingTop, arcPaddingBottom;
@@ -157,14 +141,12 @@ public class PasswordProgressbar extends View {
     }
 
     private void init() {
-
         if (textPaint == null) {
             textPaint = new Paint();
             textPaint.setColor(textColor);
             textPaint.setAntiAlias(true);
             textPaint.setTextSize(textSize);
         }
-
         if (shapePaint == null) {
             shapePaint = new Paint();
             shapePaint.setStrokeWidth(barStockWidth);
@@ -243,7 +225,6 @@ public class PasswordProgressbar extends View {
                 canvas.drawLine(startX2, startY2, stopX2, stopY2, shapePaint);
             }
         }
-
         if (getMeasuredWidth() > barRectHeight + arcPaddingLeft + arcPaddingRight) {
             canvas.drawText(msg.toString(), textPaddingLeft, arcPaddingTop + barRectHeight + arcPaddingBottom + textPaddingTop - textRect.top, textPaint);
         } else {
@@ -574,4 +555,5 @@ public class PasswordProgressbar extends View {
     public void setAnimationEndListener(AnimationEndListener animationEnd) {
         this.animationEnd = animationEnd;
     }
+
 }

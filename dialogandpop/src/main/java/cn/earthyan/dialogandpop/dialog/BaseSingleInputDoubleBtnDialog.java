@@ -1,8 +1,6 @@
 package cn.earthyan.dialogandpop.dialog;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +17,6 @@ import cn.earthyan.dialogandpop.listener.BaseDialogInputDoubleBtnClickListener;
  * modify date:
  */
 public class BaseSingleInputDoubleBtnDialog extends BaseDialog {
-
 
     public static class Builder extends BaseDoubleBtnDialog.Builder {
 
@@ -43,7 +40,6 @@ public class BaseSingleInputDoubleBtnDialog extends BaseDialog {
             return this;
         }
 
-
         public Builder(Activity context, LayoutInflater mLayoutInflater) {
             super(context, mLayoutInflater);
         }
@@ -59,12 +55,11 @@ public class BaseSingleInputDoubleBtnDialog extends BaseDialog {
             }
         }
 
-
         @Override
         int setContentLayout() {
             return R.layout.dg_base_input_one_content;
         }
 
-
     }
+
 }

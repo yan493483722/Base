@@ -2,14 +2,11 @@ package cn.earthyan.dialogandpop.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
 
 import cn.earthyan.dialogandpop.R;
 import cn.earthyan.dialogandpop.listener.BaseDialogSingleBtnClickListener;
@@ -22,13 +19,9 @@ import cn.earthyan.dialogandpop.listener.BaseDialogSingleBtnClickListener;
  */
 public class BaseSingleBtnDialog extends BaseDialog {
 
-
-
-
     public static class Builder extends BaseDialog.Builder {
 
         protected String btnText;
-
 
         protected BaseDialogSingleBtnClickListener baseDialogSingleBtnClickListener;
 
@@ -41,7 +34,6 @@ public class BaseSingleBtnDialog extends BaseDialog {
             this.btnText = btnText;
             return this;
         }
-
 
         public Builder(Activity context, LayoutInflater mLayoutInflater) {
             super(context, mLayoutInflater);
@@ -77,6 +69,6 @@ public class BaseSingleBtnDialog extends BaseDialog {
             return R.layout.dg_base_content;
         }
 
-
     }
+
 }

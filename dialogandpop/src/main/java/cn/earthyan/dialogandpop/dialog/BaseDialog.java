@@ -9,7 +9,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import cn.earthyan.dialogandpop.R;
@@ -22,7 +21,6 @@ import cn.earthyan.dialogandpop.R;
  */
 public class BaseDialog extends DialogFragment {
 
-
     public static abstract class Builder {
         //上下文
         protected Activity context;
@@ -30,7 +28,6 @@ public class BaseDialog extends DialogFragment {
         protected String title;
         //内容
         protected String content;
-
         //弹窗整体的view
         protected View dialogView;
         //注入的view的父容器
@@ -40,8 +37,7 @@ public class BaseDialog extends DialogFragment {
         //布局加载器
         protected LayoutInflater mLayoutInflater;
 
-
-        protected int visibility=View.GONE;
+        protected int visibility = View.GONE;
         /**
          * 类型 用于多个弹窗设置同一个listener的回调区分
          */
@@ -78,7 +74,6 @@ public class BaseDialog extends DialogFragment {
             return this;
         }
 
-
         /**
          * 类型 用于多个弹窗设置同一个listener 的回调区分
          */
@@ -114,7 +109,7 @@ public class BaseDialog extends DialogFragment {
             v_dg_divider_10 = dialogView
                     .findViewById(R.id.v_dg_divider_10);
 
-             dialogView
+            dialogView
                     .findViewById(R.id.rl_close).setVisibility(visibility);
             dialogView
                     .findViewById(R.id.rl_close).setOnClickListener(new View.OnClickListener() {
@@ -186,8 +181,6 @@ public class BaseDialog extends DialogFragment {
         @LayoutRes
         abstract int setContentLayout();
 
-
     }
-
 
 }

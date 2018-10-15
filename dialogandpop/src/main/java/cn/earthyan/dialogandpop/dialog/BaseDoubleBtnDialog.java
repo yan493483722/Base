@@ -2,14 +2,11 @@ package cn.earthyan.dialogandpop.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
 
 import cn.earthyan.dialogandpop.R;
 import cn.earthyan.dialogandpop.listener.BaseDialogDoubleBtnClickListener;
@@ -22,16 +19,13 @@ import cn.earthyan.dialogandpop.listener.BaseDialogDoubleBtnClickListener;
  */
 public class BaseDoubleBtnDialog extends BaseDialog {
 
-
     public static class Builder extends BaseDialog.Builder {
         //左侧按钮文字
         protected String leftBtnString;
         //右侧按钮文字
         protected String rightBtnString;
 
-
         protected BaseDialogDoubleBtnClickListener baseDialogDoubleBtnClickListener;
-
 
         public Builder setLeftBtnString(String leftBtnString) {
             this.leftBtnString = leftBtnString;
@@ -42,7 +36,6 @@ public class BaseDoubleBtnDialog extends BaseDialog {
             this.rightBtnString = rightBtnString;
             return this;
         }
-
 
         public Builder setBaseDialogDoubleBtnClickListener(BaseDialogDoubleBtnClickListener baseDialogDoubleBtnClickListener) {
             this.baseDialogDoubleBtnClickListener = baseDialogDoubleBtnClickListener;
@@ -91,14 +84,12 @@ public class BaseDoubleBtnDialog extends BaseDialog {
                     }
                 }
             });
-
         }
 
         @Override
         int setContentLayout() {
             return R.layout.dg_base_content;
         }
-
 
     }
 

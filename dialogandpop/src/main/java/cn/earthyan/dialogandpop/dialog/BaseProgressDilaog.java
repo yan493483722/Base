@@ -2,8 +2,6 @@ package cn.earthyan.dialogandpop.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
 
@@ -15,7 +13,7 @@ import android.widget.FrameLayout;
  */
 public class BaseProgressDilaog extends BaseDialog {
 
-    class Builder  extends BaseDialog.Builder {
+    class Builder extends BaseDialog.Builder {
 
         public Builder(Activity context, LayoutInflater mLayoutInflater) {
             super(context, mLayoutInflater);

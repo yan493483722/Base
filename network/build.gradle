@@ -1,16 +1,15 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion versions.compileSdkVersion
 
     defaultConfig {
-//        applicationId "com.yan.network"
-        minSdkVersion 15
-        targetSdkVersion 27
+        minSdkVersion versions.minSdkVersion
+        targetSdkVersion versions.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
     buildTypes {
@@ -34,7 +33,7 @@ android {
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
 
-    testImplementation 'junit:junit:4.12'
+    testImplementation "junit:junit:$versions.junit"
     //rxandroid  链接 https://github.com/ReactiveX/RxAndroid/
     api 'io.reactivex.rxjava2:rxandroid:2.0.2'
     // Because RxAndroid releases are few and far between, it is recommended you also
@@ -44,7 +43,7 @@ dependencies {
     api 'com.google.code.gson:gson:2.8.5'
 
     //ok http 网络请求 https://github.com/square/okhttp/tree/master
-    api 'com.squareup.okhttp3:okhttp:3.10.0'
+    api 'com.squareup.okhttp3:okhttp:3.11.0'
     //ok http 日志拦截器 https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor
     api 'com.squareup.okhttp3:logging-interceptor:3.9.1'
 
@@ -59,8 +58,6 @@ dependencies {
     //RX JAva解析支持 https://github.com/square/retrofit/tree/master/retrofit-adapters/rxjava2
     api 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
 
-
-
 // If you want to bind to Android-specific lifecycles
     api 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.1'
 
@@ -69,7 +66,6 @@ dependencies {
 
 // If you want pre-written support preference Fragments you can subclass as providers
     api 'com.trello.rxlifecycle2:rxlifecycle-components-preference:2.2.1'
-
 
 // If you want to use Android Lifecycle for providers
     api 'com.trello.rxlifecycle2:rxlifecycle-android-lifecycle:2.2.1'

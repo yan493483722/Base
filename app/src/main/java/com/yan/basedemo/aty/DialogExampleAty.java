@@ -121,19 +121,30 @@ public class DialogExampleAty extends BaseAty {
                 break;
 
             case R.id.btn_dialog_example_double:
-                new BaseDoubleBtnDialog.Builder(mAty, mLayoutInflater).
-                        setBaseDialogDoubleBtnClickListener(mBaseDialogDoubleBtnClickListener)
+
+                new BaseDoubleBtnDialog.Builder(mAty, mLayoutInflater)
+                        .setBaseDialogDoubleBtnClickListener(mBaseDialogDoubleBtnClickListener)
                         .setTag(DIALOG_TYPE_TWO).setContent("见到你很高兴，你好你好")
                         .setTitle("你好")
+                        .setTitleTextSize(R.dimen.font_big)
+                        .setContentTextSize(R.dimen.font_small)
+//                        .setTitleTextBold(true)
+                        .setBtnColorStateList(R.color.font_red)
+                        .setTitleTextColorRes(R.color.bg_color_green)
                         .create().show();
-                new BaseDoubleBtnDialog.Builder(mAty, mLayoutInflater)
-                        .setBaseDialogDoubleBtnClickListener(mBaseDialogDoubleBtnClickListener)
-                        .setTag(DIALOG_TYPE_TWO).setContent("见到你很高兴，你好你好")
-                        .create().show();
-                new BaseDoubleBtnDialog.Builder(mAty, mLayoutInflater)
-                        .setBaseDialogDoubleBtnClickListener(mBaseDialogDoubleBtnClickListener)
-                        .setTag(DIALOG_TYPE_TWO).setTitle("见到你很高兴，你好你好")
-                        .create().show();
+//                new BaseDoubleBtnDialog.Builder(mAty, mLayoutInflater).
+//                        setBaseDialogDoubleBtnClickListener(mBaseDialogDoubleBtnClickListener)
+//                        .setTag(DIALOG_TYPE_TWO).setContent("见到你很高兴，你好你好")
+//                        .setTitle("你好")
+//                        .create().show();
+//                new BaseDoubleBtnDialog.Builder(mAty, mLayoutInflater)
+//                        .setBaseDialogDoubleBtnClickListener(mBaseDialogDoubleBtnClickListener)
+//                        .setTag(DIALOG_TYPE_TWO).setContent("见到你很高兴，你好你好")
+//                        .create().show();
+//                new BaseDoubleBtnDialog.Builder(mAty, mLayoutInflater)
+//                        .setBaseDialogDoubleBtnClickListener(mBaseDialogDoubleBtnClickListener)
+//                        .setTag(DIALOG_TYPE_TWO).setTitle("见到你很高兴，你好你好")
+//                        .create().show();
                 break;
             case R.id.btn_dialog_example_input_one:
                 new BaseSingleInputDoubleBtnDialog.Builder(mAty, mLayoutInflater)

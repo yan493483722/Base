@@ -39,6 +39,7 @@ public class BaseDialog extends DialogFragment {
         protected float btnTextSize;
 
         protected ColorStateList btnColorStateList;
+
         //上下文
         protected Activity context;
         //标题
@@ -74,7 +75,7 @@ public class BaseDialog extends DialogFragment {
             titleTextColor = context.getResources().getColor(R.color.font_black);
             contentTextSize = context.getResources().getDimensionPixelSize(R.dimen.font_medium);
             contentTextColor = context.getResources().getColor(R.color.font_black);
-            btnTextSize = context.getResources().getDimensionPixelSize(R.dimen.font_large);
+            btnTextSize = context.getResources().getDimensionPixelSize(R.dimen.font_medium);
             btnColorStateList = context.getResources().getColorStateList(R.color.selector_text_black_to_primary);
         }
 
@@ -244,20 +245,22 @@ public class BaseDialog extends DialogFragment {
         }
 
 
-        public Builder setBtnTextSize(@DimenRes int btnTextSize) {
-            this.btnTextSize = context.getResources().getDimensionPixelSize(btnTextSize);
-            return this;
-        }
-
-        public Builder setBtnColorStateList(@ColorRes int btnColorStateList) {
-            this.btnColorStateList = context.getResources().getColorStateList(btnColorStateList);
-            return this;
-        }
-
         public Builder setTitleTextBold(boolean titleTextBold) {
             this.titleTextBold = titleTextBold;
             return this;
         }
+
+
+        public BaseDialog.Builder setBtnTextSize(@DimenRes int btnTextSize) {
+            this.btnTextSize = context.getResources().getDimensionPixelSize(btnTextSize);
+            return this;
+        }
+
+        public BaseDialog.Builder setBtnColorStateList(@ColorRes int btnColorStateList) {
+            this.btnColorStateList = context.getResources().getColorStateList(btnColorStateList);
+            return this;
+        }
+
     }
 
 }

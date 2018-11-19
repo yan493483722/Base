@@ -3,6 +3,7 @@ package cn.earthyan.dialogandpop.dialog;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.res.ColorStateList;
+import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DimenRes;
@@ -29,6 +30,7 @@ public class BaseDialog extends DialogFragment {
     public static abstract class Builder {
 
         protected float titleTextSize;
+        private boolean titleTextBold;
         @ColorInt
         protected int titleTextColor;
         @ColorInt
@@ -151,6 +153,9 @@ public class BaseDialog extends DialogFragment {
             }
             titleTextView.setTextColor(titleTextColor);
             titleTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, titleTextSize);
+            if (titleTextBold) {
+                titleTextView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+            }
             //按钮
             initBtn(fl_dg_bottom, dialog);
             //内容
@@ -224,7 +229,7 @@ public class BaseDialog extends DialogFragment {
         }
 
         public Builder setContentTextSize(@DimenRes int contentTextSize) {
-            this.titleTextSize = context.getResources().getDimensionPixelSize(contentTextSize);
+            this.contentTextSize = context.getResources().getDimensionPixelSize(contentTextSize);
             return this;
         }
 
@@ -240,12 +245,17 @@ public class BaseDialog extends DialogFragment {
 
 
         public Builder setBtnTextSize(@DimenRes int btnTextSize) {
-            this.titleTextSize = context.getResources().getDimensionPixelSize(btnTextSize);
+            this.btnTextSize = context.getResources().getDimensionPixelSize(btnTextSize);
             return this;
         }
 
         public Builder setBtnColorStateList(@ColorRes int btnColorStateList) {
             this.btnColorStateList = context.getResources().getColorStateList(btnColorStateList);
+            return this;
+        }
+
+        public Builder setTitleTextBold(boolean titleTextBold) {
+            this.titleTextBold = titleTextBold;
             return this;
         }
     }

@@ -85,6 +85,10 @@ public class DialogExampleAty extends BaseAty {
                         setBaseDialogSingleBtnClickListener(mBaseDialogSingleBtnClickListener).
                         setTag(DIALOG_TYPE_ONE).setContent("见到你很高兴，你好你好")
                         .setTitle("你好")
+                        .setTitleTextSize(R.dimen.font_large_plus_plus)
+                        .setContentTextSize(R.dimen.font_small)
+                        .setBtnTextSize(R.dimen.font_large)
+//                        .setTitleTextBold(true)
                         .setBtnColorStateList(R.color.selector_text_black_to_white)
                         .setTitleTextColorRes(R.color.bg_color_green)
                         .setContentTextColorRes(R.color.color_brown)

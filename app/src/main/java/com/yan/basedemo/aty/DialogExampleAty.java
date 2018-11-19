@@ -126,11 +126,15 @@ public class DialogExampleAty extends BaseAty {
                         .setBaseDialogDoubleBtnClickListener(mBaseDialogDoubleBtnClickListener)
                         .setTag(DIALOG_TYPE_TWO).setContent("见到你很高兴，你好你好")
                         .setTitle("你好")
-                        .setTitleTextSize(R.dimen.font_big)
-                        .setContentTextSize(R.dimen.font_small)
-//                        .setTitleTextBold(true)
-                        .setBtnColorStateList(R.color.font_red)
+                        .setTitleTextSize(R.dimen.font_large)
                         .setTitleTextColorRes(R.color.bg_color_green)
+                        // .setTitleTextBold(true)//加粗
+                        .setContentTextSize(R.dimen.font_small)
+                        .setContentTextColorRes(R.color.color_brown)
+                        .setLeftBtnColorStateList(R.color.selector_text_black_to_white)
+                        .setLeftBtnTextSize(R.dimen.font_big)
+                        .setRightBtnColorStateList(R.color.font_gray)
+                        .setRightBtnTextSize(R.dimen.font_big)
                         .create().show();
 //                new BaseDoubleBtnDialog.Builder(mAty, mLayoutInflater).
 //                        setBaseDialogDoubleBtnClickListener(mBaseDialogDoubleBtnClickListener)

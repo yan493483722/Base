@@ -3,6 +3,7 @@ package cn.earthyan.dialogandpop.dialog;
 import android.app.Activity;
 import android.app.Dialog;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -84,6 +85,11 @@ public class BaseDoubleBtnDialog extends BaseDialog {
                     }
                 }
             });
+
+            tv_dg_double_left.setTextColor(btnColorStateList);
+            tv_dg_double_left.setTextSize(TypedValue.COMPLEX_UNIT_PX,btnTextSize);
+            tv_dg_double_right.setTextColor(btnColorStateList);
+            tv_dg_double_right.setTextSize(TypedValue.COMPLEX_UNIT_PX,btnTextSize);
         }
 
         @Override

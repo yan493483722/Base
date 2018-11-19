@@ -84,15 +84,19 @@ public class DialogExampleAty extends BaseAty {
                 new BaseSingleBtnDialog.Builder(mAty, mLayoutInflater).
                         setBaseDialogSingleBtnClickListener(mBaseDialogSingleBtnClickListener).
                         setTag(DIALOG_TYPE_ONE).setContent("见到你很高兴，你好你好")
-                        .setTitle("你好").create().show();
-                new BaseSingleBtnDialog.Builder(mAty, mLayoutInflater)
-                        .setBaseDialogSingleBtnClickListener(mBaseDialogSingleBtnClickListener)
-                        .setTag(DIALOG_TYPE_ONE).setContent("见到你很高兴，你好你好")
+                        .setTitle("你好")
+                        .setBtnColorStateList(R.color.selector_text_black_to_white)
+                        .setTitleTextColorRes(R.color.bg_color_green)
+                        .setContentTextColorRes(R.color.color_brown)
                         .create().show();
-                new BaseSingleBtnDialog.Builder(mAty, mLayoutInflater)
-                        .setBaseDialogSingleBtnClickListener(mBaseDialogSingleBtnClickListener)
-                        .setTag(DIALOG_TYPE_ONE).setTitle("见到你很高兴，你好你好")
-                        .create().show();
+//                new BaseSingleBtnDialog.Builder(mAty, mLayoutInflater)
+//                        .setBaseDialogSingleBtnClickListener(mBaseDialogSingleBtnClickListener)
+//                        .setTag(DIALOG_TYPE_ONE).setContent("见到你很高兴，你好你好")
+//                        .create().show();
+//                new BaseSingleBtnDialog.Builder(mAty, mLayoutInflater)
+//                        .setBaseDialogSingleBtnClickListener(mBaseDialogSingleBtnClickListener)
+//                        .setTag(DIALOG_TYPE_ONE).setTitle("见到你很高兴，你好你好")
+//                        .create().show();
                 break;
             case R.id.btn_dialog_example_many:
                 ArrayList<String> btnTexts = new ArrayList<>();

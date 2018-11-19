@@ -2,9 +2,14 @@ package cn.earthyan.dialogandpop.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.res.ColorStateList;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DimenRes;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.DialogFragment;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +27,16 @@ import cn.earthyan.dialogandpop.R;
 public class BaseDialog extends DialogFragment {
 
     public static abstract class Builder {
+
+        protected float titleTextSize;
+        @ColorInt
+        protected int titleTextColor;
+        @ColorInt
+        protected int contentTextColor;
+        protected float contentTextSize;
+        protected float btnTextSize;
+
+        protected ColorStateList btnColorStateList;
         //上下文
         protected Activity context;
         //标题
@@ -53,6 +68,12 @@ public class BaseDialog extends DialogFragment {
         public Builder(Activity context, LayoutInflater mLayoutInflater) {
             this.context = context;
             this.mLayoutInflater = mLayoutInflater;
+            titleTextSize = context.getResources().getDimensionPixelSize(R.dimen.font_large);
+            titleTextColor = context.getResources().getColor(R.color.font_black);
+            contentTextSize = context.getResources().getDimensionPixelSize(R.dimen.font_medium);
+            contentTextColor = context.getResources().getColor(R.color.font_black);
+            btnTextSize = context.getResources().getDimensionPixelSize(R.dimen.font_large);
+            btnColorStateList = context.getResources().getColorStateList(R.color.selector_text_black_to_primary);
         }
 
         public Builder setTitle(String title) {
@@ -118,15 +139,18 @@ public class BaseDialog extends DialogFragment {
                     dialog.dismiss();
                 }
             });
+
             //标题
+            final TextView titleTextView = dialogView
+                    .findViewById(R.id.tv_dg_title);
             if (TextUtils.isEmpty(title)) {
-                dialogView
-                        .findViewById(R.id.tv_dg_title).setVisibility(View.GONE);
+                titleTextView.setVisibility(View.GONE);
                 v_dg_divider_10.setVisibility(View.GONE);
             } else {
-                ((TextView) dialogView
-                        .findViewById(R.id.tv_dg_title)).setText(title);
+                titleTextView.setText(title);
             }
+            titleTextView.setTextColor(titleTextColor);
+            titleTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, titleTextSize);
             //按钮
             initBtn(fl_dg_bottom, dialog);
             //内容
@@ -152,6 +176,8 @@ public class BaseDialog extends DialogFragment {
             if (!TextUtils.isEmpty(content)) {
                 final TextView textView = ((TextView) dialogView.findViewById(R.id.tv_dg_content));
                 textView.setGravity(textContentGravity);
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, contentTextSize);
+                textView.setTextColor(contentTextColor);
                 textView.setText(content);
             } else {
                 dialogView.findViewById(R.id.tv_dg_content).setVisibility(View.GONE);
@@ -181,6 +207,47 @@ public class BaseDialog extends DialogFragment {
         @LayoutRes
         abstract int setContentLayout();
 
+        public Builder setTitleTextSize(@DimenRes int titleTextSize) {
+            this.titleTextSize = context.getResources().getDimensionPixelSize(titleTextSize);
+            return this;
+        }
+
+
+        public Builder setTitleTextColorInt(@ColorInt int titleTextColor) {
+            this.titleTextColor = titleTextColor;
+            return this;
+        }
+
+        public Builder setTitleTextColorRes(@ColorRes int titleTextColor) {
+            this.titleTextColor = context.getResources().getColor(titleTextColor);
+            return this;
+        }
+
+        public Builder setContentTextSize(@DimenRes int contentTextSize) {
+            this.titleTextSize = context.getResources().getDimensionPixelSize(contentTextSize);
+            return this;
+        }
+
+        public Builder setContentTextColorInt(@ColorInt int contentTextColor) {
+            this.contentTextColor = contentTextColor;
+            return this;
+        }
+
+        public Builder setContentTextColorRes(@ColorRes int contentTextColor) {
+            this.contentTextColor = context.getResources().getColor(contentTextColor);
+            return this;
+        }
+
+
+        public Builder setBtnTextSize(@DimenRes int btnTextSize) {
+            this.titleTextSize = context.getResources().getDimensionPixelSize(btnTextSize);
+            return this;
+        }
+
+        public Builder setBtnColorStateList(@ColorRes int btnColorStateList) {
+            this.btnColorStateList = context.getResources().getColorStateList(btnColorStateList);
+            return this;
+        }
     }
 
 }

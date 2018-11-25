@@ -2,14 +2,12 @@ package cn.earthyan.dialogandpop.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
 
 import cn.earthyan.dialogandpop.R;
 import cn.earthyan.dialogandpop.listener.BaseDialogSingleBtnClickListener;
@@ -22,13 +20,9 @@ import cn.earthyan.dialogandpop.listener.BaseDialogSingleBtnClickListener;
  */
 public class BaseSingleBtnDialog extends BaseDialog {
 
-
-
-
     public static class Builder extends BaseDialog.Builder {
 
         protected String btnText;
-
 
         protected BaseDialogSingleBtnClickListener baseDialogSingleBtnClickListener;
 
@@ -41,7 +35,6 @@ public class BaseSingleBtnDialog extends BaseDialog {
             this.btnText = btnText;
             return this;
         }
-
 
         public Builder(Activity context, LayoutInflater mLayoutInflater) {
             super(context, mLayoutInflater);
@@ -70,6 +63,9 @@ public class BaseSingleBtnDialog extends BaseDialog {
                     }
                 }
             });
+
+            tv_dg_single.setTextColor(btnColorStateList);
+            tv_dg_single.setTextSize(TypedValue.COMPLEX_UNIT_PX, btnTextSize);
         }
 
         @Override
@@ -78,5 +74,90 @@ public class BaseSingleBtnDialog extends BaseDialog {
         }
 
 
+        @Override
+        public Builder setTitle(String title) {
+            super.setTitle(title);
+            return this;
+        }
+
+        @Override
+        public Builder setContent(String content) {
+            super.setContent(content);
+            return this;
+        }
+
+        @Override
+        public Builder setTag(int tag) {
+            super.setTag(tag);
+            return this;
+        }
+
+        @Override
+        public Builder setCloseVisible(int visibility) {
+            super.setCloseVisible(visibility);
+            return this;
+        }
+
+
+        @Override
+        public Builder setContentTextGravity(int textContentGravity) {
+            super.setContentTextGravity(textContentGravity);
+            return this;
+        }
+
+        @Override
+        public Builder setTitleTextSize(int titleTextSize) {
+            super.setTitleTextSize(titleTextSize);
+            return this;
+        }
+
+        @Override
+        public Builder setTitleTextColorInt(int titleTextColor) {
+            super.setTitleTextColorInt(titleTextColor);
+            return this;
+        }
+
+        @Override
+        public Builder setTitleTextColorRes(int titleTextColor) {
+            super.setTitleTextColorRes(titleTextColor);
+            return this;
+        }
+
+        @Override
+        public Builder setContentTextSize(int contentTextSize) {
+            super.setContentTextSize(contentTextSize);
+            return this;
+        }
+
+        @Override
+        public Builder setContentTextColorInt(int contentTextColor) {
+            super.setContentTextColorInt(contentTextColor);
+            return this;
+        }
+
+        @Override
+        public Builder setContentTextColorRes(int contentTextColor) {
+            super.setContentTextColorRes(contentTextColor);
+            return this;
+        }
+
+        @Override
+        public Builder setTitleTextBold(boolean titleTextBold) {
+            super.setTitleTextBold(titleTextBold);
+            return this;
+        }
+
+        @Override
+        public Builder setBtnTextSize(int btnTextSize) {
+            super.setBtnTextSize(btnTextSize);
+            return this;
+        }
+
+        @Override
+        public Builder setBtnColorStateList(int btnColorStateList) {
+            super.setBtnColorStateList(btnColorStateList);
+            return this;
+        }
     }
+
 }

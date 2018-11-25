@@ -43,10 +43,8 @@ public class SelectPhotoPop extends PopupWindow {
     private BottomPopClickListener bottomPopClickListener;
 
     private LayoutInflater mLayoutInflater;
-
     //text outside change;
     private String arg[];
-
 
     public SelectPhotoPop(Context context) {
         super(context, null);

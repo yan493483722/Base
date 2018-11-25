@@ -11,11 +11,11 @@ public interface BaseDialogThreeMoreBtnClickListener {
 
     /**
      * 弹窗类型 多个弹窗时候使用此tag来区分
+     *
      * @param position
      * @param tag
      */
     void clickBtn(int position, int tag);
-
 
 
 }

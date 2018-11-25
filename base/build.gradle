@@ -2,11 +2,11 @@ apply plugin: 'com.android.library'
 
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion versions.compileSdkVersion
+
     defaultConfig {
-//        applicationId "com.yan.base"
-        minSdkVersion 15
-        targetSdkVersion 27
+        minSdkVersion versions.minSdkVersion
+        targetSdkVersion versions.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
@@ -38,11 +38,11 @@ dependencies {
     api 'com.android.support.constraint:constraint-layout:1.1.2'
     api 'com.ashokvarma.android:bottom-navigation-bar:2.0.4'
 
-    api 'com.android.support:appcompat-v7:27.1.1'
-    api 'com.android.support:palette-v7:27.1.1'
-    api 'com.android.support:support-v4:27.1.1'
-    api 'com.android.support:design:27.1.1'
-    api 'com.android.support:cardview-v7:27.1.1'
+    api 'com.android.support:appcompat-v7:28.0.0'
+    api 'com.android.support:palette-v7:28.0.0'
+    api 'com.android.support:support-v4:28.0.0'
+    api 'com.android.support:design:28.0.0'
+    api 'com.android.support:cardview-v7:28.0.0'
     //日志崩溃记录
     //https://github.com/wangjiegulu/AndroidBucket
 //    api 'com.github.wangjiegulu:AndroidBucket:1.0.4'
@@ -93,4 +93,8 @@ dependencies {
     api 'com.lzy.net:okrx2:2.0.2'
     api 'com.lzy.net:okserver:2.0.5'
 
+    //md 风格的弹窗
+    api 'com.afollestad.material-dialogs:commons:0.9.6.0'
+
+    api project(':dialogandpop')
 }

@@ -307,7 +307,6 @@ public class PasswordInputView extends View {
         this.passwordInputListener = passwordInputListener;
     }
 
-
     public interface PasswordInputListener {
         void onPasswordInputComplete(CharSequence text);
     }

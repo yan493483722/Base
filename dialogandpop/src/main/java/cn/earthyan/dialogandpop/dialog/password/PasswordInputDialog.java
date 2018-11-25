@@ -27,7 +27,6 @@ public class PasswordInputDialog extends DialogFragment implements View.OnClickL
 
     public String ACTIVITY_TAG = "BaseAty";
 
-
     private TextView tv_dg_password_cancel, tv_dg_password_forget;
 
     private PasswordInputView piv_dg_password;
@@ -100,7 +99,6 @@ public class PasswordInputDialog extends DialogFragment implements View.OnClickL
             if (passwordInputDialogListener != null) {
                 passwordInputDialogListener.forgetPassword();
             }
-        } else {
         }
     }
 
@@ -197,7 +195,6 @@ public class PasswordInputDialog extends DialogFragment implements View.OnClickL
             piv_dg_password.setPassword(String.valueOf(num));
         }
     };
-
 
     public interface PasswordInputDialogListener extends PasswordProgressbar.AnimationEndListener, PasswordInputView.PasswordInputListener {
 

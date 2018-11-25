@@ -3,7 +3,6 @@ package cn.earthyan.dialogandpop.dialog;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
@@ -31,7 +30,6 @@ public class BaseThreeMoreBtnDialog extends BaseDialog {
 
         protected ArrayList<String> btnText;
 
-
         protected BaseDialogThreeMoreBtnClickListener baseDialogThreeMoreBtnClickListener;
 
         public BaseThreeMoreBtnDialog.Builder setBaseDialogThreeMoreBtnClickListener(BaseDialogThreeMoreBtnClickListener baseDialogThreeMoreBtnClickListener) {
@@ -43,7 +41,6 @@ public class BaseThreeMoreBtnDialog extends BaseDialog {
             this.btnText = btnText;
             return this;
         }
-
 
         public Builder(Activity context, LayoutInflater mLayoutInflater) {
             super(context, mLayoutInflater);
@@ -67,8 +64,6 @@ public class BaseThreeMoreBtnDialog extends BaseDialog {
             linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
             rv_dg_base_bottom.setLayoutManager(linearLayoutManager);
             rv_dg_base_bottom.setAdapter(messageDetailAdapter);
-
-
         }
 
         @Override
@@ -134,7 +129,92 @@ public class BaseThreeMoreBtnDialog extends BaseDialog {
                 }
             }
         }
-    }
 
+
+        @Override
+        public Builder setTitle(String title) {
+            super.setTitle(title);
+            return this;
+        }
+
+        @Override
+        public Builder setContent(String content) {
+            super.setContent(content);
+            return this;
+        }
+
+        @Override
+        public Builder setTag(int tag) {
+            super.setTag(tag);
+            return this;
+        }
+
+        @Override
+        public Builder setCloseVisible(int visibility) {
+            super.setCloseVisible(visibility);
+            return this;
+        }
+
+
+        @Override
+        public Builder setContentTextGravity(int textContentGravity) {
+            super.setContentTextGravity(textContentGravity);
+            return this;
+        }
+
+        @Override
+        public Builder setTitleTextSize(int titleTextSize) {
+            super.setTitleTextSize(titleTextSize);
+            return this;
+        }
+
+        @Override
+        public Builder setTitleTextColorInt(int titleTextColor) {
+            super.setTitleTextColorInt(titleTextColor);
+            return this;
+        }
+
+        @Override
+        public Builder setTitleTextColorRes(int titleTextColor) {
+            super.setTitleTextColorRes(titleTextColor);
+            return this;
+        }
+
+        @Override
+        public Builder setContentTextSize(int contentTextSize) {
+            super.setContentTextSize(contentTextSize);
+            return this;
+        }
+
+        @Override
+        public Builder setContentTextColorInt(int contentTextColor) {
+            super.setContentTextColorInt(contentTextColor);
+            return this;
+        }
+
+        @Override
+        public Builder setContentTextColorRes(int contentTextColor) {
+            super.setContentTextColorRes(contentTextColor);
+            return this;
+        }
+
+        @Override
+        public Builder setTitleTextBold(boolean titleTextBold) {
+            super.setTitleTextBold(titleTextBold);
+            return this;
+        }
+
+        @Override
+        public Builder setBtnTextSize(int btnTextSize) {
+            super.setBtnTextSize(btnTextSize);
+            return this;
+        }
+
+        @Override
+        public Builder setBtnColorStateList(int btnColorStateList) {
+            super.setBtnColorStateList(btnColorStateList);
+            return this;
+        }
+    }
 
 }

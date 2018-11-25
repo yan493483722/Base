@@ -2,15 +2,20 @@ package cn.earthyan.dialogandpop.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.res.ColorStateList;
+import android.graphics.Typeface;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DimenRes;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.DialogFragment;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
 
 import cn.earthyan.dialogandpop.R;
 
@@ -22,15 +27,25 @@ import cn.earthyan.dialogandpop.R;
  */
 public class BaseDialog extends DialogFragment {
 
-
     public static abstract class Builder {
+
+        protected float titleTextSize;
+        private boolean titleTextBold;
+        @ColorInt
+        protected int titleTextColor;
+        @ColorInt
+        protected int contentTextColor;
+        protected float contentTextSize;
+        protected float btnTextSize;
+
+        protected ColorStateList btnColorStateList;
+
         //上下文
         protected Activity context;
         //标题
         protected String title;
         //内容
         protected String content;
-
         //弹窗整体的view
         protected View dialogView;
         //注入的view的父容器
@@ -40,10 +55,11 @@ public class BaseDialog extends DialogFragment {
         //布局加载器
         protected LayoutInflater mLayoutInflater;
 
+        protected int visibility = View.GONE;
         /**
          * 类型 用于多个弹窗设置同一个listener的回调区分
          */
-        protected int tag=-1;
+        protected int tag = -1;
         /**
          * 内容的layout
          */
@@ -55,6 +71,12 @@ public class BaseDialog extends DialogFragment {
         public Builder(Activity context, LayoutInflater mLayoutInflater) {
             this.context = context;
             this.mLayoutInflater = mLayoutInflater;
+            titleTextSize = context.getResources().getDimensionPixelSize(R.dimen.font_large);
+            titleTextColor = context.getResources().getColor(R.color.font_black);
+            contentTextSize = context.getResources().getDimensionPixelSize(R.dimen.font_medium);
+            contentTextColor = context.getResources().getColor(R.color.font_black);
+            btnTextSize = context.getResources().getDimensionPixelSize(R.dimen.font_medium);
+            btnColorStateList = context.getResources().getColorStateList(R.color.selector_text_black_to_primary);
         }
 
         public Builder setTitle(String title) {
@@ -77,6 +99,20 @@ public class BaseDialog extends DialogFragment {
         }
 
         /**
+         * 类型 用于多个弹窗设置同一个listener 的回调区分
+         */
+        /**
+         * Set the visibility state of this view.
+         *
+         * @param visibility One of { #View.VISIBLE}, { #INVISIBLE}, or { #GONE}.
+         * @attr ref android.R.styleable#View_visibility
+         */
+        public Builder setCloseVisible(int visibility) {
+            this.visibility = visibility;
+            return this;
+        }
+
+        /**
          * 创建一个dialog
          *
          * @return
@@ -85,7 +121,7 @@ public class BaseDialog extends DialogFragment {
             if (context.isFinishing()) {
                 return null;
             }
-            Dialog dialog = new Dialog(context, R.style.base_dg);
+            final Dialog dialog = new Dialog(context, R.style.base_dg);
             dialogView = mLayoutInflater.inflate(R.layout.dg_base, null);
 
 
@@ -97,14 +133,29 @@ public class BaseDialog extends DialogFragment {
             v_dg_divider_10 = dialogView
                     .findViewById(R.id.v_dg_divider_10);
 
+            dialogView
+                    .findViewById(R.id.rl_close).setVisibility(visibility);
+            dialogView
+                    .findViewById(R.id.rl_close).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
             //标题
+            final TextView titleTextView = dialogView
+                    .findViewById(R.id.tv_dg_title);
             if (TextUtils.isEmpty(title)) {
-                dialogView
-                        .findViewById(R.id.tv_dg_title).setVisibility(View.GONE);
+                titleTextView.setVisibility(View.GONE);
                 v_dg_divider_10.setVisibility(View.GONE);
             } else {
-                ((TextView) dialogView
-                        .findViewById(R.id.tv_dg_title)).setText(title);
+                titleTextView.setText(title);
+            }
+            titleTextView.setTextColor(titleTextColor);
+            titleTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, titleTextSize);
+            if (titleTextBold) {
+                titleTextView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
             }
             //按钮
             initBtn(fl_dg_bottom, dialog);
@@ -131,6 +182,8 @@ public class BaseDialog extends DialogFragment {
             if (!TextUtils.isEmpty(content)) {
                 final TextView textView = ((TextView) dialogView.findViewById(R.id.tv_dg_content));
                 textView.setGravity(textContentGravity);
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, contentTextSize);
+                textView.setTextColor(contentTextColor);
                 textView.setText(content);
             } else {
                 dialogView.findViewById(R.id.tv_dg_content).setVisibility(View.GONE);
@@ -160,8 +213,54 @@ public class BaseDialog extends DialogFragment {
         @LayoutRes
         abstract int setContentLayout();
 
+        public Builder setTitleTextSize(@DimenRes int titleTextSize) {
+            this.titleTextSize = context.getResources().getDimensionPixelSize(titleTextSize);
+            return this;
+        }
+
+
+        public Builder setTitleTextColorInt(@ColorInt int titleTextColor) {
+            this.titleTextColor = titleTextColor;
+            return this;
+        }
+
+        public Builder setTitleTextColorRes(@ColorRes int titleTextColor) {
+            this.titleTextColor = context.getResources().getColor(titleTextColor);
+            return this;
+        }
+
+        public Builder setContentTextSize(@DimenRes int contentTextSize) {
+            this.contentTextSize = context.getResources().getDimensionPixelSize(contentTextSize);
+            return this;
+        }
+
+        public Builder setContentTextColorInt(@ColorInt int contentTextColor) {
+            this.contentTextColor = contentTextColor;
+            return this;
+        }
+
+        public Builder setContentTextColorRes(@ColorRes int contentTextColor) {
+            this.contentTextColor = context.getResources().getColor(contentTextColor);
+            return this;
+        }
+
+
+        public Builder setTitleTextBold(boolean titleTextBold) {
+            this.titleTextBold = titleTextBold;
+            return this;
+        }
+
+
+        public BaseDialog.Builder setBtnTextSize(@DimenRes int btnTextSize) {
+            this.btnTextSize = context.getResources().getDimensionPixelSize(btnTextSize);
+            return this;
+        }
+
+        public BaseDialog.Builder setBtnColorStateList(@ColorRes int btnColorStateList) {
+            this.btnColorStateList = context.getResources().getColorStateList(btnColorStateList);
+            return this;
+        }
 
     }
-
 
 }

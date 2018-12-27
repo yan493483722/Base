@@ -75,4 +75,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Scan Simple" />
+
+
+    <Button
+        android:id="@+id/btn_thread_communication"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thread  Communication" />
 </LinearLayout>

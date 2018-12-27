@@ -101,6 +101,12 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden|stateAlwaysHidden|adjustPan" />
 
+        <activity
+            android:name=".aty.ThreadCommunicationAty"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden|stateAlwaysHidden|adjustPan" />
+
+
     </application>
 
 </manifest>

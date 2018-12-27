@@ -18,6 +18,7 @@ import com.yan.basedemo.aty.LoginAty;
 import com.yan.basedemo.aty.MultiDownloadAty;
 import com.yan.basedemo.aty.ObserverSimpleAty;
 import com.yan.basedemo.aty.ScanSimpleAty;
+import com.yan.basedemo.aty.ThreadCommunicationAty;
 import com.yan.basedemo.aty.bar.StatusBarAty;
 import com.yan.basedemo.aty.database.GreenDaoAty;
 import com.yan.network.download.apk.APKDownloadAty;
@@ -25,7 +26,6 @@ import com.yan.network.download.apk.APKDownloadAty;
 import java.math.BigDecimal;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainAty extends BaseAty {
@@ -55,8 +55,8 @@ public class MainAty extends BaseAty {
     }
 
     @OnClick({R.id.btn_main_dialog, R.id.btn_main_loading, R.id.btn_main_permission, R.id.btn_main_web,
-            R.id.btn_main_status_bar, R.id.btn_main_net,R.id.btn_main_multi_download,R.id.btn_green_dao,
-            R.id.btn_observer_simple,R.id.btn_scan_simple})
+            R.id.btn_main_status_bar, R.id.btn_main_net, R.id.btn_main_multi_download, R.id.btn_green_dao,
+            R.id.btn_observer_simple, R.id.btn_scan_simple, R.id.btn_thread_communication})
     public void click(View view) {
         switch (view.getId()) {
             case R.id.btn_main_dialog:
@@ -91,6 +91,9 @@ public class MainAty extends BaseAty {
             case R.id.btn_scan_simple:
                 startActivity(new Intent(mAty, ScanSimpleAty.class));
                 break;
+            case R.id.btn_thread_communication:
+                startActivity(new Intent(mAty, ThreadCommunicationAty.class));
+                break;
             default:
                 break;
         }
@@ -98,7 +101,7 @@ public class MainAty extends BaseAty {
 
     @Override
     protected void initView() {
-        Logger.e("this "+ BuildConfig.APPLICATION_ID);
+        Logger.e("this " + BuildConfig.APPLICATION_ID);
     }
 
     @Override

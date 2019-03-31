@@ -2,6 +2,8 @@ package com.yan.base.application;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
@@ -18,7 +20,7 @@ import com.yan.base.BuildConfig;
  * modify desc:
  */
 
-public  class BaseApplication extends Application {
+public  class BaseApplication extends MultiDexApplication {
 
     public static Context mContext;
 
@@ -72,4 +74,9 @@ public  class BaseApplication extends Application {
         screenHeight = dm.heightPixels;
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 }

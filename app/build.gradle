@@ -63,6 +63,7 @@ dependencies {
     api project(':base')
     implementation project(':network')
     implementation "com.contrarywind:Android-PickerView:$versions.pickerView"
+    implementation 'com.contrarywind:wheelview:4.0.9'
     //gitHub https://github.com/JakeWharton/butterknife
     //doc http://jakewharton.github.io/butterknife/
     api "com.jakewharton:butterknife:$versions.butterknife.butterknife"

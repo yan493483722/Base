@@ -12,7 +12,7 @@ buildscript {
 
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.2'
+        classpath 'com.android.tools.build:gradle:3.4.0'
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2' // add plugin
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -44,7 +44,7 @@ buildscript {
                     'espresso'        : '3.1.0-beta02',
                     'dynamicanimation': '1.0.0'
             ],
-            'pickerView'         : '4.1.4',
+            'pickerView'         : '4.1.7',
             'constraintLayout'   : '1.1.2',
             'bottomNavigationBar': '2.0.4',
             'butterknife'        : [

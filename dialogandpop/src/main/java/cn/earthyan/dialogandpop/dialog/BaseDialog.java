@@ -4,11 +4,12 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.res.ColorStateList;
 import android.graphics.Typeface;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DimenRes;
-import android.support.annotation.LayoutRes;
-import android.support.v4.app.DialogFragment;
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DimenRes;
+import androidx.annotation.LayoutRes;
+import androidx.fragment.app.DialogFragment;
+
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;

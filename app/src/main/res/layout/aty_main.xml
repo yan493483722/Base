@@ -82,4 +82,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Thread  Communication" />
+
+    <Button
+        android:id="@+id/btn_lottie_animation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lottie Animation" />
 </LinearLayout>

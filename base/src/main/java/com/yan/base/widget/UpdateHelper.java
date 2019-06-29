@@ -6,7 +6,7 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.support.v4.content.FileProvider;
+import androidx.core.content.FileProvider;
 import android.view.LayoutInflater;
 
 import com.afollestad.materialdialogs.MaterialDialog;

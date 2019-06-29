@@ -1,15 +1,9 @@
 package com.yan.base.application;
 
-import android.app.Application;
 import android.content.Context;
-import android.support.multidex.MultiDex;
-import android.support.multidex.MultiDexApplication;
+import androidx.multidex.MultiDex;
+import androidx.multidex.MultiDexApplication;
 import android.util.DisplayMetrics;
-import android.util.Log;
-
-import com.orhanobut.logger.LogLevel;
-import com.orhanobut.logger.Logger;
-import com.yan.base.BuildConfig;
 
 
 /**

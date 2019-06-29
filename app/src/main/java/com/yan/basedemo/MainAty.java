@@ -3,7 +3,8 @@ package com.yan.basedemo;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Build;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +20,7 @@ import com.yan.basedemo.aty.MultiDownloadAty;
 import com.yan.basedemo.aty.ObserverSimpleAty;
 import com.yan.basedemo.aty.ScanSimpleAty;
 import com.yan.basedemo.aty.ThreadCommunicationAty;
+import com.yan.basedemo.aty.animation.LottieAnimationAty;
 import com.yan.basedemo.aty.bar.StatusBarAty;
 import com.yan.basedemo.aty.database.GreenDaoAty;
 import com.yan.network.download.apk.APKDownloadAty;
@@ -45,9 +47,14 @@ public class MainAty extends BaseAty {
     @BindView(R.id.btn_main_multi_download)
     Button btnMainMultiDownload;
 
+
     private static final int PERMISSION_READ_STORAGE = 10;
     private static final int REQUEST_READ_PHONE_STATE = 11;
     private static final int PERMISSION_OTHERS = 12;
+    @BindView(R.id.btn_main_net)
+    Button btnMainNet;
+    @BindView(R.id.btn_lottie_animation)
+    Button btnLottieAnimation;
 
     @Override
     protected int setContentLayout() {
@@ -56,7 +63,7 @@ public class MainAty extends BaseAty {
 
     @OnClick({R.id.btn_main_dialog, R.id.btn_main_loading, R.id.btn_main_permission, R.id.btn_main_web,
             R.id.btn_main_status_bar, R.id.btn_main_net, R.id.btn_main_multi_download, R.id.btn_green_dao,
-            R.id.btn_observer_simple, R.id.btn_scan_simple, R.id.btn_thread_communication})
+            R.id.btn_observer_simple, R.id.btn_scan_simple, R.id.btn_thread_communication,R.id.btn_lottie_animation})
     public void click(View view) {
         switch (view.getId()) {
             case R.id.btn_main_dialog:
@@ -93,6 +100,9 @@ public class MainAty extends BaseAty {
                 break;
             case R.id.btn_thread_communication:
                 startActivity(new Intent(mAty, ThreadCommunicationAty.class));
+                break;
+            case R.id.btn_lottie_animation:
+                startActivity(new Intent(mAty, LottieAnimationAty.class));
                 break;
             default:
                 break;
@@ -213,6 +223,5 @@ public class MainAty extends BaseAty {
             return null;
         }
     }
-
 
 }

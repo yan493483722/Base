@@ -1,7 +1,7 @@
 package com.yan.basedemo.aty.bar;
 
-import android.support.v7.widget.Toolbar;
-import android.view.ContextMenu;
+import androidx.appcompat.widget.Toolbar;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,7 +12,6 @@ import com.yan.base.toolbar.BaseToolbar;
 import com.yan.basedemo.R;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by YanZi on 2017/8/8.

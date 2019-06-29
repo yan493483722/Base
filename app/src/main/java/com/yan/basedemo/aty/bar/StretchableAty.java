@@ -1,8 +1,8 @@
 package com.yan.basedemo.aty.bar;
 
 import android.content.Intent;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,7 +11,6 @@ import com.yan.base.toolbar.BaseToolbar;
 import com.yan.basedemo.R;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by YanZi on 2017/8/7.

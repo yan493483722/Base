@@ -3,8 +3,8 @@ package com.yan.base.manager;
 import android.annotation.TargetApi;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import com.yan.base.BaseAty;
 import com.yan.base.listener.PermissionListener;

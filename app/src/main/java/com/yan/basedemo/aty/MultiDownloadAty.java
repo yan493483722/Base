@@ -1,13 +1,10 @@
 package com.yan.basedemo.aty;
 
-import android.support.v7.widget.RecyclerView;
-
 import com.yan.base.BaseAty;
 import com.yan.base.toolbar.BaseToolbar;
 import com.yan.basedemo.R;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by YanZi on 2017/7/20.

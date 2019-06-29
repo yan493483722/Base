@@ -12,4 +12,22 @@
         app:lottie_autoPlay="true"
         app:lottie_fileName="sandglass_loader.json"
         app:lottie_loop="true" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie_animation_recycle"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="cycle_animation.json"
+        android:scaleType="centerInside"
+        app:lottie_loop="true" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie_animation_pog_champ"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:lottie_autoPlay="true"
+        android:scaleType="centerInside"
+        app:lottie_fileName="pog_champ.zip"
+        app:lottie_loop="true" />
 </LinearLayout>

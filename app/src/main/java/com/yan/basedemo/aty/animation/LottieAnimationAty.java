@@ -1,12 +1,14 @@
 package com.yan.basedemo.aty.animation;
 
 import android.animation.Animator;
+import android.os.Bundle;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.yan.base.BaseAty;
 import com.yan.basedemo.R;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by YanZi on 2019/6/29 .
@@ -18,6 +20,10 @@ public class LottieAnimationAty extends BaseAty {
 
     @BindView(R.id.lottie_animation_view)
     LottieAnimationView lottieAnimationView;
+    @BindView(R.id.lottie_animation_recycle)
+    LottieAnimationView lottieAnimationRecycle;
+    @BindView(R.id.lottie_animation_pog_champ)
+    LottieAnimationView lottieAnimationPogChamp;
 
     @Override
     protected int setContentLayout() {
@@ -31,6 +37,7 @@ public class LottieAnimationAty extends BaseAty {
 
     @Override
     public void initData() {
+        lottieAnimationRecycle.setSpeed(3.5f);
         lottieAnimationView.addAnimatorListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
@@ -53,4 +60,5 @@ public class LottieAnimationAty extends BaseAty {
             }
         });
     }
+
 }

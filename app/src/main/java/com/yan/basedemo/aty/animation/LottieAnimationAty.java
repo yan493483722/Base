@@ -37,6 +37,7 @@ public class LottieAnimationAty extends BaseAty {
 
     @Override
     public void initData() {
+        lottieAnimationView.setSpeed(1.5f);
         lottieAnimationRecycle.setSpeed(3.5f);
         lottieAnimationView.addAnimatorListener(new Animator.AnimatorListener() {
             @Override
